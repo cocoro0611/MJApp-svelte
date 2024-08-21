@@ -1,22 +1,67 @@
-<script>
-  import { Card, Button } from "flowbite-svelte";
-  import { ArrowRightOutline } from "flowbite-svelte-icons";
-  import { t } from "$lib/translations/translations";
+<script lang="ts">
+  import { onMount } from "svelte";
+  import PointBord from "$lib/components/features/Point-Hansuu/PointBord.svelte";
+  import MenzenButton from "$lib/components/features/Point-Hansuu/MenzenButton.svelte";
+
+  let fu = 30;
+  let han = 0;
+  let oyaRonPoint = 0;
+  let oyaTumoPoint = 0;
+  let koRonPoint = 0;
+  let koTumoPoint_oya = 0;
+  let koTumoPoint_ko = 0;
+
+  let loading = true;
+  let error: string | null = null;
+
+  async function calculatePoints() {
+    try {
+      loading = true;
+      error = null;
+      const response = await fetch(`/api/point?fu=${fu}&han=${han}`);
+      if (!response.ok) {
+        throw new Error("API request failed");
+      }
+      const data = await response.json();
+      oyaRonPoint = data.oyaRonPoint;
+      oyaTumoPoint = data.oyaTumoPoint;
+      koRonPoint = data.koRonPoint;
+      koTumoPoint_oya = data.koTumoPoint_oya;
+      koTumoPoint_ko = data.koTumoPoint_ko;
+    } catch (e) {
+      error = e.message;
+    } finally {
+      loading = false;
+    }
+  }
+
+  $: {
+    if (han !== undefined) {
+      calculatePoints();
+    }
+  }
+
+  onMount(() => {
+    calculatePoints();
+  });
+
+  function clearHan() {
+    han = 0;
+  }
 </script>
 
-<Card>
-  <h5
-    class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+<div class="flex justify-end -mb-4">
+  <button class="text-blue-500 font-bold mx-4" on:click="{clearHan}"
+    >Clear</button
   >
-    Noteworthy technology acquisitions 2021
-  </h5>
-  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight">
-    Here are the biggest enterprise technology acquisitions of 2021 so far, in
-    reverse chronological order.
-  </p>
-  <Button class="w-fit">
-    Read more <ArrowRightOutline class="w-6 h-6 ms-2 text-white" />
-  </Button>
-</Card>
-
-{$t("test.aaa")}
+</div>
+<PointBord
+  {fu}
+  {han}
+  {oyaRonPoint}
+  {oyaTumoPoint}
+  {koRonPoint}
+  {koTumoPoint_oya}
+  {koTumoPoint_ko}
+/>
+<MenzenButton bind:han />

@@ -11,15 +11,16 @@
 
 <script>
   import { Story } from "@storybook/addon-svelte-csf";
+
+  let han = 0;
 </script>
 
 <Story name="Default">
-  <div class="grid grid-cols-1 gap-2">
-    <p><Button>filled</Button></p>
-    <p><Button flat>borderless</Button></p>
-    <p><Button variant="secondary">secondary</Button></p>
-    <p><Button variant="fine">fine</Button></p>
-    <p><Button variant="info">info</Button></p>
-    <p><Button variant="danger">danger</Button></p>
-  </div>
+  <div>翻: {han}</div>
+
+  <Button bind:han value="{1}">1翻</Button>
+  <Button bind:han value="{2}">2翻</Button>
+  <Button bind:han value="{3}">3翻</Button>
+
+  <div>合計翻数: {han}</div>
 </Story>

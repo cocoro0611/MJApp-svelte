@@ -1,23 +1,22 @@
 <script lang="ts">
-	export let type: 'button' | 'submit' | 'reset' = 'button';
-	export let disabled = false;
-	export let flat = false;
-	export let variant: 'primary' | 'secondary' | 'fine' | 'info' | 'danger' | 'cancel' = 'primary';
+  export let han: number;
+  export let value: number;
+  export let isClick = false;
+
+  function handleClick() {
+    isClick = !isClick;
+    if (isClick) {
+      han += value;
+    } else {
+      han -= value;
+    }
+  }
 </script>
 
 <button
-	{type}
-	{...$$restProps}
-	class="{$$props.class || ''} {variant} truncate"
-	class:filled={!flat}
-	class:borderless={flat}
-	class:with-icon={!!$$slots.icon && !!$$slots.default}
-	class:icon-only={!!$$slots.icon && !$$slots.default}
-	{disabled}
-	on:click
+  class:btn-primary="{!isClick}"
+  class:btn-primary-on="{isClick}"
+  on:click="{handleClick}"
 >
-	{#if $$slots.icon}
-		<slot name="icon" />
-	{/if}
-	<slot />
+  <slot />
 </button>
