@@ -58,7 +58,7 @@
   }
 </script>
 
-<div class="flex justify-between -mb-4 px-4">
+<div class="flex justify-between px-4">
   <span>
     <div class="flex">
       <div

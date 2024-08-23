@@ -44,22 +44,31 @@
   }
 
   const fuOptions = [20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110];
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === "Enter" || event.key === " ") {
+      dropdownOpen = !dropdownOpen;
+    }
+  }
 </script>
 
-<div class="flex justify-center text-sm font-bold text-blue-500 gap-6">
-  <span>
+<div class="flex justify-center text-sm font-bold text-blue-500 gap-4">
+  <span class="relative">
     <button
+      class="flex items-center justify-center w-24 h-8 px-2"
       on:click="{() => (dropdownOpen = !dropdownOpen)}"
+      on:keydown="{handleKeydown}"
       aria-haspopup="true"
       aria-expanded="{dropdownOpen}"
     >
       {formatValue(fu)} 符
-      <ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" />
+      <ChevronDownOutline class="w-4 h-4 ms-1" />
     </button>
-    <Dropdown bind:open="{dropdownOpen}" class="-mt-8">
+    <Dropdown bind:open="{dropdownOpen}" class="w-24">
       {#each fuOptions as fuValue}
-        <DropdownItem>
+        <DropdownItem class="p-0">
           <button
+            class="w-full px-4 py-2 text-left"
             on:click="{() => updateFu(fuValue)}"
             on:keydown="{(e) => e.key === 'Enter' && updateFu(fuValue)}"
           >
@@ -69,9 +78,11 @@
       {/each}
     </Dropdown>
   </span>
-  <span>{formatValue(han)} 翻</span>
+  <span class="flex items-center justify-center w-24 h-8">
+    {formatValue(han)} 翻
+  </span>
 </div>
-<div class="flex justify-center text-xl font-bold">
+<div class="flex justify-center text-xl font-bold -mt-2">
   {formatMainScore(pointData.koRonPoint)}
 </div>
 <div class="flex justify-center text-sm font-bold">
@@ -84,7 +95,7 @@
   <span>{formatValue(pointData.koRonPoint)}</span>
   <span
     >（{formatValue(pointData.koTumoPoint_oya)}/{formatValue(
-      pointData.koTumoPoint_ko,
+      pointData.koTumoPoint_ko
     )}）</span
   >
 </div>

@@ -100,7 +100,7 @@
       currentGroup[currentGroup.length - 1].push([key, config]);
       return acc;
     },
-    {} as Record<string, [string, ButtonConfig][][]>,
+    {} as Record<string, [string, ButtonConfig][][]>
   );
 </script>
 
@@ -116,9 +116,9 @@
               on:click="{handleBtn(btnKey)}"
             >
               {#if config.isDora && doraCount[btnKey]}
-                {config.label} {doraCount[btnKey]}
+                <div class="text-xs">{config.label} {doraCount[btnKey]}</div>
               {:else}
-                {config.label}
+                <div class="text-xs">{config.label}</div>
               {/if}
             </Button>
           {/each}

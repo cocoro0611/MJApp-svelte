@@ -4,12 +4,12 @@
 
 .btn-primary {
   @apply border border-blue-500 bg-white text-blue-500 hover:bg-blue-50 rounded-md;
-  @apply text-sm px-2 py-2 w-16 h-16;
+  @apply text-sm px-1 py-1 w-12 h-12;
   word-break: break-all; /* 必要に応じて単語の途中で改行 */
 }
 .btn-primary-on {
   @apply border border-blue-500 bg-blue-500 text-white hover:bg-blue-400 rounded-md;
-  @apply text-sm px-2 py-2 w-16 h-16;
+  @apply text-sm px-1 py-1 w-12 h-12;
   word-break: break-all; /* 必要に応じて単語の途中で改行 */
 }
 
