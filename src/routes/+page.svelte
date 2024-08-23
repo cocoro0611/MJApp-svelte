@@ -1,67 +1,91 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { Toggle } from "flowbite-svelte";
   import PointBord from "$lib/components/features/Point-Hansuu/PointBord.svelte";
   import MenzenButton from "$lib/components/features/Point-Hansuu/MenzenButton.svelte";
+  import ForoButton from "$lib/components/features/Point-Hansuu/FuroButton.svelte";
 
-  let fu = 30;
-  let han = 0;
-  let oyaRonPoint = 0;
-  let oyaTumoPoint = 0;
-  let koRonPoint = 0;
-  let koTumoPoint_oya = 0;
-  let koTumoPoint_ko = 0;
+  import type { PointData } from "$lib/models/Point-Hansuu/types.js";
 
-  let loading = true;
+  let buttonStates: { [key: string]: boolean } = {};
   let error: string | null = null;
+
+  let fu: number = 30;
+  let han: number = 0;
+  let pointData: PointData = {
+    oyaRonPoint: 0,
+    oyaTumoPoint: 0,
+    koRonPoint: 0,
+    koTumoPoint_oya: 0,
+    koTumoPoint_ko: 0,
+  };
+
+  let isChecked: boolean = false;
 
   async function calculatePoints() {
     try {
-      loading = true;
-      error = null;
       const response = await fetch(`/api/point?fu=${fu}&han=${han}`);
       if (!response.ok) {
         throw new Error("API request failed");
       }
       const data = await response.json();
-      oyaRonPoint = data.oyaRonPoint;
-      oyaTumoPoint = data.oyaTumoPoint;
-      koRonPoint = data.koRonPoint;
-      koTumoPoint_oya = data.koTumoPoint_oya;
-      koTumoPoint_ko = data.koTumoPoint_ko;
+      pointData.oyaRonPoint = data.oyaRonPoint;
+      pointData.oyaTumoPoint = data.oyaTumoPoint;
+      pointData.koRonPoint = data.koRonPoint;
+      pointData.koTumoPoint_oya = data.koTumoPoint_oya;
+      pointData.koTumoPoint_ko = data.koTumoPoint_ko;
     } catch (e) {
-      error = e.message;
-    } finally {
-      loading = false;
+      error = e instanceof Error ? e.message : "An unknown error occurred";
     }
   }
 
   $: {
-    if (han !== undefined) {
+    if (han !== undefined || fu !== undefined) {
       calculatePoints();
     }
   }
 
-  onMount(() => {
-    calculatePoints();
-  });
-
   function clearHan() {
     han = 0;
+    fu = 30;
+    Object.keys(buttonStates).forEach((key) => {
+      buttonStates[key] = false;
+    });
+  }
+
+  function handleToggle() {
+    isChecked = !isChecked;
+    clearHan();
   }
 </script>
 
-<div class="flex justify-end -mb-4">
-  <button class="text-blue-500 font-bold mx-4" on:click="{clearHan}"
-    >Clear</button
+<div class="flex justify-between -mb-4 px-4">
+  <span>
+    <div class="flex">
+      <div
+        class="{isChecked ? 'text-gray-300' : 'text-blue-500'} mr-2 font-bold"
+      >
+        門前
+      </div>
+      <Toggle color="blue" on:change="{handleToggle}" />
+      <div class="{isChecked ? 'text-blue-500' : 'text-gray-300'}  font-bold">
+        副露
+      </div>
+    </div>
+  </span>
+  <span>
+    <button class="text-blue-500 font-bold mx-4" on:click="{clearHan}"
+      >Clear</button
+    ></span
   >
 </div>
 <PointBord
-  {fu}
-  {han}
-  {oyaRonPoint}
-  {oyaTumoPoint}
-  {koRonPoint}
-  {koTumoPoint_oya}
-  {koTumoPoint_ko}
+  bind:fu
+  bind:han
+  bind:pointData
+  on:fuChange="{() => calculatePoints()}"
 />
-<MenzenButton bind:han />
+{#if isChecked}
+  <ForoButton bind:han bind:buttonStates />
+{:else}
+  <MenzenButton bind:han bind:buttonStates />
+{/if}

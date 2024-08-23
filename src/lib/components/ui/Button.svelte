@@ -1,22 +1,11 @@
 <script lang="ts">
-  export let han: number;
-  export let value: number;
-  export let isClick = false;
-
-  function handleClick() {
-    isClick = !isClick;
-    if (isClick) {
-      han += value;
-    } else {
-      han -= value;
-    }
-  }
+  export let isSelected = false;
 </script>
 
 <button
-  class:btn-primary="{!isClick}"
-  class:btn-primary-on="{isClick}"
-  on:click="{handleClick}"
+  class:btn-primary="{!isSelected}"
+  class:btn-primary-on="{isSelected}"
+  on:click
 >
   <slot />
 </button>

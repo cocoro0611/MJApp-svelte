@@ -1,11 +1,20 @@
 <script lang="ts">
+  import { Dropdown, DropdownItem } from "flowbite-svelte";
+  import { ChevronDownOutline } from "flowbite-svelte-icons";
+  import type { PointData } from "$lib/models/Point-Hansuu/types.js";
+  import { createEventDispatcher } from "svelte";
+
   export let fu: number | null = 30;
   export let han: number | null = 1;
-  export let oyaRonPoint: number | null = 1500;
-  export let oyaTumoPoint: number | null = 500;
-  export let koRonPoint: number | null = 1000;
-  export let koTumoPoint_oya: number | null = 500;
-  export let koTumoPoint_ko: number | null = 300;
+  export let pointData: PointData = {
+    oyaRonPoint: 1500,
+    oyaTumoPoint: 500,
+    koRonPoint: 1000,
+    koTumoPoint_oya: 500,
+    koTumoPoint_ko: 300,
+  };
+
+  let dropdownOpen = false;
 
   function formatValue(value: number | null | undefined): string {
     if (value === null) return "-";
@@ -29,22 +38,55 @@
     if (value === 224000) return "七倍役満";
     return `${value}点`;
   }
+
+  function updateFu(newFu: number) {
+    fu = newFu;
+    dropdownOpen = false;
+    dispatch("fuChange", { fu: newFu });
+  }
+
+  const fuOptions = [20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110];
 </script>
 
 <div class="flex justify-center text-sm font-bold text-blue-500 gap-6">
-  <span>{formatValue(fu)} 符</span>
+  <span>
+    <button
+      on:click="{() => (dropdownOpen = !dropdownOpen)}"
+      aria-haspopup="true"
+      aria-expanded="{dropdownOpen}"
+    >
+      {formatValue(fu)} 符
+      <ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" />
+    </button>
+    <Dropdown bind:open="{dropdownOpen}" class="-mt-8">
+      {#each fuOptions as fuValue}
+        <DropdownItem>
+          <button
+            on:click="{() => updateFu(fuValue)}"
+            on:keydown="{(e) => e.key === 'Enter' && updateFu(fuValue)}"
+          >
+            {fuValue} 符
+          </button>
+        </DropdownItem>
+      {/each}
+    </Dropdown>
+  </span>
   <span>{formatValue(han)} 翻</span>
 </div>
 <div class="flex justify-center text-xl font-bold">
-  {formatMainScore(koRonPoint)}
+  {formatMainScore(pointData.koRonPoint)}
 </div>
 <div class="flex justify-center text-sm font-bold">
   <span>親：</span>
-  <span>{formatValue(oyaRonPoint)}</span>
-  <span>（{formatValue(oyaTumoPoint)}）</span>
+  <span>{formatValue(pointData.oyaRonPoint)}</span>
+  <span>（{formatValue(pointData.oyaTumoPoint)}）</span>
 </div>
 <div class="flex justify-center text-sm font-bold">
   <span>子：</span>
-  <span>{formatValue(koRonPoint)}</span>
-  <span>（{formatValue(koTumoPoint_oya)}/{formatValue(koTumoPoint_ko)}）</span>
+  <span>{formatValue(pointData.koRonPoint)}</span>
+  <span
+    >（{formatValue(pointData.koTumoPoint_oya)}/{formatValue(
+      pointData.koTumoPoint_ko,
+    )}）</span
+  >
 </div>

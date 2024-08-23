@@ -1,9 +1,10 @@
 import type { RequestHandler } from "@sveltejs/kit";
-import { calculateOyaRonPoint } from "./oyaRonPoint";
-import { calculateOyaTumoPoint } from "./oyaTumoPoint";
-import { calculateKoRonPoint } from "./koRonPoint";
-import { calculateKoTumoPoint_oya } from "./koTumoPoint-oya";
-import { calculateKoTumoPoint_ko } from "./koTumoPoint-ko";
+
+import { calculateOyaRonPoint } from "./oyaRonPoint.js";
+import { calculateOyaTumoPoint } from "./oyaTumoPoint.js";
+import { calculateKoRonPoint } from "./koRonPoint.js";
+import { calculateKoTumoPoint_oya } from "./koTumoPoint-oya.js";
+import { calculateKoTumoPoint_ko } from "./koTumoPoint-ko.js";
 
 export const GET: RequestHandler = async ({ url }) => {
   const fu = Number(url.searchParams.get("fu") ?? 0);
@@ -16,22 +17,22 @@ export const GET: RequestHandler = async ({ url }) => {
     });
   }
 
-  const oyaRonPoint = calculateOyaRonPoint(fu, han);
-  const oyaTumoPoint = calculateOyaTumoPoint(fu, han);
-  const koRonPoint = calculateKoRonPoint(fu, han);
-  const koTumoPoint_oya = calculateKoTumoPoint_oya(fu, han);
-  const koTumoPoint_ko = calculateKoTumoPoint_ko(fu, han);
-
-  return new Response(
-    JSON.stringify({
-      oyaRonPoint,
-      oyaTumoPoint,
-      koRonPoint,
-      koTumoPoint_oya,
-      koTumoPoint_ko,
-    }),
-    {
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  try {
+    const result = {
+      oyaRonPoint: calculateOyaRonPoint(fu, han),
+      oyaTumoPoint: calculateOyaTumoPoint(fu, han),
+      koRonPoint: calculateKoRonPoint(fu, han),
+      koTumoPoint_oya: calculateKoTumoPoint_oya(fu, han),
+      koTumoPoint_ko: calculateKoTumoPoint_ko(fu, han),
+    };
+    return new Response(JSON.stringify(result));
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ error: "An error occurred while calculating points." }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
 };
