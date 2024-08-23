@@ -2,6 +2,7 @@
   import { Dropdown, DropdownItem } from "flowbite-svelte";
   import { ChevronDownOutline } from "flowbite-svelte-icons";
   import type { PointData } from "$lib/models/Point-Hansuu/types.js";
+  import { onMount } from "svelte";
 
   export let fu: number | null = 30;
   export let han: number | null = 1;
@@ -14,6 +15,7 @@
   };
 
   let dropdownOpen = false;
+  let dropdownElement: HTMLElement;
 
   function formatValue(value: number | null | undefined): string {
     if (value === null) return "-";
@@ -45,39 +47,50 @@
 
   const fuOptions = [20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110];
 
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === "Enter" || event.key === " ") {
-      dropdownOpen = !dropdownOpen;
+  function toggleDropdown() {
+    dropdownOpen = !dropdownOpen;
+  }
+
+  function handleOutsideClick(event: MouseEvent) {
+    if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
+      dropdownOpen = false;
     }
   }
+
+  onMount(() => {
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  });
 </script>
 
 <div class="flex justify-center text-sm font-bold text-blue-500 gap-4">
-  <span class="relative">
+  <div class="relative" bind:this="{dropdownElement}">
     <button
       class="flex items-center justify-center w-24 h-8 px-2"
-      on:click="{() => (dropdownOpen = !dropdownOpen)}"
-      on:keydown="{handleKeydown}"
+      on:click|stopPropagation="{toggleDropdown}"
       aria-haspopup="true"
       aria-expanded="{dropdownOpen}"
     >
       {formatValue(fu)} 符
       <ChevronDownOutline class="w-4 h-4 ms-1" />
     </button>
-    <Dropdown bind:open="{dropdownOpen}" class="w-24">
-      {#each fuOptions as fuValue}
-        <DropdownItem class="p-0">
+    {#if dropdownOpen}
+      <div
+        class="absolute z-10 w-24 bg-white border border-gray-200 rounded-md shadow-lg"
+      >
+        {#each fuOptions as fuValue}
           <button
-            class="w-full px-4 py-2 text-left"
-            on:click="{() => updateFu(fuValue)}"
-            on:keydown="{(e) => e.key === 'Enter' && updateFu(fuValue)}"
+            class="w-full px-4 py-2 text-left hover:bg-blue-100"
+            on:click|stopPropagation="{() => updateFu(fuValue)}"
           >
             {fuValue} 符
           </button>
-        </DropdownItem>
-      {/each}
-    </Dropdown>
-  </span>
+        {/each}
+      </div>
+    {/if}
+  </div>
   <span class="flex items-center justify-center w-24 h-8">
     {formatValue(han)} 翻
   </span>
