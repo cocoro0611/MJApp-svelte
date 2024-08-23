@@ -8,7 +8,8 @@ export interface PointData {
 
 export interface ButtonConfig {
   label: string;
-  value: number;
+  hanValue: number;
+  fuValue: number;
   group: string;
   isDora?: boolean;
 }

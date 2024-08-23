@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ChevronDownOutline } from "flowbite-svelte-icons";
-  import type { PointData } from "$lib/models/Point-Hansuu/types.js";
+  import type { PointData } from "$lib/models/Point-Fusuu/types.js";
   import { onMount } from "svelte";
 
   export let fu: number | null = 30;
@@ -21,6 +21,29 @@
   function formatValue(value: number | null | undefined): string {
     if (value === null) return "-";
     if (value === undefined) return "0";
+    return `${value}`;
+  }
+
+  function formatFuValue(value: number | null | undefined): string {
+    if (value === null) return "-";
+    if (value === undefined) return "0";
+    if (value === 25) return "25";
+    const fuRanges = [
+      { min: 20, max: 30, output: "30" },
+      { min: 30, max: 40, output: "40" },
+      { min: 40, max: 50, output: "50" },
+      { min: 50, max: 60, output: "60" },
+      { min: 60, max: 70, output: "70" },
+      { min: 70, max: 80, output: "80" },
+      { min: 80, max: 90, output: "90" },
+      { min: 90, max: 100, output: "100" },
+      { min: 100, max: Infinity, output: "110" },
+    ];
+    for (const range of fuRanges) {
+      if (value > range.min && value < range.max) {
+        return range.output;
+      }
+    }
     return `${value}`;
   }
 
@@ -87,14 +110,15 @@
 <div class="flex justify-center text-sm font-bold text-blue-500 gap-4">
   <div class="relative" bind:this="{fuDropdownElement}">
     <button
-      class="flex items-center justify-center w-24 h-8 px-2"
+      class="flex items-center justify-center w-24 h-12 px-2"
       on:click|stopPropagation="{() => toggleDropdown('fu')}"
       aria-haspopup="true"
       aria-expanded="{fuDropdownOpen}"
     >
-      {formatValue(fu)} 符
+      {formatFuValue(fu)} 符 ({formatValue(fu)} 符)
       <ChevronDownOutline class="w-4 h-4 ms-1" />
     </button>
+
     {#if fuDropdownOpen}
       <div
         class="absolute z-10 w-24 bg-white border border-gray-200 rounded-md shadow-lg"
@@ -112,7 +136,7 @@
   </div>
   <div class="relative" bind:this="{hanDropdownElement}">
     <button
-      class="flex items-center justify-center w-24 h-8 px-2"
+      class="flex items-center justify-center w-24 h-12 px-2"
       on:click|stopPropagation="{() => toggleDropdown('han')}"
       aria-haspopup="true"
       aria-expanded="{hanDropdownOpen}"
