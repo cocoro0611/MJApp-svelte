@@ -78,12 +78,7 @@
     ></span
   >
 </div>
-<PointBord
-  bind:fu
-  bind:han
-  bind:pointData
-  on:fuChange="{() => calculatePoints()}"
-/>
+<PointBord bind:fu bind:han bind:pointData />
 {#if isChecked}
   <ForoButton bind:han bind:buttonStates />
 {:else}

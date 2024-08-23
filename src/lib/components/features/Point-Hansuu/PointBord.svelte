@@ -2,7 +2,6 @@
   import { Dropdown, DropdownItem } from "flowbite-svelte";
   import { ChevronDownOutline } from "flowbite-svelte-icons";
   import type { PointData } from "$lib/models/Point-Hansuu/types.js";
-  import { createEventDispatcher } from "svelte";
 
   export let fu: number | null = 30;
   export let han: number | null = 1;
@@ -42,7 +41,6 @@
   function updateFu(newFu: number) {
     fu = newFu;
     dropdownOpen = false;
-    dispatch("fuChange", { fu: newFu });
   }
 
   const fuOptions = [20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 110];

@@ -1,17 +1,14 @@
 <script lang="ts">
   import Button from "$lib/components/ui/Button.svelte";
 
+  import type { ButtonConfig } from "$lib/models/Point-Hansuu/types.js";
+
   export let han: number;
   export let buttonStates: { [key: string]: boolean };
 
-  type ButtonKey = keyof typeof buttonConfig;
-
   let doraCount: { [key: string]: number } = {};
 
-  const buttonConfig: Record<
-    ButtonKey,
-    { label: string; value: number; group: string; isDora?: boolean }
-  > = {
+  const buttonConfig: { [key: string]: ButtonConfig } = {
     // 1翻役
     Btn1: { label: "立直", value: 1, group: "1翻役" },
     Btn2: { label: "一発", value: 1, group: "1翻役" },
@@ -67,6 +64,8 @@
     Btn47: { label: "国士無双十三面待ち", value: 26, group: "ダブル役満" },
   };
 
+  type ButtonKey = keyof typeof buttonConfig;
+
   function handleBtn(btnKey: ButtonKey) {
     return () => {
       if (buttonConfig[btnKey].isDora) {
@@ -119,13 +118,7 @@
       currentGroup[currentGroup.length - 1].push([key, config]);
       return acc;
     },
-    {} as Record<
-      string,
-      [
-        string,
-        { label: string; value: number; group: string; isDora?: boolean },
-      ][][]
-    >,
+    {} as Record<string, [string, ButtonConfig][][]>,
   );
 </script>
 
