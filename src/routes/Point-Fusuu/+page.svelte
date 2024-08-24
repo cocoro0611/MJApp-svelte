@@ -5,7 +5,7 @@
   import type { PointData } from "$lib/models/Point-Fusuu/types.js";
 
   let buttonStates: { [key: string]: boolean } = {};
-  let doraCount: { [key: string]: number } = {};
+  let count: { [key: string]: number } = {};
 
   let error: string | null = null;
 
@@ -22,7 +22,7 @@
   function formatFuValue(value: number | null | undefined): string {
     if (value === null) return "-";
     if (value === undefined) return "0";
-    if (value === 25) return "25";
+    if (value === 25 || (value % 2 !== 0 && value > 25)) return "25";
     const fuRanges = [
       { min: 20, max: 30, output: "30" },
       { min: 30, max: 40, output: "40" },
@@ -45,7 +45,7 @@
   async function calculatePoints() {
     try {
       const response = await fetch(
-        `/api/point?fu=${formatFuValue(fu)}&han=${han}`
+        `/api/point?fu=${formatFuValue(fu)}&han=${han}`,
       );
       if (!response.ok) {
         throw new Error("API request failed");
@@ -73,8 +73,8 @@
     Object.keys(buttonStates).forEach((key) => {
       buttonStates[key] = false;
     });
-    Object.keys(doraCount).forEach((key) => {
-      doraCount[key] = 0;
+    Object.keys(count).forEach((key) => {
+      count[key] = 0;
     });
   }
 </script>
@@ -88,4 +88,4 @@
   >
 </div>
 <PointBord bind:fu bind:han bind:pointData />
-<FuCountButton bind:han bind:fu bind:buttonStates bind:doraCount />
+<FuCountButton bind:han bind:fu bind:buttonStates bind:count />

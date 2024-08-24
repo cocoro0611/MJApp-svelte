@@ -12,6 +12,9 @@ export interface ButtonConfig {
   fuValue: number;
   constFuValue?: number;
   group: string;
-  isDora?: boolean;
+  isCount?: boolean;
   isChiToi?: boolean;
+  isSelectAgari?:boolean;
+  isSelectAtama?:boolean;
+  isSelectMati?:boolean;
 }

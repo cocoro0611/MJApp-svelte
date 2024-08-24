@@ -117,7 +117,7 @@
       currentGroup[currentGroup.length - 1].push([key, config]);
       return acc;
     },
-    {} as Record<string, [string, ButtonConfig][][]>
+    {} as Record<string, [string, ButtonConfig][][]>,
   );
 </script>
 

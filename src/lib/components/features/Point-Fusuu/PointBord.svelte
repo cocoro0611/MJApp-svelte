@@ -27,7 +27,7 @@
   function formatFuValue(value: number | null | undefined): string {
     if (value === null) return "-";
     if (value === undefined) return "0";
-    if (value === 25) return "25";
+    if (value === 25 || (value % 2 !== 0 && value > 25)) return "25";
     const fuRanges = [
       { min: 20, max: 30, output: "30" },
       { min: 30, max: 40, output: "40" },
@@ -115,7 +115,7 @@
       aria-haspopup="true"
       aria-expanded="{fuDropdownOpen}"
     >
-      {formatFuValue(fu)} 符 ({formatValue(fu)} 符)
+      {formatFuValue(fu)} 符({formatValue(fu)} 符)
       <ChevronDownOutline class="w-4 h-4 ms-1" />
     </button>
 
@@ -173,7 +173,7 @@
   <span>{formatValue(pointData.koRonPoint)}</span>
   <span
     >（{formatValue(pointData.koTumoPoint_oya)}/{formatValue(
-      pointData.koTumoPoint_ko
+      pointData.koTumoPoint_ko,
     )}）</span
   >
 </div>
