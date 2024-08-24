@@ -6,17 +6,34 @@
   export let han: number;
   export let fu: number;
   export let buttonStates: { [key: string]: boolean };
-
-  let doraCount: { [key: string]: number } = {};
+  export let doraCount: { [key: string]: number } = {};
 
   const buttonConfig: { [key: string]: ButtonConfig } = {
-    Btn1: { label: "門前　ロン", hanValue: 0, fuValue: 10, group: "和了" },
-    Btn2: { label: "ツモ", hanValue: 0, fuValue: 2, group: "和了" },
-    Btn3: { label: "七対子", hanValue: 0, fuValue: 5, group: "和了" },
-    Btn4: { label: "1翻", hanValue: 1, fuValue: 0, group: "翻数" },
-    Btn5: { label: "2翻", hanValue: 2, fuValue: 0, group: "翻数" },
-    Btn6: { label: "3翻", hanValue: 3, fuValue: 0, group: "翻数" },
-    Btn7: { label: "4翻", hanValue: 4, fuValue: 0, group: "翻数" },
+    Btn1: {
+      label: "門前　ロン",
+      hanValue: 1,
+      fuValue: 0,
+      constFuValue: 30,
+      group: "和了 + 翻数",
+      isDora: true,
+    },
+    Btn2: {
+      label: "ツモ",
+      hanValue: 1,
+      fuValue: 0,
+      constFuValue: 22,
+      group: "和了 + 翻数",
+      isDora: true,
+    },
+    Btn3: {
+      label: "七対子",
+      hanValue: 1,
+      fuValue: 0,
+      constFuValue: 25,
+      group: "和了 + 翻数",
+      isDora: true,
+      isChiToi: true,
+    },
     Btn8: {
       label: "明刻",
       hanValue: 0,
@@ -93,9 +110,6 @@
         fu += newState
           ? buttonConfig[btnKey].fuValue
           : -buttonConfig[btnKey].fuValue;
-        han += newState
-          ? buttonConfig[btnKey].hanValue
-          : -buttonConfig[btnKey].hanValue;
       }
     };
   }
@@ -110,14 +124,27 @@
     if (doraCount[btnKey] <= 4) {
       if (!buttonStates[btnKey]) {
         buttonStates[btnKey] = true;
-        fu += buttonConfig[btnKey].fuValue;
+        if ("constFuValue" in buttonConfig[btnKey]) {
+          fu = buttonConfig[btnKey].constFuValue!;
+        } else {
+          fu += buttonConfig[btnKey].fuValue;
+        }
+        han += buttonConfig[btnKey].hanValue;
       } else {
-        fu += buttonConfig[btnKey].fuValue;
+        if (!("constFuValue" in buttonConfig[btnKey])) {
+          fu += buttonConfig[btnKey].fuValue;
+        }
+        han += buttonConfig[btnKey].hanValue;
       }
     } else {
       doraCount[btnKey] = 0;
       buttonStates[btnKey] = false;
-      fu -= 4 * buttonConfig[btnKey].fuValue;
+      if ("constFuValue" in buttonConfig[btnKey]) {
+        fu = 20;
+      } else {
+        fu -= 4 * buttonConfig[btnKey].fuValue;
+      }
+      han -= 4 * buttonConfig[btnKey].hanValue;
     }
 
     buttonStates = { ...buttonStates };

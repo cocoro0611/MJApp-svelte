@@ -10,6 +10,8 @@ export interface ButtonConfig {
   label: string;
   hanValue: number;
   fuValue: number;
+  constFuValue?: number;
   group: string;
   isDora?: boolean;
+  isChiToi?: boolean;
 }

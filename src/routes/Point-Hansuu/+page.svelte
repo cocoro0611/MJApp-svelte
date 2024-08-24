@@ -7,6 +7,7 @@
   import type { PointData } from "$lib/models/Point-Hansuu/types.js";
 
   let buttonStates: { [key: string]: boolean } = {};
+  let doraCount: { [key: string]: number } = {};
   let error: string | null = null;
 
   let fu: number = 30;
@@ -50,6 +51,9 @@
     Object.keys(buttonStates).forEach((key) => {
       buttonStates[key] = false;
     });
+    Object.keys(doraCount).forEach((key) => {
+      doraCount[key] = 0;
+    });
   }
 
   function handleToggle() {
@@ -80,7 +84,7 @@
 </div>
 <PointBord bind:fu bind:han bind:pointData />
 {#if isChecked}
-  <ForoButton bind:han bind:buttonStates />
+  <ForoButton bind:han bind:buttonStates bind:doraCount />
 {:else}
-  <MenzenButton bind:han bind:buttonStates />
+  <MenzenButton bind:han bind:buttonStates bind:doraCount />
 {/if}

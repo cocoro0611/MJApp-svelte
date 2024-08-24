@@ -5,6 +5,8 @@
   import type { PointData } from "$lib/models/Point-Fusuu/types.js";
 
   let buttonStates: { [key: string]: boolean } = {};
+  let doraCount: { [key: string]: number } = {};
+
   let error: string | null = null;
 
   let fu: number = 20;
@@ -71,6 +73,9 @@
     Object.keys(buttonStates).forEach((key) => {
       buttonStates[key] = false;
     });
+    Object.keys(doraCount).forEach((key) => {
+      doraCount[key] = 0;
+    });
   }
 </script>
 
@@ -83,4 +88,4 @@
   >
 </div>
 <PointBord bind:fu bind:han bind:pointData />
-<FuCountButton bind:han bind:fu bind:buttonStates />
+<FuCountButton bind:han bind:fu bind:buttonStates bind:doraCount />

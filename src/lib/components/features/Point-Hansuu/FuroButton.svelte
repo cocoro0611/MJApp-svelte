@@ -5,8 +5,7 @@
 
   export let han: number;
   export let buttonStates: { [key: string]: boolean };
-
-  let doraCount: { [key: string]: number } = {};
+  export let doraCount: { [key: string]: number } = {};
 
   const buttonConfig: { [key: string]: ButtonConfig } = {
     // 1翻役

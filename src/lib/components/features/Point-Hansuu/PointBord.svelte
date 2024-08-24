@@ -142,7 +142,7 @@
 <div class="flex justify-center text-sm font-bold">
   <span>親：</span>
   <span>{formatValue(pointData.oyaRonPoint)}</span>
-  <span>（{formatValue(pointData.oyaTumoPoint)}）</span>
+  <span>（{formatValue(pointData.oyaTumoPoint)} All）</span>
 </div>
 <div class="flex justify-center text-sm font-bold">
   <span>子：</span>
