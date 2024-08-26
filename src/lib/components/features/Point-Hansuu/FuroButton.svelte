@@ -99,7 +99,7 @@
       currentGroup[currentGroup.length - 1].push([key, config]);
       return acc;
     },
-    {} as Record<string, [string, ButtonConfig][][]>
+    {} as Record<string, [string, ButtonConfig][][]>,
   );
 </script>
 
@@ -111,6 +111,7 @@
         <div class="flex flex-wrap gap-2 mb-4">
           {#each buttons as [btnKey, config]}
             <Button
+              type="normal"
               isSelected="{buttonStates[btnKey]}"
               on:click="{handleBtn(btnKey)}"
             >

@@ -129,6 +129,7 @@
         <div class="flex flex-wrap gap-2 mb-4">
           {#each buttons as [btnKey, config]}
             <Button
+              type="normal"
               isSelected="{buttonStates[btnKey]}"
               on:click="{handleBtn(btnKey)}"
             >

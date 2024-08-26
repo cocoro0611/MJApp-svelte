@@ -11,16 +11,18 @@
 
 <script>
   import { Story } from "@storybook/addon-svelte-csf";
-
-  let han = 0;
 </script>
 
 <Story name="Default">
-  <div>翻: {han}</div>
+  <div class="flex gap-2">
+    <Button type="normal">未選択</Button>
+    <Button type="normal" isSelected>選択</Button>
+  </div>
+</Story>
 
-  <Button bind:han value="{1}">1翻</Button>
-  <Button bind:han value="{2}">2翻</Button>
-  <Button bind:han value="{3}">3翻</Button>
-
-  <div>合計翻数: {han}</div>
+<Story name="longWight">
+  <div class="flex gap-2">
+    <Button type="wight">未選択</Button>
+    <Button type="wight" isSelected>選択</Button>
+  </div>
 </Story>
