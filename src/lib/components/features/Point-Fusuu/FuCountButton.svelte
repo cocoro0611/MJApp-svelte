@@ -2,29 +2,18 @@
   import Button from "$lib/components/ui/Button.svelte";
 
   import type { ButtonConfig } from "$lib/models/Point-Fusuu/types.js";
+  import { Label } from "flowbite-svelte";
 
   export let han: number;
   export let fu: number;
   export let buttonStates: { [key: string]: boolean };
   export let count: { [key: string]: number } = {};
 
-  function clearHan() {
-    han = 0;
-    fu = 20;
-    Object.keys(buttonStates).forEach((key) => {
-      buttonStates[key] = false;
-    });
-    Object.keys(count).forEach((key) => {
-      count[key] = 0;
-    });
-  }
-
   const buttonConfig: { [key: string]: ButtonConfig } = {
     Btn1: {
       label: "門前ロン",
       hanValue: 1,
       fuValue: 30,
-      constFuValue: 30,
       group: "和了 + 翻数",
       isCount: true,
       isSelectAgari: true,
@@ -33,7 +22,6 @@
       label: "ツモ",
       hanValue: 1,
       fuValue: 22,
-      constFuValue: 22,
       group: "和了 + 翻数",
       isCount: true,
       isSelectAgari: true,
@@ -42,7 +30,6 @@
       label: "七対子",
       hanValue: 1,
       fuValue: 25,
-      constFuValue: 25,
       group: "和了 + 翻数",
       isCount: true,
       isChiToi: true,
@@ -150,32 +137,78 @@
 
   type ButtonKey = keyof typeof buttonConfig;
 
+  function resetAllOtherButtons(exceptKey: ButtonKey) {
+    Object.keys(buttonConfig).forEach((key) => {
+      if (key !== exceptKey) {
+        if (buttonStates[key]) {
+          // 選択状態だったボタンの値を引く
+          fu -= buttonConfig[key].fuValue * (count[key] || 1);
+        }
+        buttonStates[key] = false;
+        count[key] = 0;
+      }
+    });
+  }
+
   function handleBtn(btnKey: ButtonKey) {
     return () => {
-      if (buttonConfig[btnKey].isCount) {
+      const config = buttonConfig[btnKey];
+
+      if (config.isChiToi || config.isSelectAgari) {
+        resetAllOtherButtons(btnKey);
+      } else {
+        // 既存の排他制御処理
+        if (config.isSelectAtama) {
+          Object.keys(buttonConfig).forEach((key) => {
+            if (buttonConfig[key].isSelectAtama && key !== btnKey) {
+              if (buttonStates[key]) {
+                fu -= buttonConfig[key].fuValue;
+              }
+              buttonStates[key] = false;
+              count[key] = 0;
+            }
+          });
+        }
+
+        if (config.isSelectMati) {
+          Object.keys(buttonConfig).forEach((key) => {
+            if (buttonConfig[key].isSelectMati && key !== btnKey) {
+              if (buttonStates[key]) {
+                fu -= buttonConfig[key].fuValue;
+              }
+              buttonStates[key] = false;
+              count[key] = 0;
+            }
+          });
+        }
+      }
+
+      if (config.isCount) {
         handleDoraBtn(btnKey);
       } else {
         const newState = !buttonStates[btnKey];
         buttonStates[btnKey] = newState;
-        fu += newState
-          ? buttonConfig[btnKey].fuValue
-          : -buttonConfig[btnKey].fuValue;
+        fu += newState ? config.fuValue : -config.fuValue;
       }
+
+      buttonStates = { ...buttonStates };
     };
   }
 
   function handleDoraBtn(btnKey: ButtonKey) {
+    const config = buttonConfig[btnKey];
+
     if (!count[btnKey]) {
       count[btnKey] = 0;
     }
 
     count[btnKey] += 1;
 
-    if (buttonConfig[btnKey].isChiToi) {
+    if (config.isChiToi) {
       // 七対子の特別な処理
       if (count[btnKey] <= 3) {
         buttonStates[btnKey] = true;
-        fu = buttonConfig[btnKey].constFuValue || 25; // 七対子は常に25符
+        fu = config.fuValue;
         han = 1 + count[btnKey]; // 1回目: 2翻, 2回目: 3翻, 3回目: 4翻
       } else {
         // 4回目のクリックでリセット
@@ -184,36 +217,43 @@
         fu = 20; // デフォルトの符数に戻す
         han = 0; // 翻数をリセット
       }
+    } else if (config.isSelectAgari) {
+      // 他の和了ボタンの処理
+      if (count[btnKey] <= 4) {
+        buttonStates[btnKey] = true;
+        fu = config.fuValue;
+        han = count[btnKey]; // 1回目: 1翻, 2回目: 2翻, 3回目: 3翻, 4回目: 4翻
+      } else {
+        // 5回目のクリックでリセット
+        count[btnKey] = 0;
+        buttonStates[btnKey] = false;
+        fu = 20; // デフォルトの符数に戻す
+        han = 0; // 翻数をリセット
+      }
     } else {
-      // 通常のカウントボタンの処理（変更なし）
+      // 通常のカウントボタンの処理
       if (count[btnKey] <= 4) {
         if (!buttonStates[btnKey]) {
           buttonStates[btnKey] = true;
-          if ("constFuValue" in buttonConfig[btnKey]) {
-            fu = buttonConfig[btnKey].constFuValue!;
-          } else {
-            fu += buttonConfig[btnKey].fuValue;
-          }
-          han += buttonConfig[btnKey].hanValue;
+          fu += config.fuValue;
         } else {
-          if (!("constFuValue" in buttonConfig[btnKey])) {
-            fu += buttonConfig[btnKey].fuValue;
+          if (!("constFuValue" in config)) {
+            fu += config.fuValue;
           }
-          han += buttonConfig[btnKey].hanValue;
         }
       } else {
         count[btnKey] = 0;
         buttonStates[btnKey] = false;
-        if ("constFuValue" in buttonConfig[btnKey]) {
+        if ("constFuValue" in config) {
           fu = 20;
         } else {
-          fu -= 4 * buttonConfig[btnKey].fuValue;
+          fu -= 4 * config.fuValue;
         }
-        han -= 4 * buttonConfig[btnKey].hanValue;
       }
     }
 
     buttonStates = { ...buttonStates };
+    count = { ...count };
   }
 
   const groupedButtons = Object.entries(buttonConfig).reduce(
@@ -253,7 +293,11 @@
                   <div class="text-xs">{config.label}</div>
                 {/if}
                 {#if config.label === "門前ロン" || config.label === "ツモ" || config.label === "七対子"}
-                  <div class="text-xs">{count[btnKey]}翻</div>
+                  {#if config.label === "七対子"}
+                    <div class="text-xs">{1 + count[btnKey]}翻</div>
+                  {:else}
+                    <div class="text-xs">{count[btnKey]}翻</div>
+                  {/if}
                 {:else}
                   <div class="text-xs">{count[btnKey]}つ</div>
                 {/if}
@@ -269,5 +313,3 @@
     {/each}
   </div>
 </div>
-
-<!-- <button on:click="{clearHan}">aaaa</button> -->

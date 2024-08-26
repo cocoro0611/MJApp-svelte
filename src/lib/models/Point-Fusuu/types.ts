@@ -8,9 +8,8 @@ export interface PointData {
 
 export interface ButtonConfig {
   label: string;
-  hanValue: number;
+  hanValue?: number;
   fuValue: number;
-  constFuValue?: number;
   group: string;
   isCount?: boolean;
   isChiToi?: boolean;

@@ -115,7 +115,7 @@
       aria-haspopup="true"
       aria-expanded="{fuDropdownOpen}"
     >
-      {formatFuValue(fu)} 符({formatValue(fu)} 符)
+      {formatFuValue(fu)} 符　({formatValue(fu)} 符)
       <ChevronDownOutline class="w-4 h-4 ms-1" />
     </button>
 
