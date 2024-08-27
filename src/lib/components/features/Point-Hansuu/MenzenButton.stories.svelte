@@ -9,12 +9,15 @@
   };
 </script>
 
-<script>
+<script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
+
+  let buttonStates: { [key: string]: boolean } = {};
+  let doraCount: { [key: string]: number } = {};
   let han = 0;
 </script>
 
 <Story name="Default">
   <div class="flex justify-center text-xl">合計翻数: {han}</div>
-  <MenzenButton bind:han />
+  <MenzenButton bind:han bind:buttonStates bind:doraCount />
 </Story>

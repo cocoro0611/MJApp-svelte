@@ -4,14 +4,14 @@
   import PointBord from "./PointBord.svelte";
 
   export const meta: Meta<PointBord> = {
-    title: "features/Point-Hansuu/PointBord",
+    title: "features/Point-Fusuu/PointBord",
     component: PointBord,
   };
 </script>
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import type { PointData } from "$lib/models/Point-Hansuu/types.js";
+  import type { PointData } from "$lib/models/Point-Fusuu/types.js";
 
   let fu = 30;
   let han = 1;

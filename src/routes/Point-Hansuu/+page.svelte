@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Toggle } from "flowbite-svelte";
+  import PointHeader from "$lib/components/ui/PointHeader.svelte";
   import PointBord from "$lib/components/features/Point-Hansuu/PointBord.svelte";
   import MenzenButton from "$lib/components/features/Point-Hansuu/MenzenButton.svelte";
   import ForoButton from "$lib/components/features/Point-Hansuu/FuroButton.svelte";
@@ -62,26 +62,12 @@
   }
 </script>
 
-<div class="flex justify-between px-4">
-  <span>
-    <div class="flex">
-      <div
-        class="{isChecked ? 'text-gray-300' : 'text-blue-500'} mr-2 font-bold"
-      >
-        門前
-      </div>
-      <Toggle color="blue" on:change="{handleToggle}" />
-      <div class="{isChecked ? 'text-blue-500' : 'text-gray-300'}  font-bold">
-        副露
-      </div>
-    </div>
-  </span>
-  <span>
-    <button class="text-blue-500 font-bold mx-4" on:click="{clearHan}"
-      >Clear</button
-    ></span
-  >
-</div>
+<PointHeader
+  bind:isChecked
+  onToggle="{handleToggle}"
+  onClear="{clearHan}"
+  type="han"
+/>
 <PointBord bind:fu bind:han bind:pointData />
 {#if isChecked}
   <ForoButton bind:han bind:buttonStates bind:doraCount />

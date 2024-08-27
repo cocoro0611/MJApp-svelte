@@ -15,6 +15,16 @@
     Btn10: { label: "5-10", value: 0, group: "ウマ" },
     Btn11: { label: "10-20", value: 0, group: "ウマ" },
     Btn12: { label: "10-30", value: 0, group: "ウマ" },
+    Btn13: { label: "なし", value: 0, group: "レート" },
+    Btn14: { label: "テンイチ", value: 0, group: "レート" },
+    Btn15: { label: "テンニ", value: 0, group: "レート" },
+    Btn16: { label: "テンサン", value: 0, group: "レート" },
+    Btn17: { label: "テンゴ", value: 0, group: "レート" },
+    Btn18: { label: "テンピン", value: 0, group: "レート" },
+    Btn19: { label: "なし", value: 0, group: "チップ単価" },
+    Btn20: { label: "50P", value: 50, group: "チップ単価" },
+    Btn21: { label: "100P", value: 100, group: "チップ単価" },
+    Btn22: { label: "200P", value: 200, group: "チップ単価" },
   };
 
   const groupedButtons = Object.entries(buttonConfig).reduce(
@@ -51,4 +61,8 @@
       {/each}
     {/each}
   </div>
+</div>
+<div class="flex justify-between my-4 px-12">
+  <button class="btn-close">閉じる</button>
+  <button class="btn-register">登録する</button>
 </div>

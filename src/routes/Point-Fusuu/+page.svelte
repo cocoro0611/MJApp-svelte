@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PointHeader from "$lib/components/ui/PointHeader.svelte";
   import PointBord from "$lib/components/features/Point-Fusuu/PointBord.svelte";
   import FuCountButton from "$lib/components/features/Point-Fusuu/FuCountButton.svelte";
 
@@ -79,13 +80,6 @@
   }
 </script>
 
-<div class="flex justify-between px-4">
-  <span></span>
-  <span>
-    <button class="text-blue-500 font-bold mx-4" on:click="{clearHan}"
-      >Clear</button
-    ></span
-  >
-</div>
+<PointHeader onClear="{clearHan}" type="fu" />
 <PointBord bind:fu bind:han bind:pointData />
 <FuCountButton bind:han bind:fu bind:buttonStates bind:count />

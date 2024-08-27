@@ -2,22 +2,46 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+.btn-off {
+  @apply border border-blue-500 bg-white text-blue-500 hover:bg-blue-50 rounded-md
+}
+.btn-on {
+  @apply border border-blue-500 bg-blue-500 text-white hover:bg-blue-400 rounded-md
+}
+
+.btn-close {
+  @apply  border border-gray-500 bg-gray-200 text-gray-800  rounded-sm ;
+  @apply text-sm px-1 py-1 min-w-36 h-10 font-bold;
+}
+.btn-register {
+  @apply  border border-blue-500 bg-blue-100 text-blue-800 rounded-sm ;
+  @apply text-sm px-1 py-1 w-36 h-10 font-bold;
+}
+
 .btn-primary {
-  @apply border border-blue-500 bg-white text-blue-500 hover:bg-blue-50 rounded-md;
+  @apply btn-off;
   @apply text-sm px-1 py-1 w-14 h-14;
   word-break: break-all; /* 必要に応じて単語の途中で改行 */
 }
 .btn-primary-on {
-  @apply border border-blue-500 bg-blue-500 text-white hover:bg-blue-400 rounded-md;
+  @apply btn-on;
   @apply text-sm px-1 py-1 w-14 h-14;
   word-break: break-all; /* 必要に応じて単語の途中で改行 */
 }
+.btn-footer-primary {
+  @apply border border-gray-500 bg-white text-gray-500 hover:bg-gray-50 rounded-md;
+  @apply text-sm px-1 py-1 w-20 h-12;
+}
+.btn-footer-primary-on {
+  @apply border border-gray-500 bg-gray-500 text-white hover:bg-gray-400 rounded-md;
+  @apply text-sm px-1 py-1 w-20 h-12;
+}
 .btn-wight-primary {
-  @apply border border-blue-500 bg-white text-blue-500 hover:bg-blue-50 rounded-md;
+  @apply btn-off;
   @apply text-sm px-1 py-1 w-32 h-10;
 }
 .btn-wight-primary-on {
-  @apply border border-blue-500 bg-blue-500 text-white hover:bg-blue-400 rounded-md;
+  @apply btn-on;
   @apply text-sm px-1 py-1 w-32 h-10;
 }
 
