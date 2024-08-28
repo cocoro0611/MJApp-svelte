@@ -1,5 +1,7 @@
 <script lang="ts">
     import { fade } from "svelte/transition";
+
+    import Score from "$lib/components/features/Total-Point/Score.svelte";
     import Setting from "$lib/components/features/Total-Point/Setting.svelte";
 
     let showSetting = false;
@@ -9,12 +11,12 @@
     }
 </script>
 
-<div class="relative">
-    <div class="flex justify-center">スコア表</div>
+<Score />
 
+<div class="relative">
     <button
         class="border border-blue-500 bg-white text-blue-500 hover:bg-blue-50 px-1 py-1 w-14 h-14 text-2xl"
-        on:click={toggleSetting}
+        on:click="{toggleSetting}"
     >
         +
     </button>
@@ -22,7 +24,7 @@
     {#if showSetting}
         <div
             class="fixed inset-0 bg-black bg-opacity-50 z-40"
-            on:click={toggleSetting}
+            on:click="{toggleSetting}"
             transition:fade
         ></div>
         <div
@@ -35,7 +37,7 @@
                 <Setting />
                 <button
                     class="mt-4 border border-blue-500 bg-white text-blue-500 hover:bg-blue-50 px-2 py-1 rounded"
-                    on:click={toggleSetting}
+                    on:click="{toggleSetting}"
                 >
                     閉じる
                 </button>

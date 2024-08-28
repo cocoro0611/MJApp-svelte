@@ -2,7 +2,6 @@
   import Button from "$lib/components/ui/Button.svelte";
 
   import type { ButtonConfig } from "$lib/models/Point-Fusuu/types.js";
-  import { Label } from "flowbite-svelte";
 
   export let han: number;
   export let fu: number;
@@ -14,7 +13,7 @@
       label: "門前ロン",
       hanValue: 1,
       fuValue: 30,
-      group: "和了 + 翻数",
+      group: "和了 + 翻数（４翻以下）※",
       isCount: true,
       isSelectAgari: true,
     },
@@ -22,7 +21,7 @@
       label: "ツモ",
       hanValue: 1,
       fuValue: 22,
-      group: "和了 + 翻数",
+      group: "和了 + 翻数（４翻以下）※",
       isCount: true,
       isSelectAgari: true,
     },
@@ -30,7 +29,7 @@
       label: "七対子",
       hanValue: 1,
       fuValue: 25,
-      group: "和了 + 翻数",
+      group: "和了 + 翻数（４翻以下）※",
       isCount: true,
       isChiToi: true,
       isSelectAgari: true,
@@ -39,56 +38,56 @@
       label: "明刻",
       hanValue: 0,
       fuValue: 2,
-      group: "面子(2-8)",
+      group: "面子（２-８）※",
       isCount: true,
     },
     Btn9: {
       label: "暗刻",
       hanValue: 0,
       fuValue: 4,
-      group: "面子(2-8)",
+      group: "面子（２-８）※",
       isCount: true,
     },
     Btn10: {
       label: "明槓",
       hanValue: 0,
       fuValue: 8,
-      group: "面子(2-8)",
+      group: "面子（２-８）※",
       isCount: true,
     },
     Btn11: {
       label: "暗槓",
       hanValue: 0,
       fuValue: 16,
-      group: "面子(2-8)",
+      group: "面子（２-８）※",
       isCount: true,
     },
     Btn12: {
       label: "明刻",
       hanValue: 0,
       fuValue: 4,
-      group: "面子(1, 9, 字牌)",
+      group: "面子（１, ９, 字牌）※",
       isCount: true,
     },
     Btn13: {
       label: "暗刻",
       hanValue: 0,
       fuValue: 8,
-      group: "面子(1, 9, 字牌)",
+      group: "面子（１, ９, 字牌）※",
       isCount: true,
     },
     Btn14: {
       label: "明槓",
       hanValue: 0,
       fuValue: 16,
-      group: "面子(1, 9, 字牌)",
+      group: "面子（１, ９, 字牌）※",
       isCount: true,
     },
     Btn15: {
       label: "暗槓",
       hanValue: 0,
       fuValue: 32,
-      group: "面子(1, 9, 字牌)",
+      group: "面子（１, ９, 字牌）※",
       isCount: true,
     },
     Btn16: {
@@ -314,3 +313,4 @@
     {/each}
   </div>
 </div>
+<div class="flex justify-center mt-4 font-bold text-sm">※ タップでカウント</div>
