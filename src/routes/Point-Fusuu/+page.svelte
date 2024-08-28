@@ -80,6 +80,11 @@
   }
 </script>
 
-<PointHeader onClear="{clearHan}" type="fu" />
-<PointBord bind:fu bind:han bind:pointData />
-<FuCountButton bind:han bind:fu bind:buttonStates bind:count />
+<div class="flex-none">
+  <PointHeader onClear="{clearHan}" type="fu" />
+  <PointBord bind:fu bind:han bind:pointData />
+</div>
+
+<div class="flex-grow overflow-y-auto">
+  <FuCountButton bind:han bind:fu bind:buttonStates bind:count />
+</div>

@@ -1,6 +1,9 @@
 
 export interface ButtonConfig {
   label: string;
-  value: number;
+  point?: number;
+  uma?: [number,number];
+  rate?:number;
+  chip?:number;
   group: string;
 }

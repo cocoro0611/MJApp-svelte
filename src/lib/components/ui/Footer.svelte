@@ -1,34 +1,54 @@
 <script lang="ts">
-  import Button from "./Button.svelte";
-  import { goto } from "$app/navigation";
+  import { createEventDispatcher } from "svelte";
+  import { ButtonGroup, Button } from "flowbite-svelte";
+  import {
+    HomeOutline,
+    UserCircleOutline,
+    RulerCombinedOutline,
+    ScaleBalancedOutline,
+  } from "flowbite-svelte-icons";
 
-  let selectedButton: string = "score"; // デフォルトで'スコア'を選択状態に
+  export let currentPage: string;
+  const dispatch = createEventDispatcher();
 
-  const buttons = [
-    { id: "score", label: "スコア", url: "/" },
-    { id: "fu", label: "符数計算", url: "/Point-Fusuu" },
-    { id: "han", label: "翻数計算", url: "/Point-Hansuu" },
-  ];
-
-  function handleClick(buttonId: string) {
-    selectedButton = buttonId;
-    const button = buttons.find((b) => b.id === buttonId);
-    if (button) {
-      goto(button.url);
-    }
+  function handleLinkClick(page: string) {
+    dispatch("pageChange", page);
   }
 </script>
 
-<div class="flex justify-center">
-  <footer>
-    {#each buttons as button}
-      <Button
-        type="footer"
-        isSelected="{selectedButton === button.id}"
-        on:click="{() => handleClick(button.id)}"
-      >
-        {button.label}
-      </Button>
-    {/each}
-  </footer>
+<div class="flex justify-center fixed bottom-0 left-0 right-0">
+  <ButtonGroup>
+    <Button
+      class="flex flex-col items-center hover:text-blue-500"
+      color="{currentPage === 'home' ? 'blue' : 'alternative'}"
+      on:click="{() => handleLinkClick('home')}"
+    >
+      <HomeOutline class="w-[71px] h-8 mb-1" />
+      <span class="text-xs">ホーム</span>
+    </Button>
+    <Button
+      class="flex flex-col items-center hover:text-blue-500"
+      color="{currentPage === 'member' ? 'blue' : 'alternative'}"
+      on:click="{() => handleLinkClick('member')}"
+    >
+      <UserCircleOutline class="w-[71px] h-8 mb-1" />
+      <span class="text-xs">メンバー</span>
+    </Button>
+    <Button
+      class="flex flex-col items-center hover:text-blue-500"
+      color="{currentPage === 'fusuu' ? 'blue' : 'alternative'}"
+      on:click="{() => handleLinkClick('fusuu')}"
+    >
+      <RulerCombinedOutline class="w-[71px] h-8 mb-1" />
+      <span class="text-xs">符数計算 </span>
+    </Button>
+    <Button
+      class="flex flex-col items-center hover:text-blue-500"
+      color="{currentPage === 'hansuu' ? 'blue' : 'alternative'}"
+      on:click="{() => handleLinkClick('hansuu')}"
+    >
+      <ScaleBalancedOutline class="w-[71px] h-8 mb-1" />
+      <span class="text-xs">翻数計算</span>
+    </Button>
+  </ButtonGroup>
 </div>

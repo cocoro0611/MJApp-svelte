@@ -62,15 +62,20 @@
   }
 </script>
 
-<PointHeader
-  bind:isChecked
-  onToggle="{handleToggle}"
-  onClear="{clearHan}"
-  type="han"
-/>
-<PointBord bind:fu bind:han bind:pointData />
-{#if isChecked}
-  <ForoButton bind:han bind:buttonStates bind:doraCount />
-{:else}
-  <MenzenButton bind:han bind:buttonStates bind:doraCount />
-{/if}
+<div class="flex-none">
+  <PointHeader
+    bind:isChecked
+    onToggle="{handleToggle}"
+    onClear="{clearHan}"
+    type="han"
+  />
+  <PointBord bind:fu bind:han bind:pointData />
+</div>
+
+<div class="flex-grow overflow-y-auto">
+  {#if isChecked}
+    <ForoButton bind:han bind:buttonStates bind:doraCount />
+  {:else}
+    <MenzenButton bind:han bind:buttonStates bind:doraCount />
+  {/if}
+</div>

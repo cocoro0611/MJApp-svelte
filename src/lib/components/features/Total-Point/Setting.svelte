@@ -3,28 +3,28 @@
   import type { ButtonConfig } from "$lib/models/Total-Point/types.js";
 
   const buttonConfig: { [key: string]: ButtonConfig } = {
-    Btn1: { label: "25000点", value: 25000, group: "持ち点" },
-    Btn2: { label: "30000点", value: 30000, group: "持ち点" },
-    Btn3: { label: "35000点", value: 35000, group: "持ち点" },
-    Btn4: { label: "40000点", value: 40000, group: "持ち点" },
-    Btn5: { label: "30000点", value: 30000, group: "返し点" },
-    Btn6: { label: "35000点", value: 35000, group: "返し点" },
-    Btn7: { label: "40000点", value: 40000, group: "返し点" },
-    Btn8: { label: "45000点", value: 45000, group: "返し点" },
-    Btn9: { label: "なし", value: 0, group: "ウマ" },
-    Btn10: { label: "5-10", value: 0, group: "ウマ" },
-    Btn11: { label: "10-20", value: 0, group: "ウマ" },
-    Btn12: { label: "10-30", value: 0, group: "ウマ" },
-    Btn13: { label: "なし", value: 0, group: "レート" },
-    Btn14: { label: "テンイチ", value: 0, group: "レート" },
-    Btn15: { label: "テンニ", value: 0, group: "レート" },
-    Btn16: { label: "テンサン", value: 0, group: "レート" },
-    Btn17: { label: "テンゴ", value: 0, group: "レート" },
-    Btn18: { label: "テンピン", value: 0, group: "レート" },
-    Btn19: { label: "なし", value: 0, group: "チップ単価" },
-    Btn20: { label: "50P", value: 50, group: "チップ単価" },
-    Btn21: { label: "100P", value: 100, group: "チップ単価" },
-    Btn22: { label: "200P", value: 200, group: "チップ単価" },
+    Btn1: { label: "25000点", point: 25000, group: "持ち点" },
+    Btn2: { label: "30000点", point: 30000, group: "持ち点" },
+    Btn3: { label: "35000点", point: 35000, group: "持ち点" },
+    Btn4: { label: "40000点", point: 40000, group: "持ち点" },
+    Btn5: { label: "30000点", point: 30000, group: "返し点" },
+    Btn6: { label: "35000点", point: 35000, group: "返し点" },
+    Btn7: { label: "40000点", point: 40000, group: "返し点" },
+    Btn8: { label: "45000点", point: 45000, group: "返し点" },
+    Btn9: { label: "なし", uma: [0, 0], group: "ウマ" },
+    Btn10: { label: "5-10", uma: [5, 10], group: "ウマ" },
+    Btn11: { label: "10-20", uma: [10, 20], group: "ウマ" },
+    Btn12: { label: "10-30", uma: [10, 30], group: "ウマ" },
+    Btn13: { label: "なし", rate: 0, group: "レート" },
+    Btn14: { label: "テンイチ", rate: 1, group: "レート" },
+    Btn15: { label: "テンニ", rate: 2, group: "レート" },
+    Btn16: { label: "テンサン", rate: 3, group: "レート" },
+    Btn17: { label: "テンゴ", rate: 5, group: "レート" },
+    Btn18: { label: "テンピン", rate: 10, group: "レート" },
+    Btn19: { label: "なし", chip: 0, group: "チップ単価" },
+    Btn20: { label: "50P", chip: 50, group: "チップ単価" },
+    Btn21: { label: "100P", chip: 100, group: "チップ単価" },
+    Btn22: { label: "200P", chip: 200, group: "チップ単価" },
   };
 
   const groupedButtons = Object.entries(buttonConfig).reduce(
@@ -48,10 +48,17 @@
 
 <div class="flex justify-center">
   <div>
+    <div class="py-2 font-bold">メンバー</div>
+    <div class="flex justify-center gap-2 mb-2">
+      <Button type="normal">P1</Button>
+      <Button type="normal">P2</Button>
+      <Button type="normal">P3</Button>
+      <Button type="normal">P4</Button>
+    </div>
     {#each Object.entries(groupedButtons) as [group, buttonRows]}
       <div class="py-2 font-bold">{group}</div>
       {#each buttonRows as buttons}
-        <div class="flex flex-wrap gap-2 mb-4">
+        <div class="flex flex-wrap gap-2 mb-2">
           {#each buttons as [btnKey, config]}
             <Button type="wight" on:click>
               <div class="text-xs">{config.label}</div>
@@ -62,7 +69,6 @@
     {/each}
   </div>
 </div>
-<div class="flex justify-between my-4 px-12">
-  <button class="btn-close">閉じる</button>
+<div class="flex justify-center my-4">
   <button class="btn-register">登録する</button>
 </div>
