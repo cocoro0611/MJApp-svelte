@@ -2,11 +2,11 @@
   import { createEventDispatcher } from "svelte";
   import { ButtonGroup, Button } from "flowbite-svelte";
   import {
-    HomeOutline,
-    UserCircleOutline,
-    RulerCombinedOutline,
-    ScaleBalancedOutline,
-  } from "flowbite-svelte-icons";
+    IconHome,
+    IconUser,
+    IconCalculatorFilled,
+    IconCalculator,
+  } from "@tabler/icons-svelte";
 
   export let currentPage: string;
   const dispatch = createEventDispatcher();
@@ -23,7 +23,7 @@
       color="{currentPage === 'home' ? 'blue' : 'alternative'}"
       on:click="{() => handleLinkClick('home')}"
     >
-      <HomeOutline class="w-[71px] h-8 mb-1" />
+      <IconHome class="w-[71px] h-8 mb-1" />
       <span class="text-xs">ホーム</span>
     </Button>
     <Button
@@ -31,7 +31,7 @@
       color="{currentPage === 'member' ? 'blue' : 'alternative'}"
       on:click="{() => handleLinkClick('member')}"
     >
-      <UserCircleOutline class="w-[71px] h-8 mb-1" />
+      <IconUser class="w-[71px] h-8 mb-1" />
       <span class="text-xs">メンバー</span>
     </Button>
     <Button
@@ -39,7 +39,7 @@
       color="{currentPage === 'fusuu' ? 'blue' : 'alternative'}"
       on:click="{() => handleLinkClick('fusuu')}"
     >
-      <RulerCombinedOutline class="w-[71px] h-8 mb-1" />
+      <IconCalculatorFilled class="w-[71px] h-8 mb-1" />
       <span class="text-xs">符数計算 </span>
     </Button>
     <Button
@@ -47,7 +47,7 @@
       color="{currentPage === 'hansuu' ? 'blue' : 'alternative'}"
       on:click="{() => handleLinkClick('hansuu')}"
     >
-      <ScaleBalancedOutline class="w-[71px] h-8 mb-1" />
+      <IconCalculator class="w-[71px] h-8 mb-1" />
       <span class="text-xs">翻数計算</span>
     </Button>
   </ButtonGroup>

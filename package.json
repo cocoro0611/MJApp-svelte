@@ -63,6 +63,7 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "^5.17.0",
+    "@tabler/icons-svelte": "^3.14.0",
     "kysely": "^0.27.4",
     "sveltekit-i18n": "^2.4.2"
   }
