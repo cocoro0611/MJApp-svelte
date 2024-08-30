@@ -11,8 +11,11 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
+
+  let han: number = 0;
 </script>
 
 <Story name="Default">
-  <MenzenButton2 />
+  <MenzenButton2 bind:han />
+  <div>TotalHan：{han}</div>
 </Story>
