@@ -3,19 +3,9 @@
 
   export let isSelected: boolean;
   export let count: number;
-  export let maxCount: number;
-
-  const countButton = () => {
-    count += 1;
-    isSelected = true;
-    if (count > maxCount) {
-      count = 0;
-      isSelected = false;
-    }
-  };
 </script>
 
-<Button2 on:click="{countButton}" bind:isSelected>
+<Button2 on:click bind:isSelected>
   <slot />
   {#if isSelected}
     <div>

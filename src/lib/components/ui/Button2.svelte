@@ -39,7 +39,7 @@
     @apply border border-blue-500 bg-white text-blue-500 hover:bg-blue-50 rounded-md;
   }
   .delault-size {
-    @apply text-sm px-1 py-1 w-14 h-14;
+    @apply text-[0.7rem] px-1 py-1 w-14 h-14;
     word-break: break-all;
   }
   .wide-size {

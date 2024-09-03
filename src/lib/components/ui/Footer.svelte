@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import { ButtonGroup, Button } from "flowbite-svelte";
   import {
     IconHome,
@@ -7,48 +6,50 @@
     IconCalculatorFilled,
     IconCalculator,
   } from "@tabler/icons-svelte";
+  import type { ComponentType } from "svelte";
 
-  export let currentPage: string;
-  const dispatch = createEventDispatcher();
+  export let currentPage: "home" | "member" | "fusuu" | "hansuu" = "home";
 
-  function handleLinkClick(page: string) {
-    dispatch("pageChange", page);
+  interface tabsDefinition {
+    id: typeof currentPage;
+    label: string;
+    icon: ComponentType;
   }
+
+  const tabs: tabsDefinition[] = [
+    { id: "home", label: "ホーム", icon: IconHome },
+    { id: "member", label: "メンバー", icon: IconUser },
+    { id: "fusuu", label: "符数計算", icon: IconCalculatorFilled },
+    { id: "hansuu", label: "翻数計算", icon: IconCalculator },
+  ];
+
+  const handleLinkClick = (page: typeof currentPage) => {
+    currentPage = page;
+  };
 </script>
 
 <div class="flex justify-center fixed bottom-0 left-0 right-0">
   <ButtonGroup>
-    <Button
-      class="flex flex-col items-center hover:text-blue-500"
-      color="{currentPage === 'home' ? 'blue' : 'alternative'}"
-      on:click="{() => handleLinkClick('home')}"
-    >
-      <IconHome class="w-[71px] h-8 mb-1" />
-      <span class="text-xs">ホーム</span>
-    </Button>
-    <Button
-      class="flex flex-col items-center hover:text-blue-500"
-      color="{currentPage === 'member' ? 'blue' : 'alternative'}"
-      on:click="{() => handleLinkClick('member')}"
-    >
-      <IconUser class="w-[71px] h-8 mb-1" />
-      <span class="text-xs">メンバー</span>
-    </Button>
-    <Button
-      class="flex flex-col items-center hover:text-blue-500"
-      color="{currentPage === 'fusuu' ? 'blue' : 'alternative'}"
-      on:click="{() => handleLinkClick('fusuu')}"
-    >
-      <IconCalculatorFilled class="w-[71px] h-8 mb-1" />
-      <span class="text-xs">符数計算 </span>
-    </Button>
-    <Button
-      class="flex flex-col items-center hover:text-blue-500"
-      color="{currentPage === 'hansuu' ? 'blue' : 'alternative'}"
-      on:click="{() => handleLinkClick('hansuu')}"
-    >
-      <IconCalculator class="w-[71px] h-8 mb-1" />
-      <span class="text-xs">翻数計算</span>
-    </Button>
+    {#each tabs as tab}
+      <Button
+        color="light"
+        class="flex flex-col items-center 
+        {currentPage === tab.id ? 'tab-btn-off' : 'tab-btn-on'}"
+        currentPage="home"
+        on:click="{() => handleLinkClick(tab.id)}"
+      >
+        <svelte:component this="{tab.icon}" class="w-[71px] h-8 mb-1" />
+        <span class="text-xs">{tab.label}</span>
+      </Button>
+    {/each}
   </ButtonGroup>
 </div>
+
+<style>
+  :global(.tab-btn-on) {
+    @apply border border-gray-500 bg-white text-black hover:bg-gray-100 hover:text-blue-800;
+  }
+  :global(.tab-btn-off) {
+    @apply border border-gray-500 bg-blue-800 text-white hover:bg-blue-700 hover:text-white;
+  }
+</style>

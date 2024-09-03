@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import MenzenButton2 from "./MenzenButton2.svelte";
+  import FuCountButton2 from "./FuCountButton2.svelte";
 
-  export const meta: Meta<MenzenButton2> = {
-    title: "features/Point-Hansuu/MenzenButton2",
-    component: MenzenButton2,
+  export const meta: Meta<FuCountButton2> = {
+    title: "features/Point-Fusuu/FuCountButton2",
+    component: FuCountButton2,
   };
 </script>
 
@@ -13,11 +13,12 @@
   import { Story } from "@storybook/addon-svelte-csf";
 
   let han: number = 0;
+  let fu: number = 20;
   let count: number = 0;
 </script>
 
 <Story name="Default">
-  <MenzenButton2 bind:han bind:count />
+  <FuCountButton2 bind:han bind:fu />
   <div>TotalHan：{han}</div>
-  <div>count：{count}</div>
+  <div>TotalFu：{fu}</div>
 </Story>

@@ -15,10 +15,19 @@
   let isSelected: boolean = false;
   let count: number = 0;
   let maxCount: number = 3;
+
+  const countButton = () => {
+    count += 1;
+    isSelected = true;
+    if (count > maxCount) {
+      count = 0;
+      isSelected = false;
+    }
+  };
 </script>
 
 <Story name="Default">
-  <ButtonCount {maxCount} bind:count bind:isSelected>
+  <ButtonCount bind:count bind:isSelected on:click="{countButton}">
     <svelte:fragment slot="countName">翻</svelte:fragment>
     ドラ
   </ButtonCount>

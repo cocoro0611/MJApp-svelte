@@ -4,22 +4,11 @@
   import PointHansuuPage from "../routes/Point-Hansuu/+page.svelte";
   import Footer from "$lib/components/ui/Footer.svelte";
 
-  import { onMount } from "svelte";
+  let currentPage: "home" | "member" | "fusuu" | "hansuu" = "home";
 
-  let currentPage = "home";
-
-  onMount(() => {
-    const storedPage = localStorage.getItem("currentPage");
-    if (storedPage) {
-      currentPage = storedPage;
-    }
-  });
-
-  function handlePageChange(event: CustomEvent<string>) {
-    currentPage = event.detail;
-    localStorage.setItem("currentPage", currentPage);
-    window.history.pushState(null, "", "/");
-  }
+  const handlePageChange = (page: CustomEvent<typeof currentPage>) => {
+    currentPage = page.detail;
+  };
 </script>
 
 {#if currentPage === "home"}
@@ -32,6 +21,4 @@
   <PointHansuuPage />
 {/if}
 
-<footer class="flex-none">
-  <Footer {currentPage} on:pageChange="{handlePageChange}" />
-</footer>
+<Footer bind:currentPage on:pageChange="{handlePageChange}" />
