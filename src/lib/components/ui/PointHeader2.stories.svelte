@@ -34,6 +34,7 @@
   <div class="flex py-2">翻数：{han}</div>
   <div class="flex py-2">符数：{fu}</div>
   <div class="flex py-2">ボタンの選択状態（isSelected）：{isChecked}</div>
+  <div class="flex py-2">トグルの選択状態（isFuro）：{isFuro}</div>
   <PointHeader2
     bind:isFuro
     on:click="{clearValue}"
@@ -46,5 +47,6 @@
   <div class="flex py-2">翻数：{han}</div>
   <div class="flex py-2">符数：{fu}</div>
   <div class="flex py-2">ボタンの選択状態（isSelected）：{isChecked}</div>
+  <div class="flex py-2">トグルの選択状態（isFuro）：{isFuro}</div>
   <PointHeader2 bind:isFuro on:click="{clearValue}" type="fu" />
 </Story>

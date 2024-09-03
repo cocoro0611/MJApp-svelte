@@ -24,10 +24,18 @@
   };
 
   let isChecked: boolean = true;
+  let isFuro: boolean = true;
 </script>
 
 <Story name="Default">
-  <PointBord type="han" bind:han bind:fu bind:pointData bind:isChecked />
+  <PointBord
+    type="han"
+    bind:han
+    bind:fu
+    bind:pointData
+    bind:isChecked
+    bind:isFuro
+  />
   <div>
     <span>ボタンの状態：</span>
     {isChecked}
@@ -35,7 +43,14 @@
 </Story>
 
 <Story name="NotToggle">
-  <PointBord type="fu" bind:han bind:fu bind:pointData bind:isChecked />
+  <PointBord
+    type="fu"
+    bind:han
+    bind:fu
+    bind:pointData
+    bind:isChecked
+    bind:isFuro
+  />
   <div>
     <span>ボタンの状態：</span>
     {isChecked}

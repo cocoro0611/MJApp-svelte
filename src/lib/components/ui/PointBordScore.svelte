@@ -20,6 +20,12 @@
   const formatPoint = (value: number | null | undefined): string => {
     if (value === null) return "-";
     if (value === undefined) return "0";
+    return `${value}`;
+  };
+
+  const formatPointMain = (value: number | null | undefined): string => {
+    if (value === null) return "-";
+    if (value === undefined) return "0点";
     for (const [points, name] of POINT_NAMES) {
       if (value === points) return name;
     }
@@ -28,13 +34,17 @@
 </script>
 
 <div class="flex justify-center text-xl font-bold">
-  {formatPoint(pointData.koRon)}
+  {formatPointMain(pointData.koRon)}
 </div>
 <div class="flex justify-center text-sm font-bold">
   <ul>
-    <li>親：{pointData.oyaRon}（{pointData.oyaTumo} All）</li>
     <li>
-      子：{pointData.koRon}（{pointData.koTumo_oya}/{pointData.koTumo_ko}）
+      親：{formatPoint(pointData.oyaRon)}（{formatPoint(pointData.oyaTumo)} All）
+    </li>
+    <li>
+      子：{formatPoint(pointData.koRon)}（{formatPoint(
+        pointData.koTumo_oya,
+      )}/{formatPoint(pointData.koTumo_ko)}）
     </li>
   </ul>
 </div>
