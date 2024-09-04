@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PointHeader2 from "./PointHeader2.svelte";
+  import PointHeader from "./PointHeader.svelte";
   import PointBordSelect from "./PointBordSelect.svelte";
   import PointBordScore from "./PointBordScore.svelte";
 
@@ -13,7 +13,7 @@
 </script>
 
 <div class="pb-4">
-  <PointHeader2 {type} bind:isFuro on:click on:change />
+  <PointHeader {type} bind:isFuro on:click on:change />
 
   <PointBordSelect bind:fu bind:han />
 
