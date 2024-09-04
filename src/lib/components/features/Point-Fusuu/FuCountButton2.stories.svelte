@@ -14,11 +14,27 @@
 
   let han: number = 0;
   let fu: number = 20;
-  let count: number = 0;
+  let isFuro: boolean = true;
+
+  let fuCountButton: FuCountButton2;
+
+  const clearValue = () => {
+    han = 0;
+    fu = 20;
+    fuCountButton.resetItemsStores();
+  };
 </script>
 
 <Story name="Default">
-  <FuCountButton2 bind:han bind:fu />
-  <div>TotalHan：{han}</div>
-  <div>TotalFu：{fu}</div>
+  <div class="p-4">
+    <button class="text-blue-500 font-bold mx-4 mb-2" on:click="{clearValue}"
+      >Clear</button
+    >
+    <div class="mt-4">
+      <div>Total Han：{han}</div>
+      <div>Total fu：{fu}</div>
+      <div>Is Furo：{isFuro ? "Yes" : "No"}</div>
+    </div>
+    <FuCountButton2 bind:this="{fuCountButton}" bind:han bind:fu />
+  </div>
 </Story>

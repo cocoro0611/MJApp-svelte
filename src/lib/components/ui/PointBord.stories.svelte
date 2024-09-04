@@ -15,6 +15,7 @@
 
   let han: number = 2;
   let fu: number = 50;
+  let fuDetail: number = 48;
   let pointData: PointData = {
     oyaRon: 1500,
     oyaTumo: 500,
@@ -50,4 +51,15 @@
     <span>トグルの状態：</span>
     {isFuro}
   </div>
+</Story>
+
+<Story name="Fusuu">
+  <PointBord
+    type="fu"
+    bind:han
+    bind:fu
+    bind:fuDetail
+    bind:pointData
+    on:click="{clearValue}"
+  />
 </Story>

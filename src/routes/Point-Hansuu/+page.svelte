@@ -6,7 +6,6 @@
 
   let han: number = 0;
   let fu: number = 30;
-  let count: number = 0;
   let isFuro: boolean = true;
 
   let pointData: PointData = {
@@ -49,7 +48,6 @@
   const clearValue = () => {
     han = 0;
     fu = 30;
-    count = 0;
     if (menzenButton) {
       menzenButton.resetItemsStores();
     }
@@ -76,8 +74,8 @@
 
 <div class="flex-grow overflow-y-auto">
   {#if isFuro}
-    <MenzenButton bind:this="{menzenButton}" bind:han bind:count />
+    <MenzenButton bind:this="{menzenButton}" bind:han />
   {:else}
-    <FuroButton bind:this="{furoButton}" bind:han bind:count />
+    <FuroButton bind:this="{furoButton}" bind:han />
   {/if}
 </div>

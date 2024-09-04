@@ -14,14 +14,12 @@
   import { Toggle } from "flowbite-svelte";
 
   let han: number = 0;
-  let count: number = 0;
   let isFuro: boolean = true;
 
   let furoButton: FuroButton;
 
   const clearValue = () => {
     han = 0;
-    count = 0;
     furoButton.resetItemsStores();
   };
 
@@ -39,9 +37,8 @@
     <Toggle color="blue" on:change="{onToggle}" />
     <div class="mt-4">
       <div>Total Han：{han}</div>
-      <div>Count：{count}</div>
       <div>Is Furo：{isFuro ? "Yes" : "No"}</div>
     </div>
-    <FuroButton bind:this="{furoButton}" bind:han bind:count />
+    <FuroButton bind:this="{furoButton}" bind:han />
   </div>
 </Story>

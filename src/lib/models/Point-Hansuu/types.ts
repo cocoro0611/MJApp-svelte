@@ -1,3 +1,11 @@
+export interface ButtonList {
+    label: string;
+    value: number;
+    isSelected: boolean;
+    isCount?: boolean;
+    count?: number;
+}
+
 export interface PointData {
   oyaRonPoint: number;
   oyaTumoPoint: number;

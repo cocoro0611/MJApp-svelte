@@ -1,17 +1,10 @@
 <script lang="ts">
   import Button2 from "$lib/components/ui/Button2.svelte";
   import ButtonCount from "$lib/components/ui/ButtonCount.svelte";
-  import { writable, derived, type Writable } from "svelte/store";
+  import { derived, writable, type Writable } from "svelte/store";
+  import type { ButtonList } from "$lib/models/Point-Hansuu/types.js";
 
   export let han: number;
-  export let count: number;
-
-  interface ButtonList {
-    label: string;
-    value: number;
-    isSelected: boolean;
-    isCount?: boolean;
-  }
 
   const itemsStores: Writable<ButtonList[]>[] = [
     writable([
@@ -28,7 +21,7 @@
       { label: "三色同順", value: 1, isSelected: false },
       { label: "一気通貫", value: 1, isSelected: false },
       { label: "混全帯么九", value: 1, isSelected: false },
-      { label: "ドラ", value: 1, isSelected: false, isCount: true },
+      { label: "ドラ", value: 1, isSelected: false, isCount: true, count: 0 },
     ]),
     writable([
       { label: "三色同刻", value: 2, isSelected: false },
@@ -78,15 +71,16 @@
     });
   };
 
-  const maxCount: number = 13;
   const countButton = (store: Writable<ButtonList[]>, index: number) => {
+    const maxCount: number = 13;
     store.update((items: ButtonList[]) => {
-      count += 1;
-      han += items[index].value;
-      items[index].isSelected = true;
-      if (count > maxCount) {
-        count = 0;
-        han = 0;
+      const item = items[index];
+      item.count = (item.count || 0) + 1;
+      han += item.value;
+      item.isSelected = true;
+      if ((item.count || 0) > maxCount) {
+        item.count = 0;
+        han -= maxCount + 1;
         items[index].isSelected = false;
       }
       return items;
@@ -96,7 +90,7 @@
   export function resetItemsStores() {
     itemsStores.forEach((store) => {
       store.update((items) =>
-        items.map((item) => ({ ...item, isSelected: false })),
+        items.map((item) => ({ ...item, isSelected: false, count: 0 })),
       );
     });
   }
@@ -110,9 +104,9 @@
         <div class="flex flex-wrap gap-2 py-1">
           {#each row as item, colIndex}
             {@const index = rowIndex * 6 + colIndex}
-            {#if item.isCount === true}
+            {#if item.isCount}
               <ButtonCount
-                bind:count
+                count="{item.count || 0}"
                 isSelected="{item.isSelected}"
                 on:click="{() => countButton(group.store, index)}"
               >
