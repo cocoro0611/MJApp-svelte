@@ -133,7 +133,7 @@
         store: items2,
       },
       {
-        title: "面子（１, ９, 字牌",
+        title: "面子（１, ９, 字牌）",
         itemRows: chunkArray($items3, 4),
         store: items3,
       },

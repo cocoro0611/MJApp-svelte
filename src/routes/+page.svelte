@@ -4,7 +4,7 @@
   import PointHansuuPage from "../routes/Point-Hansuu/+page.svelte";
   import Footer from "$lib/components/ui/Footer.svelte";
 
-  let currentPage: "home" | "member" | "fusuu" | "hansuu" = "hansuu";
+  let currentPage: "home" | "member" | "fusuu" | "hansuu" = "fusuu";
 
   const handlePageChange = (page: CustomEvent<typeof currentPage>) => {
     currentPage = page.detail;
