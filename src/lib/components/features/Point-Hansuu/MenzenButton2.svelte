@@ -73,6 +73,7 @@
     ]),
   ];
 
+  // 配列を6個ずつのグループに分割する関数
   function chunkArray(arr: ButtonList[], size: number): ButtonList[][] {
     return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
       arr.slice(i * size, i * size + size),

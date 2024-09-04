@@ -13,50 +13,44 @@
     isCount?: boolean;
   }
 
-  const items1: Writable<ButtonList[]> = writable([
-    { label: "白", value: 1, isSelected: false },
-    { label: "發", value: 1, isSelected: false },
-    { label: "中", value: 1, isSelected: false },
-    { label: "自風牌", value: 1, isSelected: false },
-    { label: "場風牌", value: 1, isSelected: false },
-    { label: "断幺九", value: 1, isSelected: false },
-    { label: "海底摸月", value: 1, isSelected: false },
-    { label: "河底撈魚", value: 1, isSelected: false },
-    { label: "嶺上開花", value: 1, isSelected: false },
-    { label: "槍槓", value: 1, isSelected: false },
-    { label: "三色同順", value: 1, isSelected: false },
-    { label: "一気通貫", value: 1, isSelected: false },
-    { label: "混全帯么九", value: 1, isSelected: false },
-    { label: "ドラ", value: 1, isSelected: false, isCount: true },
-  ]);
-
-  const items2: Writable<ButtonList[]> = writable([
-    { label: "三色同刻", value: 2, isSelected: false },
-    { label: "三暗刻", value: 2, isSelected: false },
-    { label: "対々和", value: 2, isSelected: false },
-    { label: "三槓子", value: 2, isSelected: false },
-    { label: "小三元", value: 2, isSelected: false },
-    { label: "混老頭", value: 2, isSelected: false },
-    { label: "純全帯么九", value: 2, isSelected: false },
-    { label: "混一色", value: 2, isSelected: false },
-  ]);
-
-  const items3: Writable<ButtonList[]> = writable([
-    { label: "清一色", value: 5, isSelected: false },
-  ]);
-
-  const items4: Writable<ButtonList[]> = writable([
-    { label: "大三元", value: 13, isSelected: false },
-    { label: "緑一色", value: 13, isSelected: false },
-    { label: "字一色", value: 13, isSelected: false },
-    { label: "清老頭", value: 13, isSelected: false },
-    { label: "四槓子", value: 13, isSelected: false },
-    { label: "小四喜", value: 13, isSelected: false },
-  ]);
-
-  const items5: Writable<ButtonList[]> = writable([
-    { label: "大四喜", value: 26, isSelected: false },
-  ]);
+  const itemsStores: Writable<ButtonList[]>[] = [
+    writable([
+      { label: "白", value: 1, isSelected: false },
+      { label: "發", value: 1, isSelected: false },
+      { label: "中", value: 1, isSelected: false },
+      { label: "自風牌", value: 1, isSelected: false },
+      { label: "場風牌", value: 1, isSelected: false },
+      { label: "断幺九", value: 1, isSelected: false },
+      { label: "海底摸月", value: 1, isSelected: false },
+      { label: "河底撈魚", value: 1, isSelected: false },
+      { label: "嶺上開花", value: 1, isSelected: false },
+      { label: "槍槓", value: 1, isSelected: false },
+      { label: "三色同順", value: 1, isSelected: false },
+      { label: "一気通貫", value: 1, isSelected: false },
+      { label: "混全帯么九", value: 1, isSelected: false },
+      { label: "ドラ", value: 1, isSelected: false, isCount: true },
+    ]),
+    writable([
+      { label: "三色同刻", value: 2, isSelected: false },
+      { label: "三暗刻", value: 2, isSelected: false },
+      { label: "対々和", value: 2, isSelected: false },
+      { label: "三槓子", value: 2, isSelected: false },
+      { label: "小三元", value: 2, isSelected: false },
+      { label: "混老頭", value: 2, isSelected: false },
+      { label: "純全帯么九", value: 2, isSelected: false },
+      { label: "混一色", value: 2, isSelected: false },
+    ]),
+    writable([{ label: "清一色", value: 5, isSelected: false }]),
+    writable([
+      { label: "大三元", value: 13, isSelected: false },
+      { label: "緑一色", value: 13, isSelected: false },
+      { label: "字一色", value: 13, isSelected: false },
+      { label: "清老頭", value: 13, isSelected: false },
+      { label: "四槓子", value: 13, isSelected: false },
+      { label: "小四喜", value: 13, isSelected: false },
+    ]),
+    writable([{ label: "大四喜", value: 26, isSelected: false }]),
+  ];
 
   // 配列を6個ずつのグループに分割する関数
   function chunkArray(arr: ButtonList[], size: number): ButtonList[][] {
@@ -65,15 +59,14 @@
     );
   }
 
-  const itemsGroup = derived(
-    [items1, items2, items3, items4, items5],
-    ([$items1, $items2, $items3, $items4, $items5]) => [
-      { title: "１翻役", itemRows: chunkArray($items1, 6), store: items1 },
-      { title: "２翻役", itemRows: chunkArray($items2, 6), store: items2 },
-      { title: "５翻役", itemRows: chunkArray($items3, 6), store: items3 },
-      { title: "役満", itemRows: chunkArray($items4, 6), store: items4 },
-      { title: "ダブル役満", itemRows: chunkArray($items5, 6), store: items5 },
-    ],
+  const titles = ["１翻役", "２翻役", "５翻役", "役満", "ダブル役満"];
+
+  const itemsGroup = derived(itemsStores, ($itemsStores) =>
+    $itemsStores.map((items, index) => ({
+      title: titles[index],
+      itemRows: chunkArray(items, 6),
+      store: itemsStores[index],
+    })),
   );
 
   const onButton = (store: Writable<ButtonList[]>, index: number) => {
@@ -99,6 +92,14 @@
       return items;
     });
   };
+
+  export function resetItemsStores() {
+    itemsStores.forEach((store) => {
+      store.update((items) =>
+        items.map((item) => ({ ...item, isSelected: false })),
+      );
+    });
+  }
 </script>
 
 <div class="flex justify-center">

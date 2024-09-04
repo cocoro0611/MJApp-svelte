@@ -1,7 +1,7 @@
 <script lang="ts">
   import PointBord from "$lib/components/ui/PointBord.svelte";
   import MenzenButton2 from "$lib/components/features/Point-Hansuu/MenzenButton2.svelte";
-  import ForoButton2 from "$lib/components/features/Point-Hansuu/FuroButton2.svelte";
+  import FuroButton2 from "$lib/components/features/Point-Hansuu/FuroButton2.svelte";
   import type { PointData } from "$lib/models/types.js";
 
   let han: number = 0;
@@ -44,12 +44,18 @@
   }
 
   let menzenButton2: MenzenButton2;
+  let furoButton2: FuroButton2;
 
   const clearValue = () => {
     han = 0;
     fu = 30;
     count = 0;
-    menzenButton2.resetItemsStores();
+    if (menzenButton2) {
+      menzenButton2.resetItemsStores();
+    }
+    if (furoButton2) {
+      furoButton2.resetItemsStores();
+    }
   };
 
   const onToggle = () => {
@@ -72,6 +78,6 @@
   {#if isFuro}
     <MenzenButton2 bind:this="{menzenButton2}" bind:han bind:count />
   {:else}
-    <ForoButton2 bind:han bind:count />
+    <FuroButton2 bind:this="{furoButton2}" bind:han bind:count />
   {/if}
 </div>
