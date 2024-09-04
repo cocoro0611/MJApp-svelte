@@ -8,31 +8,12 @@
   export let type: "han" | "fu";
   export let han: number;
   export let fu: number;
-  export let count: number;
   export let pointData: PointData;
-  export let isChecked: boolean;
   export let isFuro: boolean;
-
-  const clearValue = () => {
-    han = 0;
-    fu = 30;
-    count = 0;
-    isChecked = false;
-  };
-
-  const onToggle = () => {
-    isFuro = !isFuro;
-    clearValue();
-  };
 </script>
 
 <div class="pb-4">
-  <PointHeader2
-    bind:isFuro
-    on:click="{clearValue}"
-    on:change="{onToggle}"
-    {type}
-  />
+  <PointHeader2 {type} bind:isFuro on:click on:change />
 
   <PointBordSelect bind:fu bind:han />
 

@@ -1,95 +1,13 @@
-<!-- <script lang="ts">
-  import PointHeader from "$lib/components/ui/PointHeader.svelte";
-  import PointBord from "$lib/components/features/Point-Hansuu/PointBord.svelte";
-  import MenzenButton from "$lib/components/features/Point-Hansuu/MenzenButton.svelte";
-  import ForoButton from "$lib/components/features/Point-Hansuu/FuroButton.svelte";
-
-  import type { PointData } from "$lib/models/Point-Hansuu/types.js";
-
-  let buttonStates: { [key: string]: boolean } = {};
-  let doraCount: { [key: string]: number } = {};
-  let error: string | null = null;
-
-  let fu: number = 30;
-  let han: number = 0;
-  let pointData: PointData = {
-    oyaRonPoint: 0,
-    oyaTumoPoint: 0,
-    koRonPoint: 0,
-    koTumoPoint_oya: 0,
-    koTumoPoint_ko: 0,
-  };
-
-  let isChecked: boolean = false;
-
-  async function calculatePoints() {
-    try {
-      const response = await fetch(`/api/point?fu=${fu}&han=${han}`);
-      if (!response.ok) {
-        throw new Error("API request failed");
-      }
-      const data = await response.json();
-      pointData.oyaRonPoint = data.oyaRonPoint;
-      pointData.oyaTumoPoint = data.oyaTumoPoint;
-      pointData.koRonPoint = data.koRonPoint;
-      pointData.koTumoPoint_oya = data.koTumoPoint_oya;
-      pointData.koTumoPoint_ko = data.koTumoPoint_ko;
-    } catch (e) {
-      error = e instanceof Error ? e.message : "An unknown error occurred";
-    }
-  }
-
-  $: {
-    if (han !== undefined || fu !== undefined) {
-      calculatePoints();
-    }
-  }
-
-  function clearHan() {
-    han = 0;
-    fu = 30;
-    Object.keys(buttonStates).forEach((key) => {
-      buttonStates[key] = false;
-    });
-    Object.keys(doraCount).forEach((key) => {
-      doraCount[key] = 0;
-    });
-  }
-
-  function handleToggle() {
-    isChecked = !isChecked;
-    clearHan();
-  }
-</script>
-
-<div class="flex-none">
-  <PointHeader
-    bind:isChecked
-    onToggle="{handleToggle}"
-    onClear="{clearHan}"
-    type="han"
-  />
-  <PointBord bind:fu bind:han bind:pointData />
-</div>
-
-<div class="flex-grow overflow-y-auto">
-  {#if isChecked}
-    <ForoButton bind:han bind:buttonStates bind:doraCount />
-  {:else}
-    <MenzenButton bind:han bind:buttonStates bind:doraCount />
-  {/if}
-</div> -->
-
 <script lang="ts">
   import PointBord from "$lib/components/ui/PointBord.svelte";
   import MenzenButton2 from "$lib/components/features/Point-Hansuu/MenzenButton2.svelte";
   import ForoButton2 from "$lib/components/features/Point-Hansuu/FuroButton2.svelte";
-
   import type { PointData } from "$lib/models/types.js";
 
   let han: number = 0;
   let fu: number = 30;
   let count: number = 0;
+  let isFuro: boolean = true;
 
   let pointData: PointData = {
     oyaRon: 0,
@@ -98,9 +16,6 @@
     koTumo_oya: 0,
     koTumo_ko: 0,
   };
-
-  let isChecked: boolean = true;
-  let isFuro: boolean = true;
 
   // API
   let error: string | null = null;
@@ -111,11 +26,13 @@
         throw new Error("API request failed");
       }
       const data = await response.json();
-      pointData.oyaRon = data.oyaRonPoint;
-      pointData.oyaTumo = data.oyaTumoPoint;
-      pointData.koRon = data.koRonPoint;
-      pointData.koTumo_oya = data.koTumoPoint_oya;
-      pointData.koTumo_ko = data.koTumoPoint_ko;
+      pointData = {
+        oyaRon: data.oyaRonPoint,
+        oyaTumo: data.oyaTumoPoint,
+        koRon: data.koRonPoint,
+        koTumo_oya: data.koTumoPoint_oya,
+        koTumo_ko: data.koTumoPoint_ko,
+      };
     } catch (e) {
       error = e instanceof Error ? e.message : "An unknown error occurred";
     }
@@ -125,21 +42,35 @@
       calculatePoints();
     }
   }
+
+  let menzenButton2: MenzenButton2;
+
+  const clearValue = () => {
+    han = 0;
+    fu = 30;
+    count = 0;
+    menzenButton2.resetItemsStores();
+  };
+
+  const onToggle = () => {
+    isFuro = !isFuro;
+    clearValue();
+  };
 </script>
 
 <PointBord
   type="han"
   bind:han
   bind:fu
-  bind:count
   bind:pointData
-  bind:isChecked
   bind:isFuro
+  on:click="{clearValue}"
+  on:change="{onToggle}"
 />
 
 <div class="flex-grow overflow-y-auto">
   {#if isFuro}
-    <MenzenButton2 bind:han bind:count />
+    <MenzenButton2 bind:this="{menzenButton2}" bind:han bind:count />
   {:else}
     <ForoButton2 bind:han bind:count />
   {/if}

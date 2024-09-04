@@ -23,8 +23,17 @@
     koTumo_ko: 300,
   };
 
-  let isChecked: boolean = true;
   let isFuro: boolean = true;
+
+  const clearValue = () => {
+    han = 0;
+    fu = 30;
+  };
+
+  const onToggle = () => {
+    isFuro = !isFuro;
+    clearValue();
+  };
 </script>
 
 <Story name="Default">
@@ -33,26 +42,12 @@
     bind:han
     bind:fu
     bind:pointData
-    bind:isChecked
     bind:isFuro
+    on:click="{clearValue}"
+    on:change="{onToggle}"
   />
   <div>
-    <span>ボタンの状態：</span>
-    {isChecked}
-  </div>
-</Story>
-
-<Story name="NotToggle">
-  <PointBord
-    type="fu"
-    bind:han
-    bind:fu
-    bind:pointData
-    bind:isChecked
-    bind:isFuro
-  />
-  <div>
-    <span>ボタンの状態：</span>
-    {isChecked}
+    <span>トグルの状態：</span>
+    {isFuro}
   </div>
 </Story>

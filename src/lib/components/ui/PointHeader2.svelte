@@ -11,12 +11,12 @@
     >{#if type === "han"}
       <div class="flex">
         <div
-          class="{isFuro ? 'text-gray-300' : 'text-blue-500'} mr-2 font-bold"
+          class="{isFuro ? 'text-blue-500' : 'text-gray-300'} mr-2 font-bold"
         >
           門前
         </div>
         <Toggle color="blue" on:change />
-        <div class="{isFuro ? 'text-blue-500' : 'text-gray-300'}  font-bold">
+        <div class="{isFuro ? 'text-gray-300' : 'text-blue-500'}  font-bold">
           副露
         </div>
       </div>
