@@ -12,11 +12,11 @@
 </script>
 
 {#if currentPage === "home"}
-  <TotalPointPage />
+  <!-- <TotalPointPage /> -->
 {:else if currentPage === "member"}
   メンバー
 {:else if currentPage === "fusuu"}
-  <PointFusuuPage />
+  <!-- <PointFusuuPage /> -->
 {:else if currentPage === "hansuu"}
   <PointHansuuPage />
 {/if}
