@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from "$$lib/components/ui/Button.svelte
+  import Button from "$lib/components/ui/Button.svelte";
   import ButtonCount from "$lib/components/ui/ButtonCount.svelte";
   import { derived, writable, type Writable } from "svelte/store";
   import type { ButtonList } from "$lib/models/Point-Hansuu/types.js";
