@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import Button2 from "./Button2.svelte";
+  import Button2 from "./Button.svelte";
 
   export const meta: Meta<Button2> = {
     title: "UI/Button2",

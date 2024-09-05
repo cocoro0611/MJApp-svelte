@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button2 from "$lib/components/ui/Button2.svelte";
+  import Button from "$$lib/components/ui/Button.svelte
   import ButtonCount from "$lib/components/ui/ButtonCount.svelte";
   import { derived, writable, type Writable } from "svelte/store";
   import type { ButtonList } from "$lib/models/Point-Hansuu/types.js";
@@ -134,12 +134,12 @@
                 {item.label}
               </ButtonCount>
             {:else}
-              <Button2
+              <Button
                 isSelected="{item.isSelected}"
                 on:click="{() => onButton(group.store, index)}"
               >
                 {item.label}
-              </Button2>
+              </Button>
             {/if}
           {/each}
         </div>

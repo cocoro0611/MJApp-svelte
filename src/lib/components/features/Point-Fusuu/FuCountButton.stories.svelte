@@ -12,14 +12,29 @@
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
 
-  let buttonStates: { [key: string]: boolean } = {};
-  let count: { [key: string]: number } = {};
-  let han = 0;
-  let fu = 0;
+  let han: number = 0;
+  let fu: number = 20;
+  let isFuro: boolean = true;
+
+  let fuCountButton: FuCountButton;
+
+  const clearValue = () => {
+    han = 0;
+    fu = 20;
+    fuCountButton.resetItemsStores();
+  };
 </script>
 
 <Story name="Default">
-  <div class="flex justify-center text-xl">合計翻数: {han}</div>
-  <div class="flex justify-center text-xl">合計符数: {fu}</div>
-  <FuCountButton bind:han bind:fu bind:buttonStates bind:count />
+  <div class="p-4">
+    <button class="text-blue-500 font-bold mx-4 mb-2" on:click="{clearValue}"
+      >Clear</button
+    >
+    <div class="mt-4">
+      <div>Total Han：{han}</div>
+      <div>Total fu：{fu}</div>
+      <div>Is Furo：{isFuro ? "Yes" : "No"}</div>
+    </div>
+    <FuCountButton bind:this="{fuCountButton}" bind:han bind:fu />
+  </div>
 </Story>

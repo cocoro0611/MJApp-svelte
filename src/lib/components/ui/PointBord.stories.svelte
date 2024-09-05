@@ -15,7 +15,7 @@
 
   let han: number = 2;
   let fu: number = 50;
-  let fuDetail: number = 48;
+  let fuUp: number = 48;
   let pointData: PointData = {
     oyaRon: 1500,
     oyaTumo: 500,
@@ -58,7 +58,7 @@
     type="fu"
     bind:han
     bind:fu
-    bind:fuDetail
+    bind:fuUp
     bind:pointData
     on:click="{clearValue}"
   />

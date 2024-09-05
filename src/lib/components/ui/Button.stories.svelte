@@ -9,20 +9,37 @@
   };
 </script>
 
-<script>
+<script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
+  import { IconUserMinus } from "@tabler/icons-svelte";
+
+  let isSelected: boolean;
+  let count: number = 0;
+
+  const countButton = () => {
+    count += 1;
+  };
+
+  const onButton = () => {
+    isSelected = !isSelected;
+  };
 </script>
 
 <Story name="Default">
-  <div class="flex gap-2">
-    <Button type="normal">未選択</Button>
-    <Button type="normal" isSelected>選択</Button>
-  </div>
+  <div>カウント</div>
+  <Button type="button" on:click="{countButton}">選択する</Button>
+  <div class="p-4">クリック数：{count}回</div>
 </Story>
 
-<Story name="longWight">
-  <div class="flex gap-2">
-    <Button type="wight">未選択</Button>
-    <Button type="wight" isSelected>選択</Button>
-  </div>
+<Story name="Active">
+  <div>クリックで選択</div>
+  <Button bind:isSelected on:click="{onButton}">立直</Button>
+</Story>
+
+<Story name="Icon">
+  <div>クリックで選択</div>
+  <Button isIcon bind:isSelected on:click="{onButton}">
+    <IconUserMinus slot="icon" />
+    ユーザー
+  </Button>
 </Story>

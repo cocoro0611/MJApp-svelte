@@ -8,7 +8,7 @@
   export let type: "han" | "fu";
   export let han: number;
   export let fu: number;
-  export let fuDetail: number = 0;
+  export let fuUp: number = 30;
   export let pointData: PointData;
   export let isFuro: boolean = false;
 </script>
@@ -16,7 +16,7 @@
 <div class="pb-4">
   <PointHeader {type} bind:isFuro on:click on:change />
 
-  <PointBordSelect {type} bind:fu bind:han bind:fuDetail />
+  <PointBordSelect {type} bind:fu bind:han bind:fuUp />
 
   <PointBordScore bind:pointData />
 </div>

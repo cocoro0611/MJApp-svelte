@@ -13,7 +13,7 @@
   import { Story } from "@storybook/addon-svelte-csf";
 
   let fu: number = 30;
-  let fuDetail: number = 22;
+  let fuUp: number = 30;
   let han: number = 4;
 </script>
 
@@ -22,5 +22,5 @@
 </Story>
 
 <Story name="Fusuu">
-  <PointBordSelect bind:fu bind:han bind:fuDetail type="fu" />
+  <PointBordSelect bind:fu bind:han bind:fuUp type="fu" />
 </Story>

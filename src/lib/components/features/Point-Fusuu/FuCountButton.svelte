@@ -1,316 +1,257 @@
 <script lang="ts">
-  import Button from "$lib/components/ui/Button.svelte";
-
-  import type { ButtonConfig } from "$lib/models/Point-Fusuu/types.js";
+  import Button from "$$lib/components/ui/Button.svelte
+  import ButtonCount from "$lib/components/ui/ButtonCount.svelte";
+  import { derived, writable, type Writable } from "svelte/store";
+  import type { ButtonList } from "$lib/models/Point-Fusuu/types.js";
 
   export let han: number;
   export let fu: number;
-  export let buttonStates: { [key: string]: boolean };
-  export let count: { [key: string]: number } = {};
 
-  const buttonConfig: { [key: string]: ButtonConfig } = {
-    Btn1: {
-      label: "門前ロン",
-      hanValue: 1,
-      fuValue: 30,
-      group: "和了 + 翻数（４翻以下）※",
-      isCount: true,
-      isSelectAgari: true,
-    },
-    Btn2: {
-      label: "ツモ",
-      hanValue: 1,
-      fuValue: 22,
-      group: "和了 + 翻数（４翻以下）※",
-      isCount: true,
-      isSelectAgari: true,
-    },
-    Btn3: {
-      label: "七対子",
-      hanValue: 1,
-      fuValue: 25,
-      group: "和了 + 翻数（４翻以下）※",
-      isCount: true,
-      isChiToi: true,
-      isSelectAgari: true,
-    },
-    Btn8: {
-      label: "明刻",
-      hanValue: 0,
-      fuValue: 2,
-      group: "面子（２-８）※",
-      isCount: true,
-    },
-    Btn9: {
-      label: "暗刻",
-      hanValue: 0,
-      fuValue: 4,
-      group: "面子（２-８）※",
-      isCount: true,
-    },
-    Btn10: {
-      label: "明槓",
-      hanValue: 0,
-      fuValue: 8,
-      group: "面子（２-８）※",
-      isCount: true,
-    },
-    Btn11: {
-      label: "暗槓",
-      hanValue: 0,
-      fuValue: 16,
-      group: "面子（２-８）※",
-      isCount: true,
-    },
-    Btn12: {
-      label: "明刻",
-      hanValue: 0,
-      fuValue: 4,
-      group: "面子（１, ９, 字牌）※",
-      isCount: true,
-    },
-    Btn13: {
-      label: "暗刻",
-      hanValue: 0,
-      fuValue: 8,
-      group: "面子（１, ９, 字牌）※",
-      isCount: true,
-    },
-    Btn14: {
-      label: "明槓",
-      hanValue: 0,
-      fuValue: 16,
-      group: "面子（１, ９, 字牌）※",
-      isCount: true,
-    },
-    Btn15: {
-      label: "暗槓",
-      hanValue: 0,
-      fuValue: 32,
-      group: "面子（１, ９, 字牌）※",
-      isCount: true,
-    },
-    Btn16: {
-      label: "役牌",
-      hanValue: 0,
-      fuValue: 2,
-      group: "雀頭",
-      isSelectAtama: true,
-    },
-    Btn17: {
-      label: "連風牌",
-      hanValue: 0,
-      fuValue: 4,
-      group: "雀頭",
-      isSelectAtama: true,
-    },
-    Btn18: {
-      label: "単騎",
-      hanValue: 0,
-      fuValue: 2,
-      group: "待ち",
-      isSelectMati: true,
-    },
-    Btn19: {
-      label: "辺張",
-      hanValue: 0,
-      fuValue: 2,
-      group: "待ち",
-      isSelectMati: true,
-    },
-    Btn20: {
-      label: "間張",
-      hanValue: 0,
-      fuValue: 2,
-      group: "待ち",
-      isSelectMati: true,
-    },
-    Btn21: {
-      label: "延べ単",
-      hanValue: 0,
-      fuValue: 2,
-      group: "待ち",
-      isSelectMati: true,
-    },
+  const itemsStores: Writable<ButtonList[]>[] = [
+    writable([
+      {
+        label: "門前ロン",
+        fuVal: 30,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+      {
+        label: "ツモ",
+        fuVal: 22,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+      {
+        label: "七対子",
+        fuVal: 25,
+        isSelected: false,
+        isCount: true,
+        count: 1,
+      },
+      {
+        label: "平和ツモ",
+        fuVal: 20,
+        isSelected: false,
+        isCount: true,
+        count: 1,
+      },
+    ]),
+    writable([
+      {
+        label: "明刻",
+        fuVal: 2,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+      {
+        label: "暗刻",
+        fuVal: 4,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+      {
+        label: "明槓",
+        fuVal: 8,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+      {
+        label: "暗槓",
+        fuVal: 16,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+    ]),
+    writable([
+      {
+        label: "明刻",
+        fuVal: 4,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+      {
+        label: "暗刻",
+        fuVal: 8,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+      {
+        label: "明槓",
+        fuVal: 16,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+      {
+        label: "暗槓",
+        fuVal: 32,
+        isSelected: false,
+        isCount: true,
+        count: 0,
+      },
+    ]),
+    writable([
+      { label: "役牌", fuVal: 2, isSelected: false },
+      { label: "連風牌", fuVal: 4, isSelected: false },
+    ]),
+    writable([
+      { label: "単騎", fuVal: 2, isSelected: false },
+      { label: "辺張", fuVal: 2, isSelected: false },
+      { label: "間張", fuVal: 2, isSelected: false },
+      { label: "延べ単", fuVal: 2, isSelected: false },
+    ]),
+  ];
+
+  // 門前ロンまたはツモが選択されているか確認
+  const isInitialCategorySelected = derived(itemsStores[0], ($items) =>
+    $items.some(
+      (item) =>
+        (item.label === "門前ロン" || item.label === "ツモ") && item.isSelected,
+    ),
+  );
+
+  // 配列を6個ずつのグループに分割する関数
+  function chunkArray(arr: ButtonList[], size: number): ButtonList[][] {
+    return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+      arr.slice(i * size, i * size + size),
+    );
+  }
+
+  const titles = [
+    "和了 + 翻数（４翻以下）",
+    "面子（２-８）",
+    "面子（１, ９, 字牌）",
+    "雀頭",
+    "待ち",
+  ];
+
+  const itemsGroup = derived(itemsStores, ($itemsStores) =>
+    $itemsStores.map((items, index) => ({
+      title: titles[index],
+      itemRows: chunkArray(items, 6),
+      store: itemsStores[index],
+    })),
+  );
+
+  const onButton = (
+    store: Writable<ButtonList[]>,
+    index: number,
+    categoryIndex: number,
+  ) => {
+    store.update((items: ButtonList[]) => {
+      // 雀頭または待ちの排他処理
+      if (categoryIndex === 3 || categoryIndex === 4) {
+        items.forEach((item, i) => {
+          if (i !== index) {
+            if (item.isSelected) {
+              fu -= item.fuVal;
+            }
+            item.isSelected = false;
+          }
+        });
+      }
+      const isClick = !items[index].isSelected;
+      items[index].isSelected = isClick;
+      fu += isClick ? items[index].fuVal : -items[index].fuVal;
+      return items;
+    });
   };
 
-  type ButtonKey = keyof typeof buttonConfig;
-
-  function resetAllOtherButtons(exceptKey: ButtonKey) {
-    Object.keys(buttonConfig).forEach((key) => {
-      if (key !== exceptKey) {
-        if (buttonStates[key]) {
-          // 選択状態だったボタンの値を引く
-          fu -= buttonConfig[key].fuValue * (count[key] || 1);
-        }
-        buttonStates[key] = false;
-        count[key] = 0;
+  const countButton = (
+    store: Writable<ButtonList[]>,
+    index: number,
+    categoryIndex: number,
+  ) => {
+    const maxCount: number = 4;
+    store.update((items) => {
+      // 和了の排他的処理
+      if (categoryIndex === 0) {
+        items.forEach((item, i) => {
+          if (i !== index) {
+            item.count =
+              item.label === "七対子" || item.label === "平和ツモ" ? 1 : 0;
+            item.isSelected = false;
+          }
+        });
+        resetItemsStores();
       }
+      const item = items[index];
+      item.count = (item.count || 0) + 1;
+      if (categoryIndex === 0) {
+        han = item.count || 0;
+        fu = item.fuVal;
+        item.isSelected = true;
+        if ((item.count || 0) > maxCount) {
+          item.count =
+            item.label === "七対子" || item.label === "平和ツモ" ? 1 : 0;
+          han = 0;
+          fu = 30;
+          item.isSelected = false;
+        }
+      } else {
+        fu += item.fuVal;
+        item.isSelected = true;
+        if ((item.count || 0) > maxCount) {
+          item.count =
+            item.label === "七対子" || item.label === "平和ツモ" ? 1 : 0;
+          fu -= 5 * item.fuVal;
+          item.isSelected = false;
+        }
+      }
+      return items;
+    });
+  };
+
+  export function resetItemsStores() {
+    itemsStores.forEach((store) => {
+      store.update((items) =>
+        items.map((item) => ({ ...item, isSelected: false, count: 0 })),
+      );
     });
   }
-
-  function handleBtn(btnKey: ButtonKey) {
-    return () => {
-      const config = buttonConfig[btnKey];
-
-      if (config.isChiToi || config.isSelectAgari) {
-        resetAllOtherButtons(btnKey);
-      } else {
-        // 既存の排他制御処理
-        if (config.isSelectAtama) {
-          Object.keys(buttonConfig).forEach((key) => {
-            if (buttonConfig[key].isSelectAtama && key !== btnKey) {
-              if (buttonStates[key]) {
-                fu -= buttonConfig[key].fuValue;
-              }
-              buttonStates[key] = false;
-              count[key] = 0;
-            }
-          });
-        }
-
-        if (config.isSelectMati) {
-          Object.keys(buttonConfig).forEach((key) => {
-            if (buttonConfig[key].isSelectMati && key !== btnKey) {
-              if (buttonStates[key]) {
-                fu -= buttonConfig[key].fuValue;
-              }
-              buttonStates[key] = false;
-              count[key] = 0;
-            }
-          });
-        }
-      }
-
-      if (config.isCount) {
-        handleDoraBtn(btnKey);
-      } else {
-        const newState = !buttonStates[btnKey];
-        buttonStates[btnKey] = newState;
-        fu += newState ? config.fuValue : -config.fuValue;
-      }
-
-      buttonStates = { ...buttonStates };
-    };
-  }
-
-  function handleDoraBtn(btnKey: ButtonKey) {
-    const config = buttonConfig[btnKey];
-
-    if (!count[btnKey]) {
-      count[btnKey] = 0;
-    }
-
-    count[btnKey] += 1;
-
-    if (config.isChiToi) {
-      // 七対子の特別な処理
-      if (count[btnKey] <= 3) {
-        buttonStates[btnKey] = true;
-        fu = config.fuValue;
-        han = 1 + count[btnKey]; // 1回目: 2翻, 2回目: 3翻, 3回目: 4翻
-      } else {
-        // 4回目のクリックでリセット
-        count[btnKey] = 0;
-        buttonStates[btnKey] = false;
-        fu = 20; // デフォルトの符数に戻す
-        han = 0; // 翻数をリセット
-      }
-    } else if (config.isSelectAgari) {
-      // 他の和了ボタンの処理
-      if (count[btnKey] <= 4) {
-        buttonStates[btnKey] = true;
-        fu = config.fuValue;
-        han = count[btnKey]; // 1回目: 1翻, 2回目: 2翻, 3回目: 3翻, 4回目: 4翻
-      } else {
-        // 5回目のクリックでリセット
-        count[btnKey] = 0;
-        buttonStates[btnKey] = false;
-        fu = 20; // デフォルトの符数に戻す
-        han = 0; // 翻数をリセット
-      }
-    } else {
-      // 通常のカウントボタンの処理
-      if (count[btnKey] <= 4) {
-        if (!buttonStates[btnKey]) {
-          buttonStates[btnKey] = true;
-          fu += config.fuValue;
-        } else {
-          if (!("constFuValue" in config)) {
-            fu += config.fuValue;
-          }
-        }
-      } else {
-        count[btnKey] = 0;
-        buttonStates[btnKey] = false;
-        if ("constFuValue" in config) {
-          fu = 20;
-        } else {
-          fu -= 4 * config.fuValue;
-        }
-      }
-    }
-
-    buttonStates = { ...buttonStates };
-    count = { ...count };
-  }
-
-  const groupedButtons = Object.entries(buttonConfig).reduce(
-    (acc, [key, config]) => {
-      if (!acc[config.group]) {
-        acc[config.group] = [];
-      }
-      const currentGroup = acc[config.group];
-      if (
-        currentGroup.length === 0 ||
-        currentGroup[currentGroup.length - 1].length === 4
-      ) {
-        currentGroup.push([]);
-      }
-      currentGroup[currentGroup.length - 1].push([key, config]);
-      return acc;
-    },
-    {} as Record<string, [string, ButtonConfig][][]>,
-  );
 </script>
 
 <div class="flex justify-center">
   <div>
-    {#each Object.entries(groupedButtons) as [group, buttonRows]}
-      <div class="py-2 font-bold">{group}</div>
-      {#each buttonRows as buttons}
-        <div class="flex flex-wrap gap-2 mb-4">
-          {#each buttons as [btnKey, config]}
-            <Button
-              type="normal"
-              isSelected="{buttonStates[btnKey]}"
-              on:click="{handleBtn(btnKey)}"
-            >
-              {#if config.isCount && count[btnKey]}
-                {#if config.label === "門前ロン"}
-                  <div class="text-[0.65rem] leading-tight">{config.label}</div>
-                {:else}
-                  <div class="text-xs">{config.label}</div>
-                {/if}
-                {#if config.label === "門前ロン" || config.label === "ツモ" || config.label === "七対子"}
-                  {#if config.label === "七対子"}
-                    <div class="text-xs">{1 + count[btnKey]}翻</div>
-                  {:else}
-                    <div class="text-xs">{count[btnKey]}翻</div>
-                  {/if}
-                {:else}
-                  <div class="text-xs">{count[btnKey]}つ</div>
-                {/if}
-              {:else if config.label === "門前ロン"}
-                <div class="text-[0.65rem] leading-tight">{config.label}</div>
+    {#each $itemsGroup as group, categoryIndex}
+      {#if categoryIndex === 0 || $isInitialCategorySelected}
+        <div class="font-bold">{group.title}</div>
+        {#each group.itemRows as row, rowIndex}
+          <div class="flex flex-wrap gap-2 py-1">
+            {#each row as item, colIndex}
+              {@const index = rowIndex * 6 + colIndex}
+              {#if item.isCount}
+                <ButtonCount
+                  count="{item.count || 0}"
+                  isSelected="{item.isSelected}"
+                  on:click="{() =>
+                    countButton(group.store, index, categoryIndex)}"
+                >
+                  <svelte:fragment slot="countName">
+                    {group.title === "和了 + 翻数（４翻以下）" ? "翻" : "つ"}
+                  </svelte:fragment>
+                  {item.label}
+                </ButtonCount>
               {:else}
-                <div class="text-xs">{config.label}</div>
+                <Button
+                  isSelected="{item.isSelected}"
+                  on:click="{() => onButton(group.store, index, categoryIndex)}"
+                >
+                  {item.label}
+                </Button>
               {/if}
-            </Button>
-          {/each}
-        </div>
-      {/each}
+            {/each}
+          </div>
+        {/each}
+      {/if}
     {/each}
   </div>
 </div>
-<div class="flex justify-center mt-4 font-bold text-sm">※ タップでカウント</div>

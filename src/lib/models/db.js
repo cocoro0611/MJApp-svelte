@@ -1,4 +1,4 @@
-import { DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD } from '$env/static/private';
+// import { DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD } from '$env/static/private';
 import { Kysely, PostgresDialect } from 'kysely';
 import pg from 'pg';
 const { Pool } = pg;

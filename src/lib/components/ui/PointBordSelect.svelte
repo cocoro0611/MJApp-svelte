@@ -3,7 +3,7 @@
   import { ChevronDownOutline } from "flowbite-svelte-icons";
 
   export let fu: number;
-  export let fuDetail: number = 0;
+  export let fuUp: number = 30;
   export let han: number;
 
   export let type: "han" | "fu";
@@ -23,9 +23,9 @@
 <div class="flex justify-center gap-4">
   <Button color="light" class="text-blue-500 h-6 w-28 border-white">
     <div class="flex flex-col items-center">
-      <p>{fu} 符</p>
+      <p>{fuUp} 符</p>
       {#if type === "fu"}
-        <p>({fuDetail} 符)</p>
+        <p>({fu} 符)</p>
       {/if}
     </div>
     <ChevronDownOutline class="ms-2 text-blue-500 -mx-2" />
