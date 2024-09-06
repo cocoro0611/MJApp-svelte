@@ -27,13 +27,15 @@
 
 <Story name="Default">
   <div>カウント</div>
-  <Button type="button" on:click="{countButton}">選択する</Button>
+  <Button type="button1" on:click="{countButton}">選択する</Button>
+  <Button type="button2" on:click="{countButton}">閉じる</Button>
   <div class="p-4">クリック数：{count}回</div>
 </Story>
 
 <Story name="Active">
   <div>クリックで選択</div>
   <Button bind:isSelected on:click="{onButton}">立直</Button>
+  <Button isWide bind:isSelected on:click="{onButton}">30000点</Button>
 </Story>
 
 <Story name="Icon">

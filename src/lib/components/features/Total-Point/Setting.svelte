@@ -1,67 +1,117 @@
 <script lang="ts">
+  import { Input } from "flowbite-svelte";
+  import { IconUserMinus } from "@tabler/icons-svelte";
   import Button from "$lib/components/ui/Button.svelte";
-  import type { ButtonConfig } from "$lib/models/Total-Point/types.js";
+  import { derived, writable, type Writable } from "svelte/store";
+  import type { ButtonList } from "$lib/models/Total-Point/types.js";
 
-  const buttonConfig: { [key: string]: ButtonConfig } = {
-    Btn1: { label: "25000点", point: 25000, group: "持ち点" },
-    Btn2: { label: "30000点", point: 30000, group: "持ち点" },
-    Btn3: { label: "35000点", point: 35000, group: "持ち点" },
-    Btn4: { label: "40000点", point: 40000, group: "持ち点" },
-    Btn5: { label: "30000点", point: 30000, group: "返し点" },
-    Btn6: { label: "35000点", point: 35000, group: "返し点" },
-    Btn7: { label: "40000点", point: 40000, group: "返し点" },
-    Btn8: { label: "45000点", point: 45000, group: "返し点" },
-    Btn9: { label: "なし", uma: [0, 0], group: "ウマ" },
-    Btn10: { label: "5-10", uma: [5, 10], group: "ウマ" },
-    Btn11: { label: "10-20", uma: [10, 20], group: "ウマ" },
-    Btn12: { label: "10-30", uma: [10, 30], group: "ウマ" },
-    Btn13: { label: "なし", rate: 0, group: "レート" },
-    Btn14: { label: "テンイチ", rate: 1, group: "レート" },
-    Btn15: { label: "テンニ", rate: 2, group: "レート" },
-    Btn16: { label: "テンサン", rate: 3, group: "レート" },
-    Btn17: { label: "テンゴ", rate: 5, group: "レート" },
-    Btn18: { label: "テンピン", rate: 10, group: "レート" },
-    Btn19: { label: "なし", chip: 0, group: "チップ単価" },
-    Btn20: { label: "50P", chip: 50, group: "チップ単価" },
-    Btn21: { label: "100P", chip: 100, group: "チップ単価" },
-    Btn22: { label: "200P", chip: 200, group: "チップ単価" },
-  };
+  export let test: number;
 
-  const groupedButtons = Object.entries(buttonConfig).reduce(
-    (acc, [key, config]) => {
-      if (!acc[config.group]) {
-        acc[config.group] = [];
-      }
-      const currentGroup = acc[config.group];
-      if (
-        currentGroup.length === 0 ||
-        currentGroup[currentGroup.length - 1].length === 2
-      ) {
-        currentGroup.push([]);
-      }
-      currentGroup[currentGroup.length - 1].push([key, config]);
-      return acc;
-    },
-    {} as Record<string, [string, ButtonConfig][][]>,
+  const itemsStores: Writable<ButtonList[]>[] = [
+    writable([
+      { label: "25000点", value: 1, isSelected: true },
+      { label: "30000点", value: 1, isSelected: false },
+      { label: "35000点", value: 1, isSelected: false },
+      { label: "40000点", value: 1, isSelected: false },
+    ]),
+    writable([
+      { label: "30000点", value: 1, isSelected: true },
+      { label: "35000点", value: 1, isSelected: false },
+      { label: "40000点", value: 1, isSelected: false },
+      { label: "45000点", value: 1, isSelected: false },
+    ]),
+    writable([
+      { label: "なし", value: 1, isSelected: false },
+      { label: "5 - 10", value: 1, isSelected: false },
+      { label: "10 - 20", value: 1, isSelected: false },
+      { label: "10 - 30", value: 1, isSelected: true },
+    ]),
+    writable([
+      { label: "なし", value: 1, isSelected: false },
+      { label: "テンイチ", value: 1, isSelected: false },
+      { label: "テンニ", value: 1, isSelected: false },
+      { label: "テンサン", value: 1, isSelected: true },
+      { label: "テンゴ", value: 1, isSelected: false },
+      { label: "テンピン", value: 1, isSelected: false },
+    ]),
+    writable([
+      { label: "なし", value: 1, isSelected: false },
+      { label: "100P", value: 1, isSelected: true },
+      { label: "200P", value: 1, isSelected: false },
+      { label: "300P", value: 1, isSelected: false },
+      { label: "400P", value: 1, isSelected: false },
+      { label: "500P", value: 1, isSelected: false },
+    ]),
+  ];
+
+  // 配列をグループに分割する関数
+  function chunkArray(arr: ButtonList[], size: number): ButtonList[][] {
+    return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+      arr.slice(i * size, i * size + size),
+    );
+  }
+
+  const titles = ["持ち点", "返し点", "ウマ", "レート", "チップ"];
+
+  const itemsGroup = derived(itemsStores, ($itemsStores) =>
+    $itemsStores.map((items, index) => ({
+      title: titles[index],
+      itemRows: chunkArray(items, 2),
+      store: itemsStores[index],
+    })),
   );
+
+  const onButton = (store: Writable<ButtonList[]>, index: number) => {
+    store.update((items: ButtonList[]) => {
+      items.forEach((item, i) => {
+        if (i !== index) {
+          if (item.isSelected) {
+            test -= item.value;
+          }
+          item.isSelected = false;
+        }
+      });
+      const isClick = !items[index].isSelected;
+      items[index].isSelected = isClick;
+      test += isClick ? items[index].value : -items[index].value;
+      return items;
+    });
+  };
 </script>
 
 <div class="flex justify-center">
   <div>
-    <div class="py-2 font-bold">メンバー</div>
-    <div class="flex justify-center gap-2 mb-2">
-      <Button type="normal">P1</Button>
-      <Button type="normal">P2</Button>
-      <Button type="normal">P3</Button>
-      <Button type="normal">P4</Button>
-    </div>
-    {#each Object.entries(groupedButtons) as [group, buttonRows]}
-      <div class="py-2 font-bold">{group}</div>
-      {#each buttonRows as buttons}
-        <div class="flex flex-wrap gap-2 mb-2">
-          {#each buttons as [btnKey, config]}
-            <Button type="wight" on:click>
-              <div class="text-xs">{config.label}</div>
+    <div class="font-bold pb-1">部屋名</div>
+    <Input color="blue" id="" placeholder="部屋名を入力" />
+    <div class="font-bold pt-3">メンバー</div>
+    <Button isIcon>
+      <IconUserMinus slot="icon" />
+      ユーザー
+    </Button>
+    <Button isIcon>
+      <IconUserMinus slot="icon" />
+      ユーザー
+    </Button>
+    <Button isIcon>
+      <IconUserMinus slot="icon" />
+      ユーザー
+    </Button>
+    <Button isIcon>
+      <IconUserMinus slot="icon" />
+      ユーザー
+    </Button>
+    {#each $itemsGroup as group}
+      <div class="font-bold pt-2">{group.title}</div>
+      {#each group.itemRows as row, rowIndex}
+        <div class="flex flex-wrap gap-2 py-1">
+          {#each row as item, colIndex}
+            {@const index = rowIndex * 2 + colIndex}
+            <Button
+              isWide
+              isSelected="{item.isSelected}"
+              on:click="{() => onButton(group.store, index)}"
+            >
+              {item.label}
             </Button>
           {/each}
         </div>
@@ -69,6 +119,8 @@
     {/each}
   </div>
 </div>
-<div class="flex justify-center my-4">
-  <button class="btn-register">登録する</button>
+
+<div class="flex justify-center mt-6 gap-2">
+  <Button type="button2">閉じる</Button>
+  <Button type="button1">選択する</Button>
 </div>

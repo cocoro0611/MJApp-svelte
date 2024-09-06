@@ -1,20 +1,18 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import Setting from "./Setting.svelte";
+  import MemberCard from "./MemberCard.svelte";
 
-  export const meta: Meta<Setting> = {
-    title: "features/Total-Point/Setting",
-    component: Setting,
+  export const meta: Meta<MemberCard> = {
+    title: "UI/MemberCard",
+    component: MemberCard,
   };
 </script>
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  let test: number = 0;
 </script>
 
 <Story name="Default">
-  <Setting bind:test />
-  {test}
+  <MemberCard>a</MemberCard>
 </Story>

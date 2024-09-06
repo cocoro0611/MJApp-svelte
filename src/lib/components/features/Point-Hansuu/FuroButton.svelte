@@ -99,7 +99,7 @@
 <div class="flex justify-center">
   <div>
     {#each $itemsGroup as group}
-      <div class="font-bold">{group.title}</div>
+      <div class="font-bold pt-2">{group.title}</div>
       {#each group.itemRows as row, rowIndex}
         <div class="flex flex-wrap gap-2 py-1">
           {#each row as item, colIndex}
