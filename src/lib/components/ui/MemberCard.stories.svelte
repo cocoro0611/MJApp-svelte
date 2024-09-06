@@ -14,5 +14,9 @@
 </script>
 
 <Story name="Default">
-  <MemberCard>a</MemberCard>
+  <MemberCard image="/MemberIcon/monster01.png">井上</MemberCard>
+</Story>
+
+<Story name="isColor">
+  <MemberCard isColor image="/MemberIcon/monster01.png">井上</MemberCard>
 </Story>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Input } from "flowbite-svelte";
-  import { IconUserMinus } from "@tabler/icons-svelte";
   import Button from "$lib/components/ui/Button.svelte";
+  import MemberCard from "$lib/components/ui/MemberCard.svelte";
   import { derived, writable, type Writable } from "svelte/store";
   import type { ButtonList } from "$lib/models/Total-Point/types.js";
 
@@ -83,25 +83,24 @@
   <div>
     <div class="font-bold pb-1">部屋名</div>
     <Input color="blue" id="" placeholder="部屋名を入力" />
-    <div class="font-bold pt-3">メンバー</div>
-    <Button isIcon>
-      <IconUserMinus slot="icon" />
-      ユーザー
-    </Button>
-    <Button isIcon>
-      <IconUserMinus slot="icon" />
-      ユーザー
-    </Button>
-    <Button isIcon>
-      <IconUserMinus slot="icon" />
-      ユーザー
-    </Button>
-    <Button isIcon>
-      <IconUserMinus slot="icon" />
-      ユーザー
-    </Button>
+    <div class="flex justify-between font-bold pt-4 pb-1">
+      <div>メンバー</div>
+      <Button isCustom>カスタム</Button>
+    </div>
+    <MemberCard image="/MemberIcon/monster01.png">井上</MemberCard>
+    <MemberCard image="/MemberIcon/monster02.png">井上</MemberCard>
+    <MemberCard image="/MemberIcon/monster03.png">井上</MemberCard>
+    <MemberCard image="/MemberIcon/monster04.png">井上</MemberCard>
     {#each $itemsGroup as group}
-      <div class="font-bold pt-2">{group.title}</div>
+      <div class="flex justify-between font-bold pt-4">
+        <div>
+          <span class="mr-2">{group.title}</span>
+          <span>value</span>
+        </div>
+        <div>
+          <Button isCustom>カスタム</Button>
+        </div>
+      </div>
       {#each group.itemRows as row, rowIndex}
         <div class="flex flex-wrap gap-2 py-1">
           {#each row as item, colIndex}
@@ -121,6 +120,6 @@
 </div>
 
 <div class="flex justify-center mt-6 gap-2">
-  <Button type="button2">閉じる</Button>
-  <Button type="button1">選択する</Button>
+  <Button type="button" color="close">閉じる</Button>
+  <Button type="button" color="primary">選択する</Button>
 </div>

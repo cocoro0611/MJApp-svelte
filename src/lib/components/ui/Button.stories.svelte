@@ -27,8 +27,12 @@
 
 <Story name="Default">
   <div>カウント</div>
-  <Button type="button1" on:click="{countButton}">選択する</Button>
-  <Button type="button2" on:click="{countButton}">閉じる</Button>
+  <Button type="button" color="primary" on:click="{countButton}"
+    >選択する</Button
+  >
+  <Button type="button" color="close" on:click="{countButton}">閉じる</Button>
+  <Button type="button" color="delete" on:click="{countButton}">削除する</Button
+  >
   <div class="p-4">クリック数：{count}回</div>
 </Story>
 
@@ -36,12 +40,4 @@
   <div>クリックで選択</div>
   <Button bind:isSelected on:click="{onButton}">立直</Button>
   <Button isWide bind:isSelected on:click="{onButton}">30000点</Button>
-</Story>
-
-<Story name="Icon">
-  <div>クリックで選択</div>
-  <Button isIcon bind:isSelected on:click="{onButton}">
-    <IconUserMinus slot="icon" />
-    ユーザー
-  </Button>
 </Story>

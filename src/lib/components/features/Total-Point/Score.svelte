@@ -1,71 +1,47 @@
 <script lang="ts">
-  import Button from "$lib/components/ui/Button.svelte";
+  import MemberCard from "$lib/components/ui/MemberCard.svelte";
 
-  interface PlayerData {
-    name: string;
-    score: number;
-    balance: number;
-    points: number[];
-  }
+  const members = [
+    { name: "井上", icon: "/MemberIcon/monster01.png" },
+    { name: "高橋", icon: "/MemberIcon/monster02.png" },
+    { name: "岩田", icon: "/MemberIcon/monster03.png" },
+    { name: "洪", icon: "/MemberIcon/monster04.png" },
+  ];
 
-  interface GameData {
-    rules: string;
-    players: PlayerData[];
-  }
-
-  let gameData: GameData = {
-    rules: "ルール",
-    players: [
-      { name: "P1", score: 0, balance: 0, points: [0, 0, 0, 0] },
-      { name: "P2", score: 0, balance: 0, points: [0, 0, 0, 0] },
-      { name: "P3", score: 0, balance: 0, points: [0, 0, 0, 0] },
-      { name: "P4", score: 0, balance: 0, points: [0, 0, 0, 0] },
-    ],
-  };
-
-  function updateScore(playerIndex: number, pointIndex: number, value: number) {
-    gameData.players[playerIndex].points[pointIndex] = value;
-    gameData.players[playerIndex].score = gameData.players[
-      playerIndex
-    ].points.reduce((a, b) => a + b, 0);
-    // ここでbalanceの計算ロジックを実装することもできます
-    gameData = { ...gameData }; // 反応性のためにオブジェクトを新しく作成
-  }
+  const rows = [
+    { label: "スコア", values: [0, 0, 0, 0] },
+    { label: "チップ", values: [0, 0, 0, 0] },
+    { label: "収支", values: [0, 0, 0, 0] },
+  ];
 </script>
 
-<div class="grid grid-cols-5">
-  <div class="...">{gameData.rules}</div>
-  {#each gameData.players as player}
-    <div class="..."><Button type="normal">{player.name}</Button></div>
-  {/each}
-</div>
-
-<div class="grid grid-cols-5">
-  <div class="...">スコア</div>
-  {#each gameData.players as player}
-    <div class="...">{player.score}</div>
-  {/each}
-</div>
-
-<div class="grid grid-cols-5">
-  <div class="...">収支</div>
-  {#each gameData.players as player}
-    <div class="...">{player.balance}</div>
-  {/each}
-</div>
-
-{#each gameData.players[0].points as _, pointIndex}
-  <div class="grid grid-cols-5">
-    <div class="...">{pointIndex + 1}回目点数</div>
-    {#each gameData.players as player, playerIndex}
-      <div class="...">
-        <input
-          type="number"
-          bind:value="{player.points[pointIndex]}"
-          on:input="{() =>
-            updateScore(playerIndex, pointIndex, player.points[pointIndex])}"
-        />
+<div class="text-center">
+  <div class="grid grid-cols-5 bg-blue-50 text-blue-800">
+    <div class="flex items-center justify-center border border-white">
+      メインルール
+    </div>
+    {#each members as member}
+      <div class="flex items-center justify-center border border-white">
+        <MemberCard isColor image="{member.icon}">{member.name}</MemberCard>
       </div>
     {/each}
   </div>
-{/each}
+
+  {#each rows as row}
+    <div class="grid grid-cols-5 bg-blue-800 text-white">
+      <div class="flex items-center justify-center border border-white">
+        {row.label}
+      </div>
+      {#each row.values as value}
+        <div class="flex items-center justify-center border border-white">
+          <div class="relative w-full flex justify-center items-center">
+            <span>{value}</span>
+            {#if row.label === "収支"}
+              <span class="text-[0.7rem] absolute right-2">P</span>
+            {/if}
+          </div>
+        </div>
+      {/each}
+    </div>
+  {/each}
+</div>
