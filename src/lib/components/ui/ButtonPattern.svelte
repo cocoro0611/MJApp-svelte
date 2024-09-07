@@ -1,11 +1,20 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   export let pattern: "default" | "update" | "delete" = "default";
+
+  const dispatch = createEventDispatcher();
+  const handleClose = () => {
+    dispatch("close");
+  };
+  const handleCreate = () => {
+    dispatch("create");
+  };
 </script>
 
 {#if pattern === "default"}
   <div class="flex justify-center mt-6 gap-2">
-    <button class="close defaultSize" type="button">閉じる</button>
-    <button class="primary defaultSize" type="submit">登録</button>
+    <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
+    <button class="primary defaultSize" on:click="{handleCreate}">登録</button>
   </div>
 {/if}
 

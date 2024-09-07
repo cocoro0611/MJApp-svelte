@@ -6,23 +6,11 @@
   import MemberIcon from "$lib/components/ui/MemberIcon.svelte";
   import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
 
-  // export let data: User[];
   export let isDelete: boolean = false;
-
-  const dispatch = createEventDispatcher();
 
   let user: User = {
     name: "",
     icon: "monster01.png",
-  };
-
-  const onIconSelect = (icon: string) => {
-    user.icon = icon;
-  };
-
-  const handleSubmit = (event: Event) => {
-    event.preventDefault();
-    dispatch("submit", event);
   };
 
   const icons = [
@@ -51,9 +39,17 @@
     "animal_usagi.png",
     "icon_others_08.png",
   ];
+
+  const dispatch = createEventDispatcher();
+  const handleClose = () => {
+    dispatch("close");
+  };
+  const handleCreate = async (event: Event) => {
+    handleClose();
+  };
 </script>
 
-<form method="POST" action="?/createForm" on:submit="{handleSubmit}">
+<form method="POST" action="?/createForm">
   <div class="flex justify-center">
     <div>
       <div class="flex justify-start">
@@ -79,7 +75,7 @@
           {#each icons as icon}
             <MemberIcon
               isSelected="{user.icon === icon}"
-              on:click="{() => onIconSelect(icon)}"
+              on:click="{() => (user.icon = icon)}"
               image="/MemberIcon/{icon}"
             />
           {/each}
@@ -91,7 +87,11 @@
           <ButtonPattern pattern="delete" />
         </div>
       {/if}
-      <ButtonPattern pattern="default" />
+      <ButtonPattern
+        on:close="{handleClose}"
+        on:create="{handleCreate}"
+        pattern="default"
+      />
     </div>
   </div>
 </form>
