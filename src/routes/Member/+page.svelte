@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import type { User } from "$lib/models/Member/types.js";
 
   interface PageData {
@@ -51,4 +51,4 @@
   {:else}
     <p class="text-gray-500">ユーザーが見つかりません。</p>
   {/if}
-</div>
+</div> -->
