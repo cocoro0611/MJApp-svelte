@@ -1,5 +1,5 @@
 <script lang="ts">
-  // export let data;
+  export let data;
 
   import TotalPointPage from "../routes/Total-Point/+page.svelte";
   import MemberPage from "../routes/Member/+page.svelte";

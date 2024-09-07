@@ -13,7 +13,7 @@
   export let isFuro: boolean = false;
 </script>
 
-<div class="pb-4">
+<div class="size-full h-[8rem] top-0 left-0 right-0 pb-4">
   <PointHeader {type} bind:isFuro on:click on:change />
 
   <PointBordSelect {type} bind:fu bind:han bind:fuUp />

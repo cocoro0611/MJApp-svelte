@@ -21,7 +21,7 @@
 </script>
 
 <div class="flex justify-center gap-4">
-  <Button color="light" class="text-blue-500 h-6 w-28 border-white">
+  <Button color="light" class="text-blue-500 h-6 w-32 border-white">
     <div class="flex flex-col items-center">
       <p>{fuUp} 符</p>
       {#if type === "fu"}

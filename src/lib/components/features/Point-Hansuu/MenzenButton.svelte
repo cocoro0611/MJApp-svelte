@@ -5,6 +5,7 @@
   import type { ButtonList } from "$lib/models/Point-Hansuu/types.js";
 
   export let han: number;
+  export let fu: number;
 
   const itemsStores: Writable<ButtonList[]>[] = [
     writable([
