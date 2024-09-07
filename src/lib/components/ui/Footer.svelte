@@ -50,6 +50,6 @@
     @apply border border-gray-500 bg-white text-black hover:bg-gray-100 hover:text-blue-800;
   }
   :global(.tab-btn-off) {
-    @apply border border-gray-500 bg-blue-800 text-white hover:bg-blue-700 hover:text-white;
+    @apply border border-gray-500 bg-blue-800 text-white hover:bg-blue-900 hover:text-white;
   }
 </style>

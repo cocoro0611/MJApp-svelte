@@ -2,6 +2,8 @@
   import { Input } from "flowbite-svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
+  import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
+
   import { derived, writable, type Writable } from "svelte/store";
   import type { ButtonList } from "$lib/models/Total-Point/types.js";
 
@@ -82,7 +84,7 @@
 <div class="flex justify-center">
   <div>
     <div class="font-bold pb-1">部屋名</div>
-    <Input color="blue" id="" placeholder="部屋名を入力" />
+    <Input class="border border-blue-500" placeholder="部屋名を入力" />
     <div class="flex justify-between font-bold pt-4 pb-1">
       <div>メンバー</div>
       <Button isCustom>カスタム</Button>
@@ -119,7 +121,4 @@
   </div>
 </div>
 
-<div class="flex justify-center mt-6 gap-2">
-  <Button type="button" color="close">閉じる</Button>
-  <Button type="button" color="primary">選択する</Button>
-</div>
+<ButtonPattern pattern="default" />

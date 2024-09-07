@@ -7,34 +7,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model orders {
-  id            Int             @id
-  date          DateTime
-  customer      customers       @relation(fields: [customerId], references: [id])
-  customerId    Int
-  order_Details order_details[]
+model User {
+  id     String  @id @default(uuid()) @db.Uuid
+  name   String
+  icon   String
+  Room   Room?   @relation(fields: [roomId], references: [id])
+  roomId String? @db.Uuid
+  Score  Score[]
 }
 
-model customers {
-  id      Int      @id
-  name    String?  @db.VarChar(255)
-  address String   @db.VarChar(255)
-  orders  orders[]
+model Room {
+  id           String  @id @default(uuid()) @db.Uuid
+  name         String
+  users        User[]
+  score        Score[]
+  // setting
+  initialPoint Int
+  returnPoint  Int
+  bonusPoint   String
+  Rate         String
+  chipValue    Int
 }
 
-model order_details {
-  order   orders @relation(fields: [orderId], references: [id])
-  orderId Int
-  item    items  @relation(fields: [itemId], references: [id])
-  itemId  Int
-  count   Int    @default(0)
+model Score {
+  id     String @id @default(uuid()) @db.Uuid
+  score  Int[]
+  chip   Int[]
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.Uuid
+  room   Room   @relation(fields: [roomId], references: [id])
+  roomId String @db.Uuid
 
-  @@id([orderId, itemId])
-}
-
-model items {
-  id            Int             @id
-  name          String?         @db.VarChar(255)
-  price         Int
-  order_Details order_details[]
+  @@unique([userId, roomId])
 }

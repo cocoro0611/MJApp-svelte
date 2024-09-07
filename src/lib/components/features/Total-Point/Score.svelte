@@ -15,25 +15,35 @@
   ];
 </script>
 
+<div class="flex justify-center items-center bg-blue-800 text-white h-14 -mt-5">
+  部屋名
+</div>
+
 <div class="text-center">
-  <div class="grid grid-cols-5 bg-blue-50 text-blue-800">
-    <div class="flex items-center justify-center border border-white">
-      メインルール
-    </div>
+  <div class="grid grid-cols-5 bg-blue-100 text-blue-800">
+    <button
+      class="border-2 border-blue-800 h-auto w-auto rounded-md m-[0.1rem]"
+    >
+      <div class="flex items-center justify-center">ルール</div>
+    </button>
     {#each members as member}
-      <div class="flex items-center justify-center border border-white">
-        <MemberCard isColor image="{member.icon}">{member.name}</MemberCard>
-      </div>
+      <button
+        class="border-2 border-blue-800 h-auto w-auto rounded-md m-[0.1rem]"
+      >
+        <div class="flex items-center justify-center border border-gray-300">
+          <MemberCard image="{member.icon}">{member.name}</MemberCard>
+        </div>
+      </button>
     {/each}
   </div>
 
   {#each rows as row}
     <div class="grid grid-cols-5 bg-blue-800 text-white">
-      <div class="flex items-center justify-center border border-white">
+      <div class="flex items-center justify-center border border-gray-300">
         {row.label}
       </div>
       {#each row.values as value}
-        <div class="flex items-center justify-center border border-white">
+        <div class="flex items-center justify-center border border-gray-300">
           <div class="relative w-full flex justify-center items-center">
             <span>{value}</span>
             {#if row.label === "収支"}

@@ -11,14 +11,8 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import { IconUserMinus } from "@tabler/icons-svelte";
 
   let isSelected: boolean;
-  let count: number = 0;
-
-  const countButton = () => {
-    count += 1;
-  };
 
   const onButton = () => {
     isSelected = !isSelected;
@@ -26,18 +20,8 @@
 </script>
 
 <Story name="Default">
-  <div>カウント</div>
-  <Button type="button" color="primary" on:click="{countButton}"
-    >選択する</Button
-  >
-  <Button type="button" color="close" on:click="{countButton}">閉じる</Button>
-  <Button type="button" color="delete" on:click="{countButton}">削除する</Button
-  >
-  <div class="p-4">クリック数：{count}回</div>
-</Story>
-
-<Story name="Active">
   <div>クリックで選択</div>
   <Button bind:isSelected on:click="{onButton}">立直</Button>
   <Button isWide bind:isSelected on:click="{onButton}">30000点</Button>
+  <Button isCustom bind:isSelected on:click="{onButton}">カスタム</Button>
 </Story>
