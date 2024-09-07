@@ -24,4 +24,4 @@
   <PointHansuuPage />
 {/if}
 
-<Footer bind:currentPage on:pageChange="{handlePageChange}" />
+<Footer bind:currentPage on:pageChange={handlePageChange} />
