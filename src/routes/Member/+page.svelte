@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let data;
+  // export let data;
 
   import Modal from "$lib/components/ui/Modal.svelte";
   import MemberSummary from "$lib/components/features/Member/MemberSummary.svelte";
@@ -51,7 +51,7 @@
 
 <div class="fixed bottom-24 right-10 z-10">
   <Modal bind:popupModal>
-    <MemberCreate {data} on:submit="{handleSubmit}" />
+    <MemberCreate on:submit="{handleSubmit}" />
   </Modal>
 </div>
 

@@ -6,7 +6,7 @@
   import MemberIcon from "$lib/components/ui/MemberIcon.svelte";
   import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
 
-  export let data: User[];
+  // export let data: User[];
   export let isDelete: boolean = false;
 
   const dispatch = createEventDispatcher();

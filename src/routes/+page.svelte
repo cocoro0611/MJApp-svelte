@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let data;
+  // export let data;
 
   import TotalPointPage from "../routes/Total-Point/+page.svelte";
   import MemberPage from "../routes/Member/+page.svelte";
@@ -17,7 +17,7 @@
 {#if currentPage === "home"}
   <TotalPointPage />
 {:else if currentPage === "member"}
-  <MemberPage {data} />
+  <MemberPage />
 {:else if currentPage === "fusuu"}
   <PointFusuuPage />
 {:else if currentPage === "hansuu"}
