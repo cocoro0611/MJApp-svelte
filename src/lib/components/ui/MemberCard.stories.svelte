@@ -17,6 +17,10 @@
   <MemberCard image="/MemberIcon/monster01.png">井上</MemberCard>
 </Story>
 
-<Story name="isColor">
-  <MemberCard isColor image="/MemberIcon/monster01.png">井上</MemberCard>
+<Story name="isBorder">
+  <MemberCard isBorder image="/MemberIcon/monster01.png">井上</MemberCard>
+</Story>
+
+<Story name="isBig">
+  <MemberCard isBig image="/MemberIcon/monster01.png">井上</MemberCard>
 </Story>

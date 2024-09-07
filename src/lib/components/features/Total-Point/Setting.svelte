@@ -83,7 +83,9 @@
 
 <div class="flex justify-center">
   <div>
-    <div class="font-bold pb-1">部屋名</div>
+    <div class="flex justify-between font-bold pt-4 pb-1">
+      <div class="font-bold pb-1">部屋名</div>
+    </div>
     <Input class="border border-blue-500" placeholder="部屋名を入力" />
     <div class="flex justify-between font-bold pt-4 pb-1">
       <div>メンバー</div>
@@ -121,4 +123,4 @@
   </div>
 </div>
 
-<ButtonPattern pattern="default" />
+<ButtonPattern pattern="default" on:submit />

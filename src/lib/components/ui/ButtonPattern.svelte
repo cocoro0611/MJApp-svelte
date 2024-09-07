@@ -4,8 +4,8 @@
 
 {#if pattern === "default"}
   <div class="flex justify-center mt-6 gap-2">
-    <button class="close defaultSize" on:click>閉じる</button>
-    <button class="primary defaultSize" on:click>選択</button>
+    <button class="close defaultSize" type="button">閉じる</button>
+    <button class="primary defaultSize" type="submit">登録</button>
   </div>
 {/if}
 
@@ -34,6 +34,6 @@
     @apply text-sm font-bold px-1 py-1 w-32 h-9;
   }
   .smallSize {
-    @apply text-sm font-bold px-1 py-1 w-20 h-9;
+    @apply text-sm font-bold px-1 py-1 w-20 h-8;
   }
 </style>
