@@ -1,4 +1,4 @@
-import { db } from '$lib/models/db.js';
+import db from '$lib/models/db.js';
 import { type Actions } from '@sveltejs/kit';
 import { v4 as uuidv4 } from 'uuid';
 
