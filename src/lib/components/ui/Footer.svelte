@@ -1,26 +1,20 @@
 <script lang="ts">
   import { ButtonGroup, Button } from "flowbite-svelte";
-  import {
-    IconHome,
-    IconUser,
-    IconCalculatorFilled,
-    IconCalculator,
-  } from "@tabler/icons-svelte";
-  import type { ComponentType } from "svelte";
+  import Icon from "./Icon.svelte";
 
   export let currentPage: "home" | "member" | "fusuu" | "hansuu" = "home";
 
   interface tabsDefinition {
     id: typeof currentPage;
     label: string;
-    icon: ComponentType;
+    iconType: "home" | "user" | "calculator" | "calculatorFilled";
   }
 
   const tabs: tabsDefinition[] = [
-    { id: "home", label: "ホーム", icon: IconHome },
-    { id: "member", label: "メンバー", icon: IconUser },
-    { id: "fusuu", label: "符数計算", icon: IconCalculatorFilled },
-    { id: "hansuu", label: "翻数計算", icon: IconCalculator },
+    { id: "home", label: "ホーム", iconType: "home" },
+    { id: "member", label: "メンバー", iconType: "user" },
+    { id: "fusuu", label: "符数計算", iconType: "calculator" },
+    { id: "hansuu", label: "翻数計算", iconType: "calculatorFilled" },
   ];
 
   const handleLinkClick = (page: typeof currentPage) => {
@@ -38,7 +32,7 @@
         currentPage="home"
         on:click="{() => handleLinkClick(tab.id)}"
       >
-        <svelte:component this="{tab.icon}" class="w-[71px] h-8 mb-1" />
+        <Icon type="{tab.iconType}" />
         <span class="text-xs">{tab.label}</span>
       </Button>
     {/each}
