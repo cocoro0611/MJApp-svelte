@@ -26,7 +26,7 @@ model Room {
   returnPoint  Int
   bonusPoint   String
   Rate         String
-  chipValue    Int
+  chipValue    String
 }
 
 model Score {

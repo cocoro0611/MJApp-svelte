@@ -3,7 +3,7 @@
 </script>
 
 <div
-  class="fixed top-0 left-0 right-0 z-10 bg-blue-800 py-4 mb-4 font-bold text-white flex justify-center"
+  class="fixed top-0 left-0 right-0 z-10 bg-blue-800 py-4 font-bold text-xl text-white flex justify-center"
 >
   {#if pageType === "home"}
     麻雀スコア

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import type { PageServerLoad, Actions } from './$types.js';
 
 import type { User } from "$lib/models/Member/types.js";
+import type { Room } from "$lib/models/Total-Point/types.js";
 
 export const actions: Actions = {
     createUser: async ({request}) => {
@@ -13,6 +14,21 @@ export const actions: Actions = {
             icon: data.get('icon'),
         };
         await db.insertInto('User').values(userForm).execute();
+        return { success: true };
+    },
+
+    createRoom: async ({request}) => {
+        const data = await request.formData();
+        const roomForm = {
+            id: uuidv4(),
+            name: data.get('name'),
+            initialPoint: data.get('initialPoint'),
+            returnPoint: data.get('returnPoint'),
+            bonusPoint: data.get('bonusPoint'),
+            Rate: data.get('Rate'),
+            chipValue: data.get('chipValue'),
+        };
+        await db.insertInto('Room').values(roomForm).execute();
         return { success: true };
     },
 
@@ -33,17 +49,6 @@ export const actions: Actions = {
         await db.deleteFrom('User').where('id', '=', id).execute();
         return { success: true };
     },
-
-    // settleForm: async ({request}) => {
-    //         const data = await request.formData();
-    //         const ids = data.getAll('ids');
-    //         await db
-    //         .updateTable('Form')
-    //         .set({ settled: true })
-    //         .where('id', 'in', ids)
-    //         .execute();
-    //     return { success: true };
-    // }
 };
 
 export const load: PageServerLoad = async () => {
@@ -57,5 +62,19 @@ export const load: PageServerLoad = async () => {
         icon: user.icon
     }));
 
-    return { users: Users };
+    const rooms = await db.selectFrom('Room')
+        .selectAll()
+        .execute();
+
+    const Rooms: Room[] = rooms.map(room => ({
+        id:room.id,
+        name: room.name,
+        initialPoint : room.initialPoint,
+        returnPoint  : room.returnPoint,
+        bonusPoint  : room.bonusPoint ,
+        Rate        : room.Rate   ,
+        chipValue   : room.chipValue   
+    }));
+
+    return { users: Users, rooms:Rooms};
 }

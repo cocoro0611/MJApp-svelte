@@ -9,7 +9,7 @@
   import Header from "$lib/components/ui/Header.svelte";
   import Footer from "$lib/components/ui/Footer.svelte";
 
-  let currentPage: "home" | "member" | "fusuu" | "hansuu" = "member";
+  let currentPage: "home" | "member" | "fusuu" | "hansuu" = "home";
 
   const handlePageChange = (page: CustomEvent<typeof currentPage>) => {
     currentPage = page.detail;
@@ -19,7 +19,7 @@
 <Header pageType="{currentPage}" />
 
 {#if currentPage === "home"}
-  <TotalPointPage />
+  <TotalPointPage rooms="{data.rooms}" />
 {:else if currentPage === "member"}
   <MemberPage users="{data.users}" />
 {:else if currentPage === "fusuu"}

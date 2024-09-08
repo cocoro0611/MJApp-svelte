@@ -13,8 +13,12 @@
   export let isFuro: boolean = false;
 </script>
 
-<PointHeader {type} bind:isFuro on:click on:change />
+<div class="fixed top-16 left-0 right-0 z-10">
+  <PointHeader {type} bind:isFuro on:click on:change />
 
-<PointBordSelect {type} bind:fu bind:han bind:fuUp />
+  <PointBordSelect {type} bind:fu bind:han bind:fuUp />
 
-<PointBordScore bind:pointData />
+  <PointBordScore bind:pointData />
+</div>
+
+<div class="mt-[8rem]"></div>
