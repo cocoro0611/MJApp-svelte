@@ -57,24 +57,42 @@ export const load: PageServerLoad = async () => {
         .execute();
 
     const Users: User[] = users.map(user => ({
-        id:user.id,
+        id: user.id,
         name: user.name,
         icon: user.icon
     }));
 
     const rooms = await db.selectFrom('Room')
-        .selectAll()
+        .select(['Room.id', 'Room.name', 'Room.initialPoint', 'Room.returnPoint', 'Room.bonusPoint', 'Room.Rate', 'Room.chipValue'])
+        .leftJoin('_UserRooms', 'Room.id', '_UserRooms.A')
+        .leftJoin('User', '_UserRooms.B', 'User.id')
+        .select(['User.id as userId', 'User.name as userName', 'User.icon as userIcon'])
         .execute();
 
-    const Rooms: Room[] = rooms.map(room => ({
-        id:room.id,
-        name: room.name,
-        initialPoint : room.initialPoint,
-        returnPoint  : room.returnPoint,
-        bonusPoint  : room.bonusPoint ,
-        Rate        : room.Rate   ,
-        chipValue   : room.chipValue   
-    }));
+    const roomsWithUsers: Room[] = Object.values(
+    rooms.reduce((acc: { [key: string]: Room }, room) => {
+        if (!acc[room.id]) {
+        acc[room.id] = {
+            id: room.id,
+            name: room.name,
+            initialPoint: room.initialPoint,
+            returnPoint: room.returnPoint,
+            bonusPoint: room.bonusPoint,
+            Rate: room.Rate,
+            chipValue: room.chipValue,
+            users: [],
+        };
+        }
+        if (room.userId) {
+        acc[room.id].users.push({
+            id: room.userId,
+            name: room.userName,
+            icon: room.userIcon,
+        });
+        }
+        return acc;
+    }, {})
+    );
 
-    return { users: Users, rooms:Rooms};
+    return { users: Users, rooms: roomsWithUsers };
 }

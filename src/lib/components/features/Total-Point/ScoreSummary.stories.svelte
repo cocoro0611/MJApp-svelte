@@ -22,6 +22,11 @@
         { id: "", name: "太郎", icon: "monster03.png" },
         { id: "", name: "太郎", icon: "monster04.png" },
       ],
+      initialPoint: 25000,
+      returnPoint: 30000,
+      bonusPoint: "10-30",
+      Rate: "なし",
+      chipValue: "50P",
     },
     {
       id: "aa",
@@ -32,6 +37,11 @@
         { id: "", name: "太郎", icon: "monster03.png" },
         { id: "", name: "太郎", icon: "monster04.png" },
       ],
+      initialPoint: 25000,
+      returnPoint: 30000,
+      bonusPoint: "10-30",
+      Rate: "なし",
+      chipValue: "50P",
     },
     {
       id: "aa",
@@ -42,6 +52,11 @@
         { id: "", name: "太郎", icon: "monster03.png" },
         { id: "", name: "太郎", icon: "monster04.png" },
       ],
+      initialPoint: 25000,
+      returnPoint: 30000,
+      bonusPoint: "10-30",
+      Rate: "なし",
+      chipValue: "50P",
     },
   ];
 </script>

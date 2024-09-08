@@ -2,6 +2,7 @@
   import { ButtonGroup, Button } from "flowbite-svelte";
   import Icon from "./Icon.svelte";
 
+  export let isScorePage: Boolean;
   export let currentPage: "home" | "member" | "fusuu" | "hansuu" = "home";
 
   interface tabsDefinition {
@@ -19,6 +20,7 @@
 
   const handleLinkClick = (page: typeof currentPage) => {
     currentPage = page;
+    isScorePage = false;
   };
 </script>
 

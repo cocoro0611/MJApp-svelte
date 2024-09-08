@@ -5,25 +5,31 @@
     import Modal from "$lib/components/ui/Modal.svelte";
     import ScoreSummary from "$lib/components/features/Total-Point/ScoreSummary.svelte";
     import Setting from "$lib/components/features/Total-Point/Setting.svelte";
+    import Score from "$lib/components/features/Total-Point/Score.svelte";
+
+    export let isScorePage: Boolean;
 
     let popupModal = false;
-    let selectedRoom: Room | null = null;
+    let selectedRoom: Room;
 
     const roomClick = (event: CustomEvent<Room>) => {
         selectedRoom = event.detail;
-        popupModal = true;
+        isScorePage = true;
     };
 
     const closeModal = () => {
         popupModal = false;
-        selectedRoom = null;
     };
 </script>
 
-<ScoreSummary {rooms} on:userClick="{roomClick}" />
+{#if !isScorePage}
+    <ScoreSummary {rooms} on:roomClick="{roomClick}" />
 
-<div class="fixed bottom-24 right-10 z-10">
-    <Modal bind:popupModal>
-        <Setting on:close="{closeModal}" />
-    </Modal>
-</div>
+    <div class="fixed bottom-24 right-10 z-10">
+        <Modal bind:popupModal>
+            <Setting on:close="{closeModal}" />
+        </Modal>
+    </div>
+{:else}
+    <Score room="{selectedRoom}" />
+{/if}

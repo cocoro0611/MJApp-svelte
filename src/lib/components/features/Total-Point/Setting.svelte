@@ -13,12 +13,12 @@
   export let room: Room = {
     id: "",
     name: `${dayjs().format("YYYY/MM/DD")}`,
-    // users: [
-    //   { id: "", name: "", icon: "" },
-    //   { id: "", name: "", icon: "" },
-    //   { id: "", name: "", icon: "" },
-    //   { id: "", name: "", icon: "" },
-    // ],
+    users: [
+      { id: "", name: "", icon: "" },
+      { id: "", name: "", icon: "" },
+      { id: "", name: "", icon: "" },
+      { id: "", name: "", icon: "" },
+    ],
     initialPoint: 25000,
     returnPoint: 30000,
     bonusPoint: "10-30",

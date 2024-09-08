@@ -9,17 +9,19 @@
   import Header from "$lib/components/ui/Header.svelte";
   import Footer from "$lib/components/ui/Footer.svelte";
 
+  let isScorePage: Boolean = false;
   let currentPage: "home" | "member" | "fusuu" | "hansuu" = "home";
 
   const handlePageChange = (page: CustomEvent<typeof currentPage>) => {
     currentPage = page.detail;
+    isScorePage = false;
   };
 </script>
 
-<Header pageType="{currentPage}" />
+<Header bind:isScorePage pageType="{currentPage}" />
 
 {#if currentPage === "home"}
-  <TotalPointPage rooms="{data.rooms}" />
+  <TotalPointPage bind:isScorePage rooms="{data.rooms}" />
 {:else if currentPage === "member"}
   <MemberPage users="{data.users}" />
 {:else if currentPage === "fusuu"}
@@ -28,4 +30,4 @@
   <PointHansuuPage />
 {/if}
 
-<Footer bind:currentPage on:pageChange="{handlePageChange}" />
+<Footer bind:currentPage bind:isScorePage on:pageChange="{handlePageChange}" />

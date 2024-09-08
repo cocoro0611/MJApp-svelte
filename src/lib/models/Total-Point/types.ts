@@ -12,7 +12,7 @@ export interface ButtonList {
 export interface Room {
     id: string
     name: string;
-    // users: User[]
+    users: User[]
     initialPoint: number
     returnPoint: number
     bonusPoint: String

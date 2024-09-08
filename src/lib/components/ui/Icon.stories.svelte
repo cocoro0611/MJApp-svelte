@@ -14,6 +14,7 @@
 </script>
 
 <Story name="Default">
+  <Icon type="back" />
   <Icon type="home" />
   <Icon type="user" />
   <Icon type="calculator" />

@@ -12,12 +12,8 @@
   };
 </script>
 
-<div class="flex justify-center">
-  <div
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-  >
-    {#each rooms as room}
-      <ScoreCard {room} on:click="{() => handleRoomClick(room)}" />
-    {/each}
+{#each rooms as room}
+  <div class="flex justify-center py-2">
+    <ScoreCard {room} on:click="{() => handleRoomClick(room)}" />
   </div>
-</div>
+{/each}

@@ -1,22 +1,20 @@
 <script lang="ts">
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
+  import type { Room } from "$lib/models/Total-Point/types.js";
 
-  const members = [
-    { name: "井上", icon: "/MemberIcon/monster01.png" },
-    { name: "高橋", icon: "/MemberIcon/monster02.png" },
-    { name: "岩田", icon: "/MemberIcon/monster03.png" },
-    { name: "洪", icon: "/MemberIcon/monster04.png" },
-  ];
+  export let room: Room;
 
-  const rows = [
-    { label: "スコア", values: [0, 0, 0, 0] },
-    { label: "チップ", values: [0, 0, 0, 0] },
-    { label: "収支", values: [0, 0, 0, 0] },
+  let rows = [
+    { label: "スコア", values: Array(room.users.length).fill(0) },
+    { label: "チップ", values: Array(room.users.length).fill(0) },
+    { label: "収支", values: Array(room.users.length).fill(0) },
   ];
 </script>
 
-<div class="flex justify-center items-center bg-blue-800 text-white h-14 -mt-5">
-  部屋名
+<div
+  class="fixed top-0 left-20 right-20 z-10 bg-blue-800 py-4 font-bold text-xl text-white flex justify-center"
+>
+  {room.name}
 </div>
 
 <div class="text-center">
@@ -26,12 +24,12 @@
     >
       <div class="flex items-center justify-center">ルール</div>
     </button>
-    {#each members as member}
+    {#each room.users as user}
       <button
         class="border-2 border-blue-800 h-auto w-auto rounded-md m-[0.1rem]"
       >
         <div class="flex items-center justify-center border border-gray-300">
-          <MemberCard image="{member.icon}">{member.name}</MemberCard>
+          <MemberCard image="/MemberIcon/{user.icon}">{user.name}</MemberCard>
         </div>
       </button>
     {/each}

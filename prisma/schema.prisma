@@ -11,16 +11,15 @@ model User {
   id     String  @id @default(uuid()) @db.Uuid
   name   String
   icon   String
-  Room   Room?   @relation(fields: [roomId], references: [id])
-  roomId String? @db.Uuid
-  Score  Score[]
+  rooms  Room[]  @relation("UserRooms")
+  scores Score[]
 }
 
 model Room {
   id           String  @id @default(uuid()) @db.Uuid
   name         String
-  users        User[]
-  score        Score[]
+  users        User[]  @relation("UserRooms")
+  scores       Score[]
   // setting
   initialPoint Int
   returnPoint  Int
