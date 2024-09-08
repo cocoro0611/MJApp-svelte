@@ -10,7 +10,7 @@
   <div class="-mt-[0.2rem]">+</div>
 </Button>
 
-<Modal bind:open="{popupModal}" size="xl">
+<Modal bind:open="{popupModal}" size="xl" dismissable="{false}">
   <div class="text-center">
     <div class="mb-4"><slot /></div>
   </div>

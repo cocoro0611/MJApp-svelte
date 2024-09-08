@@ -6,9 +6,10 @@
   import MemberIcon from "$lib/components/ui/MemberIcon.svelte";
   import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
 
-  export let isDelete: boolean = false;
+  export let isUpdate: boolean = false;
 
-  let user: User = {
+  export let user: User = {
+    id: "",
     name: "",
     icon: "monster01.png",
   };
@@ -40,16 +41,54 @@
     "icon_others_08.png",
   ];
 
+  const onIconSelect = (icon: string) => {
+    user.icon = icon;
+  };
+
   const dispatch = createEventDispatcher();
   const handleClose = () => {
     dispatch("close");
   };
-  const handleCreate = async (event: Event) => {
-    handleClose();
+
+  let method: string = "";
+  let action: string = "";
+  const handleCreate = () => {
+    if (validateUser()) {
+      method = "POST";
+      action = "?/createUser";
+    }
   };
+  const handleUpdate = () => {
+    if (validateUser()) {
+      method = "POST";
+      action = "?/updateUser";
+    }
+  };
+  const handleDelete = () => {
+    method = "POST";
+    action = "?/deleteUser";
+  };
+
+  let nameError: string = "";
+  let nameMinLength = 1;
+  let nameMaxLength = 4;
+  const validateUser = () => {
+    nameError = "";
+    if (user.name.length < 1) {
+      nameError = `名前は${nameMinLength}文字以上で入力してください`;
+    } else if (user.name.length > nameMaxLength) {
+      nameError = `名前は${nameMaxLength}文字以内で入力してください`;
+    }
+    return nameError === "";
+  };
+
+  $: nameLengh = user.name.length;
 </script>
 
-<form method="POST" action="?/createForm">
+<form {method} {action}>
+  {#if isUpdate}
+    <input type="hidden" name="id" value="{user.id}" />
+  {/if}
   <div class="flex justify-center">
     <div>
       <div class="flex justify-start">
@@ -60,7 +99,13 @@
         name="name"
         placeholder="名前を入力"
         bind:value="{user.name}"
+        minlength="{nameMinLength}"
+        maxlength="{nameMaxLength}"
       />
+      <div class="flex justify-end">{nameLengh}/{nameMaxLength}</div>
+      {#if nameError}
+        <div class="text-red-500">{nameError}</div>
+      {/if}
       <div class="flex justify-start pt-4">
         <div class="font-bold">アイコン</div>
       </div>
@@ -75,23 +120,29 @@
           {#each icons as icon}
             <MemberIcon
               isSelected="{user.icon === icon}"
-              on:click="{() => (user.icon = icon)}"
+              on:click="{() => onIconSelect(icon)}"
               image="/MemberIcon/{icon}"
             />
           {/each}
         </div>
       </div>
-      {#if isDelete}
+      {#if isUpdate}
         <div class="flex justify-between items-center pt-4">
           <div class="font-bold">メンバーの削除</div>
-          <ButtonPattern pattern="delete" />
+          <ButtonPattern on:delete="{handleDelete}" pattern="delete" />
         </div>
+        <ButtonPattern
+          on:close="{handleClose}"
+          on:update="{handleUpdate}"
+          pattern="update"
+        />
+      {:else}
+        <ButtonPattern
+          on:close="{handleClose}"
+          on:create="{handleCreate}"
+          pattern="default"
+        />
       {/if}
-      <ButtonPattern
-        on:close="{handleClose}"
-        on:create="{handleCreate}"
-        pattern="default"
-      />
     </div>
   </div>
 </form>

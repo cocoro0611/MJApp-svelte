@@ -6,6 +6,7 @@
   import MemberPage from "../routes/Member/+page.svelte";
   import PointFusuuPage from "../routes/Point-Fusuu/+page.svelte";
   import PointHansuuPage from "../routes/Point-Hansuu/+page.svelte";
+  import Header from "$lib/components/ui/Header.svelte";
   import Footer from "$lib/components/ui/Footer.svelte";
 
   let currentPage: "home" | "member" | "fusuu" | "hansuu" = "member";
@@ -14,6 +15,8 @@
     currentPage = page.detail;
   };
 </script>
+
+<Header pageType="{currentPage}" />
 
 {#if currentPage === "home"}
   <TotalPointPage />

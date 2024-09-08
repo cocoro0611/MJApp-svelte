@@ -5,53 +5,34 @@ import type { PageServerLoad, Actions } from './$types.js';
 import type { User } from "$lib/models/Member/types.js";
 
 export const actions: Actions = {
-    createForm: async (event: any) => {
-        const formData = await event.request.formData();
+    createUser: async ({request}) => {
+        const data = await request.formData();
         const userForm = {
             id: uuidv4(),
-            name: formData.get('name'),
-            icon: formData.get('icon'),
+            name: data.get('name'),
+            icon: data.get('icon'),
         };
         await db.insertInto('User').values(userForm).execute();
         return { success: true };
     },
 
-    // deleteForm: async ({ request }) => {
-    //     const data = await request.formData();
-    //     const id = data.get('id') as string;
+    updateUser: async ({request}) => {
+        const data = await request.formData();
+        const id = data.get('id');
+        const updatedUserForm = {
+            name: data.get('name'),
+            icon: data.get('icon'),
+        };
+        await db.updateTable('User').set(updatedUserForm).where('id', '=', id).executeTakeFirst();;
+        return { success: true };
+    },
 
-    //     if (!id) {
-    //         throw error(400, 'IDが指定されていません');
-    //     }
-
-    //     await db.deleteFrom('Form').where('id', '=', id).execute();
-
-    //     return { success: true };
-    // },
-
-    // updateForm: async ({request}) => {
-    //     const data = await request.formData();
-    //     const id = data.get('id');
-
-    //     const updatedForm = {
-    //         amount: data.get('amount'),
-    //         category: data.get('category'),
-    //         memo: data.get('memo'),
-    //         date: data.get('date'),
-    //         user1Amount: data.get('user1Amount'),
-    //         user2Amount: data.get('user2Amount'),
-    //         user1Paid: data.get('user1Paid'),
-    //         user2Paid: data.get('user2Paid'),
-    //         settled: data.get('settled') === 'true'
-    // };
-    //     const result = await db
-    //         .updateTable('Form')
-    //         .set(updatedForm)
-    //         .where('id', '=', id)
-    //         .executeTakeFirst();
-    //     return { success: true };
-
-    // },
+    deleteUser: async ({ request }) => {
+        const data = await request.formData();
+        const id = data.get('id');
+        await db.deleteFrom('User').where('id', '=', id).execute();
+        return { success: true };
+    },
 
     // settleForm: async ({request}) => {
     //         const data = await request.formData();
@@ -71,6 +52,7 @@ export const load: PageServerLoad = async () => {
         .execute();
 
     const Users: User[] = users.map(user => ({
+        id:user.id,
         name: user.name,
         icon: user.icon
     }));
