@@ -8,17 +8,19 @@ datasource db {
 }
 
 model User {
-  id     String  @id @default(uuid()) @db.Uuid
-  name   String
-  icon   String
-  rooms  Room[]  @relation("UserRooms")
-  scores Score[]
+  id        String     @id @default(uuid()) @db.Uuid
+  name      String
+  icon      String
+  createdAt DateTime   @default(now())
+  rooms     RoomUser[]
+  scores    Score[]
 }
 
 model Room {
-  id           String  @id @default(uuid()) @db.Uuid
+  id           String     @id @default(uuid()) @db.Uuid
   name         String
-  users        User[]  @relation("UserRooms")
+  createdAt    DateTime   @default(now())
+  users        RoomUser[]
   scores       Score[]
   // setting
   initialPoint Int
@@ -28,14 +30,25 @@ model Room {
   chipValue    String
 }
 
+model RoomUser {
+  room      Room     @relation(fields: [roomId], references: [id])
+  roomId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  @@id([roomId, userId])
+}
+
 model Score {
-  id     String @id @default(uuid()) @db.Uuid
-  score  Int[]
-  chip   Int[]
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @db.Uuid
-  room   Room   @relation(fields: [roomId], references: [id])
-  roomId String @db.Uuid
+  id        String   @id @default(uuid()) @db.Uuid
+  createdAt DateTime @default(now())
+  score     Int[]
+  chip      Int[]
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.Uuid
+  room      Room     @relation(fields: [roomId], references: [id])
+  roomId    String   @db.Uuid
 
   @@unique([userId, roomId])
 }

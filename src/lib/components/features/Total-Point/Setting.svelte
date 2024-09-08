@@ -2,6 +2,8 @@
   import dayjs from "dayjs";
   import { createEventDispatcher } from "svelte";
   import { Input } from "flowbite-svelte";
+
+  import type { User } from "$lib/models/Member/types.js";
   import type { Room } from "$lib/models/Total-Point/types.js";
   import Button from "$lib/components/ui/Button.svelte";
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
@@ -10,15 +12,12 @@
   import { derived, writable, type Writable } from "svelte/store";
   import type { ButtonList } from "$lib/models/Total-Point/types.js";
 
+  export let users: User[];
   export let room: Room = {
     id: "",
     name: `${dayjs().format("YYYY/MM/DD")}`,
-    users: [
-      { id: "", name: "", icon: "" },
-      { id: "", name: "", icon: "" },
-      { id: "", name: "", icon: "" },
-      { id: "", name: "", icon: "" },
-    ],
+    createdAt: new Date(),
+    users: [],
     initialPoint: 25000,
     returnPoint: 30000,
     bonusPoint: "10-30",
@@ -150,10 +149,16 @@
         <div>メンバー</div>
         <!-- <Button isCustom>カスタム</Button> -->
       </div>
-      <MemberCard image="/MemberIcon/monster01.png">井上</MemberCard>
-      <MemberCard image="/MemberIcon/monster02.png">井上</MemberCard>
-      <MemberCard image="/MemberIcon/monster03.png">井上</MemberCard>
-      <MemberCard image="/MemberIcon/monster04.png">井上</MemberCard>
+      <div class="flex justify-center">
+        <div class="grid grid-cols-4">
+          {#each users.slice(0, 4) as user}
+            <input type="hidden" name="userId" bind:value="{user.id}" />
+            <MemberCard image="/MemberIcon/{user.icon}" on:click>
+              {user.name}
+            </MemberCard>
+          {/each}
+        </div>
+      </div>
       {#each $itemsGroup as group}
         <div class="flex justify-between font-bold pt-4">
           <div>

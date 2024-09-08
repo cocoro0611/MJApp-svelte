@@ -11,17 +11,12 @@
 
   let isScorePage: Boolean = false;
   let currentPage: "home" | "member" | "fusuu" | "hansuu" = "home";
-
-  const handlePageChange = (page: CustomEvent<typeof currentPage>) => {
-    currentPage = page.detail;
-    isScorePage = false;
-  };
 </script>
 
 <Header bind:isScorePage pageType="{currentPage}" />
 
 {#if currentPage === "home"}
-  <TotalPointPage bind:isScorePage rooms="{data.rooms}" />
+  <TotalPointPage bind:isScorePage rooms="{data.rooms}" users="{data.users}" />
 {:else if currentPage === "member"}
   <MemberPage users="{data.users}" />
 {:else if currentPage === "fusuu"}
@@ -30,4 +25,4 @@
   <PointHansuuPage />
 {/if}
 
-<Footer bind:currentPage bind:isScorePage on:pageChange="{handlePageChange}" />
+<Footer bind:currentPage bind:isScorePage />

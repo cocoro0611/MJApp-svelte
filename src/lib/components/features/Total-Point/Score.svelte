@@ -17,7 +17,7 @@
   {room.name}
 </div>
 
-<div class="text-center">
+<div class="text-center -mt-2">
   <div class="grid grid-cols-5 bg-blue-100 text-blue-800">
     <button
       class="border-2 border-blue-800 h-auto w-auto rounded-md m-[0.1rem]"

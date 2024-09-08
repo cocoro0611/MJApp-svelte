@@ -12,6 +12,7 @@ export interface ButtonList {
 export interface Room {
     id: string
     name: string;
+    createdAt: Date;
     users: User[]
     initialPoint: number
     returnPoint: number

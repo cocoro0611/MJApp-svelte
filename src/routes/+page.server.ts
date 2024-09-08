@@ -1,4 +1,5 @@
 import db from '$lib/models/db.js';
+import dayjs from "dayjs";
 import { v4 as uuidv4 } from 'uuid';
 import type { PageServerLoad, Actions } from './$types.js';
 
@@ -12,6 +13,7 @@ export const actions: Actions = {
             id: uuidv4(),
             name: data.get('name'),
             icon: data.get('icon'),
+            createdAt: dayjs(),
         };
         await db.insertInto('User').values(userForm).execute();
         return { success: true };
@@ -22,6 +24,7 @@ export const actions: Actions = {
         const roomForm = {
             id: uuidv4(),
             name: data.get('name'),
+            createdAt: dayjs(),
             initialPoint: data.get('initialPoint'),
             returnPoint: data.get('returnPoint'),
             bonusPoint: data.get('bonusPoint'),
@@ -29,6 +32,14 @@ export const actions: Actions = {
             chipValue: data.get('chipValue'),
         };
         await db.insertInto('Room').values(roomForm).execute();
+
+        const userIds = data.getAll('userId');
+        const roomUsers = userIds.map(userId => ({
+            userId,
+            roomId:roomForm.id
+        }));
+        await db.insertInto('RoomUser').values(roomUsers).execute();
+
         return { success: true };
     },
 
@@ -38,8 +49,9 @@ export const actions: Actions = {
         const updatedUserForm = {
             name: data.get('name'),
             icon: data.get('icon'),
+            createdAt: dayjs(),
         };
-        await db.updateTable('User').set(updatedUserForm).where('id', '=', id).executeTakeFirst();;
+        await db.updateTable('User').set(updatedUserForm).where('id', '=', id).executeTakeFirst();
         return { success: true };
     },
 
@@ -54,45 +66,50 @@ export const actions: Actions = {
 export const load: PageServerLoad = async () => {
     const users = await db.selectFrom('User')
         .selectAll()
+        .orderBy("User.createdAt","asc")
         .execute();
 
     const Users: User[] = users.map(user => ({
         id: user.id,
         name: user.name,
-        icon: user.icon
+        icon: user.icon,
+        createdAt: user.createdAt
     }));
 
     const rooms = await db.selectFrom('Room')
-        .select(['Room.id', 'Room.name', 'Room.initialPoint', 'Room.returnPoint', 'Room.bonusPoint', 'Room.Rate', 'Room.chipValue'])
-        .leftJoin('_UserRooms', 'Room.id', '_UserRooms.A')
-        .leftJoin('User', '_UserRooms.B', 'User.id')
-        .select(['User.id as userId', 'User.name as userName', 'User.icon as userIcon'])
+        .select(['Room.id', 'Room.name', 'Room.createdAt', 'Room.initialPoint', 'Room.returnPoint', 'Room.bonusPoint', 'Room.Rate', 'Room.chipValue'])
+        .leftJoin('RoomUser', 'Room.id', 'RoomUser.roomId')
+        .leftJoin('User', 'RoomUser.userId', 'User.id')
+        .select(['User.id as userId', 'User.name as userName', 'User.icon as userIcon', 'User.createdAt as userCreatedAt'])
+        .orderBy("Room.createdAt","asc")
         .execute();
 
     const roomsWithUsers: Room[] = Object.values(
-    rooms.reduce((acc: { [key: string]: Room }, room) => {
-        if (!acc[room.id]) {
-        acc[room.id] = {
-            id: room.id,
-            name: room.name,
-            initialPoint: room.initialPoint,
-            returnPoint: room.returnPoint,
-            bonusPoint: room.bonusPoint,
-            Rate: room.Rate,
-            chipValue: room.chipValue,
-            users: [],
-        };
-        }
-        if (room.userId) {
-        acc[room.id].users.push({
-            id: room.userId,
-            name: room.userName,
-            icon: room.userIcon,
-        });
-        }
-        return acc;
-    }, {})
+        rooms.reduce((acc: { [key: string]: Room }, room) => {
+            if (!acc[room.id]) {
+                acc[room.id] = {
+                    id: room.id,
+                    name: room.name,
+                    createdAt: room.createdAt,
+                    initialPoint: room.initialPoint,
+                    returnPoint: room.returnPoint,
+                    bonusPoint: room.bonusPoint,
+                    Rate: room.Rate,
+                    chipValue: room.chipValue,
+                    users: [],
+                };
+            }
+            if (room.userId) {
+                acc[room.id].users.push({
+                    id: room.userId,
+                    name: room.userName,
+                    icon: room.userIcon,
+                    createdAt: room.userCreatedAt,
+                });
+            }
+            return acc;
+        }, {})
     );
 
     return { users: Users, rooms: roomsWithUsers };
-}
+};
