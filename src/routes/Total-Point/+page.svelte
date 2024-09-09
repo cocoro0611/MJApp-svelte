@@ -39,5 +39,5 @@
     </div>
 {:else}
     <Score room="{selectedRoom}" />
-    <Tensuu />
+    <Tensuu room="{selectedRoom}" />
 {/if}

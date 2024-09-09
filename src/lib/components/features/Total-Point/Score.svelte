@@ -12,12 +12,12 @@
 </script>
 
 <div
-  class="fixed top-0 left-20 right-20 z-10 bg-blue-800 py-4 font-bold text-xl text-white flex justify-center"
+  class="fixed top-0 left-20 right-20 z-10 bg-blue-800 py-6 font-bold text-xl text-white flex justify-center"
 >
   {room.name}
 </div>
 
-<div class="text-center -mt-2">
+<div class="fixed top-[4.5rem] left-0 right-0 z-10 text-center">
   <div class="grid grid-cols-5 bg-blue-100 text-blue-800">
     <button
       class="border-2 border-blue-800 h-auto w-auto rounded-md m-[0.1rem]"
@@ -28,7 +28,7 @@
       <button
         class="border-2 border-blue-800 h-auto w-auto rounded-md m-[0.1rem]"
       >
-        <div class="flex items-center justify-center border border-gray-300">
+        <div class="flex items-center justify-center">
           <MemberCard image="/MemberIcon/{user.icon}">{user.name}</MemberCard>
         </div>
       </button>
@@ -53,3 +53,5 @@
     </div>
   {/each}
 </div>
+
+<div class="mt-[7.9rem]"></div>

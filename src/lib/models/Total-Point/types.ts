@@ -14,9 +14,9 @@ export interface Room {
     name: string;
     createdAt: Date;
     users: User[]
-    initialPoint: number
-    returnPoint: number
-    bonusPoint: String
-    Rate: String
-    chipValue: String
+    initialPoint: number //持ち点
+    returnPoint: number //返し点
+    bonusPoint: String //ウマ
+    Rate: String //レート
+    chipValue: String //チップ単価
 }

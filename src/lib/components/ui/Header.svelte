@@ -10,7 +10,7 @@
 </script>
 
 <div
-  class="fixed top-0 left-0 right-0 z-10 bg-blue-800 py-4 font-bold text-xl text-white flex justify-center"
+  class="fixed top-0 left-0 right-0 z-10 bg-blue-800 py-6 font-bold text-xl text-white flex justify-center"
 >
   {#if isScorePage === false}
     {#if pageType === "home"}
@@ -34,4 +34,4 @@
   {/if}
 </div>
 
-<div class="mt-[3rem]"></div>
+<div class="mt-[4.5rem]"></div>
