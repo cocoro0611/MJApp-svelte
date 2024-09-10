@@ -39,8 +39,8 @@
       { label: "45000点", returnPoint: 45000, isSelected: false },
     ]),
     writable([
-      { label: "なし", bonusPoint: "なし", isSelected: false },
-      { label: "5 - 10", bonusPoint: "5-10", isSelected: false },
+      { label: "なし", bonusPoint: "00-00", isSelected: false },
+      { label: "5 - 10", bonusPoint: "05-10", isSelected: false },
       { label: "10 - 20", bonusPoint: "10-20", isSelected: false },
       { label: "10 - 30", bonusPoint: "10-30", isSelected: true },
     ]),
@@ -53,7 +53,7 @@
       { label: "テンピン", Rate: "テンピン", isSelected: false },
     ]),
     writable([
-      { label: "なし", chipValue: "なし", isSelected: false },
+      { label: "なし", chipValue: "0P", isSelected: false },
       { label: "100P", chipValue: "100P", isSelected: true },
       { label: "200P", chipValue: "200P", isSelected: false },
       { label: "300P", chipValue: "300P", isSelected: false },

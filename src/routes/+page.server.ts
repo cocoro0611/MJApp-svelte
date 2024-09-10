@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import type { PageServerLoad, Actions } from './$types.js';
 
 import type { User } from "$lib/models/Member/types.js";
-import type { Room } from "$lib/models/Total-Point/types.js";
+import type { Room, Score } from "$lib/models/Total-Point/types.js";
 
 export const actions: Actions = {
     createUser: async ({request}) => {
@@ -110,6 +110,37 @@ export const load: PageServerLoad = async () => {
             return acc;
         }, {})
     );
+
+    // const scores = await db.selectFrom('Score')
+    //     .select(['Score.id', 'Score.createdAt', 'Score.score', 'Score.chip'])
+    //     .leftJoin('User', 'User.id', 'Score.userId')
+    //     .leftJoin('Room', 'Room.id', 'Score.roomId')
+    //     .select(['User.id as userId', 'User.name as userName', 'User.icon as userIcon', 'User.createdAt as userCreatedAt'])
+    //     .select(['Room.id as roomId', 'Room.name as roomName', 'Room.createdAt as roomCreatedAt', 'Room.initialPoint', 'Room.returnPoint', 'Room.bonusPoint', 'Room.Rate', 'Room.chipValue'])
+    //     .execute();
+
+    // return scores.map(score => ({
+    //     id: score.id,
+    //     createdAt: score.createdAt,
+    //     score: score.score,
+    //     chip: score.chip,
+    //     user: {
+    //         id: score.userId,
+    //         name: score.userName,
+    //         icon: score.userIcon,
+    //         createdAt: score.userCreatedAt
+    //     },
+    //     room: {
+    //         id: score.roomId,
+    //         name: score.roomName,
+    //         createdAt: score.roomCreatedAt,
+    //         initialPoint: score.initialPoint,
+    //         returnPoint: score.returnPoint,
+    //         bonusPoint: score.bonusPoint,
+    //         Rate: score.Rate,
+    //         chipValue: score.chipValue
+    //     }
+    // }));
 
     return { users: Users, rooms: roomsWithUsers };
 };

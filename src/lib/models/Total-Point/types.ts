@@ -20,3 +20,12 @@ export interface Room {
     Rate: String //レート
     chipValue: String //チップ単価
 }
+
+export interface Score {
+    id: string
+    createdAt: Date;
+    score: number[]
+    chip: number[]
+    users: User
+    room: Room
+}
