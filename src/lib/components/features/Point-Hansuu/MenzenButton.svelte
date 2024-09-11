@@ -79,7 +79,7 @@
   const itemsGroup = derived(itemsStores, ($itemsStores) =>
     $itemsStores.map((items, index) => ({
       title: titles[index],
-      itemRows: chunkArray(items, 6),
+      items: items,
       store: itemsStores[index],
     })),
   );
@@ -118,33 +118,30 @@
   }
 </script>
 
-<div class="flex justify-center">
-  <div>
-    {#each $itemsGroup as group}
-      <div class="font-bold">{group.title}</div>
-      {#each group.itemRows as row, rowIndex}
-        <div class="flex flex-wrap gap-2 py-1">
-          {#each row as item, colIndex}
-            {@const index = rowIndex * 6 + colIndex}
-            {#if item.isCount}
-              <ButtonCount
-                count="{item.count || 0}"
-                isSelected="{item.isSelected}"
-                on:click="{() => countButton(group.store, index)}"
-              >
-                {item.label}
-              </ButtonCount>
-            {:else}
-              <Button
-                isSelected="{item.isSelected}"
-                on:click="{() => onButton(group.store, index)}"
-              >
-                {item.label}
-              </Button>
-            {/if}
-          {/each}
-        </div>
-      {/each}
-    {/each}
-  </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  {#each $itemsGroup as group}
+    <div class="mb-6">
+      <h2 class="text-lg font-bold mb-2">{group.title}</h2>
+      <div class="grid grid-cols-6 md:grid-cols-12 gap-2">
+        {#each group.items as item, index}
+          {#if item.isCount}
+            <ButtonCount
+              count="{item.count || 0}"
+              isSelected="{item.isSelected}"
+              on:click="{() => countButton(group.store, index)}"
+            >
+              {item.label}
+            </ButtonCount>
+          {:else}
+            <Button
+              isSelected="{item.isSelected}"
+              on:click="{() => onButton(group.store, index)}"
+            >
+              {item.label}
+            </Button>
+          {/if}
+        {/each}
+      </div>
+    </div>
+  {/each}
 </div>

@@ -1,51 +1,80 @@
 <script lang="ts">
   import { ButtonGroup, Button } from "flowbite-svelte";
   import Icon from "./Icon.svelte";
+  import { onMount } from "svelte";
 
-  export let isScorePage: Boolean;
-  export let currentPage: "home" | "member" | "fusuu" | "hansuu" = "home";
+  type PageType = "home" | "member" | "fuCount" | "hanCount";
+  type IconType = "home" | "user" | "calculator" | "calculatorFilled";
 
-  interface tabsDefinition {
-    id: typeof currentPage;
+  export let currentPage: PageType;
+  export let isScorePage;
+
+  interface Tab {
+    id: PageType;
     label: string;
-    iconType: "home" | "user" | "calculator" | "calculatorFilled";
+    iconType: IconType;
   }
 
-  const tabs: tabsDefinition[] = [
+  const tabs: Tab[] = [
     { id: "home", label: "ホーム", iconType: "home" },
     { id: "member", label: "メンバー", iconType: "user" },
-    { id: "fusuu", label: "符数計算", iconType: "calculator" },
-    { id: "hansuu", label: "翻数計算", iconType: "calculatorFilled" },
+    { id: "fuCount", label: "符数計算", iconType: "calculator" },
+    { id: "hanCount", label: "翻数計算", iconType: "calculatorFilled" },
   ];
 
-  const handleLinkClick = (page: typeof currentPage) => {
+  const handleLinkClick = (page: PageType) => {
     currentPage = page;
     isScorePage = false;
+    localStorage.setItem("currentPage", page);
   };
+
+  onMount(() => {
+    const savedPage = localStorage.getItem("currentPage") as PageType | null;
+    if (savedPage && tabs.some((tab) => tab.id === savedPage)) {
+      currentPage = savedPage;
+    }
+  });
 </script>
 
-<div class="flex justify-center fixed bottom-0 left-0 right-0">
-  <ButtonGroup>
-    {#each tabs as tab}
+<nav class="fixed bottom-0 left-0 right-0 flex justify-center">
+  <ButtonGroup class="w-full max-w-screen-xl">
+    {#each tabs as tab (tab.id)}
       <Button
         color="light"
-        class="flex flex-col items-center 
-        {currentPage === tab.id ? 'tab-btn-off' : 'tab-btn-on'}"
-        currentPage="home"
+        class="flex flex-col items-center flex-1 {currentPage === tab.id
+          ? 'tab-btn-off'
+          : 'tab-btn-on'}
+          py-2 px-1 sm:py-3 sm:px-2"
         on:click="{() => handleLinkClick(tab.id)}"
       >
         <Icon type="{tab.iconType}" />
-        <span class="text-xs">{tab.label}</span>
+        <span class="text-[14px]">{tab.label}</span>
       </Button>
     {/each}
   </ButtonGroup>
-</div>
+</nav>
 
-<style>
+<style lang="postcss">
   :global(.tab-btn-on) {
     @apply border border-gray-500 bg-white text-black hover:bg-gray-100 hover:text-blue-800;
   }
   :global(.tab-btn-off) {
     @apply border border-gray-500 bg-blue-800 text-white hover:bg-blue-900 hover:text-white;
+  }
+  :global(.flowbite-svelte-button-group) {
+    @apply w-full;
+  }
+
+  /* カスタムブレークポイントの追加 */
+  @media (max-width: 415px) {
+    :global(.flowbite-svelte-button-group button) {
+      @apply py-1 px-0.5;
+    }
+    :global(.flowbite-svelte-button-group button svg) {
+      @apply w-4 h-4 mb-0.5;
+    }
+    :global(.flowbite-svelte-button-group button span) {
+      @apply text-[8px];
+    }
   }
 </style>

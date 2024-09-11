@@ -1,43 +1,39 @@
 <script lang="ts">
+  import { Card } from "flowbite-svelte";
+  import Icon from "$lib/components/ui/Icon.svelte";
   import type { Room } from "$lib/models/Total-Point/types.js";
+
   export let room: Room;
 </script>
 
-<button class="card" on:click>
-  <h3 class="room-name">{room.name}</h3>
-  <div class="user-icons">
+<Card
+  class="relative bg-blue-50 border border-blue-500 text-blue-500 font-bold w-full sm:w-80 md:w-96"
+  on:click
+>
+  <form method="POST" action="?/deleteRoom">
+    <button
+      on:click="{(event) => {
+        event.stopPropagation();
+      }}"
+      class="absolute top-2 right-2 text-blue-500 hover:text-red-500 transition-colors duration-200"
+    >
+      <Icon type="delete" />
+    </button>
+  </form>
+
+  <div class="text-lg mb-2 text-left">{room.name}</div>
+  <div class="flex flex-wrap justify-center gap-4">
     {#each room.users.slice(0, 4) as user}
-      <div class="user-icon-container">
+      <div class="flex flex-col items-center">
         <img
-          class="user-icon"
+          class="w-12 h-12 rounded-full"
           src="/MemberIcon/{user.icon}"
           alt="{user.name}"
           title="{user.name}"
         />
-        <span class="user-name">{user.name}</span>
-        <span class="user-name">0</span>
+        <span class="text-sm">{user.name}</span>
+        <span class="text-sm">0</span>
       </div>
     {/each}
   </div>
-</button>
-
-<style>
-  .card {
-    @apply border border-blue-500 bg-blue-50 rounded-md text-blue-500 font-bold w-[22rem];
-  }
-  .room-name {
-    @apply text-lg mb-2 text-left ml-2;
-  }
-  .user-icons {
-    @apply flex flex-wrap justify-center gap-4;
-  }
-  .user-icon-container {
-    @apply flex flex-col items-center;
-  }
-  .user-icon {
-    @apply w-12 h-12 rounded-full;
-  }
-  .user-name {
-    @apply text-sm;
-  }
-</style>
+</Card>

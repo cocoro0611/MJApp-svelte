@@ -38,6 +38,6 @@
         </Modal>
     </div>
 {:else}
-    <Score room="{selectedRoom}" />
+    <Score bind:isScorePage room="{selectedRoom}" />
     <Tensuu room="{selectedRoom}" />
 {/if}

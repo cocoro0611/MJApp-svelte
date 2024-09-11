@@ -3,7 +3,6 @@
   import ButtonCount from "$lib/components/ui/ButtonCount.svelte";
   import { derived, writable, type Writable } from "svelte/store";
   import type { ButtonList } from "$lib/models/Point-Fusuu/types.js";
-  import { A } from "flowbite-svelte";
 
   export let han: number;
   export let fu: number;
@@ -17,13 +16,7 @@
         isCount: true,
         count: 0,
       },
-      {
-        label: "ツモ",
-        fuVal: 22,
-        isSelected: false,
-        isCount: true,
-        count: 0,
-      },
+      { label: "ツモ", fuVal: 22, isSelected: false, isCount: true, count: 0 },
       {
         label: "七対子",
         fuVal: 25,
@@ -40,64 +33,16 @@
       },
     ]),
     writable([
-      {
-        label: "明刻",
-        fuVal: 2,
-        isSelected: false,
-        isCount: true,
-        count: 0,
-      },
-      {
-        label: "暗刻",
-        fuVal: 4,
-        isSelected: false,
-        isCount: true,
-        count: 0,
-      },
-      {
-        label: "明槓",
-        fuVal: 8,
-        isSelected: false,
-        isCount: true,
-        count: 0,
-      },
-      {
-        label: "暗槓",
-        fuVal: 16,
-        isSelected: false,
-        isCount: true,
-        count: 0,
-      },
+      { label: "明刻", fuVal: 2, isSelected: false, isCount: true, count: 0 },
+      { label: "暗刻", fuVal: 4, isSelected: false, isCount: true, count: 0 },
+      { label: "明槓", fuVal: 8, isSelected: false, isCount: true, count: 0 },
+      { label: "暗槓", fuVal: 16, isSelected: false, isCount: true, count: 0 },
     ]),
     writable([
-      {
-        label: "明刻",
-        fuVal: 4,
-        isSelected: false,
-        isCount: true,
-        count: 0,
-      },
-      {
-        label: "暗刻",
-        fuVal: 8,
-        isSelected: false,
-        isCount: true,
-        count: 0,
-      },
-      {
-        label: "明槓",
-        fuVal: 16,
-        isSelected: false,
-        isCount: true,
-        count: 0,
-      },
-      {
-        label: "暗槓",
-        fuVal: 32,
-        isSelected: false,
-        isCount: true,
-        count: 0,
-      },
+      { label: "明刻", fuVal: 4, isSelected: false, isCount: true, count: 0 },
+      { label: "暗刻", fuVal: 8, isSelected: false, isCount: true, count: 0 },
+      { label: "明槓", fuVal: 16, isSelected: false, isCount: true, count: 0 },
+      { label: "暗槓", fuVal: 32, isSelected: false, isCount: true, count: 0 },
     ]),
     writable([
       { label: "役牌", fuVal: 2, isSelected: false },
@@ -111,20 +56,12 @@
     ]),
   ];
 
-  // 門前ロンまたはツモが選択されているか確認
   const isInitialCategorySelected = derived(itemsStores[0], ($items) =>
     $items.some(
       (item) =>
         (item.label === "門前ロン" || item.label === "ツモ") && item.isSelected,
     ),
   );
-
-  // 配列を6個ずつのグループに分割する関数
-  function chunkArray(arr: ButtonList[], size: number): ButtonList[][] {
-    return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
-      arr.slice(i * size, i * size + size),
-    );
-  }
 
   const titles = [
     "和了 + 翻数（４翻以下）",
@@ -137,7 +74,7 @@
   const itemsGroup = derived(itemsStores, ($itemsStores) =>
     $itemsStores.map((items, index) => ({
       title: titles[index],
-      itemRows: chunkArray(items, 6),
+      items: items,
       store: itemsStores[index],
     })),
   );
@@ -148,7 +85,6 @@
     categoryIndex: number,
   ) => {
     store.update((items: ButtonList[]) => {
-      // 雀頭または待ちの排他処理
       if (categoryIndex === 3 || categoryIndex === 4) {
         items.forEach((item, i) => {
           if (i !== index) {
@@ -173,7 +109,6 @@
   ) => {
     const maxCount: number = 4;
     store.update((items) => {
-      // 和了の排他的処理
       if (categoryIndex === 0) {
         items.forEach((item, i) => {
           if (i !== index) {
@@ -220,39 +155,36 @@
   }
 </script>
 
-<div class="flex justify-center">
-  <div>
-    {#each $itemsGroup as group, categoryIndex}
-      {#if categoryIndex === 0 || $isInitialCategorySelected}
-        <div class="font-bold pt-2">{group.title}</div>
-        {#each group.itemRows as row, rowIndex}
-          <div class="flex flex-wrap gap-2 py-1">
-            {#each row as item, colIndex}
-              {@const index = rowIndex * 6 + colIndex}
-              {#if item.isCount}
-                <ButtonCount
-                  count="{item.count || 0}"
-                  isSelected="{item.isSelected}"
-                  on:click="{() =>
-                    countButton(group.store, index, categoryIndex)}"
-                >
-                  <svelte:fragment slot="countName">
-                    {group.title === "和了 + 翻数（４翻以下）" ? "翻" : "つ"}
-                  </svelte:fragment>
-                  {item.label}
-                </ButtonCount>
-              {:else}
-                <Button
-                  isSelected="{item.isSelected}"
-                  on:click="{() => onButton(group.store, index, categoryIndex)}"
-                >
-                  {item.label}
-                </Button>
-              {/if}
-            {/each}
-          </div>
-        {/each}
-      {/if}
-    {/each}
-  </div>
+<div class="flex flex-col items-center">
+  {#each $itemsGroup as group, categoryIndex}
+    {#if categoryIndex === 0 || $isInitialCategorySelected}
+      <div class="w-full max-w-4xl">
+        <div class="font-bold pt-4 pb-2 ml-[5rem]">{group.title}</div>
+        <div class="flex flex-wrap justify-center gap-2">
+          {#each group.items as item, index}
+            {#if item.isCount}
+              <ButtonCount
+                count="{item.count || 0}"
+                isSelected="{item.isSelected}"
+                on:click="{() =>
+                  countButton(group.store, index, categoryIndex)}"
+              >
+                <svelte:fragment slot="countName">
+                  {group.title === "和了 + 翻数（４翻以下）" ? "翻" : "つ"}
+                </svelte:fragment>
+                {item.label}
+              </ButtonCount>
+            {:else}
+              <Button
+                isSelected="{item.isSelected}"
+                on:click="{() => onButton(group.store, index, categoryIndex)}"
+              >
+                {item.label}
+              </Button>
+            {/if}
+          {/each}
+        </div>
+      </div>
+    {/if}
+  {/each}
 </div>

@@ -1,4 +1,3 @@
-import type { User } from "$lib/models/Member/types.js";
 export interface ButtonList {
     label: string;
     initialPoint?:  number,
@@ -10,22 +9,21 @@ export interface ButtonList {
 }
 
 export interface Room {
-    id: string
+    id: string;
     name: string;
     createdAt: Date;
-    users: User[]
-    initialPoint: number //持ち点
-    returnPoint: number //返し点
-    bonusPoint: String //ウマ
-    Rate: String //レート
-    chipValue: String //チップ単価
+    initialPoint: number;
+    returnPoint: number;
+    bonusPoint: string;
+    Rate: string;
+    chipValue: string;
 }
 
 export interface Score {
-    id: string
+    id: string;
     createdAt: Date;
-    score: number[]
-    chip: number[]
-    users: User
-    room: Room
+    score: number | null;
+    chip: number | null;
+    roomId: string;
+    userId: string;
 }
