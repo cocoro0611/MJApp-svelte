@@ -48,8 +48,8 @@
       { label: "なし", Rate: "なし", isSelected: false },
       { label: "テンイチ", Rate: "テンイチ", isSelected: false },
       { label: "テンニ", Rate: "テンニ", isSelected: false },
-      { label: "テンサン", Rate: "テンサン", isSelected: true },
-      { label: "テンゴ", Rate: "テンゴ", isSelected: false },
+      { label: "テンサン", Rate: "テンサン", isSelected: false },
+      { label: "テンゴ", Rate: "テンゴ", isSelected: true },
       { label: "テンピン", Rate: "テンピン", isSelected: false },
     ]),
     writable([

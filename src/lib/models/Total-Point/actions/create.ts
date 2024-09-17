@@ -25,6 +25,6 @@ export const createRoom: Action = async ({ request }) => {
         roomId: roomForm.id
     }));
     await trx.insertInto('RoomUser').values(roomUsers).execute();
-  });
-  return { success: true };
+    });
+    return { success: true };
 };

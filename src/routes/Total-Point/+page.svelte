@@ -1,13 +1,14 @@
 <script lang="ts">
-    import type { Room } from "$lib/models/Total-Point/types.js";
+    import type { Room, Score } from "$lib/models/Total-Point/types.js";
     import type { User } from "$lib/models/Member/types.js";
     export let rooms: Room[];
     export let users: User[];
+    export let scores: Score[];
 
     import Modal from "$lib/components/ui/Modal.svelte";
     import ScoreSummary from "$lib/components/features/Total-Point/ScoreSummary.svelte";
     import Setting from "$lib/components/features/Total-Point/Setting.svelte";
-    import Score from "$lib/components/features/Total-Point/Score.svelte";
+    import ScoreCom from "$lib/components/features/Total-Point/Score.svelte";
     import Tensuu from "$lib/components/features/Total-Point/Tensuu.svelte";
 
     export let isScorePage: Boolean;
@@ -38,6 +39,6 @@
         </Modal>
     </div>
 {:else}
-    <Score bind:isScorePage room="{selectedRoom}" />
-    <Tensuu room="{selectedRoom}" />
+    <ScoreCom bind:isScorePage room="{selectedRoom}" />
+    <Tensuu room="{selectedRoom}" {scores} />
 {/if}

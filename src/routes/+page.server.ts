@@ -7,7 +7,7 @@ import { readUsers } from '$lib/models/Member/actions/read.js';
 
 import { createRoom } from '$lib/models/Total-Point/actions/create.js';
 import { deleteRoom } from '$lib/models/Total-Point/actions/delete.js';
-import { readRooms } from '$lib/models/Total-Point/actions/read.js';
+import { readRooms, readScores } from '$lib/models/Total-Point/actions/read.js';
 
 export const actions: Actions = {
     createUser,
@@ -20,7 +20,6 @@ export const actions: Actions = {
 export const load: PageServerLoad = async () => {
     const users = await readUsers();
     const rooms = await readRooms();
-    // const scores = await readScores();
-    // return { users, rooms, scores};
-    return { users ,rooms};
+    const scores = await readScores();
+    return { users, rooms, scores};
 };

@@ -1,13 +1,16 @@
 <script lang="ts">
   import { Input } from "flowbite-svelte";
-  import type { Room } from "$lib/models/Total-Point/types.js";
+  import type { Room, Score } from "$lib/models/Total-Point/types.js";
 
   export let room: Room;
+  export let scores: Score[];
 
   let points: (number | null)[] = [400, 300, 200, 100];
   let totalPoint = 100000;
 
   let lastPoints: number = 0;
+
+  $: roomScores = scores.filter((score) => score.roomId === room.id);
 </script>
 
 <div class="text-center">
@@ -40,3 +43,11 @@
     {/each}
   </div>
 </div>
+
+{room.id}
+
+{#each scores as score}
+  <div>
+    Score: {score.score}, Chip: {score.chip}, room ID: {score.roomId}, User ID: {score.userId}
+  </div>
+{/each}

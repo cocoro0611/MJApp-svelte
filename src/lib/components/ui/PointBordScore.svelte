@@ -33,7 +33,7 @@
   };
 </script>
 
-<div class="flex justify-center text-xl font-bold pt-2">
+<div class="flex justify-center text-xl font-bold">
   {formatPointMain(pointData.koRon)}
 </div>
 <div class="flex justify-center text-sm font-bold">

@@ -54,7 +54,7 @@
   </ButtonGroup>
 </nav>
 
-<style lang="postcss">
+<style>
   :global(.tab-btn-on) {
     @apply border border-gray-500 bg-white text-black hover:bg-gray-100 hover:text-blue-800;
   }
@@ -63,18 +63,5 @@
   }
   :global(.flowbite-svelte-button-group) {
     @apply w-full;
-  }
-
-  /* カスタムブレークポイントの追加 */
-  @media (max-width: 415px) {
-    :global(.flowbite-svelte-button-group button) {
-      @apply py-1 px-0.5;
-    }
-    :global(.flowbite-svelte-button-group button svg) {
-      @apply w-4 h-4 mb-0.5;
-    }
-    :global(.flowbite-svelte-button-group button span) {
-      @apply text-[8px];
-    }
   }
 </style>

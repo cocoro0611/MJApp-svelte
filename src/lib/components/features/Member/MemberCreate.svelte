@@ -71,7 +71,7 @@
 
   let nameError: string = "";
   let nameMinLength = 1;
-  let nameMaxLength = 4;
+  let nameMaxLength = 5;
   const validateUser = () => {
     nameError = "";
     if (user.name.length < 1) {

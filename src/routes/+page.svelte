@@ -16,7 +16,12 @@
 <Header pageType="{currentPage}" />
 
 {#if currentPage === "home"}
-  <TotalPointPage bind:isScorePage rooms="{data.rooms}" users="{data.users}" />
+  <TotalPointPage
+    bind:isScorePage
+    rooms="{data.rooms}"
+    scores="{data.scores}"
+    users="{data.users}"
+  />
 {:else if currentPage === "member"}
   <MemberPage users="{data.users}" />
 {:else if currentPage === "fuCount"}
