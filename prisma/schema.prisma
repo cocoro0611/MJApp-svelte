@@ -33,14 +33,17 @@ model RoomUser {
   roomId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @db.Uuid
+  order     Int      @default(autoincrement())
   createdAt DateTime @default(now())
   scores    Score[]
 
   @@id([roomId, userId])
+  @@unique([roomId, order]) // roomIdに対してorderが一意であることを保証
 }
 
 model Score {
   id        String   @id @default(uuid()) @db.Uuid
+  order     Int      @default(autoincrement())
   createdAt DateTime @default(now())
   score     Int?
   chip      Int?
