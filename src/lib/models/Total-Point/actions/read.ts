@@ -8,7 +8,8 @@ export async function readRooms(): Promise<Room[]> {
         .leftJoin('RoomUser', 'Room.id', 'RoomUser.roomId')
         .leftJoin('User', 'RoomUser.userId', 'User.id')
         .select(['User.id as userId', 'User.name as userName', 'User.icon as userIcon', 'User.createdAt as userCreatedAt'])
-        .orderBy("Room.createdAt", "asc")
+        .select(['RoomUser.order as userOrder'])
+        .orderBy("RoomUser.order", "asc")
         .execute();
 
     return Object.values(
@@ -32,6 +33,7 @@ export async function readRooms(): Promise<Room[]> {
                     name: room.userName,
                     icon: room.userIcon,
                     createdAt: room.userCreatedAt,
+                    order: room.userOrder, 
                 });
             }
             return acc;
@@ -47,6 +49,7 @@ export async function readScores(): Promise<Score[]> {
     return scores.map(score => ({
         id: score.id,
         createdAt: score.createdAt,
+        order:score.order,
         score: score.score,
         chip: score.chip,
         roomId: score.roomId,

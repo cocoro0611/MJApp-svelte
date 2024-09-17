@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import type { Room, Score } from "$lib/models/Total-Point/types.js";
     import type { User } from "$lib/models/Member/types.js";
     export let rooms: Room[];

@@ -5,7 +5,7 @@ import { updateUser } from '$lib/models/Member/actions/update.js';
 import { deleteUser } from '$lib/models/Member/actions/delete.js';
 import { readUsers } from '$lib/models/Member/actions/read.js';
 
-import { createRoom } from '$lib/models/Total-Point/actions/create.js';
+import { createRoom, createScore } from '$lib/models/Total-Point/actions/create.js';
 import { deleteRoom } from '$lib/models/Total-Point/actions/delete.js';
 import { readRooms, readScores } from '$lib/models/Total-Point/actions/read.js';
 
@@ -14,7 +14,8 @@ export const actions: Actions = {
     updateUser,
     deleteUser,
     createRoom,
-    deleteRoom
+    deleteRoom,
+    createScore
 };
 
 export const load: PageServerLoad = async () => {

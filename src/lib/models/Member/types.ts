@@ -3,4 +3,5 @@ export interface User {
     name: string;
     icon: string;
     createdAt: Date;
+    order?: Number; //ユーザ番号の管理
 }

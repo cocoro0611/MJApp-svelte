@@ -25,6 +25,7 @@ export interface Room {
 export interface Score {
     id: string;
     createdAt: Date;
+    order:number
     score: number | null;
     chip: number | null;
     roomId: string;
