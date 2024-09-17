@@ -10,7 +10,11 @@
 
   let lastPoints: number = 0;
 
-  $: roomScores = scores.filter((score) => score.roomId === room.id);
+  $: filteredScores = scores.filter(
+    (score) =>
+      score.roomId === room.id &&
+      room.users.some((user) => user.id === score.userId),
+  );
 </script>
 
 <div class="text-center">
@@ -43,11 +47,18 @@
     {/each}
   </div>
 </div>
-
-{room.id}
-
-{#each scores as score}
+{#each filteredScores as score}
   <div>
-    Score: {score.score}, Chip: {score.chip}, room ID: {score.roomId}, User ID: {score.userId}
+    Score: {score.score}
   </div>
 {/each}
+
+{#each room.users as user}
+  <button class="border-2 border-blue-800 h-auto w-auto rounded-md m-[0.1rem]">
+    <div class="flex items-center justify-center">
+      {user.name}
+    </div>
+  </button>
+{/each}
+
+ううう:300 あああ:200 えええ:100 いいい:400

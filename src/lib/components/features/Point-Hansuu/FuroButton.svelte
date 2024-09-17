@@ -93,7 +93,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   {#each $itemsGroup as group}
     <div class="mb-6">
-      <h2 class="text-lg font-bold mb-2 pt-2">{group.title}</h2>
+      <h2 class="text-lg font-bold mb-2">{group.title}</h2>
       <div class="grid grid-cols-6 md:grid-cols-12 gap-2">
         {#each group.items as item, index}
           {#if item.isCount}

@@ -13,7 +13,9 @@
   export let isFuro: boolean = false;
 </script>
 
-<PointHeader {type} bind:isFuro on:click on:change />
+<div class="fixed top-0 left-0 right-0 z-20 bg-blue-800 shadow-lg">
+  <PointHeader {type} bind:isFuro on:click on:change />
+</div>
 
 <div class="fixed top-[5.5rem] left-0 right-0 z-10">
   <PointBordSelect {type} bind:fu bind:han bind:fuUp />
