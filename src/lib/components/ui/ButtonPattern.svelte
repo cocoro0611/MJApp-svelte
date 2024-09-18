@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  export let pattern: "default" | "update" | "add" | "delete" = "default";
+  export let pattern: "default" | "update" | "add" | "delete" | "deleteOnly" =
+    "default";
 
   const dispatch = createEventDispatcher();
   const handleClose = () => {
@@ -42,6 +43,13 @@
 {/if}
 
 {#if pattern === "delete"}
+  <div class="flex justify-center mt-6 gap-2">
+    <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
+    <button class="delete defaultSize" on:click="{handleDelete}">削除</button>
+  </div>
+{/if}
+
+{#if pattern === "deleteOnly"}
   <button class="delete smallSize" on:click="{handleDelete}">削除</button>
 {/if}
 

@@ -2,18 +2,20 @@
   import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
 
   import { createEventDispatcher } from "svelte";
-  export let scoreOrder: number;
 
   const dispatch = createEventDispatcher();
   const handleClose = () => {
     dispatch("close");
   };
 
-  const handleAdd = () => {
-    dispatch("add");
+  const handleDelete = () => {
+    dispatch("delete");
   };
 </script>
 
-<div class="flex justify-center">{scoreOrder}回戦目を追加しますか？</div>
-
-<ButtonPattern on:close="{handleClose}" on:add="{handleAdd}" pattern="add" />
+<div class="flex justify-center">ルームを削除しますか？</div>
+<ButtonPattern
+  on:close="{handleClose}"
+  on:delete="{handleDelete}"
+  pattern="delete"
+/>

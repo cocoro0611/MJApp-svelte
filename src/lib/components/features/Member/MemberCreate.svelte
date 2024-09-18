@@ -129,7 +129,7 @@
       {#if isUpdate}
         <div class="flex justify-between items-center pt-4">
           <div class="font-bold">メンバーの削除</div>
-          <ButtonPattern on:delete="{handleDelete}" pattern="delete" />
+          <ButtonPattern on:delete="{handleDelete}" pattern="deleteOnly" />
         </div>
         <ButtonPattern
           on:close="{handleClose}"

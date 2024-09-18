@@ -34,6 +34,7 @@ export const createScore: Action = async ({ request }) => {
     await db.transaction().execute(async (trx) => {
         const data = await request.formData();
         const roomId = data.get('roomId') as string;
+        const scoreOrder = parseInt(data.get('scoreOrder') as string);
         const scores = data.getAll('score');
         const chips = data.getAll('chip');
         const userIds = data.getAll('userId');
@@ -47,6 +48,7 @@ export const createScore: Action = async ({ request }) => {
                 score: parseInt(scores[i] as string) || null,
                 chip: parseInt(chips[i] as string) || null,
                 createdAt: dayjs().toDate(),
+                order: scoreOrder,
             };
 
             await trx.insertInto('Score').values(scoreData).execute();

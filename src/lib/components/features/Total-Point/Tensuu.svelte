@@ -5,6 +5,7 @@
 
   export let room: Room;
   export let scores: Score[];
+  export let scoreOrder: number;
 
   let totalPoint: number = room.initialPoint * 4;
 
@@ -15,20 +16,21 @@
     return orderA - orderB;
   });
 
-  // 各ユーザーの最新のスコアを取得
-  $: latestScores = sortedUsers.map((user) => {
-    const userScores = scores.filter(
-      (score) => score.userId === user.id && score.roomId === room.id,
+  // 現在のscoreOrderに対応するスコアを取得
+  $: currentOrderScores = scores.filter(
+    (score) => score.roomId === room.id && score.order === scoreOrder,
+  );
+
+  // 各ユーザーの現在のスコアを取得
+  $: currentScores = sortedUsers.map((user) => {
+    const userScore = currentOrderScores.find(
+      (score) => score.userId === user.id,
     );
-    return userScores.length > 0
-      ? userScores[userScores.length - 1].score
-      : null;
+    return userScore ? userScore.score : null;
   });
 
-  let currentScores: (number | null)[] = [];
-
   onMount(() => {
-    currentScores = latestScores;
+    // 必要に応じて初期化処理を行う
   });
 
   let method: string = "";
@@ -36,6 +38,10 @@
   const handleCreate = () => {
     method = "POST";
     action = "?/createScore";
+  };
+  const handleUpdate = () => {
+    method = "POST";
+    action = "?/updateScore";
   };
 
   // totalPointの計算
@@ -77,7 +83,6 @@
 </script>
 
 <form {method} {action}>
-  <input type="hidden" name="roomId" value="{room.id}" />
   <div class="text-center">
     <div class="grid grid-cols-5 text-blue-800 border border-gray-400">
       <div
@@ -119,7 +124,15 @@
     </div>
   </div>
 
+  <input type="hidden" name="roomId" value="{room.id}" />
+  <input type="hidden" name="scoreOrder" value="{scoreOrder}" />
+
   <button class="bg-slate-500 rounded-md w-20 p-4" on:click="{handleCreate}"
     >保存</button
   >
+
+  <button class="bg-slate-500 rounded-md w-20 p-4" on:click="{handleUpdate}"
+    >更新</button
+  >
+  {scoreOrder}
 </form>

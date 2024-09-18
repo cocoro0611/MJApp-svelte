@@ -14,7 +14,6 @@
     import AddScore from "$lib/components/features/Total-Point/AddScore.svelte";
 
     export let isScorePage: Boolean;
-    let scoreOrder: number = 2; // 1から始める
 
     let popupModal = false;
     let selectedRoom: Room;
@@ -23,8 +22,7 @@
     const roomClick = (event: CustomEvent<Room>) => {
         selectedRoom = event.detail;
         isScorePage = true;
-        tensuuInstances = [0];
-        scoreOrder = 1; // ルームが変わったらリセット
+        updateTensuuInstances();
     };
 
     const closeModal = () => {
@@ -33,9 +31,26 @@
 
     const addTensuu = () => {
         popupModal = false;
-        tensuuInstances = [...tensuuInstances, tensuuInstances.length];
-        scoreOrder++; // scoreOrderを1増やす
+        const newScoreOrder = Math.max(...tensuuInstances, 0) + 1;
+        tensuuInstances = [...new Set([...tensuuInstances, newScoreOrder])];
     };
+
+    const updateTensuuInstances = () => {
+        if (selectedRoom && scores) {
+            const roomScores = scores.filter(
+                (score) => score.roomId === selectedRoom.id,
+            );
+            const orders = roomScores.map((score) => score.order);
+            tensuuInstances = [...new Set(orders)].sort((a, b) => a - b);
+            if (tensuuInstances.length === 0) {
+                tensuuInstances = [1];
+            }
+        }
+    };
+
+    onMount(() => {
+        updateTensuuInstances();
+    });
 </script>
 
 {#if !isScorePage}
@@ -53,14 +68,14 @@
 {:else}
     <ScoreCom bind:isScorePage room="{selectedRoom}" />
 
-    {#each tensuuInstances as _, index (index)}
-        <Tensuu room="{selectedRoom}" {scores} />
+    {#each tensuuInstances as scoreOrder (scoreOrder)}
+        <Tensuu room="{selectedRoom}" {scores} {scoreOrder} />
     {/each}
 
     <div class="fixed bottom-24 right-10 z-10">
         <Modal bind:popupModal>
             <AddScore
-                bind:scoreOrder
+                scoreOrder="{Math.max(...tensuuInstances, 0) + 1}"
                 on:close="{closeModal}"
                 on:add="{addTensuu}"
             />
