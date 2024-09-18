@@ -5,8 +5,8 @@ export interface ButtonList {
     initialPoint?:  number,
     returnPoint?: number,
     bonusPoint?: string,
-    Rate?: string,
-    chipValue?: string,
+    Rate?: number,
+    chipValue?: number,
     isSelected: boolean;
 }
 
@@ -18,8 +18,8 @@ export interface Room {
     initialPoint: number;
     returnPoint: number;
     bonusPoint: string;
-    Rate: string;
-    chipValue: string;
+    Rate: number;
+    chipValue: number;
 }
 
 export interface Score {

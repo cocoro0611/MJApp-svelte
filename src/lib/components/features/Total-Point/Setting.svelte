@@ -21,8 +21,8 @@
     initialPoint: 25000,
     returnPoint: 30000,
     bonusPoint: "10-30",
-    Rate: "テンゴ",
-    chipValue: "100P",
+    Rate: 50,
+    chipValue: 100,
   };
 
   const itemsStores: Writable<ButtonList[]>[] = [
@@ -45,20 +45,20 @@
       { label: "10 - 30", bonusPoint: "10-30", isSelected: true },
     ]),
     writable([
-      { label: "なし", Rate: "なし", isSelected: false },
-      { label: "テンイチ", Rate: "テンイチ", isSelected: false },
-      { label: "テンニ", Rate: "テンニ", isSelected: false },
-      { label: "テンサン", Rate: "テンサン", isSelected: false },
-      { label: "テンゴ", Rate: "テンゴ", isSelected: true },
-      { label: "テンピン", Rate: "テンピン", isSelected: false },
+      { label: "なし", Rate: 0, isSelected: false },
+      { label: "テンイチ", Rate: 10, isSelected: false },
+      { label: "テンニ", Rate: 20, isSelected: false },
+      { label: "テンサン", Rate: 30, isSelected: false },
+      { label: "テンゴ", Rate: 50, isSelected: true },
+      { label: "テンピン", Rate: 100, isSelected: false },
     ]),
     writable([
-      { label: "なし", chipValue: "0P", isSelected: false },
-      { label: "100P", chipValue: "100P", isSelected: true },
-      { label: "200P", chipValue: "200P", isSelected: false },
-      { label: "300P", chipValue: "300P", isSelected: false },
-      { label: "400P", chipValue: "400P", isSelected: false },
-      { label: "500P", chipValue: "500P", isSelected: false },
+      { label: "なし", chipValue: 0, isSelected: false },
+      { label: "100P", chipValue: 100, isSelected: true },
+      { label: "200P", chipValue: 200, isSelected: false },
+      { label: "300P", chipValue: 300, isSelected: false },
+      { label: "400P", chipValue: 400, isSelected: false },
+      { label: "500P", chipValue: 500, isSelected: false },
     ]),
   ];
 

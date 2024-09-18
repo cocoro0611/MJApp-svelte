@@ -24,8 +24,8 @@ model Room {
   initialPoint Int
   returnPoint  Int
   bonusPoint   String
-  Rate         String
-  chipValue    String
+  Rate         Int
+  chipValue    Int
 }
 
 model RoomUser {

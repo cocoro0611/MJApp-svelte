@@ -18,6 +18,7 @@
     let popupModal = false;
     let selectedRoom: Room;
     let tensuuInstances: number[] = [];
+    let allUmaValues: Record<number, number[]> = {};
 
     const roomClick = (event: CustomEvent<Room>) => {
         selectedRoom = event.detail;
@@ -48,6 +49,10 @@
         }
     };
 
+    $: summedUma = Object.values(allUmaValues).reduce((sums, uma) => {
+        return uma.map((value, index) => (sums[index] || 0) + value);
+    }, [] as number[]);
+
     onMount(() => {
         updateTensuuInstances();
     });
@@ -66,10 +71,15 @@
         </Modal>
     </div>
 {:else}
-    <ScoreCom bind:isScorePage room="{selectedRoom}" />
+    <ScoreCom bind:isScorePage room="{selectedRoom}" {summedUma} />
 
     {#each tensuuInstances as scoreOrder (scoreOrder)}
-        <Tensuu room="{selectedRoom}" {scores} {scoreOrder} />
+        <Tensuu
+            room="{selectedRoom}"
+            {scores}
+            {scoreOrder}
+            bind:currentUma="{allUmaValues[scoreOrder]}"
+        />
     {/each}
 
     <div class="fixed bottom-24 right-10 z-10">

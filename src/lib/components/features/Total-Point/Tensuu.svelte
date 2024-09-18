@@ -1,13 +1,14 @@
 <script lang="ts">
   import { Input } from "flowbite-svelte";
   import type { Room, Score } from "$lib/models/Total-Point/types.js";
-  import { onMount } from "svelte";
 
   export let room: Room;
   export let scores: Score[];
   export let scoreOrder: number;
+  export let currentUma: number[] = [];
 
   let totalPoint: number = room.initialPoint * 4;
+  let editableScores: (number | null)[] = [];
 
   // ユーザーをorder順にソート
   $: sortedUsers = [...room.users].sort((a, b) => {
@@ -21,17 +22,16 @@
     (score) => score.roomId === room.id && score.order === scoreOrder,
   );
 
-  // 各ユーザーの現在のスコアを取得
-  $: currentScores = sortedUsers.map((user) => {
-    const userScore = currentOrderScores.find(
-      (score) => score.userId === user.id,
-    );
-    return userScore ? userScore.score : null;
-  });
-
-  onMount(() => {
-    // 必要に応じて初期化処理を行う
-  });
+  // 各ユーザーの現在のスコアを取得し、editableScoresを初期化
+  $: {
+    const currentScores = sortedUsers.map((user) => {
+      const userScore = currentOrderScores.find(
+        (score) => score.userId === user.id,
+      );
+      return userScore ? userScore.score : null;
+    });
+    editableScores = [...currentScores];
+  }
 
   let method: string = "";
   let action: string = "";
@@ -47,7 +47,7 @@
   // totalPointの計算
   $: totalPoint =
     room.initialPoint * 4 -
-    (currentScores?.reduce(
+    (editableScores?.reduce(
       (sum, score) => (sum ?? 0) + (score ?? 0) * 100,
       0,
     ) ?? 0);
@@ -60,8 +60,8 @@
     -Number(room.bonusPoint.slice(3, 5)),
   ];
 
-  // 各ユーザーのumaを計算
-  $: userUma = currentScores
+  // 各ユーザーのumaを計算（現在のscoreOrderのみ）
+  $: currentUma = editableScores
     .map((score, index) => ({
       index,
       value: score !== null ? (score - room.returnPoint / 100) / 10 : 0,
@@ -77,7 +77,8 @@
   function handleInput(e: Event, index: number) {
     const target = e.target as HTMLInputElement | null;
     if (target) {
-      currentScores[index] = Number(target.value.slice(0, 4));
+      editableScores[index] = Number(target.value.slice(0, 4));
+      editableScores = [...editableScores]; // 配列を新しく作成してSvelteに変更を通知
     }
   }
 </script>
@@ -102,7 +103,7 @@
               <Input
                 type="number"
                 name="score"
-                bind:value="{currentScores[index]}"
+                value="{editableScores[index]}"
                 on:input="{(e) => handleInput(e, index)}"
                 class="w-[4.2rem] text-right text-[0.9rem] pr-[1.4rem] py-1"
               />
@@ -113,10 +114,10 @@
           </div>
           <div
             class="text-center pb-1
-            {userUma[index] >= 0 ? 'text-blue-500' : 'text-red-500'} 
-          "
+        {currentUma[index] >= 0 ? 'text-blue-500' : 'text-red-500'} 
+      "
           >
-            {userUma[index]}
+            {currentUma[index].toFixed(1)}
           </div>
         </div>
         <input type="hidden" name="userId" value="{user.id}" />

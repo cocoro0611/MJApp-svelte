@@ -5,11 +5,15 @@
 
   export let room: Room;
   export let isScorePage: Boolean;
+  export let summedUma: number[] = [];
 
-  let rows = [
-    { label: "スコア", values: Array(room.users.length).fill(0) },
+  $: rows = [
+    { label: "スコア", values: summedUma.map((value) => value.toFixed(1)) },
     { label: "チップ", values: Array(room.users.length).fill(0) },
-    { label: "収支", values: Array(room.users.length).fill(0) },
+    {
+      label: "収支",
+      values: summedUma.map((value) => (value * room.Rate).toFixed(0)),
+    },
   ];
 
   const handleBackPage = () => {
