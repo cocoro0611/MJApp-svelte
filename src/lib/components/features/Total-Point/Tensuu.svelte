@@ -55,9 +55,18 @@
   ];
 
   // 各ユーザーのumaを計算
-  $: userUma = currentScores.map((score) =>
-    score !== null ? (score - room.returnPoint / 100) / 10 : 0,
-  );
+  $: userUma = currentScores
+    .map((score, index) => ({
+      index,
+      value: score !== null ? (score - room.returnPoint / 100) / 10 : 0,
+    }))
+    .sort((a, b) => b.value - a.value)
+    .map((item, sortedIndex) => ({
+      ...item,
+      value: item.value + bonusPoints[sortedIndex],
+    }))
+    .sort((a, b) => a.index - b.index)
+    .map((item) => item.value);
 
   function handleInput(e: Event, index: number) {
     const target = e.target as HTMLInputElement | null;
@@ -97,7 +106,13 @@
               >
             </div>
           </div>
-          <div class="text-center pb-1">{userUma[index]}</div>
+          <div
+            class="text-center pb-1
+            {userUma[index] >= 0 ? 'text-blue-500' : 'text-red-500'} 
+          "
+          >
+            {userUma[index]}
+          </div>
         </div>
         <input type="hidden" name="userId" value="{user.id}" />
       {/each}
