@@ -19,22 +19,33 @@
   const handleBackPage = () => {
     isScorePage = false;
   };
+
+  let method: string = "";
+  let action: string = "";
+  const handleDelete = () => {
+    method = "POST";
+    action = "?/deleteRoom";
+  };
 </script>
 
-<div class="fixed top-0 left-0 right-0 z-20 flex justify-center bg-blue-800">
-  <div class="w-full max-w-screen-xl">
-    <div class="py-6 font-bold text-xl text-white">
-      <div class="flex items-center justify-between">
-        <button class="flex-none" on:click="{handleBackPage}">
-          <Icon type="back" />
-        </button>
-        <div class="flex-grow text-center">{room.name}</div>
-        <div class="flex-none w-8"></div>
-        <!-- 左右対称にするためのスペーサー -->
+<form {method} {action}>
+  <input type="hidden" name="id" value="{room.id}" />
+  <div class="fixed top-0 left-0 right-0 z-20 flex justify-center bg-blue-800">
+    <div class="w-full max-w-screen-xl">
+      <div class="py-6 font-bold text-xl text-white">
+        <div class="grid grid-cols-6 gap-4">
+          <button class="flex justify-center" on:click="{handleBackPage}">
+            <Icon type="back" />
+          </button>
+          <div class="flex justify-center col-span-4">{room.name}</div>
+          <button class="flex justify-center" on:click="{handleDelete}">
+            <Icon type="delete" />
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>
 
 <div class="fixed top-[5rem] left-0 right-0 z-10 flex justify-center">
   <div class="w-full max-w-screen-xl">
