@@ -5,13 +5,16 @@
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
   import MemberIcon from "$lib/components/ui/MemberIcon.svelte";
   import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
+  import Modal from "$lib/components/ui/Modal.svelte";
 
   export let isUpdate: boolean = false;
+  let popupModal = false;
 
   export let user: User = {
     id: "",
     name: "",
     icon: "monster01.png",
+    createdAt: new Date(),
   };
 
   const icons = [
@@ -48,6 +51,7 @@
   const dispatch = createEventDispatcher();
   const handleClose = () => {
     dispatch("close");
+    popupModal = false;
   };
 
   let method: string = "";
@@ -63,6 +67,9 @@
       method = "POST";
       action = "?/updateUser";
     }
+  };
+  const handleDeleteModal = () => {
+    popupModal = true;
   };
   const handleDelete = () => {
     method = "POST";
@@ -129,7 +136,7 @@
       {#if isUpdate}
         <div class="flex justify-between items-center pt-4">
           <div class="font-bold">メンバーの削除</div>
-          <ButtonPattern on:delete="{handleDelete}" pattern="deleteOnly" />
+          <ButtonPattern on:delete="{handleDeleteModal}" pattern="deleteOnly" />
         </div>
         <ButtonPattern
           on:close="{handleClose}"
@@ -145,4 +152,12 @@
       {/if}
     </div>
   </div>
+  <Modal bind:popupModal isButton="{false}">
+    <div class="flex justify-center">本当に削除しますか？</div>
+    <ButtonPattern
+      on:delete="{handleDelete}"
+      on:close="{handleClose}"
+      pattern="delete"
+    />
+  </Modal>
 </form>

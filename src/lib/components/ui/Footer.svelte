@@ -44,7 +44,7 @@
         class="flex flex-col items-center flex-1 {currentPage === tab.id
           ? 'tab-btn-off'
           : 'tab-btn-on'}
-          py-1 px-1"
+          py-2 px-1 "
         on:click="{() => handleLinkClick(tab.id)}"
       >
         <Icon type="{tab.iconType}" />

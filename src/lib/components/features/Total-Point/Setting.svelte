@@ -169,11 +169,33 @@
               {:else if group.title === "返し点"}
                 {room.returnPoint} 点
               {:else if group.title === "ウマ"}
-                {room.bonusPoint}
+                {#if room.bonusPoint === "00-00"}
+                  なし
+                {:else}
+                  {room.bonusPoint}
+                {/if}
               {:else if group.title === "レート"}
-                {room.Rate}
+                {#if room.Rate === 0}
+                  なし
+                {:else if room.Rate === 10}
+                  テンイチ
+                {:else if room.Rate === 20}
+                  テンニ
+                {:else if room.Rate === 30}
+                  テンサン
+                {:else if room.Rate === 50}
+                  テンゴ
+                {:else if room.Rate === 100}
+                  テンピン
+                {:else}
+                  カスタム
+                {/if}
               {:else if group.title === "チップ"}
-                {room.chipValue}
+                {#if room.chipValue === 0}
+                  なし
+                {:else}
+                  {room.chipValue} P
+                {/if}
               {/if}
             </span>
           </div>

@@ -2,10 +2,13 @@
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
   import type { Room } from "$lib/models/Total-Point/types.js";
   import Icon from "$lib/components/ui/Icon.svelte";
+  import Modal from "$lib/components/ui/Modal.svelte";
+  import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
 
   export let room: Room;
   export let isScorePage: Boolean;
   export let summedUma: number[] = [];
+  let popupModal = false;
 
   $: rows = [
     { label: "スコア", values: summedUma.map((value) => value.toFixed(1)) },
@@ -22,14 +25,24 @@
 
   let method: string = "";
   let action: string = "";
+  const handleDeleteModal = () => {
+    popupModal = true;
+  };
   const handleDelete = () => {
     method = "POST";
     action = "?/deleteRoom";
+  };
+  const handleClose = () => {
+    popupModal = false;
   };
 </script>
 
 <form {method} {action}>
   <input type="hidden" name="id" value="{room.id}" />
+  {#each room.users as user}
+    <input type="hidden" name="userIds" value="{user.id}" />
+  {/each}
+
   <div class="fixed top-0 left-0 right-0 z-20 flex justify-center bg-blue-800">
     <div class="w-full max-w-screen-xl">
       <div class="py-6 font-bold text-xl text-white">
@@ -38,13 +51,22 @@
             <Icon type="back" />
           </button>
           <div class="flex justify-center col-span-4">{room.name}</div>
-          <button class="flex justify-center" on:click="{handleDelete}">
+          <button class="flex justify-center" on:click="{handleDeleteModal}">
             <Icon type="delete" />
           </button>
         </div>
       </div>
     </div>
   </div>
+
+  <Modal bind:popupModal isButton="{false}">
+    <div class="flex justify-center">本当に削除しますか？</div>
+    <ButtonPattern
+      on:delete="{handleDelete}"
+      on:close="{handleClose}"
+      pattern="delete"
+    />
+  </Modal>
 </form>
 
 <div class="fixed top-[5rem] left-0 right-0 z-10 flex justify-center">
