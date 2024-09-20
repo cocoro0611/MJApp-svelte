@@ -7,7 +7,7 @@
   import type { Room } from "$lib/models/Total-Point/types.js";
   import Button from "$lib/components/ui/Button.svelte";
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
-  import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
+  import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
   import { derived, writable, type Writable } from "svelte/store";
   import type { ButtonList } from "$lib/models/Total-Point/types.js";
@@ -223,9 +223,9 @@
   <input type="hidden" name="bonusPoint" bind:value="{room.bonusPoint}" />
   <input type="hidden" name="Rate" bind:value="{room.Rate}" />
   <input type="hidden" name="chipValue" bind:value="{room.chipValue}" />
-  <ButtonPattern
+  <ButtonAction
     on:close="{handleClose}"
     on:create="{handleCreate}"
-    pattern="default"
+    pattern="create"
   />
 </form>

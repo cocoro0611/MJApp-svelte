@@ -4,7 +4,7 @@
   import type { User } from "$lib/models/Member/types.js";
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
   import MemberIcon from "$lib/components/ui/MemberIcon.svelte";
-  import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
+  import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
   import Modal from "$lib/components/ui/Modal.svelte";
 
   export let isUpdate: boolean = false;
@@ -136,25 +136,25 @@
       {#if isUpdate}
         <div class="flex justify-between items-center pt-4">
           <div class="font-bold">メンバーの削除</div>
-          <ButtonPattern on:delete="{handleDeleteModal}" pattern="deleteOnly" />
+          <ButtonAction on:delete="{handleDeleteModal}" pattern="deleteOnly" />
         </div>
-        <ButtonPattern
+        <ButtonAction
           on:close="{handleClose}"
           on:update="{handleUpdate}"
           pattern="update"
         />
       {:else}
-        <ButtonPattern
+        <ButtonAction
           on:close="{handleClose}"
           on:create="{handleCreate}"
-          pattern="default"
+          pattern="create"
         />
       {/if}
     </div>
   </div>
   <Modal bind:popupModal isButton="{false}">
     <div class="flex justify-center">本当に削除しますか？</div>
-    <ButtonPattern
+    <ButtonAction
       on:delete="{handleDelete}"
       on:close="{handleClose}"
       pattern="delete"

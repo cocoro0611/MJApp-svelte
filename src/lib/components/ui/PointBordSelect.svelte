@@ -22,13 +22,15 @@
 
 <div class="flex justify-center gap-4">
   <Button color="light" class="text-blue-500 h-6 w-32 border-white">
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center {type === 'fu' ? 'mt-5' : ''}">
       <p>{fuUp} 符</p>
       {#if type === "fu"}
         <p>({fu} 符)</p>
       {/if}
     </div>
-    <ChevronDownOutline class="ms-2 text-blue-500 -mx-2" />
+    <ChevronDownOutline
+      class="-mx-2 text-blue-500 {type === 'fu' ? 'ms-0' : 'ms-2'}"
+    />
   </Button>
   <Dropdown>
     {#each fuSelectes as fuSelect}

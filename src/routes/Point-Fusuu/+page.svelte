@@ -1,6 +1,11 @@
 <script lang="ts">
-  import PointBord from "$lib/components/ui/PointBord.svelte";
+  import Header from "$lib/components/ui/Header.svelte";
+  import Main from "$lib/components/ui/Main.svelte";
+  import PointBordSelect from "$lib/components/ui/PointBordSelect.svelte";
+  import PointBordScore from "$lib/components/ui/PointBordScore.svelte";
   import FuCountButton from "$lib/components/features/Point-Fusuu/FuCountButton.svelte";
+  import Icon from "$lib/components/ui/Icon.svelte";
+
   import type { PointData } from "$lib/models/types.js";
   import { formatFuValue } from "$lib/utils/formatFuValue.js";
 
@@ -19,24 +24,16 @@
   $: fuUp = formatFuValue(fu);
 
   // API
-  let error: string | null = null;
   async function calculatePoints() {
-    try {
-      const response = await fetch(`/api/point?fu=${fuUp}&han=${han}`);
-      if (!response.ok) {
-        throw new Error("API request failed");
-      }
-      const data = await response.json();
-      pointData = {
-        oyaRon: data.oyaRonPoint,
-        oyaTumo: data.oyaTumoPoint,
-        koRon: data.koRonPoint,
-        koTumo_oya: data.koTumoPoint_oya,
-        koTumo_ko: data.koTumoPoint_ko,
-      };
-    } catch (e) {
-      error = e instanceof Error ? e.message : "An unknown error occurred";
-    }
+    const response = await fetch(`/api/point?fu=${fuUp}&han=${han}`);
+    const data = await response.json();
+    pointData = {
+      oyaRon: data.oyaRonPoint | 0,
+      oyaTumo: data.oyaTumoPoint | 0,
+      koRon: data.koRonPoint | 0,
+      koTumo_oya: data.koTumoPoint_oya | 0,
+      koTumo_ko: data.koTumoPoint_ko | 0,
+    };
   }
   $: {
     if (han !== undefined || fu !== undefined) {
@@ -55,15 +52,17 @@
   };
 </script>
 
-<PointBord
-  type="fu"
-  bind:han
-  bind:fu
-  bind:fuUp
-  bind:pointData
-  on:click="{clearValue}"
-/>
+<Header isContents isLeftLong>
+  <svelte:fragment slot="center">
+    <div class="text-blue-800">調整</div>
+  </svelte:fragment>
+  <svelte:fragment slot="right">
+    <button on:click="{clearValue}"><Icon type="refresh" /></button>
+  </svelte:fragment>
+  <PointBordSelect type="fu" bind:fu bind:han bind:fuUp />
+  <PointBordScore bind:pointData />
+</Header>
 
-<div class="flex-grow overflow-y-auto">
+<Main>
   <FuCountButton bind:this="{fuCountButton}" bind:han bind:fu />
-</div>
+</Main>

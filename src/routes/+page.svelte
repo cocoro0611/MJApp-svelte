@@ -2,21 +2,18 @@
   import type { PageData } from "./$types.js";
   export let data: PageData;
 
-  import TotalPointPage from "../routes/Total-Point/+page.svelte";
+  import ScorePage from "../routes/Total-Point/+page.svelte";
   import MemberPage from "../routes/Member/+page.svelte";
   import PointFusuuPage from "../routes/Point-Fusuu/+page.svelte";
   import PointHansuuPage from "../routes/Point-Hansuu/+page.svelte";
-  import Header from "$lib/components/ui/Header.svelte";
   import Footer from "$lib/components/ui/Footer.svelte";
 
-  let currentPage: "home" | "member" | "fuCount" | "hanCount" = "home";
+  let currentPage: "score" | "member" | "fuCount" | "hanCount" = "score";
   let isScorePage: Boolean = false;
 </script>
 
-<Header pageType="{currentPage}" />
-
-{#if currentPage === "home"}
-  <TotalPointPage
+{#if currentPage === "score"}
+  <ScorePage
     bind:isScorePage
     rooms="{data.rooms}"
     scores="{data.scores}"

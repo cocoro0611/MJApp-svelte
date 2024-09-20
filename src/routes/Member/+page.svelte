@@ -1,4 +1,7 @@
 <script lang="ts">
+  import MemberHome from "../../routes/Member/home/+page.svelte";
+  import MemberNew from "../../routes/Member/new/+page.svelte";
+  import MemberDetail from "../../routes/Member/detail/+page.svelte";
   import type { User } from "$lib/models/Member/types.js";
   export let users: User[];
 
@@ -20,7 +23,13 @@
   };
 </script>
 
-<MemberSummary {users} on:userClick="{userClick}" />
+<MemberHome />
+
+<MemberNew />
+
+<MemberDetail />
+
+<!-- <MemberSummary {users} on:userClick="{userClick}" />
 
 <div class="fixed bottom-24 right-10 z-10">
   <Modal bind:popupModal>
@@ -30,4 +39,4 @@
       <MemberCreate on:close="{closeModal}" />
     {/if}
   </Modal>
-</div>
+</div> -->

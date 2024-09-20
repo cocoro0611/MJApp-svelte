@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
+  import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
   import { createEventDispatcher } from "svelte";
   export let scoreOrder: number;
@@ -16,4 +16,4 @@
 
 <div class="flex justify-center">{scoreOrder}回戦目を追加しますか？</div>
 
-<ButtonPattern on:close="{handleClose}" on:add="{handleAdd}" pattern="add" />
+<ButtonAction on:close="{handleClose}" on:add="{handleAdd}" pattern="add" />

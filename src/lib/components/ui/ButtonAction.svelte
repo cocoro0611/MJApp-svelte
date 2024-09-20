@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  export let pattern: "default" | "update" | "add" | "delete" | "deleteOnly" =
-    "default";
+  export let pattern: "create" | "update" | "add" | "delete" | "deleteOnly" =
+    "create";
 
   const dispatch = createEventDispatcher();
   const handleClose = () => {
@@ -21,29 +21,29 @@
   };
 </script>
 
-{#if pattern === "default"}
-  <div class="flex justify-center mt-6 gap-2">
+{#if pattern === "create"}
+  <div class="flex justify-center gap-2">
     <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
-    <button class="primary defaultSize" on:click="{handleCreate}">登録</button>
+    <button class="action defaultSize" on:click="{handleCreate}">登録</button>
   </div>
 {/if}
 
 {#if pattern === "update"}
-  <div class="flex justify-center mt-6 gap-2">
+  <div class="flex justify-center gap-2">
     <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
-    <button class="primary defaultSize" on:click="{handleUpdate}">更新</button>
+    <button class="action defaultSize" on:click="{handleUpdate}">更新</button>
   </div>
 {/if}
 
 {#if pattern === "add"}
-  <div class="flex justify-center mt-6 gap-2">
+  <div class="flex justify-center gap-2">
     <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
-    <button class="primary defaultSize" on:click="{handleAdd}">追加</button>
+    <button class="action defaultSize" on:click="{handleAdd}">追加</button>
   </div>
 {/if}
 
 {#if pattern === "delete"}
-  <div class="flex justify-center mt-6 gap-2">
+  <div class="flex justify-center gap-2">
     <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
     <button class="delete defaultSize" on:click="{handleDelete}">削除</button>
   </div>
@@ -54,14 +54,14 @@
 {/if}
 
 <style>
-  .primary {
-    @apply border border-blue-800 bg-blue-800 text-white hover:bg-blue-900 rounded-md;
-  }
   .close {
-    @apply border border-gray-400 bg-gray-100 text-gray-500 hover:bg-gray-200 rounded-md;
+    @apply border border-gray-400 bg-gray-300 text-gray-800 hover:bg-gray-400 rounded-md;
+  }
+  .action {
+    @apply bg-blue-800 text-white hover:bg-blue-900 rounded-md;
   }
   .delete {
-    @apply border border-red-500 bg-red-100 text-red-500 hover:bg-red-50 rounded-md;
+    @apply bg-red-500 text-white hover:bg-red-600 rounded-md;
   }
   .defaultSize {
     @apply text-sm font-bold px-1 py-1 w-32 h-9;

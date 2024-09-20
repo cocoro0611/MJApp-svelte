@@ -3,7 +3,7 @@
   import type { Room } from "$lib/models/Total-Point/types.js";
   import Icon from "$lib/components/ui/Icon.svelte";
   import Modal from "$lib/components/ui/Modal.svelte";
-  import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
+  import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
   export let room: Room;
   export let isScorePage: Boolean;
@@ -61,7 +61,7 @@
 
   <Modal bind:popupModal isButton="{false}">
     <div class="flex justify-center">本当に削除しますか？</div>
-    <ButtonPattern
+    <ButtonAction
       on:delete="{handleDelete}"
       on:close="{handleClose}"
       pattern="delete"

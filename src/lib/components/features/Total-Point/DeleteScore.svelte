@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ButtonPattern from "$lib/components/ui/ButtonPattern.svelte";
+  import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
   import { createEventDispatcher } from "svelte";
 
@@ -14,7 +14,7 @@
 </script>
 
 <div class="flex justify-center">ルームを削除しますか？</div>
-<ButtonPattern
+<ButtonAction
   on:close="{handleClose}"
   on:delete="{handleDelete}"
   pattern="delete"

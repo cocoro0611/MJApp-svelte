@@ -11,18 +11,26 @@ export default {
   theme: {
     extend: {
       colors: {
-        // 青系に設定
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a'
+          on: '#1E429F',
+          onHover: '#233876',
+          onText: '#FFFFFF',
+          off: '#FFFFFF',
+          offHover: '#F3F4F6',
+          offText: '#000000',
+        },
+        secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+        surface: 'var(--color-surface)',
+        fine: 'rgb(var(--color-fine) / <alpha-value>)',
+        info: 'rgb(var(--color-info) / <alpha-value>)',
+        danger: 'rgb(var(--color-danger) / <alpha-value>)',
+        cancel: 'rgb(var(--color-cancel) / <alpha-value>)',
+        disabled: 'rgb(var(--color-disabled) / <alpha-value>)',
+        text: {
+          base: 'rgb(var(--color-text-base) / <alpha-value>)',
+          accent: 'rgb(var(--color-text-accent) / <alpha-value>)',
+          inverted: 'rgb(var(--color-text-inverted) / <alpha-value>)',
+          link: 'rgb(var(--color-text-link) / <alpha-value>)',
         },
       },
     },

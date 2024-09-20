@@ -64,7 +64,7 @@
   );
 
   const titles = [
-    "和了 + 翻数（４翻以下）",
+    "和了 + 翻数",
     "面子（２-８）",
     "面子（１, ９, 字牌）",
     "雀頭",
@@ -155,12 +155,12 @@
   }
 </script>
 
-<div class="flex flex-col items-center">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   {#each $itemsGroup as group, categoryIndex}
     {#if categoryIndex === 0 || $isInitialCategorySelected}
-      <div class="w-full max-w-4xl">
-        <div class="font-bold pt-4 pb-2 ml-[5rem]">{group.title}</div>
-        <div class="flex flex-wrap justify-center gap-2">
+      <div class="mb-2">
+        <h2 class="text-lg font-bold mb-2">{group.title}</h2>
+        <div class="flex justify-center gap-2">
           {#each group.items as item, index}
             {#if item.isCount}
               <ButtonCount

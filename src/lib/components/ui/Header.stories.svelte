@@ -11,17 +11,21 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  let pageType: "home" | "member" | "fusuu" | "hansuu";
 </script>
 
 <Story name="Default">
-  <Header pageType="fusuu" />
+  <Header>
+    <svelte:fragment slot="left">左</svelte:fragment>
+    <svelte:fragment slot="center">中央</svelte:fragment>
+    <svelte:fragment slot="right">右</svelte:fragment>
+  </Header>
 </Story>
 
-<Story name="Fu">
-  <Header pageType="fusuu" />
-</Story>
-
-<Story name="Han">
-  <Header pageType="hansuu" />
+<Story name="isContents">
+  <Header isContents>
+    <svelte:fragment slot="left">左</svelte:fragment>
+    <svelte:fragment slot="center">中央</svelte:fragment>
+    <svelte:fragment slot="right">右</svelte:fragment>
+    ここにコンテンツが入る
+  </Header>
 </Story>
