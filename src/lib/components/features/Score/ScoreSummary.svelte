@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Room } from "$lib/models/Total-Point/types.js";
+  import type { Room } from "$lib/models/interface.js";
   import ScoreCard from "$lib/components/ui/ScoreCard.svelte";
   export let rooms: Room[];
 

@@ -1,5 +1,5 @@
 import db from '$lib/models/db.js';
-import type { User } from "$lib/models/Member/types.js";
+import type { User } from "$lib/models/interface.js";
 
 export async function readUsers(): Promise<User[]> {
     const users = await db.selectFrom('User')

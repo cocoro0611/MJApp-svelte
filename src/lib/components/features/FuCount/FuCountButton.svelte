@@ -2,57 +2,57 @@
   import Button from "$lib/components/ui/Button.svelte";
   import ButtonCount from "$lib/components/ui/ButtonCount.svelte";
   import { derived, writable, type Writable } from "svelte/store";
-  import type { ButtonList } from "$lib/models/Point-Fusuu/types.js";
+  import type { CountButtonList } from "$lib/models/interface.js";
 
   export let han: number;
   export let fu: number;
 
-  const itemsStores: Writable<ButtonList[]>[] = [
+  const itemsStores: Writable<CountButtonList[]>[] = [
     writable([
       {
         label: "門前ロン",
-        fuVal: 30,
+        value: 30,
         isSelected: false,
         isCount: true,
         count: 0,
       },
-      { label: "ツモ", fuVal: 22, isSelected: false, isCount: true, count: 0 },
+      { label: "ツモ", value: 22, isSelected: false, isCount: true, count: 0 },
       {
         label: "七対子",
-        fuVal: 25,
+        value: 25,
         isSelected: false,
         isCount: true,
         count: 1,
       },
       {
         label: "平和ツモ",
-        fuVal: 20,
+        value: 20,
         isSelected: false,
         isCount: true,
         count: 1,
       },
     ]),
     writable([
-      { label: "明刻", fuVal: 2, isSelected: false, isCount: true, count: 0 },
-      { label: "暗刻", fuVal: 4, isSelected: false, isCount: true, count: 0 },
-      { label: "明槓", fuVal: 8, isSelected: false, isCount: true, count: 0 },
-      { label: "暗槓", fuVal: 16, isSelected: false, isCount: true, count: 0 },
+      { label: "明刻", value: 2, isSelected: false, isCount: true, count: 0 },
+      { label: "暗刻", value: 4, isSelected: false, isCount: true, count: 0 },
+      { label: "明槓", value: 8, isSelected: false, isCount: true, count: 0 },
+      { label: "暗槓", value: 16, isSelected: false, isCount: true, count: 0 },
     ]),
     writable([
-      { label: "明刻", fuVal: 4, isSelected: false, isCount: true, count: 0 },
-      { label: "暗刻", fuVal: 8, isSelected: false, isCount: true, count: 0 },
-      { label: "明槓", fuVal: 16, isSelected: false, isCount: true, count: 0 },
-      { label: "暗槓", fuVal: 32, isSelected: false, isCount: true, count: 0 },
+      { label: "明刻", value: 4, isSelected: false, isCount: true, count: 0 },
+      { label: "暗刻", value: 8, isSelected: false, isCount: true, count: 0 },
+      { label: "明槓", value: 16, isSelected: false, isCount: true, count: 0 },
+      { label: "暗槓", value: 32, isSelected: false, isCount: true, count: 0 },
     ]),
     writable([
-      { label: "役牌", fuVal: 2, isSelected: false },
-      { label: "連風牌", fuVal: 4, isSelected: false },
+      { label: "役牌", value: 2, isSelected: false },
+      { label: "連風牌", value: 4, isSelected: false },
     ]),
     writable([
-      { label: "単騎", fuVal: 2, isSelected: false },
-      { label: "辺張", fuVal: 2, isSelected: false },
-      { label: "間張", fuVal: 2, isSelected: false },
-      { label: "延べ単", fuVal: 2, isSelected: false },
+      { label: "単騎", value: 2, isSelected: false },
+      { label: "辺張", value: 2, isSelected: false },
+      { label: "間張", value: 2, isSelected: false },
+      { label: "延べ単", value: 2, isSelected: false },
     ]),
   ];
 
@@ -80,16 +80,16 @@
   );
 
   const onButton = (
-    store: Writable<ButtonList[]>,
+    store: Writable<CountButtonList[]>,
     index: number,
     categoryIndex: number,
   ) => {
-    store.update((items: ButtonList[]) => {
+    store.update((items: CountButtonList[]) => {
       if (categoryIndex === 3 || categoryIndex === 4) {
         items.forEach((item, i) => {
           if (i !== index) {
             if (item.isSelected) {
-              fu -= item.fuVal;
+              fu -= item.value;
             }
             item.isSelected = false;
           }
@@ -97,13 +97,13 @@
       }
       const isClick = !items[index].isSelected;
       items[index].isSelected = isClick;
-      fu += isClick ? items[index].fuVal : -items[index].fuVal;
+      fu += isClick ? items[index].value : -items[index].value;
       return items;
     });
   };
 
   const countButton = (
-    store: Writable<ButtonList[]>,
+    store: Writable<CountButtonList[]>,
     index: number,
     categoryIndex: number,
   ) => {
@@ -123,7 +123,7 @@
       item.count = (item.count || 0) + 1;
       if (categoryIndex === 0) {
         han = item.count || 0;
-        fu = item.fuVal;
+        fu = item.value;
         item.isSelected = true;
         if ((item.count || 0) > maxCount) {
           item.count =
@@ -133,12 +133,12 @@
           item.isSelected = false;
         }
       } else {
-        fu += item.fuVal;
+        fu += item.value;
         item.isSelected = true;
         if ((item.count || 0) > maxCount) {
           item.count =
             item.label === "七対子" || item.label === "平和ツモ" ? 1 : 0;
-          fu -= 5 * item.fuVal;
+          fu -= 5 * item.value;
           item.isSelected = false;
         }
       }
@@ -170,7 +170,7 @@
                   countButton(group.store, index, categoryIndex)}"
               >
                 <svelte:fragment slot="countName">
-                  {group.title === "和了 + 翻数（４翻以下）" ? "翻" : "つ"}
+                  {group.title === "和了 + 翻数" ? "翻" : "つ"}
                 </svelte:fragment>
                 {item.label}
               </ButtonCount>

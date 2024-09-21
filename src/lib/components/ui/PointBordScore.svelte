@@ -1,5 +1,11 @@
 <script lang="ts">
-  import type { PointData } from "$lib/models/types.js";
+  interface PointData {
+    oyaRon: number;
+    oyaTumo: number;
+    koRon: number;
+    koTumo_oya: number;
+    koTumo_ko: number;
+  }
 
   export let pointData: PointData;
 

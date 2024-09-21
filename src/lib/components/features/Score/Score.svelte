@@ -1,6 +1,6 @@
 <script lang="ts">
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
-  import type { Room } from "$lib/models/Total-Point/types.js";
+  import type { Room } from "$lib/models/interface.js";
   import Icon from "$lib/components/ui/Icon.svelte";
   import Modal from "$lib/components/ui/Modal.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";

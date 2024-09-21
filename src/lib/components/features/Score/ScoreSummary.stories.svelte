@@ -4,14 +4,14 @@
   import ScoreSummary from "./ScoreSummary.svelte";
 
   export const meta: Meta<ScoreSummary> = {
-    title: "features/Total-Point/ScoreSummary",
+    title: "features/Score/ScoreSummary",
     component: ScoreSummary,
   };
 </script>
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import type { Room } from "$lib/models/Total-Point/types.js";
+  import type { Room } from "$lib/models/interface.js";
   let rooms: Room[] = [
     {
       id: "aa",

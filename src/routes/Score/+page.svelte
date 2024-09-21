@@ -1,17 +1,16 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import type { Room, Score } from "$lib/models/Total-Point/types.js";
-    import type { User } from "$lib/models/Member/types.js";
+    import type { User, Room, Score } from "$lib/models/interface.js";
     export let rooms: Room[];
     export let users: User[];
     export let scores: Score[];
 
     import Modal from "$lib/components/ui/Modal.svelte";
-    import ScoreSummary from "$lib/components/features/Total-Point/ScoreSummary.svelte";
-    import Setting from "$lib/components/features/Total-Point/Setting.svelte";
-    import ScoreCom from "$lib/components/features/Total-Point/Score.svelte";
-    import Tensuu from "$lib/components/features/Total-Point/Tensuu.svelte";
-    import AddScore from "$lib/components/features/Total-Point/AddScore.svelte";
+    import ScoreSummary from "$lib/components/features/Score/ScoreSummary.svelte";
+    import Setting from "$lib/components/features/Score/Setting.svelte";
+    import ScoreCom from "$lib/components/features/Score/Score.svelte";
+    import Tensuu from "$lib/components/features/Score/Tensuu.svelte";
+    import AddScore from "$lib/components/features/Score/AddScore.svelte";
 
     export let isScorePage: Boolean;
 

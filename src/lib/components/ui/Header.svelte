@@ -27,9 +27,6 @@
   </div>
 </header>
 
-<!-- 下幅の調整 -->
-<div class="mt-12"></div>
-
 {#if isContents}
   <div class="fixed top-20 left-0 right-0">
     <div class="max-w-screen-lg container mx-auto">
@@ -37,6 +34,3 @@
     </div>
   </div>
 {/if}
-
-<!-- 下幅の調整 -->
-<div class="{isLeftLong ? 'mt-44' : ''}"></div>

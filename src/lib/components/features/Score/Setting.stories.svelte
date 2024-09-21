@@ -4,7 +4,7 @@
   import Setting from "./Setting.svelte";
 
   export const meta: Meta<Setting> = {
-    title: "features/Total-Point/Setting",
+    title: "features/Score/Setting",
     component: Setting,
   };
 </script>

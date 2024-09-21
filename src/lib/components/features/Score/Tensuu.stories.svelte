@@ -4,7 +4,7 @@
   import Tensuu from "./Tensuu.svelte";
 
   export const meta: Meta<Tensuu> = {
-    title: "features/Total-Point/Tensuu",
+    title: "features/Score/Tensuu",
     component: Tensuu,
   };
 </script>

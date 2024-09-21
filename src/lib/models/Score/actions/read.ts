@@ -1,6 +1,5 @@
 import db from '$lib/models/db.js';
-import type { User } from "$lib/models/Member/types.js";
-import type { Room, Score } from "$lib/models/Total-Point/types.js";
+import type { User, Room, Score  } from "$lib/models/interface.js";
 
 export async function readRooms(): Promise<Room[]> {
     const rooms = await db.selectFrom('Room')

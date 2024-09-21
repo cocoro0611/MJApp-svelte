@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Card } from "flowbite-svelte";
-  import type { Room } from "$lib/models/Total-Point/types.js";
+  import type { Room } from "$lib/models/interface.js";
 
   export let room: Room;
 </script>

@@ -3,14 +3,14 @@
   import { createEventDispatcher } from "svelte";
   import { Input } from "flowbite-svelte";
 
-  import type { User } from "$lib/models/Member/types.js";
-  import type { Room } from "$lib/models/Total-Point/types.js";
+  import type { User } from "$lib/models/interface.js";
+  import type { Room } from "$lib/models/interface.js";
   import Button from "$lib/components/ui/Button.svelte";
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
   import { derived, writable, type Writable } from "svelte/store";
-  import type { ButtonList } from "$lib/models/Total-Point/types.js";
+  import type { ScoreButtonList } from "$lib/models/interface.js";
 
   export let users: User[];
   export let room: Room = {
@@ -25,7 +25,7 @@
     chipValue: 100,
   };
 
-  const itemsStores: Writable<ButtonList[]>[] = [
+  const itemsStores: Writable<ScoreButtonList[]>[] = [
     writable([
       { label: "25000点", initialPoint: 25000, isSelected: true },
       { label: "30000点", initialPoint: 30000, isSelected: false },
@@ -62,7 +62,10 @@
     ]),
   ];
 
-  function chunkArray(arr: ButtonList[], size: number): ButtonList[][] {
+  function chunkArray(
+    arr: ScoreButtonList[],
+    size: number,
+  ): ScoreButtonList[][] {
     return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
       arr.slice(i * size, i * size + size),
     );
@@ -78,8 +81,8 @@
     })),
   );
 
-  const onButton = (store: Writable<ButtonList[]>, index: number) => {
-    store.update((items: ButtonList[]) => {
+  const onButton = (store: Writable<ScoreButtonList[]>, index: number) => {
+    store.update((items: ScoreButtonList[]) => {
       items.forEach((item, i) => {
         item.isSelected = i === index;
       });

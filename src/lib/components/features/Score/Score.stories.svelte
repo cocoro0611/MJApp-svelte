@@ -4,7 +4,7 @@
   import Score from "./Score.svelte";
 
   export const meta: Meta<Score> = {
-    title: "features/Total-Point/Score",
+    title: "features/Score/Score",
     component: Score,
   };
 </script>

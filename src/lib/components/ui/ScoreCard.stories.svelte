@@ -11,7 +11,7 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import type { Room } from "$lib/models/Total-Point/types.js";
+  import type { Room } from "$lib/models/interface.js";
   let room: Room = {
     id: "aa",
     name: "部屋名",

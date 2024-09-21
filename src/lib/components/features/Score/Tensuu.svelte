@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Input } from "flowbite-svelte";
-  import type { Room, Score } from "$lib/models/Total-Point/types.js";
+  import type { Room, Score } from "$lib/models/interface.js";
 
   export let room: Room;
   export let scores: Score[];

@@ -5,10 +5,10 @@ import { updateUser } from '$lib/models/Member/actions/update.js';
 import { deleteUser } from '$lib/models/Member/actions/delete.js';
 import { readUsers } from '$lib/models/Member/actions/read.js';
 
-import { createRoom, createScore } from '$lib/models/Total-Point/actions/create.js';
-import { updateScore } from '$lib/models/Total-Point/actions/update.js';
-import { deleteRoom } from '$lib/models/Total-Point/actions/delete.js';
-import { readRooms, readScores } from '$lib/models/Total-Point/actions/read.js';
+import { createRoom, createScore } from '$lib/models/Score/actions/create.js';
+import { updateScore } from '$lib/models/Score/actions/update.js';
+import { deleteRoom } from '$lib/models/Score/actions/delete.js';
+import { readRooms, readScores } from '$lib/models/Score/actions/read.js';
 
 export const actions: Actions = {
     createUser,

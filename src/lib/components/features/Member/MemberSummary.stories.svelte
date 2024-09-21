@@ -11,7 +11,7 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import type { User } from "$lib/models/Member/types.js";
+  import type { User } from "$lib/models/interface.js";
   let users: User[] = [
     { id: "", name: "井上", icon: "monster01.png" },
     { id: "", name: "山本", icon: "monster02.png" },

@@ -4,11 +4,17 @@
   import ButtonToggle from "$lib/components/ui/ButtonToggle.svelte";
   import PointBordSelect from "$lib/components/ui/PointBordSelect.svelte";
   import PointBordScore from "$lib/components/ui/PointBordScore.svelte";
-  import MenzenButton from "$lib/components/features/Point-Hansuu/MenzenButton.svelte";
-  import FuroButton from "$lib/components/features/Point-Hansuu/FuroButton.svelte";
+  import MenzenButton from "$lib/components/features/HanCount/MenzenButton.svelte";
+  import FuroButton from "$lib/components/features/HanCount/FuroButton.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
 
-  import type { PointData } from "$lib/models/types.js";
+  interface PointData {
+    oyaRon: number;
+    oyaTumo: number;
+    koRon: number;
+    koTumo_oya: number;
+    koTumo_ko: number;
+  }
 
   let han: number = 0;
   let fu: number = 30;
@@ -77,7 +83,7 @@
   <PointBordScore bind:pointData />
 </Header>
 
-<Main>
+<Main isLongHeader>
   {#if isFuro}
     <MenzenButton bind:this="{menzenButton}" bind:han bind:fu />
   {:else}

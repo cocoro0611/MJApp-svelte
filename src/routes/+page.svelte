@@ -1,12 +1,12 @@
 <script lang="ts">
+  import ScorePage from "./Score/+page.svelte";
+  import MemberPage from "./Member/+page.svelte";
+  import FuCountPage from "./FuCount/+page.svelte";
+  import HanCountPage from "./HanCount/+page.svelte";
+  import Footer from "$lib/components/ui/Footer.svelte";
+
   import type { PageData } from "./$types.js";
   export let data: PageData;
-
-  import ScorePage from "../routes/Total-Point/+page.svelte";
-  import MemberPage from "../routes/Member/+page.svelte";
-  import PointFusuuPage from "../routes/Point-Fusuu/+page.svelte";
-  import PointHansuuPage from "../routes/Point-Hansuu/+page.svelte";
-  import Footer from "$lib/components/ui/Footer.svelte";
 
   let currentPage: "score" | "member" | "fuCount" | "hanCount" = "score";
   let isScorePage: Boolean = false;
@@ -14,17 +14,17 @@
 
 {#if currentPage === "score"}
   <ScorePage
-    bind:isScorePage
     rooms="{data.rooms}"
     scores="{data.scores}"
     users="{data.users}"
+    bind:isScorePage
   />
 {:else if currentPage === "member"}
   <MemberPage users="{data.users}" />
 {:else if currentPage === "fuCount"}
-  <PointFusuuPage />
+  <FuCountPage />
 {:else if currentPage === "hanCount"}
-  <PointHansuuPage />
+  <HanCountPage />
 {/if}
 
 <Footer bind:currentPage bind:isScorePage />

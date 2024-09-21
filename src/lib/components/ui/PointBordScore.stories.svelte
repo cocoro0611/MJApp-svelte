@@ -12,7 +12,7 @@
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
 
-  import type { PointData } from "$lib/models/types.js";
+  import type { PointData } from "$lib/models/interface.js";
   let pointData: PointData = {
     oyaRon: 1500,
     oyaTumo: 500,

@@ -3,15 +3,22 @@
   import Main from "$lib/components/ui/Main.svelte";
   import PointBordSelect from "$lib/components/ui/PointBordSelect.svelte";
   import PointBordScore from "$lib/components/ui/PointBordScore.svelte";
-  import FuCountButton from "$lib/components/features/Point-Fusuu/FuCountButton.svelte";
+  import FuCountButton from "$lib/components/features/FuCount/FuCountButton.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
 
-  import type { PointData } from "$lib/models/types.js";
   import { formatFuValue } from "$lib/utils/formatFuValue.js";
 
   let han: number = 0;
   let fu: number = 30;
   let fuUp: number = 30;
+
+  interface PointData {
+    oyaRon: number;
+    oyaTumo: number;
+    koRon: number;
+    koTumo_oya: number;
+    koTumo_ko: number;
+  }
 
   let pointData: PointData = {
     oyaRon: 0,
@@ -63,6 +70,6 @@
   <PointBordScore bind:pointData />
 </Header>
 
-<Main>
+<Main isLongHeader>
   <FuCountButton bind:this="{fuCountButton}" bind:han bind:fu />
 </Main>

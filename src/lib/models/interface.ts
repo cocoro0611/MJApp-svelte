@@ -1,6 +1,20 @@
-import type { User } from "$lib/models/Member/types.js";
+export interface PointData {
+  oyaRonPoint: number;
+  oyaTumoPoint: number;
+  koRonPoint: number;
+  koTumoPoint_oya: number;
+  koTumoPoint_ko: number;
+}
 
-export interface ButtonList {
+export interface CountButtonList {
+    label: string;
+    value: number;
+    isSelected: boolean;
+    isCount?: boolean;
+    count?: number;
+}
+
+export interface ScoreButtonList {
     label: string;
     initialPoint?:  number,
     returnPoint?: number,
@@ -8,6 +22,14 @@ export interface ButtonList {
     Rate?: number,
     chipValue?: number,
     isSelected: boolean;
+}
+
+export interface User {
+    id:string
+    name: string;
+    icon: string;
+    createdAt: Date;
+    order?: Number; //ユーザ番号の管理
 }
 
 export interface Room {

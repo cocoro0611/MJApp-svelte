@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import { Input } from "flowbite-svelte";
-  import type { User } from "$lib/models/Member/types.js";
+  import type { User } from "$lib/models/interface.js";
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
   import MemberIcon from "$lib/components/ui/MemberIcon.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";

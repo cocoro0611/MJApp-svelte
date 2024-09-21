@@ -1,7 +1,14 @@
 <script lang="ts">
+  import { Button } from "flowbite-svelte";
   import { createEventDispatcher } from "svelte";
-  export let pattern: "create" | "update" | "add" | "delete" | "deleteOnly" =
-    "create";
+  export let pattern:
+    | "close"
+    | "create"
+    | "update"
+    | "add"
+    | "delete"
+    | "deleteOnly"
+    | "plus" = "create";
 
   const dispatch = createEventDispatcher();
   const handleClose = () => {
@@ -21,36 +28,35 @@
   };
 </script>
 
+{#if pattern === "close"}
+  <button class="close defaultSize" on:click>閉じる</button>
+{/if}
+
 {#if pattern === "create"}
-  <div class="flex justify-center gap-2">
-    <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
-    <button class="action defaultSize" on:click="{handleCreate}">登録</button>
-  </div>
+  <button class="action defaultSize" on:click>登録</button>
 {/if}
 
 {#if pattern === "update"}
-  <div class="flex justify-center gap-2">
-    <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
-    <button class="action defaultSize" on:click="{handleUpdate}">更新</button>
-  </div>
+  <button class="action defaultSize" on:click="{handleUpdate}">更新</button>
 {/if}
 
 {#if pattern === "add"}
-  <div class="flex justify-center gap-2">
-    <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
-    <button class="action defaultSize" on:click="{handleAdd}">追加</button>
-  </div>
+  <button class="action defaultSize" on:click="{handleAdd}">追加</button>
 {/if}
 
 {#if pattern === "delete"}
-  <div class="flex justify-center gap-2">
-    <button class="close defaultSize" on:click="{handleClose}">閉じる</button>
-    <button class="delete defaultSize" on:click="{handleDelete}">削除</button>
-  </div>
+  <button class="delete defaultSize" on:click="{handleDelete}">削除</button>
 {/if}
 
-{#if pattern === "deleteOnly"}
-  <button class="delete smallSize" on:click="{handleDelete}">削除</button>
+{#if pattern === "plus"}
+  <div class="fixed bottom-24 right-10 z-10">
+    <Button
+      class="w-14 h-14 text-2xl font-bold rounded-xl bg-blue-800 hover:bg-blue-900 text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+      on:click
+    >
+      <div class="-mt-[0.2rem]">+</div>
+    </Button>
+  </div>
 {/if}
 
 <style>
