@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import type { User } from "$lib/models/interface.js";
   export let users: User[];
 
@@ -6,25 +7,18 @@
   import Main from "$lib/components/ui/Main.svelte";
   import MemberSummary from "$lib/components/features/Member/MemberSummary.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
 
   export let currentPage: "memberHome" | "memberNew" | "memberDetail";
 
-  // let popupModal = false;
-  // let selectedUser: User | null = null;
-
-  // const handleUserClick = (user: User) => {
-  //   dispatch("userClick", user);
-  // };
-
-  // const closeModal = () => {
-  //   popupModal = false;
-  //   selectedUser = null;
-  // };
-
-  const MemberCreate = () => {
+  const MemberCreatePage = () => {
     currentPage = "memberNew";
+  };
+
+  const dispatch = createEventDispatcher<{
+    select: User;
+  }>();
+  const handleUserSelect = (event: CustomEvent<User>) => {
+    dispatch("select", event.detail);
   };
 </script>
 
@@ -33,7 +27,7 @@
 </Header>
 
 <Main>
-  <MemberSummary {users} />
+  <MemberSummary {users} on:select="{handleUserSelect}" />
 </Main>
 
-<ButtonAction pattern="plus" on:click="{MemberCreate}" />
+<ButtonAction pattern="plus" on:click="{MemberCreatePage}" />

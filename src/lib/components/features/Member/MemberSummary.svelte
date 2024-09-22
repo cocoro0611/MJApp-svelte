@@ -1,29 +1,30 @@
 <script lang="ts">
-  import type { User } from "$lib/models/interface.js";
-  import MemberCard from "$lib/components/ui/MemberCard.svelte";
-  export let users: User[];
-
   import { createEventDispatcher } from "svelte";
 
-  const dispatch = createEventDispatcher();
+  import type { User } from "$lib/models/interface.js";
+  export let users: User[];
 
-  const handleUserClick = (user: User) => {
-    dispatch("userClick", user);
+  import MemberCard from "$lib/components/ui/MemberCard.svelte";
+
+  const dispatch = createEventDispatcher<{
+    select: User;
+  }>();
+
+  const selectedUser = (user: User) => {
+    dispatch("select", user);
   };
 </script>
 
-<div class="flex justify-center">
-  <div class="grid grid-cols-4">
-    {#each users as user}
-      <div class="p-1">
-        <MemberCard
-          isBorder
-          image="/MemberIcon/{user.icon}"
-          on:click="{() => handleUserClick(user)}"
-        >
-          {user.name}
-        </MemberCard>
-      </div>
-    {/each}
-  </div>
+<div class="mx-4 grid grid-cols-4 md:grid-cols-6">
+  {#each users as user}
+    <div class="flex justify-center p-2">
+      <MemberCard
+        isBorder
+        image="/MemberIcon/{user.icon}"
+        on:click="{() => selectedUser(user)}"
+      >
+        {user.name}
+      </MemberCard>
+    </div>
+  {/each}
 </div>

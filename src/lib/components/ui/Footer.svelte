@@ -9,13 +9,13 @@
   export let currentPage: PageType;
   export let isScorePage;
 
-  interface Tab {
+  interface TabList {
     id: PageType;
     label: string;
     iconType: IconType;
   }
 
-  const tabs: Tab[] = [
+  const tabs: TabList[] = [
     { id: "score", label: "ホーム", iconType: "score" },
     { id: "member", label: "メンバー", iconType: "user" },
     { id: "fuCount", label: "符数計算", iconType: "calculator" },

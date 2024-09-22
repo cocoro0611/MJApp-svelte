@@ -12,6 +12,8 @@
   import { derived, writable, type Writable } from "svelte/store";
   import type { ScoreButtonList } from "$lib/models/interface.js";
 
+  import { validateRoom } from "$lib/utils/validate.js";
+
   export let users: User[];
   export let room: Room = {
     id: "",
@@ -115,18 +117,8 @@
   };
 
   let nameError: string = "";
-  let nameMinLength = 1;
-  let nameMaxLength = 10;
-  const validateRoom = () => {
-    nameError = "";
-    if (room.name.length < 1) {
-      nameError = `名前は${nameMinLength}文字以上で入力してください`;
-    } else if (room.name.length > nameMaxLength) {
-      nameError = `名前は${nameMaxLength}文字以内で入力してください`;
-    }
-    return nameError === "";
-  };
-
+  let roomNameMinLength = 1;
+  let roomNameMaxLength = 10;
   $: nameLengh = room.name.length;
 </script>
 
@@ -141,10 +133,10 @@
         name="name"
         placeholder="部屋名を入力"
         bind:value="{room.name}"
-        minlength="{nameMinLength}"
-        maxlength="{nameMaxLength}"
+        minlength="{roomNameMinLength}"
+        maxlength="{roomNameMaxLength}"
       />
-      <div class="flex justify-end">{nameLengh}/{nameMaxLength}</div>
+      <div class="flex justify-end">{nameLengh}/{roomNameMaxLength}</div>
       {#if nameError}
         <div class="text-red-500">{nameError}</div>
       {/if}

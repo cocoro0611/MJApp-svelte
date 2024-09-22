@@ -67,16 +67,6 @@
     ]),
   ];
 
-  // 配列を6個ずつのグループに分割する関数
-  function chunkArray(
-    arr: CountButtonList[],
-    size: number,
-  ): CountButtonList[][] {
-    return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
-      arr.slice(i * size, i * size + size),
-    );
-  }
-
   const titles = ["１翻役", "２翻役", "３翻役", "６翻役", "役満", "ダブル役満"];
 
   const itemsGroup = derived(itemsStores, ($itemsStores) =>

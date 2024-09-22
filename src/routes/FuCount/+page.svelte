@@ -5,6 +5,7 @@
   import PointBordScore from "$lib/components/ui/PointBordScore.svelte";
   import FuCountButton from "$lib/components/features/FuCount/FuCountButton.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
+  import type { PointData } from "$lib/models/interface.js";
 
   import { formatFuValue } from "$lib/utils/formatFuValue.js";
 
@@ -12,20 +13,12 @@
   let fu: number = 30;
   let fuUp: number = 30;
 
-  interface PointData {
-    oyaRon: number;
-    oyaTumo: number;
-    koRon: number;
-    koTumo_oya: number;
-    koTumo_ko: number;
-  }
-
   let pointData: PointData = {
-    oyaRon: 0,
-    oyaTumo: 0,
-    koRon: 0,
-    koTumo_oya: 0,
-    koTumo_ko: 0,
+    oyaRonPoint: 0,
+    oyaTumoPoint: 0,
+    koRonPoint: 0,
+    koTumoPoint_oya: 0,
+    koTumoPoint_ko: 0,
   };
 
   $: fuUp = formatFuValue(fu);
@@ -35,11 +28,11 @@
     const response = await fetch(`/api/point?fu=${fuUp}&han=${han}`);
     const data = await response.json();
     pointData = {
-      oyaRon: data.oyaRonPoint | 0,
-      oyaTumo: data.oyaTumoPoint | 0,
-      koRon: data.koRonPoint | 0,
-      koTumo_oya: data.koTumoPoint_oya | 0,
-      koTumo_ko: data.koTumoPoint_ko | 0,
+      oyaRonPoint: data.oyaRonPoint | 0,
+      oyaTumoPoint: data.oyaTumoPoint | 0,
+      koRonPoint: data.koRonPoint | 0,
+      koTumoPoint_oya: data.koTumoPoint_oya | 0,
+      koTumoPoint_ko: data.koTumoPoint_ko | 0,
     };
   }
   $: {

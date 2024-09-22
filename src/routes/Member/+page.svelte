@@ -7,12 +7,19 @@
   export let users: User[];
 
   let currentPage: "memberHome" | "memberNew" | "memberDetail" = "memberHome";
+
+  let selectedUser: User;
+
+  const handleUserSelect = (event: CustomEvent<User>) => {
+    selectedUser = event.detail;
+    currentPage = "memberDetail";
+  };
 </script>
 
 {#if currentPage === "memberHome"}
-  <MemberHome {users} bind:currentPage />
+  <MemberHome {users} bind:currentPage on:select="{handleUserSelect}" />
 {:else if currentPage === "memberNew"}
-  <MemberNew {users} bind:currentPage />
+  <MemberNew bind:currentPage />
 {:else if currentPage === "memberDetail"}
-  <MemberDetail />
+  <MemberDetail bind:currentPage user="{selectedUser}" />
 {/if}

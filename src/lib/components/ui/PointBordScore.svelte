@@ -1,11 +1,5 @@
 <script lang="ts">
-  interface PointData {
-    oyaRon: number;
-    oyaTumo: number;
-    koRon: number;
-    koTumo_oya: number;
-    koTumo_ko: number;
-  }
+  import type { PointData } from "$lib/models/interface.js";
 
   export let pointData: PointData;
 
@@ -40,17 +34,19 @@
 </script>
 
 <div class="flex justify-center text-xl font-bold">
-  {formatPointMain(pointData.koRon)}
+  {formatPointMain(pointData.koRonPoint)}
 </div>
 <div class="flex justify-center text-sm font-bold">
   <ul>
     <li>
-      親：{formatPoint(pointData.oyaRon)}（{formatPoint(pointData.oyaTumo)} All）
+      親：{formatPoint(pointData.oyaRonPoint)}（{formatPoint(
+        pointData.oyaTumoPoint,
+      )} All）
     </li>
     <li>
-      子：{formatPoint(pointData.koRon)}（{formatPoint(
-        pointData.koTumo_oya,
-      )}/{formatPoint(pointData.koTumo_ko)}）
+      子：{formatPoint(pointData.koRonPoint)}（{formatPoint(
+        pointData.koTumoPoint_oya,
+      )}/{formatPoint(pointData.koTumoPoint_ko)}）
     </li>
   </ul>
 </div>

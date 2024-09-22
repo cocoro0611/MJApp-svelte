@@ -1,9 +1,9 @@
 export interface PointData {
-  oyaRonPoint: number;
-  oyaTumoPoint: number;
-  koRonPoint: number;
-  koTumoPoint_oya: number;
-  koTumoPoint_ko: number;
+    oyaRonPoint: number;
+    oyaTumoPoint: number;
+    koRonPoint: number;
+    koTumoPoint_oya: number;
+    koTumoPoint_ko: number;
 }
 
 export interface CountButtonList {
@@ -28,14 +28,14 @@ export interface User {
     id:string
     name: string;
     icon: string;
-    createdAt: Date;
+    createdAt: string | Date;
     order?: Number; //ユーザ番号の管理
 }
 
 export interface Room {
     id: string;
     name: string;
-    createdAt: Date;
+    createdAt: string | Date;
     users: User[];
     initialPoint: number;
     returnPoint: number;
