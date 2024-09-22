@@ -11,8 +11,6 @@
   const backPage = () => {
     currentPage = "memberHome";
   };
-
-  const deleteUser = () => {};
 </script>
 
 <Header>
@@ -21,7 +19,7 @@
   </svelte:fragment>
   <svelte:fragment slot="center">メンバー情報</svelte:fragment>
   <svelte:fragment slot="right">
-    <Icon type="delete" on:click="{deleteUser}" />
+    <MemberCreate isDelete {user} />
   </svelte:fragment>
 </Header>
 

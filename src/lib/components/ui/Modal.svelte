@@ -9,8 +9,8 @@
   <ButtonAction pattern="plus" on:click="{() => (popupModal = true)}" />
 {/if}
 
-<Modal bind:open="{popupModal}" size="xl" dismissable="{false}">
+<Modal bind:open="{popupModal}" size="lg" dismissable="{false}">
   <div class="text-center">
-    <div class="mb-4"><slot /></div>
+    <slot />
   </div>
 </Modal>

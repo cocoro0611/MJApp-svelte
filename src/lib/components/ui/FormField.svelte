@@ -1,9 +1,14 @@
 <script lang="ts">
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
-  export let actions: "createUser" | "updateUser";
+  import Modal from "./Modal.svelte";
+  import Icon from "./Icon.svelte";
+  export let actions: "createUser" | "updateUser" | "deleteUser";
+
+  let popupModal = false;
 
   let method: string = "";
   let action: string = "";
+
   const createUser = () => {
     method = "POST";
     action = "?/createUser";
@@ -18,23 +23,39 @@
     method = "POST";
     action = "?/deleteUser";
   };
+
+  const closeModal = () => {
+    popupModal = false;
+  };
+
+  const deleteUserModal = () => {
+    popupModal = true;
+  };
 </script>
 
-<form {method} {action} class="mx-4">
+<form {method} {action} class="{actions === 'deleteUser' ? 'flex' : 'mx-4'}">
   <slot />
   {#if actions === "createUser"}
-    <div class="flex justify-center">
+    <div class="flex justify-center py-4">
       <ButtonAction pattern="create" on:click="{createUser}" />
     </div>
   {/if}
   {#if actions === "updateUser"}
-    <div class="flex justify-center">
+    <div class="flex justify-center py-4">
       <ButtonAction pattern="update" on:click="{updateUser}" />
     </div>
   {/if}
-  <div class="flex justify-center">
-    <ButtonAction pattern="delete" on:click="{deleteUser}" />
-  </div>
+  {#if actions === "deleteUser"}
+    <Icon type="delete" on:click="{deleteUserModal}" />
+
+    <Modal bind:popupModal isButton="{false}">
+      <div class="py-4">本当に削除しますか？</div>
+      <div class="flex justify-center space-x-4 py-4">
+        <ButtonAction size="small" pattern="close" on:click="{closeModal}" />
+        <ButtonAction size="small" pattern="delete" on:click="{deleteUser}" />
+      </div>
+    </Modal>
+  {/if}
 </form>
 
 <!-- <script lang="ts">
