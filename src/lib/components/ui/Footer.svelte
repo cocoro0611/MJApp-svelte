@@ -7,7 +7,6 @@
   type IconType = "score" | "user" | "calculator" | "calculatorFilled";
 
   export let currentPage: PageType;
-  export let isScorePage;
 
   interface TabList {
     id: PageType;
@@ -24,7 +23,6 @@
 
   const handleLinkClick = (page: PageType) => {
     currentPage = page;
-    isScorePage = false;
     localStorage.setItem("currentPage", page);
   };
 

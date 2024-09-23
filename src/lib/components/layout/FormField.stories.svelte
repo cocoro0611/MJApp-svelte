@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import Modal from "./Modal.svelte";
+  import FormField from "./FormField.svelte";
 
-  export const meta: Meta<Modal> = {
-    title: "UI/Modal",
-    component: Modal,
+  export const meta: Meta<FormField> = {
+    title: "LAYOUT/FormField",
+    component: FormField,
   };
 </script>
 
@@ -14,5 +14,5 @@
 </script>
 
 <Story name="Default">
-  <Modal>ここに何か入る</Modal>
+  <FormField actions="deleteUser">ここにフォーム</FormField>
 </Story>

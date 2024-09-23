@@ -14,11 +14,11 @@
 
   import type { PointData } from "$lib/models/interface.js";
   let pointData: PointData = {
-    oyaRon: 1500,
-    oyaTumo: 500,
-    koRon: 1000,
-    koTumo_oya: 500,
-    koTumo_ko: 300,
+    oyaRonPoint: 1500,
+    oyaTumoPoint: 500,
+    koRonPoint: 1000,
+    koTumoPoint_oya: 500,
+    koTumoPoint_ko: 300,
   };
 </script>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Header from "$lib/components/ui/Header.svelte";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Header from "$lib/components/layout/Header.svelte";
+  import Main from "$lib/components/layout/Main.svelte";
   import ButtonToggle from "$lib/components/ui/ButtonToggle.svelte";
   import PointBordSelect from "$lib/components/ui/PointBordSelect.svelte";
   import PointBordScore from "$lib/components/ui/PointBordScore.svelte";

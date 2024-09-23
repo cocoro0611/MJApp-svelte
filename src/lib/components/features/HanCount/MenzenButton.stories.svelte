@@ -14,6 +14,7 @@
   import { Toggle } from "flowbite-svelte";
 
   let han: number = 0;
+  let fu: number = 30;
   let isFuro: boolean = true;
 
   let menzenButton: MenzenButton;
@@ -39,6 +40,6 @@
       <div>Total Han：{han}</div>
       <div>Is Furo：{isFuro ? "Yes" : "No"}</div>
     </div>
-    <MenzenButton bind:this="{menzenButton}" bind:han />
+    <MenzenButton bind:this="{menzenButton}" bind:han bind:fu />
   </div>
 </Story>

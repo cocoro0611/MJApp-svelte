@@ -3,8 +3,8 @@
   import type { User } from "$lib/models/interface.js";
   export let users: User[];
 
-  import Header from "$lib/components/ui/Header.svelte";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Header from "$lib/components/layout/Header.svelte";
+  import Main from "$lib/components/layout/Main.svelte";
   import MemberSummary from "$lib/components/features/Member/MemberSummary.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 

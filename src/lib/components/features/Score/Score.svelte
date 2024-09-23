@@ -2,7 +2,7 @@
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
   import type { Room } from "$lib/models/interface.js";
   import Icon from "$lib/components/ui/Icon.svelte";
-  import Modal from "$lib/components/ui/Modal.svelte";
+  import Modal from "$lib/components/layout/Modal.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
   export let room: Room;

@@ -4,20 +4,11 @@
 </script>
 
 <button
-  class="btn-size {isSelected ? 'btn-color' : 'hover:bg-blue-50'} "
+  class="flex items-center justify-center w-12 h-12 rounded-full
+  {isSelected
+    ? 'border-2 border-blue-300 bg-blue-100 hover:bg-blue-200'
+    : 'hover:bg-blue-100'} "
   on:click
 >
-  <img class="icon-size" src="{image}" alt="MemberIcon" />
+  <img class="w-8 h-8" src="{image}" alt="MemberIcon" />
 </button>
-
-<style>
-  .btn-color {
-    @apply border border-blue-300 bg-blue-100 hover:bg-blue-50;
-  }
-  .btn-size {
-    @apply w-[3rem] h-[3rem] rounded-full flex items-center justify-center;
-  }
-  .icon-size {
-    @apply w-[2.2rem] h-[2.2rem];
-  }
-</style>

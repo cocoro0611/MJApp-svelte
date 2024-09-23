@@ -1,18 +1,17 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import NameForm from "./NameForm.svelte";
+  import MemberForm from "./MemberForm.svelte";
 
-  export const meta: Meta<NameForm> = {
-    title: "UI/NameForm",
-    component: NameForm,
+  export const meta: Meta<MemberForm> = {
+    title: "features/Member/MemberForm",
+    component: MemberForm,
   };
 </script>
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
   import type { User } from "$lib/models/interface.js";
-
   let user: User = {
     id: "",
     name: "",
@@ -22,7 +21,5 @@
 </script>
 
 <Story name="Default">
-  <NameForm bind:user maxLength="{5}"></NameForm>
+  <MemberForm {user} />
 </Story>
-
-{user.name}

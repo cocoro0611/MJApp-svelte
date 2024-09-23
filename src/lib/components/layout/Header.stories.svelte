@@ -4,7 +4,7 @@
   import Header from "./Header.svelte";
 
   export const meta: Meta<Header> = {
-    title: "UI/Header",
+    title: "LAYOUT/Header",
     component: Header,
   };
 </script>
@@ -15,14 +15,6 @@
 
 <Story name="Default">
   <Header>
-    <svelte:fragment slot="left">左</svelte:fragment>
-    <svelte:fragment slot="center">中央</svelte:fragment>
-    <svelte:fragment slot="right">右</svelte:fragment>
-  </Header>
-</Story>
-
-<Story name="isContents">
-  <Header isContents>
     <svelte:fragment slot="left">左</svelte:fragment>
     <svelte:fragment slot="center">中央</svelte:fragment>
     <svelte:fragment slot="right">右</svelte:fragment>

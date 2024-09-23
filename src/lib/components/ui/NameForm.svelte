@@ -13,11 +13,10 @@
   $: currentLength = user.name.length;
 </script>
 
-<div class="font-bold">ユーザー名</div>
 <Input
   class="border border-blue-500"
   name="name"
-  placeholder="ユーザ名を入力"
+  placeholder="名前を入力"
   value="{user.name}"
   on:input="{updateNameLength}"
 />

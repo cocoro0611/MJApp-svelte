@@ -11,16 +11,12 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
+
+  let image = "/MemberIcon/monster01.png";
+  let name = "井上";
 </script>
 
 <Story name="Default">
-  <MemberCard image="/MemberIcon/monster01.png">井上</MemberCard>
-</Story>
-
-<Story name="isBorder">
-  <MemberCard isBorder image="/MemberIcon/monster01.png">井上</MemberCard>
-</Story>
-
-<Story name="isBig">
-  <MemberCard isBig image="/MemberIcon/monster01.png">井上</MemberCard>
+  <MemberCard {image} {name} />
+  <MemberCard isLarge {image} {name} />
 </Story>

@@ -16,7 +16,10 @@
 <Story name="Default">
   <div class="p-2"><ButtonAction pattern="create" /></div>
   <div class="p-2"><ButtonAction pattern="update" /></div>
-  <div class="p-2"><ButtonAction pattern="add" /></div>
   <div class="p-2"><ButtonAction pattern="delete" /></div>
-  <div class="p-2"><ButtonAction pattern="deleteOnly" /></div>
+  <div class="p-2"><ButtonAction pattern="close" /></div>
+  <div class="p-2"><ButtonAction pattern="plus" /></div>
+
+  <div class="p-2"><ButtonAction size="small" pattern="close" /></div>
+  <div class="p-2"><ButtonAction size="small" pattern="delete" /></div>
 </Story>

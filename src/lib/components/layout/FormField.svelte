@@ -1,7 +1,7 @@
 <script lang="ts">
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
-  import Modal from "./Modal.svelte";
-  import Icon from "./Icon.svelte";
+  import Modal from "$lib/components/layout/Modal.svelte";
+  import Icon from "../ui/Icon.svelte";
   export let actions: "createUser" | "updateUser" | "deleteUser";
 
   let popupModal = false;

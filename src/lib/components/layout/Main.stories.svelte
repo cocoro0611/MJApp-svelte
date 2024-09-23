@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import FormField from "./FormField.svelte";
+  import Main from "./Main.svelte";
 
-  export const meta: Meta<FormField> = {
-    title: "UI/FormField",
-    component: FormField,
+  export const meta: Meta<Main> = {
+    title: "LAYOUT/Main",
+    component: Main,
   };
 </script>
 
@@ -14,5 +14,5 @@
 </script>
 
 <Story name="Default">
-  <FormField type="member">ここにフォーム</FormField>
+  <Main>ここにメインのコンテンツ</Main>
 </Story>

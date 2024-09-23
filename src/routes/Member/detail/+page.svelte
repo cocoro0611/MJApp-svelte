@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Header from "$lib/components/ui/Header.svelte";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Header from "$lib/components/layout/Header.svelte";
+  import Main from "$lib/components/layout/Main.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
-  import MemberCreate from "$lib/components/features/Member/MemberCreate.svelte";
+  import MemberForm from "$lib/components/features/Member/MemberForm.svelte";
   import type { User } from "$lib/models/interface.js";
   export let user: User;
 
@@ -19,10 +19,10 @@
   </svelte:fragment>
   <svelte:fragment slot="center">メンバー情報</svelte:fragment>
   <svelte:fragment slot="right">
-    <MemberCreate isDelete {user} />
+    <MemberForm isDelete {user} />
   </svelte:fragment>
 </Header>
 
 <Main>
-  <MemberCreate isUpdate {user} />
+  <MemberForm isUpdate {user} />
 </Main>

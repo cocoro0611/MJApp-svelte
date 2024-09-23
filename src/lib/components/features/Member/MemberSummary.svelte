@@ -19,12 +19,10 @@
   {#each users as user}
     <div class="flex justify-center p-2">
       <MemberCard
-        isBorder
         image="/MemberIcon/{user.icon}"
+        name="{user.name}"
         on:click="{() => selectedUser(user)}"
-      >
-        {user.name}
-      </MemberCard>
+      />
     </div>
   {/each}
 </div>

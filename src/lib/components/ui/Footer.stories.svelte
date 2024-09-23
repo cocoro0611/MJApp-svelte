@@ -12,14 +12,10 @@
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
 
-  let currentPage: "home" | "member" | "fusuu" | "hansuu";
-
-  const handlePageChange = (page: CustomEvent<typeof currentPage>) => {
-    currentPage = page.detail;
-  };
+  let currentPage: "score" | "member" | "fuCount" | "hanCount" = "score";
 </script>
 
 <Story name="Default">
-  <Footer bind:currentPage on:click="{handlePageChange}" />
+  <Footer bind:currentPage />
   <p>Current page: {currentPage}</p>
 </Story>

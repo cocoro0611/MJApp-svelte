@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Header from "$lib/components/ui/Header.svelte";
-  import Main from "$lib/components/ui/Main.svelte";
+  import Header from "$lib/components/layout/Header.svelte";
+  import Main from "$lib/components/layout/Main.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
-  import MemberCreate from "$lib/components/features/Member/MemberCreate.svelte";
+  import MemberForm from "$lib/components/features/Member/MemberForm.svelte";
   import type { User } from "$lib/models/interface.js";
   let user: User = {
     id: "",
@@ -26,5 +26,5 @@
 </Header>
 
 <Main>
-  <MemberCreate {user} />
+  <MemberForm {user} />
 </Main>

@@ -5,7 +5,7 @@
     export let users: User[];
     export let scores: Score[];
 
-    import Modal from "$lib/components/ui/Modal.svelte";
+    import Modal from "$lib/components/layout/Modal.svelte";
     import ScoreSummary from "$lib/components/features/Score/ScoreSummary.svelte";
     import Setting from "$lib/components/features/Score/Setting.svelte";
     import ScoreCom from "$lib/components/features/Score/Score.svelte";

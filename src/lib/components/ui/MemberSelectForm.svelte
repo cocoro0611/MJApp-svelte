@@ -37,23 +37,18 @@
   };
 </script>
 
-<div class="my-4">
-  <div class="font-bold">アイコン</div>
-  <div class="flex justify-center">
-    <input type="hidden" name="icon" value="{user.icon}" />
-    <MemberCard isBig image="/MemberIcon/{user.icon}">
-      {user.name}
-    </MemberCard>
-  </div>
-  <div class="grid grid-cols-6 mt-2">
-    {#each icons as icon}
-      <div class="flex justify-center">
-        <MemberIcon
-          isSelected="{user.icon === icon}"
-          on:click="{() => onIconSelect(icon)}"
-          image="/MemberIcon/{icon}"
-        />
-      </div>
-    {/each}
-  </div>
+<div class="flex justify-center">
+  <input type="hidden" name="icon" value="{user.icon}" />
+  <MemberCard isLarge image="/MemberIcon/{user.icon}" name="{user.name}" />
+</div>
+<div class="grid grid-cols-6 mt-2">
+  {#each icons as icon}
+    <div class="flex justify-center">
+      <MemberIcon
+        isSelected="{user.icon === icon}"
+        on:click="{() => onIconSelect(icon)}"
+        image="/MemberIcon/{icon}"
+      />
+    </div>
+  {/each}
 </div>

@@ -27,10 +27,8 @@
   </div>
 </header>
 
-{#if isContents}
-  <div class="fixed top-20 left-0 right-0">
-    <div class="max-w-screen-lg container mx-auto">
-      <slot />
-    </div>
+<div class="fixed top-20 left-0 right-0">
+  <div class="max-w-screen-lg container mx-auto">
+    <slot />
   </div>
-{/if}
+</div>

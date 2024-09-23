@@ -27,4 +27,4 @@
   <HanCountPage />
 {/if}
 
-<Footer bind:currentPage bind:isScorePage />
+<Footer bind:currentPage />

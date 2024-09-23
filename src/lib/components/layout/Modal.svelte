@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Modal } from "flowbite-svelte";
-  import ButtonAction from "./ButtonAction.svelte";
+  import ButtonAction from "../ui/ButtonAction.svelte";
   export let popupModal = false;
   export let isButton: boolean = true;
 </script>

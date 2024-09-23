@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { User } from "$lib/models/interface.js";
-  import FormField from "$lib/components/ui/FormField.svelte";
+  import FormField from "$lib/components/layout/FormField.svelte";
   import NameForm from "$lib/components/ui/NameForm.svelte";
   import MemberSelectForm from "$lib/components/ui/MemberSelectForm.svelte";
 
@@ -12,7 +12,9 @@
 {#if !isDelete}
   <FormField actions="{isUpdate ? 'updateUser' : 'createUser'}">
     <input type="hidden" name="id" value="{user.id}" />
+    <div class="font-bold py-1">名前</div>
     <NameForm bind:user maxLength="{5}" />
+    <div class="font-bold py-1">アイコン</div>
     <MemberSelectForm bind:user />
   </FormField>
 {:else}
