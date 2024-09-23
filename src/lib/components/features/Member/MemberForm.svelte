@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { User } from "$lib/models/interface.js";
   import FormField from "$lib/components/layout/FormField.svelte";
-  import NameForm from "$lib/components/ui/NameForm.svelte";
+  import MemberNameForm from "$lib/components/ui/MemberNameForm.svelte";
   import MemberSelectForm from "$lib/components/ui/MemberSelectForm.svelte";
 
   export let isUpdate: boolean = false;
@@ -12,9 +12,7 @@
 {#if !isDelete}
   <FormField actions="{isUpdate ? 'updateUser' : 'createUser'}">
     <input type="hidden" name="id" value="{user.id}" />
-    <div class="font-bold py-1">名前</div>
-    <NameForm bind:user maxLength="{5}" />
-    <div class="font-bold py-1">アイコン</div>
+    <MemberNameForm bind:user />
     <MemberSelectForm bind:user />
   </FormField>
 {:else}

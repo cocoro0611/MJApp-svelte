@@ -1,4 +1,6 @@
-<script lang="ts">
+aa
+
+<!-- <script lang="ts">
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
   import type { Room } from "$lib/models/interface.js";
   import Icon from "$lib/components/ui/Icon.svelte";
@@ -106,6 +108,4 @@
       </div>
     {/each}
   </div>
-</div>
-
-<div class="mt-[8rem]"></div>
+</div> -->

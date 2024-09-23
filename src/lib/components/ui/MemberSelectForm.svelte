@@ -37,9 +37,10 @@
   };
 </script>
 
+<div class="font-bold py-1">アイコン</div>
 <div class="flex justify-center">
   <input type="hidden" name="icon" value="{user.icon}" />
-  <MemberCard isLarge image="/MemberIcon/{user.icon}" name="{user.name}" />
+  <MemberCard size="large" image="/MemberIcon/{user.icon}" name="{user.name}" />
 </div>
 <div class="grid grid-cols-6 mt-2">
   {#each icons as icon}

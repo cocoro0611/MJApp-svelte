@@ -3,8 +3,8 @@
   import Icon from "./Icon.svelte";
   import { onMount } from "svelte";
 
-  type PageType = "score" | "member" | "fuCount" | "hanCount";
-  type IconType = "score" | "user" | "calculator" | "calculatorFilled";
+  type PageType = "room" | "member" | "fuCount" | "hanCount";
+  type IconType = "room" | "user" | "calculator" | "calculatorFilled";
 
   export let currentPage: PageType;
 
@@ -15,7 +15,7 @@
   }
 
   const tabs: TabList[] = [
-    { id: "score", label: "ホーム", iconType: "score" },
+    { id: "room", label: "ホーム", iconType: "room" },
     { id: "member", label: "メンバー", iconType: "user" },
     { id: "fuCount", label: "符数計算", iconType: "calculator" },
     { id: "hanCount", label: "翻数計算", iconType: "calculatorFilled" },

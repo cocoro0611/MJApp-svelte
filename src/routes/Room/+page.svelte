@@ -1,4 +1,32 @@
 <script lang="ts">
+    import RoomHome from "./home/+page.svelte";
+    import RoomNew from "./new/+page.svelte";
+    import RoomDetail from "./detail/+page.svelte";
+
+    import type { Room, User, Score } from "$lib/models/interface.js";
+    export let rooms: Room[];
+    export let users: User[];
+    export let scores: Score[];
+
+    let currentPage: "roomHome" | "roomNew" | "roomDetail" = "roomHome";
+
+    let selectedRoom: Room;
+
+    const handleRoomSelect = (event: CustomEvent<Room>) => {
+        selectedRoom = event.detail;
+        currentPage = "roomDetail";
+    };
+</script>
+
+{#if currentPage === "roomHome"}
+    <RoomHome {rooms} bind:currentPage on:select="{handleRoomSelect}" />
+{:else if currentPage === "roomNew"}
+    <RoomNew {users} bind:currentPage />
+{:else if currentPage === "roomDetail"}
+    <RoomDetail {users} {scores} bind:currentPage room="{selectedRoom}" />
+{/if}
+
+<!-- <script lang="ts">
     import { onMount } from "svelte";
     import type { User, Room, Score } from "$lib/models/interface.js";
     export let rooms: Room[];
@@ -90,4 +118,4 @@
             />
         </Modal>
     </div>
-{/if}
+{/if} -->

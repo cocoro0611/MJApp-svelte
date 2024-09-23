@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import NameForm from "./NameForm.svelte";
+  import MemberNameForm from "./MemberNameForm.svelte";
 
-  export const meta: Meta<NameForm> = {
-    title: "UI/NameForm",
-    component: NameForm,
+  export const meta: Meta<MemberNameForm> = {
+    title: "UI/MemberNameForm",
+    component: MemberNameForm,
   };
 </script>
 
@@ -22,7 +22,7 @@
 </script>
 
 <Story name="Default">
-  <NameForm bind:user maxLength="{5}"></NameForm>
+  <MemberNameForm bind:user></MemberNameForm>
 </Story>
 
 {user.name}

@@ -3,7 +3,7 @@
     | "close"
     | "back"
     | "delete"
-    | "score"
+    | "room"
     | "user"
     | "calculator"
     | "calculatorFilled"
@@ -74,7 +74,7 @@
   </button>
 {/if}
 
-{#if type === "score"}
+{#if type === "room"}
   <svg
     width="24"
     height="24"

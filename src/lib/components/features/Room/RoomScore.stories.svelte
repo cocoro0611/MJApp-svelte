@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import DeleteScore from "./DeleteScore.svelte";
+  import RoomScore from "./RoomScore.svelte";
 
-  export const meta: Meta<DeleteScore> = {
-    title: "features/Score/DeleteScore",
-    component: DeleteScore,
+  export const meta: Meta<RoomScore> = {
+    title: "features/Room/RoomScore",
+    component: RoomScore,
   };
 </script>
 
@@ -14,5 +14,5 @@
 </script>
 
 <Story name="Default">
-  <DeleteScore />
+  <RoomScore />
 </Story>
