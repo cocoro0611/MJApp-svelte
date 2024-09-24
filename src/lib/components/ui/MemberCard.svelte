@@ -41,7 +41,11 @@
     {name}
   </div>
   {#if isScore}
-    <div class="text-sm text-center {totalScore >= 0 ? '' : 'text-red-500'}">
+    <div
+      class="text-sm text-center {totalScore >= 0
+        ? 'text-blue-800'
+        : 'text-red-500'}"
+    >
       {totalScore}
     </div>
   {/if}
