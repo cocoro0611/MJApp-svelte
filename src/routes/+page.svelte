@@ -13,6 +13,7 @@
 
 {#if currentPage === "room"}
   <!-- <ScorePage rooms="{data.rooms}" users="{data.users}" scores="{data.scores}" /> -->
+  <ScorePage rooms="{data.rooms}" users="{data.users}" />
 {:else if currentPage === "member"}
   <MemberPage users="{data.users}" />
 {:else if currentPage === "fuCount"}

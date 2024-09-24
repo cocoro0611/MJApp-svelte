@@ -1,7 +1,7 @@
 // コーディングスタイルの統一や自動フォーマットなどの設定
 {
   "files.eol": "\n",
-  "editor.tabSize": 2,
+  "editor.tabSize": 4,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
@@ -24,5 +24,5 @@
   "eslint.format.enable": true,
   "eslint.validate": ["svelte"],
   "scss.lint.unknownAtRules": "ignore",
-  "svelte.language-server.port": 9222,
+  "svelte.language-server.port": 9222
 }

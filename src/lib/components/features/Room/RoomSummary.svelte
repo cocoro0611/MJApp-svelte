@@ -1,16 +1,16 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
 
-  import type { Room } from "$lib/models/interface.js";
   import ScoreCard from "$lib/components/ui/RoomCard.svelte";
-  export let rooms: Room[];
+  import type { RoomData } from "$lib/models/Room/type.js";
+  export let rooms: RoomData[];
 
   const dispatch = createEventDispatcher<{
-    select: Room;
+    select: RoomData;
   }>();
 
-  const selectedRoom = (user: Room) => {
-    dispatch("select", user);
+  const selectedRoom = (room: RoomData) => {
+    dispatch("select", room);
   };
 </script>
 

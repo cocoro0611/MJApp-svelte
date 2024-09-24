@@ -1,6 +1,7 @@
 <script lang="ts">
-  import type { User } from "$lib/models/interface.js";
-  export let users: User[];
+  import type { UserData } from "$lib/models/Member/type.js";
+
+  export let users: UserData[];
   import MemberCard from "./MemberCard.svelte";
   import Button from "./Button.svelte";
 

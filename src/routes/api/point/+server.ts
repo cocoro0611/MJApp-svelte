@@ -17,5 +17,5 @@ export const GET: RequestHandler = async ({ url }) => {
     koTumoPoint_oya: calculateKoTumoPoint_oya(fu, han),
     koTumoPoint_ko: calculateKoTumoPoint_ko(fu, han),
   };
-  return new Response(JSON.stringify(result));  
+  return new Response(JSON.stringify(result));
 };

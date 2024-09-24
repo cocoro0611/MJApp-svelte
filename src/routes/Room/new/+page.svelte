@@ -5,8 +5,10 @@
   import RoomForm from "$lib/components/features/Room/RoomForm.svelte";
 
   import dayjs from "dayjs";
-  import type { Room, User } from "$lib/models/interface.js";
-  export let users: User[];
+  import type { Room } from "$lib/models/interface.js";
+  import type { UserData } from "$lib/models/Member/type.js";
+
+  export let users: UserData[];
   let room: Room = {
     id: "",
     name: `${dayjs().format("YYYY/MM/DD")}`,

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import type { Room } from "$lib/models/interface.js";
-  export let rooms: Room[];
+  import type { RoomData } from "$lib/models/Room/type.js";
+  export let rooms: RoomData[];
 
   import Header from "$lib/components/layout/Header.svelte";
   import Main from "$lib/components/layout/Main.svelte";
@@ -15,9 +15,9 @@
   };
 
   const dispatch = createEventDispatcher<{
-    select: Room;
+    select: RoomData;
   }>();
-  const handleRoomSelect = (event: CustomEvent<Room>) => {
+  const handleRoomSelect = (event: CustomEvent<RoomData>) => {
     dispatch("select", event.detail);
   };
 </script>
