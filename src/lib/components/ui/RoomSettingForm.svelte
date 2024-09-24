@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Room } from "$lib/models/interface.js";
+  import type { RoomData } from "$lib/models/Room/type.js";
   import Button from "$lib/components/ui/Button.svelte";
   import { derived, writable, type Writable } from "svelte/store";
 
-  export let room: Room;
+  export let room: RoomData;
 
   type ScoreButtonList = {
     label: string;
@@ -12,8 +12,8 @@
   };
 
   type RoomKey = keyof Pick<
-    Room,
-    "initialPoint" | "returnPoint" | "bonusPoint" | "Rate" | "chipValue"
+    RoomData,
+    "initialPoint" | "returnPoint" | "bonusPoint" | "gameRate" | "chipValue"
   >;
 
   interface GroupConfig {
@@ -59,14 +59,14 @@
     },
     {
       title: "レート",
-      property: "Rate",
+      property: "gameRate",
       options: [
-        { label: "なし", Rate: 0, isSelected: false },
-        { label: "テンイチ", Rate: 10, isSelected: false },
-        { label: "テンニ", Rate: 20, isSelected: false },
-        { label: "テンサン", Rate: 30, isSelected: false },
-        { label: "テンゴ", Rate: 50, isSelected: true },
-        { label: "テンピン", Rate: 100, isSelected: false },
+        { label: "なし", gameRate: 0, isSelected: false },
+        { label: "テンイチ", gameRate: 10, isSelected: false },
+        { label: "テンニ", gameRate: 20, isSelected: false },
+        { label: "テンサン", gameRate: 30, isSelected: false },
+        { label: "テンゴ", gameRate: 50, isSelected: true },
+        { label: "テンピン", gameRate: 100, isSelected: false },
       ],
       format: (value: number) => {
         const rateMap: { [key: number]: string } = {
@@ -96,15 +96,15 @@
   ];
 
   const itemsStores: Writable<ScoreButtonList[]>[] = groupConfigs.map(
-    (config) => writable(config.options),
+    (config) => writable(config.options)
   );
 
   function chunkArray(
     arr: ScoreButtonList[],
-    size: number,
+    size: number
   ): ScoreButtonList[][] {
     return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
-      arr.slice(i * size, i * size + size),
+      arr.slice(i * size, i * size + size)
     );
   }
 
@@ -113,13 +113,13 @@
       ...groupConfigs[index],
       itemRows: chunkArray(items, 2),
       store: itemsStores[index],
-    })),
+    }))
   );
 
   const onButton = (
     store: Writable<ScoreButtonList[]>,
     index: number,
-    property: RoomKey,
+    property: RoomKey
   ) => {
     store.update((items: ScoreButtonList[]) => {
       items.forEach((item, i) => {
@@ -128,7 +128,7 @@
       const selectedItem = items[index];
       const value = selectedItem[property];
       if (value !== undefined) {
-        (room[property] as Room[RoomKey]) = value as Room[RoomKey];
+        (room[property] as RoomData[RoomKey]) = value as RoomData[RoomKey];
       }
       return items;
     });
@@ -160,5 +160,5 @@
 <input type="hidden" name="initialPoint" value="{room.initialPoint}" />
 <input type="hidden" name="returnPoint" value="{room.returnPoint}" />
 <input type="hidden" name="bonusPoint" value="{room.bonusPoint}" />
-<input type="hidden" name="Rate" value="{room.Rate}" />
+<input type="hidden" name="gameRate" value="{room.gameRate}" />
 <input type="hidden" name="chipValue" value="{room.chipValue}" />

@@ -4,10 +4,11 @@
   import Icon from "$lib/components/ui/Icon.svelte";
   import RoomForm from "$lib/components/features/Room/RoomForm.svelte";
   import RoomScore from "$lib/components/features/Room/RoomScore.svelte";
-  import type { Room, User, Score } from "$lib/models/interface.js";
-  export let users: User[];
-  export let scores: Score[];
-  export let room: Room;
+
+  import type { RoomData } from "$lib/models/Room/type.js";
+  import type { UserData } from "$lib/models/Member/type.js";
+  export let users: UserData[];
+  export let room: RoomData;
 
   export let currentPage: "roomHome" | "roomNew" | "roomDetail" = "roomHome";
 

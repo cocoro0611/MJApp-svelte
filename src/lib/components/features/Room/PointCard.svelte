@@ -16,7 +16,7 @@
     initialPoint: 25000,
     returnPoint: 30000,
     bonusPoint: "10-30",
-    Rate: 50,
+    gameRate: 50,
     chipValue: 100,
   };
 </script>

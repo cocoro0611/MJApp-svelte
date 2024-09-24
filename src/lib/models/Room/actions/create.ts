@@ -11,7 +11,7 @@ export const createRoom: Action = async ({ request }) => {
       initialPoint: data.get("initialPoint"),
       returnPoint: data.get("returnPoint"),
       bonusPoint: data.get("bonusPoint"),
-      Rate: data.get("Rate"),
+      gameRate: data.get("gameRate"),
       chipValue: data.get("chipValue"),
     };
     await trx.insertInto("Room").values(roomForm).execute();

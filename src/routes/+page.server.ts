@@ -1,12 +1,3 @@
-// import type { PageServerLoad } from "./$types.js";
-
-// export const load: PageServerLoad = async ({ url }) => {
-//   const currentPage = url.searchParams.get("page") || "Room";
-//   return {
-//     currentPage,
-//   };
-// };
-
 import type { PageServerLoad, Actions } from "./$types.js";
 
 import { createUser } from "$lib/models/Member/actions/create.js";

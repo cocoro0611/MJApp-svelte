@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { UserData } from "$lib/models/Member/type.js";
+  import type { RoomData } from "$lib/models/Room/type.js";
 
-  import type { Room } from "$lib/models/interface.js";
   import FormField from "$lib/components/layout/FormField.svelte";
   import RoomNameForm from "$lib/components/ui/RoomNameForm.svelte";
   import RoomMemberForm from "$lib/components/ui/RoomMemberForm.svelte";
@@ -9,7 +9,7 @@
 
   export let isUpdate: boolean = false;
   export let isDelete: boolean = false;
-  export let room: Room;
+  export let room: RoomData;
   export let users: UserData[];
 </script>
 

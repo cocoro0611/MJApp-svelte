@@ -19,6 +19,7 @@
         isScore
         image="/MemberIcon/{user.icon}"
         name="{user.name}"
+        totalScore="{user.totalScore}"
       />
     {/each}
   </div>

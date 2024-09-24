@@ -36,7 +36,7 @@ model Room {
   initialPoint Int
   returnPoint  Int
   bonusPoint   String
-  Rate         Int
+  gameRate     Int
   chipValue    Int
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @default(now())

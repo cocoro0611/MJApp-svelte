@@ -11,13 +11,13 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import type { User } from "$lib/models/interface.js";
+  import type { UserData } from "$lib/models/Member/type.js";
 
-  let users: User[] = [
-    { id: "", name: "井上", icon: "monster01.png", createdAt: "" },
-    { id: "", name: "山本", icon: "monster02.png", createdAt: "" },
-    { id: "", name: "太郎", icon: "monster03.png", createdAt: "" },
-    { id: "", name: "太郎", icon: "monster04.png", createdAt: "" },
+  let users: UserData[] = [
+    { id: "", name: "井上", icon: "monster01.png" },
+    { id: "", name: "山本", icon: "monster02.png" },
+    { id: "", name: "太郎", icon: "monster03.png" },
+    { id: "", name: "太郎", icon: "monster04.png" },
   ];
 </script>
 

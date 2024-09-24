@@ -11,19 +11,15 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import type { Room } from "$lib/models/interface.js";
-  let room: Omit<
-    Room,
-    "initialPoint" | "returnPoint" | "bonusPoint" | "Rate" | "chipValue"
-  > = {
+  import type { RoomData } from "$lib/models/Room/type.js";
+  let room: RoomData = {
     id: "",
-    name: "部屋名",
-    createdAt: "",
+    name: "",
     users: [
-      { id: "", name: "井上", icon: "monster01.png", createdAt: "" },
-      { id: "", name: "山本", icon: "monster02.png", createdAt: "" },
-      { id: "", name: "太郎", icon: "monster03.png", createdAt: "" },
-      { id: "", name: "太郎", icon: "monster04.png", createdAt: "" },
+      { id: "", name: "井上", icon: "monster01.png", totalScore: 100 },
+      { id: "", name: "山本", icon: "monster02.png", totalScore: 100 },
+      { id: "", name: "太郎", icon: "monster03.png", totalScore: 100 },
+      { id: "", name: "太郎", icon: "monster04.png", totalScore: 100 },
     ],
   };
 </script>

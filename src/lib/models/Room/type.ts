@@ -2,12 +2,6 @@ import type { Room } from "../interface.js";
 import type { UserData } from "../Member/type.js";
 
 export interface RoomData
-  extends Omit<
-    RoomDetailData,
-    "initialPoint" | "returnPoint" | "bonusPoint" | "Rate" | "chipValue"
-  > {}
-
-export interface RoomDetailData
   extends Pick<
     Room,
     | "id"
@@ -15,8 +9,8 @@ export interface RoomDetailData
     | "initialPoint"
     | "returnPoint"
     | "bonusPoint"
-    | "Rate"
+    | "gameRate"
     | "chipValue"
   > {
-  users: UserData[];
+  users: (UserData & { totalScore: number })[];
 }

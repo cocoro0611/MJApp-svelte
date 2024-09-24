@@ -19,7 +19,7 @@ export interface ScoreButtonList {
   initialPoint?: number;
   returnPoint?: number;
   bonusPoint?: string;
-  Rate?: number;
+  gameRate?: number;
   chipValue?: number;
   isSelected: boolean;
 }
@@ -45,7 +45,7 @@ export interface Room {
   initialPoint: number;
   returnPoint: number;
   bonusPoint: string;
-  Rate: number;
+  gameRate: number;
   chipValue: number;
   createdAt: Date;
   updatedAt: Date;

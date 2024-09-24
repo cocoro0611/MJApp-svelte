@@ -3,12 +3,10 @@
   import RoomNew from "./new/+page.svelte";
   import RoomDetail from "./detail/+page.svelte";
 
-  import type { Score } from "$lib/models/interface.js";
   import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData } from "$lib/models/Room/type.js";
   export let rooms: RoomData[];
   export let users: UserData[];
-  export let scores: Score[];
 
   let currentPage: "roomHome" | "roomNew" | "roomDetail" = "roomHome";
 
@@ -25,5 +23,5 @@
 {:else if currentPage === "roomNew"}
   <RoomNew {users} bind:currentPage />
 {:else if currentPage === "roomDetail"}
-  <!-- <RoomDetail {users} {scores} bind:currentPage room="{selectedRoom}" /> -->
+  <RoomDetail {users} bind:currentPage room="{selectedRoom}" />
 {/if}

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Room } from "$lib/models/interface.js";
+  import type { RoomData } from "$lib/models/Room/type.js";
   import { Input } from "flowbite-svelte";
 
-  export let room: Room;
+  export let room: RoomData;
   let maxLength: number = 10;
 
   const updateNameLength = (event: Event) => {

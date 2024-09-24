@@ -1,11 +1,18 @@
 import db from "$lib/models/db.js";
-import type { Score } from "$lib/models/interface.js";
 import type { RoomData } from "../type.js";
 
 export async function readRooms(): Promise<RoomData[]> {
   const rooms = await db
     .selectFrom("Room")
-    .select(["id", "name"])
+    .select([
+      "id",
+      "name",
+      "initialPoint",
+      "returnPoint",
+      "bonusPoint",
+      "gameRate",
+      "chipValue",
+    ])
     .orderBy("Room.updatedAt", "desc")
     .execute();
   const roomIds = rooms.map(({ id }) => id);
@@ -17,25 +24,29 @@ export async function readRooms(): Promise<RoomData[]> {
     .where("RoomUser.roomId", "in", roomIds)
     .execute();
 
+  const totalScores = await db
+    .selectFrom("Score")
+    .select([
+      "Score.userId",
+      "Score.roomId",
+      db.fn.sum<number>("score").as("totalScore"),
+    ])
+    .where("Score.roomId", "in", roomIds)
+    .groupBy(["Score.userId", "Score.roomId"])
+    .execute();
+
   return rooms.map(({ id, ...room }) => ({
     id,
     ...room,
     users: users
       .filter((user) => user.roomId === id)
-      .map(({ id, name, icon }) => ({ id, name, icon })),
-  }));
-}
-
-export async function readScores(): Promise<Score[]> {
-  const scores = await db.selectFrom("Score").selectAll().execute();
-
-  return scores.map((score) => ({
-    id: score.id,
-    createdAt: score.createdAt,
-    order: score.order,
-    score: score.score,
-    chip: score.chip,
-    roomId: score.roomId,
-    userId: score.userId,
+      .map((user) => ({
+        id: user.id,
+        name: user.name,
+        icon: user.icon,
+        totalScore: Number(
+          totalScores.find((score) => score.userId === user.id)?.totalScore ?? 0
+        ),
+      })),
   }));
 }

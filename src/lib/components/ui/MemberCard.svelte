@@ -1,7 +1,7 @@
 <script lang="ts">
   export let image: string;
   export let name: string;
-  export let score: number = 0;
+  export let totalScore: number = 0;
   export let size: "small" | "normal" | "large" = "normal";
   export let isScore: boolean = false;
   export let isColor: boolean = true;
@@ -41,8 +41,8 @@
     {name}
   </div>
   {#if isScore}
-    <div class="text-sm text-center">
-      {score}
+    <div class="text-sm text-center {totalScore >= 0 ? '' : 'text-red-500'}">
+      {totalScore}
     </div>
   {/if}
 </button>

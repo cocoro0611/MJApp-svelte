@@ -1,7 +1,7 @@
 <script lang="ts">
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
-  import type { Room } from "$lib/models/interface.js";
-  export let room: Room;
+  import type { RoomData } from "$lib/models/Room/type.js";
+  export let room: RoomData;
 
   const headers = ["ルール", "スコア", "チップ", "収支"];
 </script>
@@ -28,6 +28,7 @@
             isColor="{false}"
             image="/MemberIcon/{user.icon}"
             name="{user.name}"
+            totalScore="{user.totalScore}"
           />
         {:else}
           0
