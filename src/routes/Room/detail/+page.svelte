@@ -12,8 +12,11 @@
 
   export let currentPage: "roomHome" | "roomNew" | "roomDetail" = "roomHome";
 
+  // FIXME:ローカルストレージの保存
   const backPage = () => {
     currentPage = "roomHome";
+    localStorage.setItem("roomCurrentPage", currentPage);
+    localStorage.removeItem("selectedRoomId");
   };
 </script>
 

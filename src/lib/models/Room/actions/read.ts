@@ -51,7 +51,9 @@ export async function readRooms(): Promise<RoomData[]> {
         name: user.name,
         icon: user.icon,
         totalScore: Number(
-          totalScores.find((score) => score.userId === user.id)?.totalScore ?? 0
+          totalScores.find(
+            (score) => score.userId === user.id && score.roomId === id
+          )?.totalScore ?? 0
         ),
       })),
   }));

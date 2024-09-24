@@ -26,6 +26,7 @@
     localStorage.setItem("currentPage", page);
   };
 
+  // FIXME:ローカルストレージの保存
   onMount(() => {
     const savedPage = localStorage.getItem("currentPage") as PageType | null;
     if (savedPage && tabs.some((tab) => tab.id === savedPage)) {
