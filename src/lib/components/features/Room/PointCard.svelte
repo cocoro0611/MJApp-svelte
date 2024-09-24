@@ -1,4 +1,35 @@
 <script lang="ts">
+  const headers = ["ルール", "スコア", "チップ", "収支"];
+
+  import type { Room } from "$lib/models/interface.js";
+
+  let room: Room = {
+    id: "",
+    name: "",
+    createdAt: "",
+    users: [
+      { id: "", name: "井上", icon: "monster01.png", createdAt: "" },
+      { id: "", name: "山本", icon: "monster02.png", createdAt: "" },
+      { id: "", name: "太郎", icon: "monster03.png", createdAt: "" },
+      { id: "", name: "太郎", icon: "monster04.png", createdAt: "" },
+    ],
+    initialPoint: 25000,
+    returnPoint: 30000,
+    bonusPoint: "10-30",
+    Rate: 50,
+    chipValue: 100,
+  };
+</script>
+
+<div class="grid grid-cols-5 gap-[0.1rem] bg-gray-100">
+  <div class="flex justify-center items-center">sss</div>
+  <div class="flex justify-center items-center">sss</div>
+  <div class="flex justify-center items-center">sss</div>
+  <div class="flex justify-center items-center">sss</div>
+  <div class="flex justify-center items-center">sss</div>
+</div>
+
+<!-- <script lang="ts">
   import { Input } from "flowbite-svelte";
   import type { Room, Score } from "$lib/models/interface.js";
 
@@ -136,4 +167,4 @@
     >更新</button
   >
   {scoreOrder}
-</form>
+</form> -->

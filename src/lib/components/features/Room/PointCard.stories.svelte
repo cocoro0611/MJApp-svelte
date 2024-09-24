@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import Tensuu from "./Tensuu.svelte";
+  import PointCard from "./PointCard.svelte";
 
-  export const meta: Meta<Tensuu> = {
-    title: "features/Room/Tensuu",
-    component: Tensuu,
+  export const meta: Meta<PointCard> = {
+    title: "features/Room/PointCard",
+    component: PointCard,
   };
 </script>
 
@@ -14,5 +14,5 @@
 </script>
 
 <Story name="Default">
-  <Tensuu />
+  <PointCard />
 </Story>

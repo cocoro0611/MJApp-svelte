@@ -3,6 +3,7 @@
   import Main from "$lib/components/layout/Main.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
   import RoomForm from "$lib/components/features/Room/RoomForm.svelte";
+  import RoomScore from "$lib/components/features/Room/RoomScore.svelte";
   import type { Room, User, Score } from "$lib/models/interface.js";
   export let users: User[];
   export let scores: Score[];
@@ -23,6 +24,7 @@
   <svelte:fragment slot="right">
     <RoomForm isDelete {room} {users} />
   </svelte:fragment>
+  <RoomScore {room} />
 </Header>
 
 <Main></Main>
