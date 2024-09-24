@@ -17,23 +17,29 @@ export async function readRooms(): Promise<RoomData[]> {
     .execute();
   const roomIds = rooms.map(({ id }) => id);
 
-  const users = await db
-    .selectFrom("User")
-    .innerJoin("RoomUser", "User.id", "RoomUser.userId")
-    .select(["User.id", "User.name", "User.icon", "RoomUser.roomId"])
-    .where("RoomUser.roomId", "in", roomIds)
-    .execute();
+  const users =
+    roomIds.length > 0
+      ? await db
+          .selectFrom("User")
+          .innerJoin("RoomUser", "User.id", "RoomUser.userId")
+          .select(["User.id", "User.name", "User.icon", "RoomUser.roomId"])
+          .where("RoomUser.roomId", "in", roomIds)
+          .execute()
+      : [];
 
-  const totalScores = await db
-    .selectFrom("Score")
-    .select([
-      "Score.userId",
-      "Score.roomId",
-      db.fn.sum<number>("score").as("totalScore"),
-    ])
-    .where("Score.roomId", "in", roomIds)
-    .groupBy(["Score.userId", "Score.roomId"])
-    .execute();
+  const totalScores =
+    roomIds.length > 0
+      ? await db
+          .selectFrom("Score")
+          .select([
+            "Score.userId",
+            "Score.roomId",
+            db.fn.sum<number>("score").as("totalScore"),
+          ])
+          .where("Score.roomId", "in", roomIds)
+          .groupBy(["Score.userId", "Score.roomId"])
+          .execute()
+      : [];
 
   return rooms.map(({ id, ...room }) => ({
     id,
