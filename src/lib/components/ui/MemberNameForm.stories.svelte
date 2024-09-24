@@ -11,13 +11,12 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import type { User } from "$lib/models/interface.js";
+  import type { UserData } from "$lib/models/Member/type.js";
 
-  let user: User = {
+  let user: UserData = {
     id: "",
     name: "",
     icon: "monster01.png",
-    createdAt: "",
   };
 </script>
 

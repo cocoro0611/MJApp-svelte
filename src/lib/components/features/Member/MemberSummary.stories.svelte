@@ -11,36 +11,32 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import type { User } from "$lib/models/interface.js";
-  let users: User[] = [
+  import type { UserData } from "$lib/models/Member/type.js";
+  let users: UserData[] = [
     {
       id: "",
       name: "井上",
       icon: "monster01.png",
-      createdAt: "2024-09-19T02:07:07.415Z",
     },
     {
       id: "",
       name: "山本",
       icon: "monster02.png",
-      createdAt: "2024-09-19T02:07:07.415Z",
     },
     {
       id: "",
       name: "太郎",
       icon: "monster03.png",
-      createdAt: "2024-09-19T02:07:07.415Z",
     },
     {
       id: "",
       name: "太郎",
       icon: "monster04.png",
-      createdAt: "2024-09-19T02:07:07.415Z",
     },
   ];
 
-  let selectedUser: User | null = null;
-  function handleUserSelect(event: CustomEvent<User>) {
+  let selectedUser: UserData;
+  function handleUserSelect(event: CustomEvent<UserData>) {
     selectedUser = event.detail;
   }
 </script>

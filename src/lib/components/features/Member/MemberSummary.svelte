@@ -1,16 +1,15 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-
-  import type { User } from "$lib/models/interface.js";
-  export let users: User[];
-
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
 
+  import type { UserData } from "$lib/models/Member/type.js";
+  export let users: UserData[];
+
   const dispatch = createEventDispatcher<{
-    select: User;
+    select: UserData;
   }>();
 
-  const selectedUser = (user: User) => {
+  const selectedUser = (user: UserData) => {
     dispatch("select", user);
   };
 </script>

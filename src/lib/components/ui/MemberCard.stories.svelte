@@ -18,5 +18,5 @@
 
 <Story name="Default">
   <MemberCard {image} {name} />
-  <MemberCard isLarge {image} {name} />
+  <MemberCard size="large" {image} {name} />
 </Story>

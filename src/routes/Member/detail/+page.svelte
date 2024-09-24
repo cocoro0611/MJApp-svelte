@@ -4,7 +4,9 @@
   import Icon from "$lib/components/ui/Icon.svelte";
   import MemberForm from "$lib/components/features/Member/MemberForm.svelte";
   import type { User } from "$lib/models/interface.js";
-  export let user: User;
+  import type { UserData } from "$lib/models/Member/type.js";
+
+  export let user: UserData;
 
   export let currentPage: "memberHome" | "memberNew" | "memberDetail";
 

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { User } from "$lib/models/interface.js";
+  import type { UserData } from "$lib/models/Member/type.js";
   import FormField from "$lib/components/layout/FormField.svelte";
   import MemberNameForm from "$lib/components/ui/MemberNameForm.svelte";
   import MemberSelectForm from "$lib/components/ui/MemberSelectForm.svelte";
 
   export let isUpdate: boolean = false;
   export let isDelete: boolean = false;
-  export let user: User;
+  export let user: UserData;
 </script>
 
 {#if !isDelete}

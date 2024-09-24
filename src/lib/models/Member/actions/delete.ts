@@ -8,6 +8,4 @@ export const deleteUser: Action = async ({ request }) => {
     await db.deleteFrom('User')
         .where('id', '=', id)
         .execute();
-
-    return { success: true };
 };

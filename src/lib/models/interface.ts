@@ -28,28 +28,36 @@ export interface User {
     id:string
     name: string;
     icon: string;
-    createdAt: string | Date;
-    order?: Number; //ユーザ番号の管理
+    createdAt:  Date;
+    updatedAt:  Date;
+}
+
+export interface RoomUser{
+    userId:string,
+    roomId:string,
+    order:number,
+    createdAt:Date
 }
 
 export interface Room {
     id: string;
     name: string;
-    createdAt: string | Date;
-    users: User[];
     initialPoint: number;
     returnPoint: number;
     bonusPoint: string;
     Rate: number;
     chipValue: number;
+    createdAt:  Date;
+    updatedAt:  Date;
 }
 
 export interface Score {
     id: string;
-    createdAt: Date;
-    order:number
+    gamesNumber:number | null
     score: number | null;
     chip: number | null;
+    createdAt:  Date;
+    updatedAt:  Date;
     roomId: string;
     userId: string;
 }

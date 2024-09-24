@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { User } from "$lib/models/interface.js";
+  import type { UserData } from "$lib/models/Member/type.js";
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
   import MemberIcon from "$lib/components/ui/MemberIcon.svelte";
 
-  export let user: Omit<User, "createdAt">;
+  export let user: UserData;
 
   const icons = [
     "monster01.png",

@@ -3,14 +3,14 @@
   import MemberNew from "../../routes/Member/new/+page.svelte";
   import MemberDetail from "../../routes/Member/detail/+page.svelte";
 
-  import type { User } from "$lib/models/interface.js";
-  export let users: User[];
+  import type { UserData } from "$lib/models/Member/type.js";
+  export let users: UserData[];
 
   let currentPage: "memberHome" | "memberNew" | "memberDetail" = "memberHome";
 
-  let selectedUser: User;
+  let selectedUser: UserData;
 
-  const handleUserSelect = (event: CustomEvent<User>) => {
+  const handleUserSelect = (event: CustomEvent<UserData>) => {
     selectedUser = event.detail;
     currentPage = "memberDetail";
   };

@@ -3,12 +3,11 @@
   import Main from "$lib/components/layout/Main.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
   import MemberForm from "$lib/components/features/Member/MemberForm.svelte";
-  import type { User } from "$lib/models/interface.js";
-  let user: User = {
+  import type { UserData } from "$lib/models/Member/type.js";
+  let user: UserData = {
     id: "",
     name: "",
     icon: "monster01.png",
-    createdAt: "",
   };
 
   export let currentPage: "memberHome" | "memberNew" | "memberDetail";

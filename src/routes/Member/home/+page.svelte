@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import type { User } from "$lib/models/interface.js";
-  export let users: User[];
+  import type { UserData } from "$lib/models/Member/type.js";
+  export let users: UserData[];
 
   import Header from "$lib/components/layout/Header.svelte";
   import Main from "$lib/components/layout/Main.svelte";
@@ -15,9 +15,9 @@
   };
 
   const dispatch = createEventDispatcher<{
-    select: User;
+    select: UserData;
   }>();
-  const handleUserSelect = (event: CustomEvent<User>) => {
+  const handleUserSelect = (event: CustomEvent<UserData>) => {
     dispatch("select", event.detail);
   };
 </script>

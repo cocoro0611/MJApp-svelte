@@ -1,8 +1,9 @@
 <script lang="ts">
-  import type { User } from "$lib/models/interface.js";
+  import type { UserData } from "$lib/models/Member/type.js";
+
   import { Input } from "flowbite-svelte";
 
-  export let user: User;
+  export let user: UserData;
   let maxLength: number = 5;
 
   const updateNameLength = (event: Event) => {
