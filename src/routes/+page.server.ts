@@ -8,7 +8,7 @@ import { createRoom } from "$lib/models/Room/actions/create.js";
 import { deleteRoom } from "$lib/models/Room/actions/delete.js";
 
 import { readUsers } from "$lib/models/Member/actions/read.js";
-import { readRooms } from "$lib/models/Room/actions/read.js";
+import { readRooms, readScores } from "$lib/models/Room/actions/read.js";
 
 export const actions: Actions = {
   createUser,
@@ -21,5 +21,6 @@ export const actions: Actions = {
 export const load: PageServerLoad = async () => {
   const users = await readUsers();
   const rooms = await readRooms();
-  return { users, rooms };
+  const scores = await readScores();
+  return { users, rooms, scores };
 };
