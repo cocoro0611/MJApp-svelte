@@ -20,10 +20,7 @@ export interface RoomData
 }
 
 export interface ScoreData
-  extends Pick<
-      Score,
-      "id" | "gamesNumber" | "score" | "chip" | "roomId" | "userId"
-    >,
+  extends Pick<Score, "id" | "score" | "chip" | "roomId" | "userId">,
     Pick<RoomUser, "order"> {
   point: number;
 }

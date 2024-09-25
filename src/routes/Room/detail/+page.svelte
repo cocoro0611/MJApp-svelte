@@ -14,9 +14,8 @@
   export let room: RoomData;
   let scores: ScoreData[] = [
     {
-      id: "",
-      gamesNumber: 1,
-      score: 250,
+      id: "1",
+      score: 0,
       point: 10,
       chip: 0,
       roomId: "",
@@ -24,9 +23,8 @@
       order: 1,
     },
     {
-      id: "",
-      gamesNumber: 1,
-      score: 250,
+      id: "2",
+      score: 0,
       point: 10,
       chip: 0,
       roomId: "",
@@ -34,9 +32,8 @@
       order: 2,
     },
     {
-      id: "",
-      gamesNumber: 1,
-      score: 250,
+      id: "3",
+      score: 0,
       point: -20,
       chip: 0,
       roomId: "",
@@ -44,9 +41,8 @@
       order: 3,
     },
     {
-      id: "",
-      gamesNumber: 1,
-      score: 250,
+      id: "4",
+      score: 0,
       point: 0,
       chip: 0,
       roomId: "",
@@ -55,9 +51,11 @@
     },
   ];
 
-  let input: number = 0;
   let isInput: boolean = false;
-  const openInput = () => {
+  let activeScoreIndex: number = -1;
+
+  const openKeyboard = (index: number) => {
+    activeScoreIndex = index;
     isInput = true;
   };
 
@@ -82,10 +80,13 @@
 </Header>
 
 <Main isScoreHeader>
-  <button class="w-20 bg-blue-500 p-2" on:click="{openInput}"> あああ </button>
-  {input}
-  <PointCard {scores} bind:input />
+  <PointCard bind:scores {openKeyboard} bind:activeScoreIndex bind:isInput />
   {#if isInput}
-    <PointKeyboard bind:input bind:isInput />
+    <PointKeyboard
+      bind:scores
+      bind:isInput
+      bind:activeScoreIndex
+      {openKeyboard}
+    />
   {/if}
 </Main>
