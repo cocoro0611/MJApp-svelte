@@ -14,7 +14,6 @@
   $: currentLength = user.name.length;
 </script>
 
-<div class="font-bold py-1">名前</div>
 <Input
   class="border border-blue-500"
   name="name"

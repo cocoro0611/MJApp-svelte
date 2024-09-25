@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { UserData } from "$lib/models/Member/type.js";
+  import Form from "$lib/components/layout/Form.svelte";
   import FormField from "$lib/components/layout/FormField.svelte";
   import MemberNameForm from "$lib/components/ui/MemberNameForm.svelte";
   import MemberSelectForm from "$lib/components/ui/MemberSelectForm.svelte";
@@ -10,13 +11,17 @@
 </script>
 
 {#if !isDelete}
-  <FormField actions="{isUpdate ? 'updateUser' : 'createUser'}">
+  <Form actions="{isUpdate ? 'updateUser' : 'createUser'}">
     <input type="hidden" name="id" value="{user.id}" />
-    <MemberNameForm bind:user />
-    <MemberSelectForm bind:user />
-  </FormField>
+    <FormField name="名前">
+      <MemberNameForm bind:user />
+    </FormField>
+    <FormField name="アイコン">
+      <MemberSelectForm bind:user />
+    </FormField>
+  </Form>
 {:else}
-  <FormField actions="deleteUser">
+  <Form actions="deleteUser">
     <input type="hidden" name="id" value="{user.id}" />
-  </FormField>
+  </Form>
 {/if}

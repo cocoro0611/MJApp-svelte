@@ -14,5 +14,7 @@
 </script>
 
 <Story name="Default">
-  <FormField actions="deleteUser">ここにフォーム</FormField>
+  <FormField name="aa">
+    <form action="">何かフォーム</form>
+  </FormField>
 </Story>

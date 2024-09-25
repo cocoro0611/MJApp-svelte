@@ -13,7 +13,6 @@
 </script>
 
 <div class="flex justify-between items-center font-bold pt-4">
-  <span>メンバー</span>
   <!-- TODO:ユーザの選択 -->
   <!-- <Button isCustom bind:isSelected on:click="{onButton}">カスタム</Button> -->
 </div>

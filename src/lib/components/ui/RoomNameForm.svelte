@@ -13,7 +13,6 @@
   $: currentLength = room.name.length;
 </script>
 
-<div class="font-bold py-1">部屋名</div>
 <Input
   class="border border-blue-500"
   name="name"
