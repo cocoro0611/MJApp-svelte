@@ -36,7 +36,6 @@ export interface RoomUser {
   userId: string;
   roomId: string;
   order: number;
-  gamesNumber: number;
   createdAt: Date;
 }
 
@@ -54,6 +53,7 @@ export interface Room {
 
 export interface Score {
   id: string;
+  gamesNumber: number;
   score: number;
   chip: number | null;
   createdAt: Date;

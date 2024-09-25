@@ -14,48 +14,82 @@
   export let room: RoomData;
   let scores: ScoreData[] = [
     {
-      id: "1",
-      score: 0,
-      point: 10,
-      chip: 0,
-      roomId: "",
-      userId: "",
-      order: 1,
+      roomId: "room123",
+      gamesNumber: 1,
+      playerScores: [
+        {
+          userId: "user1",
+          score: 250,
+          chip: 10,
+          point: 50,
+          order: 1,
+        },
+        {
+          userId: "user2",
+          score: 230,
+          chip: 5,
+          point: 30,
+          order: 2,
+        },
+        {
+          userId: "user3",
+          score: 270,
+          chip: 15,
+          point: 70,
+          order: 3,
+        },
+        {
+          userId: "user4",
+          score: 250,
+          chip: 10,
+          point: 50,
+          order: 4,
+        },
+      ],
     },
     {
-      id: "2",
-      score: 0,
-      point: 10,
-      chip: 0,
-      roomId: "",
-      userId: "",
-      order: 2,
-    },
-    {
-      id: "3",
-      score: 0,
-      point: -20,
-      chip: 0,
-      roomId: "",
-      userId: "",
-      order: 3,
-    },
-    {
-      id: "4",
-      score: 0,
-      point: 0,
-      chip: 0,
-      roomId: "",
-      userId: "",
-      order: 4,
+      roomId: "room123",
+      gamesNumber: 2,
+      playerScores: [
+        {
+          userId: "user1",
+          score: 0,
+          chip: 10,
+          point: 50,
+          order: 1,
+        },
+        {
+          userId: "user2",
+          score: 0,
+          chip: 5,
+          point: 30,
+          order: 2,
+        },
+        {
+          userId: "user3",
+          score: 0,
+          chip: 15,
+          point: 70,
+          order: 3,
+        },
+        {
+          userId: "user4",
+          score: 0,
+          chip: 10,
+          point: 50,
+          order: 4,
+        },
+      ],
     },
   ];
 
   let isInput: boolean = false;
   let activeScoreIndex: number = -1;
+  let activeGameIndex: number = -1;
 
-  const openKeyboard = (index: number) => {
-    activeScoreIndex = index;
+  const openKeyboard = (gameIndex: number, playerIndex: number) => {
+    activeGameIndex = gameIndex;
+    activeScoreIndex = playerIndex;
     isInput = true;
   };
 
@@ -80,13 +114,23 @@
 </Header>
 
 <Main isScoreHeader>
-  <PointCard bind:scores {openKeyboard} bind:activeScoreIndex bind:isInput />
+  {#each scores as score, gameIndex}
+    <PointCard
+      bind:score
+      openKeyboard="{(playerIndex) => openKeyboard(gameIndex, playerIndex)}"
+      isActiveGame="{gameIndex === activeGameIndex}"
+      activeScoreIndex="{gameIndex === activeGameIndex ? activeScoreIndex : -1}"
+      {isInput}
+    />
+  {/each}
   {#if isInput}
     <PointKeyboard
       bind:scores
       bind:isInput
-      bind:activeScoreIndex
-      {openKeyboard}
+      gameIndex="{activeGameIndex}"
+      playerIndex="{activeScoreIndex}"
+      openKeyboard="{(gameIndex, playerIndex) =>
+        openKeyboard(gameIndex, playerIndex)}"
     />
   {/if}
 </Main>

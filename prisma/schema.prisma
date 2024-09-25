@@ -17,14 +17,13 @@ model User {
 }
 
 model RoomUser {
-  users       User     @relation(fields: [userId], references: [id])
-  rooms       Room     @relation(fields: [roomId], references: [id])
-  userId      String   @db.Uuid
-  roomId      String   @db.Uuid
-  order       Int
-  gamesNumber Int
-  createdAt   DateTime @default(now())
-  scores      Score[]
+  users     User     @relation(fields: [userId], references: [id])
+  rooms     Room     @relation(fields: [roomId], references: [id])
+  userId    String   @db.Uuid
+  roomId    String   @db.Uuid
+  order     Int
+  createdAt DateTime @default(now())
+  scores    Score[]
 
   @@id([userId, roomId])
   @@unique([userId, roomId])
@@ -45,11 +44,12 @@ model Room {
 }
 
 model Score {
-  id        String   @id @default(uuid()) @db.Uuid
-  score     Int
-  chip      Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid()) @db.Uuid
+  gamesNumber Int
+  score       Int
+  chip        Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 
   userToRoom RoomUser @relation(fields: [userId, roomId], references: [userId, roomId])
   userId     String   @db.Uuid

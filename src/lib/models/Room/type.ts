@@ -19,8 +19,16 @@ export interface RoomData
   })[];
 }
 
-export interface ScoreData
-  extends Pick<Score, "id" | "score" | "chip" | "roomId" | "userId">,
-    Pick<RoomUser, "order"> {
-  point: number;
+// export interface ScoreData
+//   extends Pick<
+//       Score,
+//       "id" | "gamesNumber" | "score" | "chip" | "roomId" | "userId"
+//     >,
+//     Pick<RoomUser, "order"> {
+//   point: number;
+// }
+
+export interface ScoreData extends Pick<Score, "roomId" | "gamesNumber"> {
+  playerScores: (Pick<Score, "score" | "chip"> &
+    Pick<RoomUser, "userId" | "order"> & { point: number })[];
 }

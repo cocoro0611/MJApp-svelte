@@ -21,9 +21,17 @@ export const createRoom: Action = async ({ request }) => {
       userId,
       roomId: roomForm.id,
       order: index + 1,
-      gamesNumber: 1,
     }));
     await trx.insertInto("RoomUser").values(roomUsers).execute();
+
+    const firstScore = userIds.map((userId) => ({
+      id: v4(),
+      gamesNumber: 1,
+      score: 0,
+      userId,
+      roomId: roomForm.id,
+    }));
+    await trx.insertInto("Score").values(firstScore).execute();
   });
 };
 

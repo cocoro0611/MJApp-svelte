@@ -1,21 +1,23 @@
 <script lang="ts">
   import type { ScoreData } from "$lib/models/Room/type.js";
   export let scores: ScoreData[];
-  export let activeScoreIndex: number;
+  export let gameIndex: number;
+  export let playerIndex: number;
   export let isInput: boolean = false;
-  export let openKeyboard: (index: number) => void;
+  export let openKeyboard: (gameIndex: number, playerIndex: number) => void;
 
-  $: activeScore = scores[activeScoreIndex];
+  $: currentScore = scores[gameIndex];
+  $: activePlayerScore = currentScore?.playerScores[playerIndex];
 
   function addDigit(digit: number) {
-    if (!activeScore) return;
-    const currentInput = activeScore.score ?? 0;
+    if (!activePlayerScore) return;
+    const currentInput = activePlayerScore.score ?? 0;
     const currentStr = Math.abs(currentInput).toString();
     if (currentStr.length < 4) {
       if (currentInput === 0) {
-        activeScore.score = digit;
+        activePlayerScore.score = digit;
       } else {
-        activeScore.score =
+        activePlayerScore.score =
           Number(`${Math.abs(currentInput)}${digit}`) *
           (currentInput < 0 ? -1 : 1);
       }
@@ -24,24 +26,24 @@
   }
 
   function toggleSign() {
-    if (!activeScore) return;
-    activeScore.score = -(activeScore.score ?? 0);
+    if (!activePlayerScore) return;
+    activePlayerScore.score = -(activePlayerScore.score ?? 0);
     scores = [...scores];
   }
 
   function backspace() {
-    if (!activeScore) return;
-    const currentInput = activeScore.score ?? 0;
-    activeScore.score =
+    if (!activePlayerScore) return;
+    const currentInput = activePlayerScore.score ?? 0;
+    activePlayerScore.score =
       Math.floor(Math.abs(currentInput) / 10) * (currentInput < 0 ? -1 : 1);
     scores = [...scores];
   }
 
   function calculate() {
-    if (!activeScore) return;
-    console.log("計算: ", activeScore.score);
+    if (!activePlayerScore) return;
+    console.log("計算: ", activePlayerScore.score);
     // Here you would update the score.point based on the score
-    activeScore.point = activeScore.score ?? 0;
+    activePlayerScore.point = activePlayerScore.score ?? 0;
     scores = [...scores];
     resetSelection();
   }
@@ -52,17 +54,20 @@
 
   function resetSelection() {
     isInput = false;
-    activeScoreIndex = -1;
+    gameIndex = -1;
+    playerIndex = -1;
   }
 
   function moveLeft() {
-    const newIndex = (activeScoreIndex - 1 + scores.length) % scores.length;
-    openKeyboard(newIndex);
+    const newIndex =
+      (playerIndex - 1 + currentScore.playerScores.length) %
+      currentScore.playerScores.length;
+    openKeyboard(gameIndex, newIndex);
   }
 
   function moveRight() {
-    const newIndex = (activeScoreIndex + 1) % scores.length;
-    openKeyboard(newIndex);
+    const newIndex = (playerIndex + 1) % currentScore.playerScores.length;
+    openKeyboard(gameIndex, newIndex);
   }
 </script>
 
