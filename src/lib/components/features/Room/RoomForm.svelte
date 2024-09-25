@@ -12,10 +12,12 @@
   export let isDelete: boolean = false;
   export let room: RoomData;
   export let users: UserData[];
+
+  export let currentPage: "roomHome" | "roomNew" | "roomDetail" = "roomHome";
 </script>
 
 {#if !isDelete}
-  <Form actions="{isUpdate ? 'updateRoom' : 'createRoom'}">
+  <Form bind:currentPage actions="{isUpdate ? 'updateRoom' : 'createRoom'}">
     <input type="hidden" name="id" value="{room.id}" />
     <FormField name="部屋名">
       <RoomNameForm bind:room />

@@ -76,7 +76,7 @@
   <PointBordScore bind:pointData />
 </Header>
 
-<Main isLongHeader>
+<Main isCalculationHeader>
   {#if isFuro}
     <MenzenButton bind:this="{menzenButton}" bind:han bind:fu />
   {:else}

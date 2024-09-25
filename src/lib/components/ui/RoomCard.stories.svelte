@@ -16,11 +16,44 @@
     id: "",
     name: "",
     users: [
-      { id: "", name: "井上", icon: "monster01.png", totalScore: 100 },
-      { id: "", name: "山本", icon: "monster02.png", totalScore: 100 },
-      { id: "", name: "太郎", icon: "monster03.png", totalScore: 100 },
-      { id: "", name: "太郎", icon: "monster04.png", totalScore: 100 },
+      {
+        id: "",
+        name: "井上",
+        icon: "monster01.png",
+        totalScore: 100,
+        totalChip: 0,
+        totalPoint: 0,
+      },
+      {
+        id: "",
+        name: "山本",
+        icon: "monster02.png",
+        totalScore: 100,
+        totalChip: 0,
+        totalPoint: 0,
+      },
+      {
+        id: "",
+        name: "太郎",
+        icon: "monster03.png",
+        totalScore: 100,
+        totalChip: 0,
+        totalPoint: 0,
+      },
+      {
+        id: "",
+        name: "太郎",
+        icon: "monster04.png",
+        totalScore: 100,
+        totalChip: 0,
+        totalPoint: 0,
+      },
     ],
+    initialPoint: 0,
+    returnPoint: 0,
+    bonusPoint: "",
+    gameRate: 0,
+    chipValue: 0,
   };
 </script>
 

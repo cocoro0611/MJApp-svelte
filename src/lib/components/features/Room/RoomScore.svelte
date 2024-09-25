@@ -30,8 +30,31 @@
             name="{user.name}"
             totalScore="{user.totalScore}"
           />
-        {:else}
-          0
+        {:else if index === 1}
+          {user.totalScore}
+        {:else if index === 2}
+          <div class="w-full grid grid-cols-10">
+            <div
+              class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
+            ></div>
+            <div class="col-span-8 text-center">{user.totalChip}</div>
+            <div
+              class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
+            >
+              枚
+            </div>
+          </div>
+        {:else if index === 3}
+          <div class="w-full grid grid-cols-10 font-bold">
+            <div class="col-span-9 text-center">
+              {user.totalPoint}
+            </div>
+            <div
+              class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
+            >
+              Ｐ
+            </div>
+          </div>
         {/if}
       </div>
     {/each}

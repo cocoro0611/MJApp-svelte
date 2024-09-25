@@ -63,6 +63,6 @@
   <PointBordScore bind:pointData />
 </Header>
 
-<Main isLongHeader>
+<Main isCalculationHeader>
   <FuCountButton bind:this="{fuCountButton}" bind:han bind:fu />
 </Main>

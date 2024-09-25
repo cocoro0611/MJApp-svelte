@@ -40,9 +40,14 @@
     action = "?/updateRoom";
   };
 
+  // FIXME:ローカルストレージの保存
+  export let currentPage: "roomHome" | "roomNew" | "roomDetail" = "roomHome";
   const deleteRoom = () => {
     method = "POST";
     action = "?/deleteRoom";
+    currentPage = "roomHome";
+    localStorage.setItem("roomCurrentPage", currentPage);
+    localStorage.removeItem("selectedRoomId");
   };
 
   const closeModal = () => {

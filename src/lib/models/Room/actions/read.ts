@@ -35,6 +35,7 @@ export async function readRooms(): Promise<RoomData[]> {
             "Score.userId",
             "Score.roomId",
             db.fn.sum<number>("score").as("totalScore"),
+            db.fn.sum<number>("chip").as("totalChip"),
           ])
           .where("Score.roomId", "in", roomIds)
           .groupBy(["Score.userId", "Score.roomId"])
@@ -46,15 +47,24 @@ export async function readRooms(): Promise<RoomData[]> {
     ...room,
     users: users
       .filter((user) => user.roomId === id)
-      .map((user) => ({
-        id: user.id,
-        name: user.name,
-        icon: user.icon,
-        totalScore: Number(
-          totalScores.find(
-            (score) => score.userId === user.id && score.roomId === id
-          )?.totalScore ?? 0
-        ),
-      })),
+      .map((user) => {
+        const userScore = totalScores.find(
+          (score) => score.userId === user.id && score.roomId === id
+        );
+        const totalScore = Number(userScore?.totalScore ?? 0);
+        const totalChip = Number(userScore?.totalChip ?? 0);
+
+        return {
+          id: user.id,
+          name: user.name,
+          icon: user.icon,
+          totalScore,
+          totalChip,
+          // TODO:場代の計算も考慮
+          totalPoint:
+            Number(room.gameRate) * totalScore +
+            Number(room.chipValue) * totalChip,
+        };
+      }),
   }));
 }

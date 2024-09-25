@@ -1,170 +1,42 @@
 <script lang="ts">
-  const headers = ["ルール", "スコア", "チップ", "収支"];
+  import type { ScoreData } from "$lib/models/Room/type.js";
+  export let scores: ScoreData[];
+  export let input: number = 0;
 
-  import type { Room } from "$lib/models/interface.js";
+  let total: number = 100000;
 
-  let room: Room = {
-    id: "",
-    name: "",
-    createdAt: "",
-    users: [
-      { id: "", name: "井上", icon: "monster01.png", createdAt: "" },
-      { id: "", name: "山本", icon: "monster02.png", createdAt: "" },
-      { id: "", name: "太郎", icon: "monster03.png", createdAt: "" },
-      { id: "", name: "太郎", icon: "monster04.png", createdAt: "" },
-    ],
-    initialPoint: 25000,
-    returnPoint: 30000,
-    bonusPoint: "10-30",
-    gameRate: 50,
-    chipValue: 100,
-  };
+  const sortedScores = scores.sort((a, b) => a.order - b.order);
 </script>
 
-<div class="grid grid-cols-5 gap-[0.1rem] bg-gray-100">
-  <div class="flex justify-center items-center">sss</div>
-  <div class="flex justify-center items-center">sss</div>
-  <div class="flex justify-center items-center">sss</div>
-  <div class="flex justify-center items-center">sss</div>
-  <div class="flex justify-center items-center">sss</div>
-</div>
-
-<!-- <script lang="ts">
-  import { Input } from "flowbite-svelte";
-  import type { Room, Score } from "$lib/models/interface.js";
-
-  export let room: Room;
-  export let scores: Score[];
-  export let scoreOrder: number;
-  export let currentUma: number[] = [];
-
-  let totalPoint: number = room.initialPoint * 4;
-  let editableScores: (number | null)[] = [];
-
-  // ユーザーをorder順にソート
-  $: sortedUsers = [...room.users].sort((a, b) => {
-    const orderA = typeof a.order === "number" ? a.order : 0;
-    const orderB = typeof b.order === "number" ? b.order : 0;
-    return orderA - orderB;
-  });
-
-  // 現在のscoreOrderに対応するスコアを取得
-  $: currentOrderScores = scores.filter(
-    (score) => score.roomId === room.id && score.order === scoreOrder,
-  );
-
-  // 各ユーザーの現在のスコアを取得し、editableScoresを初期化
-  $: {
-    const currentScores = sortedUsers.map((user) => {
-      const userScore = currentOrderScores.find(
-        (score) => score.userId === user.id,
-      );
-      return userScore ? userScore.score : null;
-    });
-    editableScores = [...currentScores];
-  }
-
-  let method: string = "";
-  let action: string = "";
-  const handleCreate = () => {
-    method = "POST";
-    action = "?/createScore";
-  };
-  const handleUpdate = () => {
-    method = "POST";
-    action = "?/updateScore";
-  };
-
-  // totalPointの計算
-  $: totalPoint =
-    room.initialPoint * 4 -
-    (editableScores?.reduce(
-      (sum, score) => (sum ?? 0) + (score ?? 0) * 100,
-      0,
-    ) ?? 0);
-
-  // umaの計算
-  const bonusPoints: number[] = [
-    Number(room.bonusPoint.slice(3, 5)),
-    Number(room.bonusPoint.slice(0, 2)),
-    -Number(room.bonusPoint.slice(0, 2)),
-    -Number(room.bonusPoint.slice(3, 5)),
-  ];
-
-  // 各ユーザーのumaを計算（現在のscoreOrderのみ）
-  $: currentUma = editableScores
-    .map((score, index) => ({
-      index,
-      value: score !== null ? (score - room.returnPoint / 100) / 10 : 0,
-    }))
-    .sort((a, b) => b.value - a.value)
-    .map((item, sortedIndex) => ({
-      ...item,
-      value: item.value + bonusPoints[sortedIndex],
-    }))
-    .sort((a, b) => a.index - b.index)
-    .map((item) => item.value);
-
-  function handleInput(e: Event, index: number) {
-    const target = e.target as HTMLInputElement | null;
-    if (target) {
-      editableScores[index] = Number(target.value.slice(0, 4));
-      editableScores = [...editableScores]; // 配列を新しく作成してSvelteに変更を通知
-    }
-  }
-</script>
-
-<form {method} {action}>
-  <div class="text-center">
-    <div class="grid grid-cols-5 text-blue-800 border border-gray-400">
-      <div
-        class="flex flex-col items-center justify-center p-2 border border-gray-400"
-      >
-        <div class="text font-bold">-点数-</div>
-        <div class="text-red-500">あと</div>
-        <div class="text-red-500 font-bold">{totalPoint}</div>
-      </div>
-      {#each sortedUsers as user, index}
-        <div class="flex flex-col border border-gray-400">
-          <div
-            class="border-2 border-blue-800 m-[0.1rem] rounded-md flex flex-col"
-          >
-            <div class="text-left text-xs pl-2 pt-1">点数</div>
-            <div class="flex items-center justify-center p-1 relative">
-              <Input
-                type="number"
-                name="score"
-                value="{editableScores[index]}"
-                on:input="{(e) => handleInput(e, index)}"
-                class="w-[4.2rem] text-right text-[0.9rem] pr-[1.4rem] py-1"
-              />
-              <span class="absolute right-[0.3rem] text-[0.9rem] mt-[0.1rem]"
-                >00</span
-              >
-            </div>
-          </div>
-          <div
-            class="text-center pb-1
-        {currentUma[index] >= 0 ? 'text-blue-500' : 'text-red-500'} 
-      "
-          >
-            {currentUma[index].toFixed(1)}
+<div class="grid grid-cols-5 bg-gray-100 font-bold">
+  <div
+    class="bg-white border-2 border-gray-300 h-22 flex justify-center flex-col items-center text-sm"
+  >
+    <div>-点数-</div>
+    <div class="text-red-500">あと</div>
+    <div class="text-red-500">{total}</div>
+  </div>
+  {#each sortedScores as score}
+    <div
+      class="flex flex-col bg-white border-y-2 border-r-2 border-gray-300 p-[0.1rem] text-blue-800"
+    >
+      <button on:click>
+        <div
+          class="bg-blue-100 border-2 border-blue-300 h-14 rounded-lg flex flex-col justify-center"
+        >
+          <div class="flex justify-start text-[0.6rem] pl-2 -mt-1">点数</div>
+          <div class="flex justify-center">
+            <span class="border-b-2 border-blue-400 px-1">{input}</span>
+            <span>00</span>
           </div>
         </div>
-        <input type="hidden" name="userId" value="{user.id}" />
-      {/each}
+      </button>
+      <div
+        class="flex justify-center text-sm"
+        class:text-red-500="{score.point < 0}"
+      >
+        {score.point}
+      </div>
     </div>
-  </div>
-
-  <input type="hidden" name="roomId" value="{room.id}" />
-  <input type="hidden" name="scoreOrder" value="{scoreOrder}" />
-
-  <button class="bg-slate-500 rounded-md w-20 p-4" on:click="{handleCreate}"
-    >保存</button
-  >
-
-  <button class="bg-slate-500 rounded-md w-20 p-4" on:click="{handleUpdate}"
-    >更新</button
-  >
-  {scoreOrder}
-</form> -->
+  {/each}
+</div>
