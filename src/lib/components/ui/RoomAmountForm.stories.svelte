@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import RoomNameForm from "./RoomNameForm.svelte";
+  import RoomAmountForm from "./RoomAmountForm.svelte";
 
-  export const meta: Meta<RoomNameForm> = {
-    title: "UI/RoomNameForm",
-    component: RoomNameForm,
+  export const meta: Meta<RoomAmountForm> = {
+    title: "UI/RoomAmountForm",
+    component: RoomAmountForm,
   };
 </script>
 
@@ -60,7 +60,7 @@
 </script>
 
 <Story name="Default">
-  <RoomNameForm bind:room />
+  <RoomAmountForm />
 </Story>
 
 {room.name}

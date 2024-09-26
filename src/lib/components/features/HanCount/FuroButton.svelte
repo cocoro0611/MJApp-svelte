@@ -2,7 +2,7 @@
   import Button from "$lib/components/ui/Button.svelte";
   import ButtonCount from "$lib/components/ui/ButtonCount.svelte";
   import { derived, writable, type Writable } from "svelte/store";
-  import type { CountButtonList } from "$lib/models/interface.js";
+  import type { CountButtonList } from "$lib/models/Count/type.js";
 
   export let han: number;
   export let fu: number;
@@ -53,7 +53,7 @@
       title: titles[index],
       items: items,
       store: itemsStores[index],
-    })),
+    }))
   );
 
   const onButton = (store: Writable<CountButtonList[]>, index: number) => {
@@ -84,7 +84,7 @@
   export function resetItemsStores() {
     itemsStores.forEach((store) => {
       store.update((items) =>
-        items.map((item) => ({ ...item, isSelected: false, count: 0 })),
+        items.map((item) => ({ ...item, isSelected: false, count: 0 }))
       );
     });
   }

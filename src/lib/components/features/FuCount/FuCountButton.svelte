@@ -2,7 +2,7 @@
   import Button from "$lib/components/ui/Button.svelte";
   import ButtonCount from "$lib/components/ui/ButtonCount.svelte";
   import { derived, writable, type Writable } from "svelte/store";
-  import type { CountButtonList } from "$lib/models/interface.js";
+  import type { CountButtonList } from "$lib/models/Count/type.js";
 
   export let han: number;
   export let fu: number;
@@ -59,8 +59,8 @@
   const isInitialCategorySelected = derived(itemsStores[0], ($items) =>
     $items.some(
       (item) =>
-        (item.label === "門前ロン" || item.label === "ツモ") && item.isSelected,
-    ),
+        (item.label === "門前ロン" || item.label === "ツモ") && item.isSelected
+    )
   );
 
   const titles = [
@@ -76,13 +76,13 @@
       title: titles[index],
       items: items,
       store: itemsStores[index],
-    })),
+    }))
   );
 
   const onButton = (
     store: Writable<CountButtonList[]>,
     index: number,
-    categoryIndex: number,
+    categoryIndex: number
   ) => {
     store.update((items: CountButtonList[]) => {
       if (categoryIndex === 3 || categoryIndex === 4) {
@@ -105,7 +105,7 @@
   const countButton = (
     store: Writable<CountButtonList[]>,
     index: number,
-    categoryIndex: number,
+    categoryIndex: number
   ) => {
     const maxCount: number = 4;
     store.update((items) => {
@@ -149,7 +149,7 @@
   export function resetItemsStores() {
     itemsStores.forEach((store) => {
       store.update((items) =>
-        items.map((item) => ({ ...item, isSelected: false, count: 0 })),
+        items.map((item) => ({ ...item, isSelected: false, count: 0 }))
       );
     });
   }

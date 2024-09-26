@@ -5,14 +5,16 @@ import type { Action } from "@sveltejs/kit";
 export const createRoom: Action = async ({ request }) => {
   await db.transaction().execute(async (trx) => {
     const data = await request.formData();
+
     const roomForm = {
       id: v4(),
       name: data.get("name"),
       initialPoint: data.get("initialPoint"),
       returnPoint: data.get("returnPoint"),
       bonusPoint: data.get("bonusPoint"),
-      gameRate: data.get("gameRate"),
-      chipValue: data.get("chipValue"),
+      scoreRate: data.get("scoreRate"),
+      chipRate: data.get("chipRate"),
+      gameAmount: data.get("gameAmount"),
     };
     await trx.insertInto("Room").values(roomForm).execute();
 
@@ -24,40 +26,52 @@ export const createRoom: Action = async ({ request }) => {
     }));
     await trx.insertInto("RoomUser").values(roomUsers).execute();
 
-    const firstScore = userIds.map((userId) => ({
+    const initialScore = userIds.map((userId) => ({
       id: v4(),
-      gamesNumber: 1,
+      input: 0,
       score: 0,
+      count: 1,
       userId,
       roomId: roomForm.id,
     }));
-    await trx.insertInto("Score").values(firstScore).execute();
+    await trx.insertInto("Score").values(initialScore).execute();
   });
 };
 
-// export const createScore: Action = async ({ request }) => {
-//   await db.transaction().execute(async (trx) => {
-//     const data = await request.formData();
-//     const roomId = data.get("roomId") as string;
-//     const scoreOrder = parseInt(data.get("scoreOrder") as string);
-//     const scores = data.getAll("score");
-//     const chips = data.getAll("chip");
-//     const userIds = data.getAll("userId");
+export const createScore: Action = async ({ request }) => {
+  await db.transaction().execute(async (trx) => {
+    const data = await request.formData();
+    const roomId = data.get("roomId");
+    const userIds = data.getAll("userId");
+    const count = data.get("count");
 
-//     // 各ユーザーのスコアとチップを保存
-//     for (let i = 0; i < userIds.length; i++) {
-//       const scoreData = {
-//         id: v4(),
-//         roomId: roomId,
-//         userId: userIds[i] as string,
-//         score: parseInt(scores[i] as string) || null,
-//         chip: parseInt(chips[i] as string) || null,
-//         createdAt: dayjs().toDate(),
-//         order: scoreOrder,
-//       };
+    const ScoreForm = userIds.map((userId) => ({
+      id: v4(),
+      input: 0,
+      score: 0,
+      count,
+      userId,
+      roomId,
+    }));
+    await trx.insertInto("Score").values(ScoreForm).execute();
+  });
+};
 
-//       await trx.insertInto("Score").values(scoreData).execute();
-//     }
-//   });
-//   return { success: true };
-// };
+export const createChip: Action = async ({ request }) => {
+  await db.transaction().execute(async (trx) => {
+    const data = await request.formData();
+    const roomId = data.get("roomId");
+    const userIds = data.getAll("userId");
+    const count = data.get("count");
+
+    const ChipForm = userIds.map((userId) => ({
+      id: v4(),
+      input: 0,
+      chip: 0,
+      count,
+      userId,
+      roomId,
+    }));
+    await trx.insertInto("Chip").values(ChipForm).execute();
+  });
+};

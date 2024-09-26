@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { RoomData } from "$lib/models/Room/type.js";
+  import type { RoomFormData } from "$lib/models/Room/type.js";
   import Button from "$lib/components/ui/Button.svelte";
   import { derived, writable, type Writable } from "svelte/store";
 
-  export let room: RoomData;
+  export let roomForm: Omit<RoomFormData, "users">;
 
   type ScoreButtonList = {
     label: string;
@@ -12,8 +12,8 @@
   };
 
   type RoomKey = keyof Pick<
-    RoomData,
-    "initialPoint" | "returnPoint" | "bonusPoint" | "gameRate" | "chipValue"
+    RoomFormData,
+    "initialPoint" | "returnPoint" | "bonusPoint" | "scoreRate" | "chipRate"
   >;
 
   interface GroupConfig {
@@ -59,14 +59,14 @@
     },
     {
       title: "レート",
-      property: "gameRate",
+      property: "scoreRate",
       options: [
-        { label: "なし", gameRate: 0, isSelected: false },
-        { label: "テンイチ", gameRate: 10, isSelected: false },
-        { label: "テンニ", gameRate: 20, isSelected: false },
-        { label: "テンサン", gameRate: 30, isSelected: false },
-        { label: "テンゴ", gameRate: 50, isSelected: true },
-        { label: "テンピン", gameRate: 100, isSelected: false },
+        { label: "なし", scoreRate: 0, isSelected: false },
+        { label: "テンイチ", scoreRate: 10, isSelected: false },
+        { label: "テンニ", scoreRate: 20, isSelected: false },
+        { label: "テンサン", scoreRate: 30, isSelected: false },
+        { label: "テンゴ", scoreRate: 50, isSelected: true },
+        { label: "テンピン", scoreRate: 100, isSelected: false },
       ],
       format: (value: number) => {
         const rateMap: { [key: number]: string } = {
@@ -82,14 +82,14 @@
     },
     {
       title: "チップ",
-      property: "chipValue",
+      property: "chipRate",
       options: [
-        { label: "なし", chipValue: 0, isSelected: false },
-        { label: "100P", chipValue: 100, isSelected: true },
-        { label: "200P", chipValue: 200, isSelected: false },
-        { label: "300P", chipValue: 300, isSelected: false },
-        { label: "400P", chipValue: 400, isSelected: false },
-        { label: "500P", chipValue: 500, isSelected: false },
+        { label: "なし", chipRate: 0, isSelected: false },
+        { label: "100P", chipRate: 100, isSelected: true },
+        { label: "200P", chipRate: 200, isSelected: false },
+        { label: "300P", chipRate: 300, isSelected: false },
+        { label: "400P", chipRate: 400, isSelected: false },
+        { label: "500P", chipRate: 500, isSelected: false },
       ],
       format: (value: number) => (value === 0 ? "なし" : `${value} P`),
     },
@@ -128,7 +128,8 @@
       const selectedItem = items[index];
       const value = selectedItem[property];
       if (value !== undefined) {
-        (room[property] as RoomData[RoomKey]) = value as RoomData[RoomKey];
+        (roomForm[property] as RoomFormData[RoomKey]) =
+          value as RoomFormData[RoomKey];
       }
       return items;
     });
@@ -139,7 +140,8 @@
   <div class="flex justify-between font-bold pt-4">
     <div>
       <span class="mr-2">{group.title}</span>
-      <span class="text-blue-500">{group.format(room[group.property])}</span>
+      <span class="text-blue-500">{group.format(roomForm[group.property])}</span
+      >
     </div>
   </div>
   <div class="flex justify-center">
@@ -157,8 +159,8 @@
   </div>
 {/each}
 
-<input type="hidden" name="initialPoint" value="{room.initialPoint}" />
-<input type="hidden" name="returnPoint" value="{room.returnPoint}" />
-<input type="hidden" name="bonusPoint" value="{room.bonusPoint}" />
-<input type="hidden" name="gameRate" value="{room.gameRate}" />
-<input type="hidden" name="chipValue" value="{room.chipValue}" />
+<input type="hidden" name="initialPoint" value="{roomForm.initialPoint}" />
+<input type="hidden" name="returnPoint" value="{roomForm.returnPoint}" />
+<input type="hidden" name="bonusPoint" value="{roomForm.bonusPoint}" />
+<input type="hidden" name="scoreRate" value="{roomForm.scoreRate}" />
+<input type="hidden" name="chipRate" value="{roomForm.chipRate}" />

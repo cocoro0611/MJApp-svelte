@@ -5,7 +5,7 @@
   import PointBordScore from "$lib/components/ui/PointBordScore.svelte";
   import FuCountButton from "$lib/components/features/FuCount/FuCountButton.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
-  import type { PointData } from "$lib/models/interface.js";
+  import type { PointData } from "$lib/models/Count/type.js";
 
   import { formatFuValue } from "$lib/utils/formatFuValue.js";
 

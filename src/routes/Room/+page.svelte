@@ -7,7 +7,7 @@
   import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
   export let rooms: RoomData[];
-  export let scores: ScoreData[];
+  // export let scores: ScoreData[];
   export let users: UserData[];
 
   type RoomPageType = "roomHome" | "roomNew" | "roomDetail";
@@ -44,5 +44,5 @@
 {:else if currentPage === "roomNew"}
   <RoomNew {users} bind:currentPage />
 {:else if currentPage === "roomDetail"}
-  <RoomDetail {scores} {users} bind:currentPage room="{selectedRoom}" />
+  <!-- <RoomDetail {scores} {users} bind:currentPage room="{selectedRoom}" /> -->
 {/if}

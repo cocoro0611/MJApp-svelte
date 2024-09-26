@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PointData } from "$lib/models/interface.js";
+  import type { PointData } from "$lib/models/Count/type.js";
 
   export let pointData: PointData;
 
@@ -40,12 +40,12 @@
   <ul>
     <li>
       親：{formatPoint(pointData.oyaRonPoint)}（{formatPoint(
-        pointData.oyaTumoPoint,
+        pointData.oyaTumoPoint
       )} All）
     </li>
     <li>
       子：{formatPoint(pointData.koRonPoint)}（{formatPoint(
-        pointData.koTumoPoint_oya,
+        pointData.koTumoPoint_oya
       )}/{formatPoint(pointData.koTumoPoint_ko)}）
     </li>
   </ul>

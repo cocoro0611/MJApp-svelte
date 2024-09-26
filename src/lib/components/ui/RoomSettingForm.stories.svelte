@@ -54,8 +54,8 @@
     initialPoint: 0,
     returnPoint: 0,
     bonusPoint: "",
-    gameRate: 0,
-    chipValue: 0,
+    scoreRate: 0,
+    chipRate: 0,
   };
 </script>
 
@@ -66,5 +66,5 @@
 {room.initialPoint}
 {room.returnPoint}
 {room.bonusPoint}
-{room.gameRate}
-{room.chipValue}
+{room.scoreRate}
+{room.chipRate}

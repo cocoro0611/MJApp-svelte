@@ -7,7 +7,7 @@
   import MenzenButton from "$lib/components/features/HanCount/MenzenButton.svelte";
   import FuroButton from "$lib/components/features/HanCount/FuroButton.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
-  import type { PointData } from "$lib/models/interface.js";
+  import type { PointData } from "$lib/models/Count/type.js";
 
   let han: number = 0;
   let fu: number = 30;
