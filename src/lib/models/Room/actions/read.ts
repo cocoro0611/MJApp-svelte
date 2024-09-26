@@ -1,5 +1,5 @@
 import db from "$lib/models/db.js";
-import type { RoomData, ScoreData } from "../type.js";
+import type { RoomData, ScoreData, ChipData } from "../type.js";
 
 export async function readRooms(): Promise<RoomData[]> {
   const rooms = await db
@@ -83,105 +83,34 @@ export async function readRooms(): Promise<RoomData[]> {
   );
 }
 
-// export async function readScores(): Promise<ScoreData[]> {
-//   // まず、全てのRoomを取得
-//   const rooms = await db.selectFrom("Room").select(["id"]).execute();
-//   const roomIds = rooms.map(({ id }) => id);
+export async function readScores(): Promise<ScoreData[]> {
+  const scores = await db
+    .selectFrom("Score")
+    .select(["id", "input", "score", "count"])
+    .execute();
 
-//   if (roomIds.length === 0) {
-//     return [];
-//   }
+  return scores.map(
+    (score): ScoreData => ({
+      id: score.id,
+      input: score.input,
+      score: score.score,
+      count: score.count,
+    })
+  );
+}
 
-//   // 各Roomに属するUserを取得
-//   const users = await db
-//     .selectFrom("RoomUser")
-//     .innerJoin("User", "User.id", "RoomUser.userId")
-//     .select([
-//       "User.id as userId",
-//       "User.name",
-//       "User.icon",
-//       "RoomUser.roomId",
-//       "RoomUser.order",
-//     ])
-//     .where("RoomUser.roomId", "in", roomIds)
-//     .execute();
+export async function readChips(): Promise<ChipData[]> {
+  const chips = await db
+    .selectFrom("Chip")
+    .select(["id", "input", "chip", "count"])
+    .execute();
 
-//   // 各RoomのScoreを取得
-//   const scores = await db
-//     .selectFrom("Score")
-//     .select([
-//       "Score.roomId",
-//       "Score.userId",
-//       "Score.gamesNumber",
-//       "Score.score",
-//       "Score.chip",
-//     ])
-//     .where("Score.roomId", "in", roomIds)
-//     .orderBy("Score.gamesNumber", "asc")
-//     .execute();
-
-//   // Roomごとにデータを整形
-//   const scoreDataMap = new Map<string, ScoreData[]>();
-
-//   for (const score of scores) {
-//     if (!scoreDataMap.has(score.roomId)) {
-//       scoreDataMap.set(score.roomId, []);
-//     }
-
-//     const roomScores = scoreDataMap.get(score.roomId)!;
-//     let gameScore = roomScores.find((g) => g.gamesNumber === score.gamesNumber);
-
-//     if (!gameScore) {
-//       gameScore = {
-//         roomId: score.roomId,
-//         gamesNumber: score.gamesNumber,
-//         playerScores: [],
-//       };
-//       roomScores.push(gameScore);
-//     }
-
-//     const existingPlayerScore = gameScore.playerScores.find(
-//       (ps) => ps.userId === score.userId
-//     );
-//     if (existingPlayerScore) {
-//       existingPlayerScore.score = score.score;
-//       existingPlayerScore.chip = score.chip ?? 0;
-//       // pointの計算ロジックを追加する必要があります
-//       existingPlayerScore.point = 0; // 仮の値
-//     } else {
-//       const user = users.find(
-//         (u) => u.userId === score.userId && u.roomId === score.roomId
-//       );
-//       gameScore.playerScores.push({
-//         userId: score.userId,
-//         score: score.score,
-//         chip: score.chip ?? 0,
-//         point: 0, // 仮の値
-//         order: user?.order ?? 0,
-//       });
-//     }
-//   }
-
-//   // 各ゲームのプレイヤースコアが揃っていない場合、0で埋める
-//   for (const roomScores of scoreDataMap.values()) {
-//     const allUsers = users.filter((u) => u.roomId === roomScores[0].roomId);
-//     for (const gameScore of roomScores) {
-//       for (const user of allUsers) {
-//         if (!gameScore.playerScores.some((ps) => ps.userId === user.userId)) {
-//           gameScore.playerScores.push({
-//             userId: user.userId,
-//             score: 0,
-//             chip: 0,
-//             point: 0,
-//             order: user.order,
-//           });
-//         }
-//       }
-//       // orderでソート
-//       gameScore.playerScores.sort((a, b) => a.order - b.order);
-//     }
-//   }
-
-//   // 全てのroomのscoreを1つの配列にフラット化
-//   return Array.from(scoreDataMap.values()).flat();
-// }
+  return chips.map(
+    (chip): ChipData => ({
+      id: chip.id,
+      input: chip.input,
+      chip: chip.chip,
+      count: chip.count,
+    })
+  );
+}

@@ -1,4 +1,4 @@
-import type { Room, Score, Chip } from "../type.js";
+import type { Room, Score, Chip } from "../types.js";
 import type { UserData } from "../Member/type.js";
 
 export interface RoomFormData

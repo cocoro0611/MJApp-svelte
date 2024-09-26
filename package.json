@@ -51,6 +51,7 @@
     "flowbite-svelte-icons": "^1.6.1",
     "postcss": "^8.4.38",
     "prisma": "^5.17.0",
+    "prisma-kysely": "^1.8.0",
     "publint": "^0.1.9",
     "storybook": "^8.2.9",
     "svelte": "^4.2.7",

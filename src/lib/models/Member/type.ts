@@ -1,3 +1,3 @@
-import type { User } from "../type.js";
+import type { User } from "../types.js";
 
 export interface UserData extends Pick<User, "id" | "name" | "icon"> {}
