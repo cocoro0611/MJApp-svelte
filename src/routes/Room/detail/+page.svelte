@@ -10,17 +10,18 @@
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
   import type { UserData } from "$lib/models/Member/type.js";
   export let users: UserData[];
-  export let room: RoomData;
   export let scores: ScoreData[];
+  export let room: RoomData;
 
-  let isInput: boolean = false;
-  let activeScoreIndex: number = -1;
-  let activeGameIndex: number = -1;
-
-  const openKeyboard = (gameIndex: number, playerIndex: number) => {
-    activeGameIndex = gameIndex;
-    activeScoreIndex = playerIndex;
-    isInput = true;
+  let method: string = "";
+  let action: string = "";
+  const updateScore = () => {
+    method = "POST";
+    action = "?/updateScore";
+  };
+  const createScore = () => {
+    method = "POST";
+    action = "?/createScore";
   };
 
   // FIXME:ローカルストレージの保存
@@ -38,29 +39,33 @@
   </svelte:fragment>
   <svelte:fragment slot="center">{room.name}</svelte:fragment>
   <svelte:fragment slot="right">
-    <RoomForm bind:currentPage isDelete {room} {users} />
+    <RoomForm bind:currentPage isDelete {users} {room} />
   </svelte:fragment>
   <RoomScore {room} />
 </Header>
 
 <Main isScoreHeader>
-  {#each scores as score, gameIndex}
-    <PointCard
-      bind:score
-      openKeyboard="{(playerIndex) => openKeyboard(gameIndex, playerIndex)}"
-      isActiveGame="{gameIndex === activeGameIndex}"
-      activeScoreIndex="{gameIndex === activeGameIndex ? activeScoreIndex : -1}"
-      {isInput}
+  <form {method} {action}>
+    {#each scores as score}
+      {#if room.id === score.roomId}
+        <PointCard {room} {score} />
+      {/if}
+    {/each}
+
+    <input type="hidden" name="roomId" value="{room.id}" />
+    <input
+      type="hidden"
+      name="gameCount"
+      value="{Math.max(
+        ...scores
+          .filter((score) => score.roomId === room.id)
+          .map((score) => score.gameCount)
+      ) + 1}"
     />
-  {/each}
-  {#if isInput}
-    <PointKeyboard
-      bind:scores
-      bind:isInput
-      gameIndex="{activeGameIndex}"
-      playerIndex="{activeScoreIndex}"
-      openKeyboard="{(gameIndex, playerIndex) =>
-        openKeyboard(gameIndex, playerIndex)}"
-    />
-  {/if}
+    {#each room.users as user}
+      <input type="hidden" name="userId" value="{user.id}" />
+    {/each}
+    <button on:click="{createScore}">追加</button>
+    <button on:click="{updateScore}">更新</button>
+  </form>
 </Main>

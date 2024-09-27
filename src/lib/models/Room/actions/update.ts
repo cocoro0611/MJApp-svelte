@@ -22,14 +22,22 @@ export const updateRoom: Action = async ({ request }) => {
 
 export const updateScore: Action = async ({ request }) => {
   const data = await request.formData();
-  const id = data.get("id");
+  const ids = data.getAll("id[]");
+  const inputs = data.getAll("input[]");
+  const scores = data.getAll("score[]");
 
-  const updateData = {
-    input: data.get("input"),
-    score: data.get("score"),
-  };
+  for (let i = 0; i < ids.length; i++) {
+    const updateData = {
+      input: inputs[i],
+      score: scores[i],
+    };
 
-  await db.updateTable("Score").set(updateData).where("id", "=", id).execute();
+    await db
+      .updateTable("Score")
+      .set(updateData)
+      .where("id", "=", ids[i])
+      .execute();
+  }
 };
 
 export const updateChip: Action = async ({ request }) => {

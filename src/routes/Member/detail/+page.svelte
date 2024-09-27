@@ -3,7 +3,6 @@
   import Main from "$lib/components/layout/Main.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
   import MemberForm from "$lib/components/features/Member/MemberForm.svelte";
-  import type { User } from "$lib/models/type.js";
   import type { UserData } from "$lib/models/Member/type.js";
 
   export let user: UserData;

@@ -1,70 +1,82 @@
 <script lang="ts">
   import type { ScoreData } from "$lib/models/Room/type.js";
+  import { createEventDispatcher } from "svelte";
 
   export let scores: ScoreData[];
-  export let gameIndex: number;
-  export let playerIndex: number;
-  export let isInput: boolean = false;
-  export let openKeyboard: (gameIndex: number, playerIndex: number) => void;
+  export let count: number;
+  export let userId: string;
+  export let openKeyboard: (count: number, userId: string) => void;
 
-  $: currentScore = scores[gameIndex];
-  $: activePlayerScore = currentScore?.playerScores[playerIndex];
+  const dispatch = createEventDispatcher();
 
-  function updateScore(newScore: number) {
-    if (!activePlayerScore) return;
-    activePlayerScore.score = newScore;
-    scores = [...scores];
+  $: activeScore = scores.find(
+    (score) => score.count === count && score.userId === userId
+  );
+
+  function updateScore(newInput: number) {
+    if (!activeScore) return;
+    const updatedScores = scores.map((score) =>
+      score.count === count && score.userId === userId
+        ? { ...score, input: newInput, score: Math.floor(newInput / 10) }
+        : score
+    );
+    dispatch("update", updatedScores);
   }
 
   function addDigit(digit: number) {
-    if (!activePlayerScore) return;
-    const currentInput = activePlayerScore.score ?? 0;
+    if (!activeScore) return;
+    const currentInput = activeScore.input ?? 0;
     const currentStr = Math.abs(currentInput).toString();
     if (currentStr.length < 4) {
-      updateScore(
+      const newInput =
         currentInput === 0
           ? digit
           : Number(`${Math.abs(currentInput)}${digit}`) *
-              (currentInput < 0 ? -1 : 1)
-      );
+            (currentInput < 0 ? -1 : 1);
+      updateScore(newInput);
     }
   }
 
   function toggleSign() {
-    if (!activePlayerScore) return;
-    updateScore(-(activePlayerScore.score ?? 0));
+    if (!activeScore) return;
+    updateScore(-(activeScore.input ?? 0));
   }
 
   function backspace() {
-    if (!activePlayerScore) return;
-    const currentInput = activePlayerScore.score ?? 0;
-    updateScore(
-      Math.floor(Math.abs(currentInput) / 10) * (currentInput < 0 ? -1 : 1)
-    );
+    if (!activeScore) return;
+    const currentInput = activeScore.input ?? 0;
+    const newInput =
+      Math.floor(Math.abs(currentInput) / 10) * (currentInput < 0 ? -1 : 1);
+    updateScore(newInput);
   }
 
   function calculate() {
-    if (!activePlayerScore) return;
-    console.log("計算: ", activePlayerScore.score);
-    activePlayerScore.point = activePlayerScore.score ?? 0;
-    scores = [...scores];
+    if (!activeScore) return;
+    const input = activeScore.input ?? 0;
+    const score = Math.floor(input / 10);
+    const updatedScores = scores.map((s) =>
+      s.count === count && s.userId === userId ? { ...s, input, score } : s
+    );
+    dispatch("update", updatedScores);
     resetSelection();
   }
 
   function resetSelection() {
-    isInput = false;
-    gameIndex = -1;
-    playerIndex = -1;
+    dispatch("reset");
   }
 
   function movePlayer(direction: "left" | "right") {
-    if (!currentScore) return;
+    if (!activeScore) return;
+    const currentRoundScores = scores.filter((score) => score.count === count);
+    const currentIndex = currentRoundScores.findIndex(
+      (score) => score.userId === userId
+    );
     const newIndex =
       direction === "left"
-        ? (playerIndex - 1 + currentScore.playerScores.length) %
-          currentScore.playerScores.length
-        : (playerIndex + 1) % currentScore.playerScores.length;
-    openKeyboard(gameIndex, newIndex);
+        ? (currentIndex - 1 + currentRoundScores.length) %
+          currentRoundScores.length
+        : (currentIndex + 1) % currentRoundScores.length;
+    openKeyboard(count, currentRoundScores[newIndex].userId);
   }
 </script>
 

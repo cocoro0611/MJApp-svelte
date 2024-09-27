@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { UserData } from "$lib/models/Member/type.js";
-  import type { RoomFormData } from "$lib/models/Room/type.js";
+  import type { RoomData, RoomFormData } from "$lib/models/Room/type.js";
 
   import dayjs from "dayjs";
   import Form from "$lib/components/layout/Form.svelte";
@@ -13,6 +13,20 @@
   export let isUpdate: boolean = false;
   export let isDelete: boolean = false;
   export let users: UserData[];
+  export let room: RoomData = {
+    id: "",
+    name: "",
+    users: [
+      {
+        id: "",
+        name: "",
+        icon: "",
+        totalScore: 0,
+        totalChip: 0,
+        totalPoint: 0,
+      },
+    ],
+  };
 
   let roomForm: Omit<RoomFormData, "users"> = {
     id: "",
@@ -46,7 +60,7 @@
   </Form>
 {:else}
   <Form actions="deleteRoom">
-    <input type="hidden" name="id" value="{roomForm.id}" />
+    <input type="hidden" name="id" value="{room.id}" />
     {#each users.slice(0, 4) as user}
       <input type="hidden" name="userId" value="{user.id}" />
     {/each}

@@ -30,7 +30,7 @@ export const createRoom: Action = async ({ request }) => {
       id: v4(),
       input: 0,
       score: 0,
-      count: 1,
+      gameCount: 1,
       userId,
       roomId: roomForm.id,
     }));
@@ -43,13 +43,13 @@ export const createScore: Action = async ({ request }) => {
     const data = await request.formData();
     const roomId = data.get("roomId");
     const userIds = data.getAll("userId");
-    const count = data.get("count");
+    const gameCount = data.get("gameCount");
 
     const ScoreForm = userIds.map((userId) => ({
       id: v4(),
       input: 0,
       score: 0,
-      count,
+      gameCount,
       userId,
       roomId,
     }));
@@ -62,13 +62,13 @@ export const createChip: Action = async ({ request }) => {
     const data = await request.formData();
     const roomId = data.get("roomId");
     const userIds = data.getAll("userId");
-    const count = data.get("count");
+    const gameCount = data.get("gameCount");
 
     const ChipForm = userIds.map((userId) => ({
       id: v4(),
       input: 0,
       chip: 0,
-      count,
+      gameCount,
       userId,
       roomId,
     }));

@@ -1,5 +1,5 @@
 import db from "$lib/models/db.js";
-import type { RoomData, ScoreData, ChipData } from "../type.js";
+import type { RoomData, ScoreData } from "../type.js";
 
 export async function readRooms(): Promise<RoomData[]> {
   const rooms = await db
@@ -41,7 +41,7 @@ export async function readRooms(): Promise<RoomData[]> {
             "Chip.userId",
             "Chip.roomId",
             db.fn.sum<number>("chip").as("totalChip"),
-            db.fn.max<number>("count").as("gameCount"),
+            db.fn.max<number>("gameCount").as("gameCount"),
           ])
           .where("Chip.roomId", "in", roomIds)
           .groupBy(["Chip.userId", "Chip.roomId"])
@@ -83,34 +83,37 @@ export async function readRooms(): Promise<RoomData[]> {
   );
 }
 
+// FIXME:gameCountのグループ化
 export async function readScores(): Promise<ScoreData[]> {
   const scores = await db
     .selectFrom("Score")
-    .select(["id", "input", "score", "count"])
+    .select(["id", "input", "score", "gameCount", "roomId", "userId"])
     .execute();
 
-  return scores.map(
-    (score): ScoreData => ({
-      id: score.id,
-      input: score.input,
-      score: score.score,
-      count: score.count,
-    })
-  );
-}
+  const result = scores.reduce((result: ScoreData[], score) => {
+    const { id, input, score: scoreValue, gameCount, roomId, userId } = score;
+    const userScore = { id, input, score: scoreValue, userId };
 
-export async function readChips(): Promise<ChipData[]> {
-  const chips = await db
-    .selectFrom("Chip")
-    .select(["id", "input", "chip", "count"])
-    .execute();
+    const existingScoreData = result.find(
+      (scoreData) =>
+        scoreData.roomId === roomId && scoreData.gameCount === gameCount
+    );
 
-  return chips.map(
-    (chip): ChipData => ({
-      id: chip.id,
-      input: chip.input,
-      chip: chip.chip,
-      count: chip.count,
-    })
-  );
+    if (existingScoreData) {
+      existingScoreData.userScores.push(userScore);
+    } else {
+      result.push({
+        roomId,
+        gameCount,
+        userScores: [userScore],
+      });
+    }
+
+    return result;
+  }, []);
+
+  // gameCountの小さい順にソート
+  result.sort((a, b) => a.gameCount - b.gameCount);
+
+  return result;
 }

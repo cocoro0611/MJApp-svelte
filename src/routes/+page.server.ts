@@ -10,17 +10,18 @@ import {
   createChip,
 } from "$lib/models/Room/actions/create.js";
 import {
+  updateRoom,
+  updateScore,
+  updateChip,
+} from "$lib/models/Room/actions/update.js";
+import {
   deleteRoom,
   deleteScore,
   deleteChip,
 } from "$lib/models/Room/actions/delete.js";
 
 import { readUsers } from "$lib/models/Member/actions/read.js";
-import {
-  readRooms,
-  readScores,
-  readChips,
-} from "$lib/models/Room/actions/read.js";
+import { readRooms, readScores } from "$lib/models/Room/actions/read.js";
 
 export const actions: Actions = {
   createUser,
@@ -31,6 +32,10 @@ export const actions: Actions = {
   createScore,
   createChip,
 
+  updateRoom,
+  updateScore,
+  updateChip,
+
   deleteRoom,
   deleteScore,
   deleteChip,
@@ -40,6 +45,5 @@ export const load: PageServerLoad = async () => {
   const users = await readUsers();
   const rooms = await readRooms();
   const scores = await readScores();
-  const chips = await readChips();
-  return { users, rooms, scores, chips };
+  return { users, rooms, scores };
 };

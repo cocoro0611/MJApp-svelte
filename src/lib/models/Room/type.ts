@@ -24,8 +24,9 @@ export interface RoomData extends Pick<Room, "id" | "name"> {
   })[];
 }
 
-export interface ScoreData
-  extends Pick<Score, "id" | "input" | "score" | "count"> {}
+export interface ScoreData extends Pick<Score, "roomId" | "gameCount"> {
+  userScores: Pick<Score, "id" | "input" | "score" | "userId">[];
+}
 
-export interface ChipData
-  extends Pick<Chip, "id" | "input" | "chip" | "count"> {}
+// export interface ChipData
+//   extends Pick<Chip, "id" | "input" | "chip" | "count"> {}
