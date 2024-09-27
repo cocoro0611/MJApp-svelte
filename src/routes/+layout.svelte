@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import "../app.css";
 </script>
 
-<div class="flex flex-col h-screen pt-5 pb-20">
+<div class="max-w-screen-lg container mx-auto">
   <slot />
 </div>

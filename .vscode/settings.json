@@ -1,7 +1,7 @@
 // コーディングスタイルの統一や自動フォーマットなどの設定
 {
   "files.eol": "\n",
-  "editor.tabSize": 2,
+  "editor.tabSize": 4,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
