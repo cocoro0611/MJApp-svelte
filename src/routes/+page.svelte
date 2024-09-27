@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-aaa
-=======
 <script lang="ts">
   import ScorePage from "./Room/+page.svelte";
   import MemberPage from "./Member/+page.svelte";
@@ -25,4 +22,3 @@ aaa
 {/if}
 
 <Footer bind:currentPage />
->>>>>>> main
