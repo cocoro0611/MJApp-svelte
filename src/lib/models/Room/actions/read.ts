@@ -73,7 +73,6 @@ export async function readRooms(): Promise<RoomData[]> {
           const totalChip = Number(userChip?.totalChip ?? 0);
           const gameCount = Number(userChip?.gameCount ?? 0);
 
-          // TODO: ３人麻雀対応
           return {
             id: user.id,
             name: user.name,
@@ -83,7 +82,7 @@ export async function readRooms(): Promise<RoomData[]> {
             totalPoint:
               Number(room.scoreRate) * totalScore +
               Number(room.chipRate) * (totalChip - 20 * gameCount) -
-              Number(room.gameAmount) / 4, //４人麻雀専用,
+              Number(room.gameAmount) / 4,
           };
         }),
     })

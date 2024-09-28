@@ -19,6 +19,7 @@
 </script>
 
 <!-- TODO:スコアの重複のときの処理 -->
+<!-- TODO:何回戦をクリックしたときの詳細ページの作成（スコアの削除ができたらなおいい） -->
 <input type="hidden" name="initialPoint" value="{room.initialPoint}" />
 <input type="hidden" name="returnPoint" value="{room.returnPoint}" />
 <input type="hidden" name="bonusPoint" value="{room.bonusPoint}" />

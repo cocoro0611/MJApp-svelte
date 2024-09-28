@@ -7,7 +7,7 @@
 
 <button
   class="bg-blue-100 border-2 border-blue-300 text-blue-500 rounded-lg font-bold p-2
-    hover:bg-blue-300 hover:scale-[1.05] active:bg-blue-300"
+    hover:bg-blue-300 hover:scale-[1.03] active:bg-blue-300"
   on:click
 >
   <div class="flex justify-start text-lg mx-2 text-blue-800">

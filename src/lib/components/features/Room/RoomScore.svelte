@@ -6,6 +6,8 @@
   const headers = ["ルール", "スコア", "チップ", "収支"];
 </script>
 
+<!-- TODO: ルールのアップデート -->
+<!-- TODO: ユーザボタンからの名前とアイコンの切り替え -->
 <div class="grid grid-cols-5 gap-[0.1rem] bg-gray-100">
   {#each headers as header, index}
     <div
