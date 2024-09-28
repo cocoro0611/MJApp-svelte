@@ -6,7 +6,7 @@
 
   import { createEventDispatcher } from "svelte";
 
-  import type { PageType } from "$lib/utils/localStorage.js";
+  import type { PageType } from "$lib/models/page-type.js";
   import type { UserData } from "$lib/models/Member/type.js";
 
   export let users: UserData[];

@@ -3,7 +3,7 @@
   import { ButtonGroup, Button } from "flowbite-svelte";
   import { saveLocalData } from "$lib/utils/localStorage.js";
 
-  import type { PageType } from "$lib/utils/localStorage.js";
+  import type { PageType } from "$lib/models/page-type.js";
 
   export let currentPage: PageType;
 

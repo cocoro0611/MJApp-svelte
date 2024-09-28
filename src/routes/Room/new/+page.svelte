@@ -4,7 +4,7 @@
   import Icon from "$lib/components/ui/Icon.svelte";
   import RoomForm from "$lib/components/features/Room/RoomForm.svelte";
 
-  import type { PageType } from "$lib/utils/localStorage.js";
+  import type { PageType } from "$lib/models/page-type.js";
   import type { UserData } from "$lib/models/Member/type.js";
   export let users: UserData[];
 

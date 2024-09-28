@@ -6,7 +6,7 @@
   import RoomScore from "$lib/components/features/Room/RoomScore.svelte";
   import ScoreForm from "$lib/components/features/Room/ScoreForm.svelte";
 
-  import type { PageType } from "$lib/utils/localStorage.js";
+  import type { PageType } from "$lib/models/page-type.js";
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
   import type { UserData } from "$lib/models/Member/type.js";
 

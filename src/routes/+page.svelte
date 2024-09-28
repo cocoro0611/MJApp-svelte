@@ -6,10 +6,11 @@
   import Footer from "$lib/components/ui/Footer.svelte";
 
   import { onMount } from "svelte";
-  import { getLocalData, isValidPageType } from "$lib/utils/localStorage.js";
+  import { getLocalData } from "$lib/utils/localStorage.js";
+  import { isValidPageType } from "$lib/models/page-type.js";
 
   import type { PageData } from "./$types.js";
-  import type { PageType } from "$lib/utils/localStorage.js";
+  import type { PageType } from "$lib/models/page-type.js";
 
   export let data: PageData;
   let currentPage: PageType = "room";

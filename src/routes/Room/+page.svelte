@@ -3,12 +3,13 @@
   import RoomNew from "./new/+page.svelte";
   import RoomDetail from "./detail/+page.svelte";
 
-  import type { PageType } from "$lib/utils/localStorage.js";
+  import type { PageType } from "$lib/models/page-type.js";
   import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
 
   import { onMount } from "svelte";
   import { getLocalData, saveLocalData } from "$lib/utils/localStorage.js";
+  import { isValidRoomData } from "$lib/models/page-type.js";
 
   export let rooms: RoomData[];
   export let scores: ScoreData[];
@@ -26,8 +27,11 @@
   onMount(() => {
     const savedRoomId = getLocalData("roomId");
     if (savedRoomId) {
-      selectedRoom = rooms.find((room) => room.id === savedRoomId);
-      currentPage = "roomDetail";
+      const foundRoom = rooms.find((room) => room.id === savedRoomId);
+      if (isValidRoomData(foundRoom)) {
+        selectedRoom = foundRoom;
+        currentPage = "roomDetail";
+      }
     }
   });
 </script>

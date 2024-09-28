@@ -3,7 +3,7 @@
   import MemberNew from "../../routes/Member/new/+page.svelte";
   import MemberDetail from "../../routes/Member/detail/+page.svelte";
 
-  import type { PageType } from "$lib/utils/localStorage.js";
+  import type { PageType } from "$lib/models/page-type.js";
   import type { UserData } from "$lib/models/Member/type.js";
   export let users: UserData[];
 

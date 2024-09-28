@@ -6,7 +6,7 @@
 
   import { createEventDispatcher } from "svelte";
 
-  import type { PageType } from "$lib/utils/localStorage.js";
+  import type { PageType } from "$lib/models/page-type.js";
   import type { RoomData } from "$lib/models/Room/type.js";
   export let rooms: RoomData[];
 
