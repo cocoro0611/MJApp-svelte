@@ -1,21 +1,17 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import PointCard from "./PointCard.svelte";
+  import PointKeyboard from "./PointKeyboard.svelte";
 
-  export const meta: Meta<PointCard> = {
-    title: "features/Room/PointCard",
-    component: PointCard,
+  export const meta: Meta<PointKeyboard> = {
+    title: "UI/PointKeyboard",
+    component: PointKeyboard,
   };
 </script>
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-
-  import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
-  import type { UserData } from "$lib/models/Member/type.js";
-  export let users: UserData[];
-  export let room: RoomData;
+  import type { ScoreData } from "$lib/models/Room/type.js";
   let scores: ScoreData[] = [
     {
       roomId: "room123",
@@ -99,11 +95,12 @@
 </script>
 
 <Story name="Default">
-  <PointCard
-    bind:score
-    openKeyboard="{(playerIndex) => openKeyboard(gameIndex, playerIndex)}"
-    isActiveGame="{gameIndex === activeGameIndex}"
-    activeScoreIndex="{gameIndex === activeGameIndex ? activeScoreIndex : -1}"
-    {isInput}
+  <PointKeyboard
+    bind:scores
+    bind:isInput
+    gameIndex="{activeGameIndex}"
+    playerIndex="{activeScoreIndex}"
+    openKeyboard="{(gameIndex, playerIndex) =>
+      openKeyboard(gameIndex, playerIndex)}"
   />
 </Story>

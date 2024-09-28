@@ -1,7 +1,6 @@
 <script lang="ts">
-  import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
-  export let room: RoomData;
-  export let score;
+  import type { ScoreData } from "$lib/models/Room/type.js";
+  export let score: ScoreData;
 
   let totalPoint: number = 100000;
 </script>

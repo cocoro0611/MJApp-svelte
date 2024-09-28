@@ -30,6 +30,7 @@ export const updateScore: Action = async ({ request }) => {
     const updateData = {
       input: inputs[i],
       score: scores[i],
+      updatedAt: dayjs().toDate(),
     };
 
     await db
@@ -47,6 +48,7 @@ export const updateChip: Action = async ({ request }) => {
   const updateData = {
     input: data.get("input"),
     score: data.get("chip"),
+    updatedAt: dayjs().toDate(),
   };
 
   await db.updateTable("Chip").set(updateData).where("id", "=", id).execute();

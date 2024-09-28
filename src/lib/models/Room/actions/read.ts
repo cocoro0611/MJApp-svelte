@@ -85,32 +85,41 @@ export async function readRooms(): Promise<RoomData[]> {
 
 // FIXME:gameCountのグループ化
 export async function readScores(): Promise<ScoreData[]> {
-  const scores = await db
+  const userScores = await db
     .selectFrom("Score")
     .select(["id", "input", "score", "gameCount", "roomId", "userId"])
     .execute();
 
-  const result = scores.reduce((result: ScoreData[], score) => {
-    const { id, input, score: scoreValue, gameCount, roomId, userId } = score;
-    const userScore = { id, input, score: scoreValue, userId };
+  const result: ScoreData[] = [];
 
+  // スコアデータを処理
+  for (const userScore of userScores) {
+    const { id, input, score, gameCount, roomId, userId } = userScore;
+
+    // 同じroomIdとgameCountのScoreDataを探す
     const existingScoreData = result.find(
       (scoreData) =>
         scoreData.roomId === roomId && scoreData.gameCount === gameCount
     );
 
     if (existingScoreData) {
-      existingScoreData.userScores.push(userScore);
+      // 既存のScoreDataがある場合、userScoresに追加
+      existingScoreData.userScores.push({
+        id,
+        input,
+        score,
+        userId,
+      });
     } else {
-      result.push({
+      // 新しいScoreDataを作成
+      const newScoreData: ScoreData = {
         roomId,
         gameCount,
-        userScores: [userScore],
-      });
+        userScores: [{ id, input, score, userId }],
+      };
+      result.push(newScoreData);
     }
-
-    return result;
-  }, []);
+  }
 
   // gameCountの小さい順にソート
   result.sort((a, b) => a.gameCount - b.gameCount);

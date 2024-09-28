@@ -8,12 +8,14 @@
     | "deleteUser"
     | "createRoom"
     | "updateRoom"
-    | "deleteRoom";
+    | "deleteRoom"
+    | "createScore"
+    | "" = "";
 
   let popupModal = false;
 
-  let method: string = "";
-  let action: string = "";
+  export let method: string = "";
+  export let action: string = "";
 
   const createUser = () => {
     method = "POST";
@@ -38,6 +40,11 @@
   const updateRoom = () => {
     method = "POST";
     action = "?/updateRoom";
+  };
+
+  const createScore = () => {
+    method = "POST";
+    action = "?/createScore";
   };
 
   // FIXME:ローカルストレージの保存
@@ -111,6 +118,14 @@
       <div class="flex justify-center space-x-4 py-4">
         <ButtonAction size="small" pattern="close" on:click="{closeModal}" />
         <ButtonAction size="small" pattern="delete" on:click="{deleteRoom}" />
+      </div>
+    </Modal>
+  {/if}
+  {#if actions === "createScore"}
+    <Modal isButton bind:popupModal>
+      <div class="flex justify-center gap-4">
+        <ButtonAction on:click="{closeModal}" pattern="close" size="small" />
+        <ButtonAction on:click="{createScore}" pattern="add" size="small" />
       </div>
     </Modal>
   {/if}

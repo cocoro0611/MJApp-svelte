@@ -1,9 +1,10 @@
 <script lang="ts">
-  export let pattern: "create" | "update" | "delete" | "close" | "plus";
+  export let pattern: "create" | "add" | "update" | "delete" | "close" | "plus";
   export let size: "small" | "normal" = "normal";
 
   const buttonTexts = {
     create: "登録",
+    add: "追加",
     update: "更新",
     delete: "削除",
     close: " 閉じる",
@@ -12,6 +13,7 @@
 
   const buttonStyles = {
     create: "primary",
+    add: "primary",
     update: "primary",
     delete: "delete",
     close: "close",
