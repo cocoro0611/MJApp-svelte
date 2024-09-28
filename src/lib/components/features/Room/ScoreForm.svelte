@@ -12,12 +12,29 @@
   let method: string = "";
   let action: string = "";
 
+  let isKeyboard: boolean = false;
   let input = 0;
 
-  let isKeyboard: boolean = false;
-  const openKeyboard = () => {
+  let selectedScoreId: string | null = null;
+
+  // リアクティブな宣言を追加
+  $: if (selectedScoreId) {
+    scores = scores.map((score) => ({
+      ...score,
+      userScores: score.userScores.map((userScore) =>
+        userScore.id === selectedScoreId ? { ...userScore, input } : userScore
+      ),
+    }));
+  }
+
+  function handleScoreClick(
+    event: CustomEvent<{ scoreId: string; input: number }>
+  ) {
+    const { scoreId, input: clickedInput } = event.detail;
+    selectedScoreId = scoreId;
+    input = clickedInput;
     isKeyboard = true;
-  };
+  }
 </script>
 
 {#if formAction === "create"}
@@ -39,18 +56,24 @@
 {/if}
 
 {#if formAction === "update"}
-  <!-- TODO:カードとインプットの紐づけ -->
   <Form actions="updateScore" {method} {action}>
     {#each scores as score}
       {#if room.id === score.roomId}
-        <PointCard {score} />
+        <PointCard
+          {score}
+          bind:selectedScoreId
+          on:scoreClick="{handleScoreClick}"
+        />
       {/if}
     {/each}
-
-    <button on:click="{openKeyboard}">キーボード</button>
-    入力値：{input}
     {#if isKeyboard}
-      <PointKeyboard bind:method bind:action bind:input bind:isKeyboard />
+      <PointKeyboard
+        bind:method
+        bind:action
+        bind:input
+        bind:isKeyboard
+        bind:selectedScoreId
+      />
     {/if}
   </Form>
 {/if}

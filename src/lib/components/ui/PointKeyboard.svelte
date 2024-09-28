@@ -7,10 +7,11 @@
   } from "$lib/utils/PointKeyboard.js";
 
   export let input = 0;
-
+  export let selectedScoreId;
   export let isKeyboard: boolean = false;
   const closeKeyboard = () => {
     isKeyboard = false;
+    selectedScoreId = null;
   };
 
   export let method: string = "";

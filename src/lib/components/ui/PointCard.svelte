@@ -1,11 +1,20 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import type { ScoreData } from "$lib/models/Room/type.js";
+
   export let score: ScoreData;
+  export let selectedScoreId: string | null;
+
+  const dispatch = createEventDispatcher();
 
   let totalPoint: number = 100000;
+
+  function handleScoreClick(scoreId: string, input: number) {
+    dispatch("scoreClick", { scoreId, input });
+  }
 </script>
 
-<div class="grid grid-cols-5 bg-gray-100 font-bold">
+<div class="grid grid-cols-5 bg-gray-100 font-bold -mt-1">
   <div
     class="bg-white border-2 border-gray-300 h-22 flex justify-center flex-col items-center text-sm"
   >
@@ -28,19 +37,30 @@
     <div
       class="flex flex-col bg-white border-y-2 border-r-2 border-gray-300 p-[0.1rem] text-blue-800"
     >
-      <button type="button">
+      <button
+        on:click="{() => handleScoreClick(userScore.id, userScore.input)}"
+      >
         <div
-          class="bg-blue-100 border-2 border-blue-300 h-14 rounded-lg flex flex-col justify-center"
+          class="bg-blue-100 border-2 border-blue-300 h-14 rounded-lg flex flex-col justify-center
+                 {selectedScoreId === userScore.id
+            ? 'bg-yellow-100 border-yellow-300'
+            : ''}"
         >
           <div class="flex justify-start text-[0.6rem] pl-2 -mt-1">点数</div>
           <div class="flex justify-center">
-            <span class="border-b-2 px-1">{userScore.input}</span>
+            <span
+              class="border-b-2 border-blue-300 px-1 {selectedScoreId ===
+              userScore.id
+                ? 'border-yellow-300'
+                : ''}">{userScore.input}</span
+            >
             <span>00</span>
           </div>
         </div>
       </button>
       <div class="flex justify-center text-sm">
         {userScore.score}
+        {userScore.order}
       </div>
     </div>
   {/each}

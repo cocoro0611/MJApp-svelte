@@ -15,6 +15,7 @@ export async function readRooms(): Promise<RoomData[]> {
           .selectFrom("User")
           .innerJoin("RoomUser", "User.id", "RoomUser.userId")
           .select(["User.id", "User.name", "User.icon", "RoomUser.roomId"])
+          .orderBy("RoomUser.order", "asc")
           .where("RoomUser.roomId", "in", roomIds)
           .execute()
       : [];
@@ -85,16 +86,34 @@ export async function readRooms(): Promise<RoomData[]> {
 
 // FIXME:gameCountのグループ化
 export async function readScores(): Promise<ScoreData[]> {
+  // RoomUserテーブルからすべてのエントリを取得し、roomIdの情報を得る
+  const roomUsers = await db
+    .selectFrom("RoomUser")
+    .select(["userId", "roomId", "order"])
+    .execute();
+
+  // userIdからroomIdとorderを素早く検索するためのマップを作成
+  const userRoomMap = new Map(
+    roomUsers.map((ru) => [ru.userId, { roomId: ru.roomId, order: ru.order }])
+  );
+
+  // Scoreテーブルから全てのスコアデータを取得
   const userScores = await db
     .selectFrom("Score")
-    .select(["id", "input", "score", "gameCount", "roomId", "userId"])
+    .select(["id", "input", "score", "gameCount", "userId"])
     .execute();
 
   const result: ScoreData[] = [];
 
   // スコアデータを処理
   for (const userScore of userScores) {
-    const { id, input, score, gameCount, roomId, userId } = userScore;
+    const { id, input, score, gameCount, userId } = userScore;
+    const userRoom = userRoomMap.get(userId);
+
+    // マッチするroomIdが見つからない場合はスキップ
+    if (!userRoom) continue;
+
+    const { roomId, order } = userRoom;
 
     // 同じroomIdとgameCountのScoreDataを探す
     const existingScoreData = result.find(
@@ -109,20 +128,26 @@ export async function readScores(): Promise<ScoreData[]> {
         input,
         score,
         userId,
+        order,
       });
     } else {
       // 新しいScoreDataを作成
       const newScoreData: ScoreData = {
         roomId,
         gameCount,
-        userScores: [{ id, input, score, userId }],
+        userScores: [{ id, input, score, userId, order }],
       };
       result.push(newScoreData);
     }
   }
 
-  // gameCountの小さい順にソート
+  // まずgameCountの小さい順にソート
   result.sort((a, b) => a.gameCount - b.gameCount);
+
+  // 各ScoreData内のuserScoresをRoomUser.orderでソート
+  for (const scoreData of result) {
+    scoreData.userScores.sort((a, b) => a.order - b.order);
+  }
 
   return result;
 }
