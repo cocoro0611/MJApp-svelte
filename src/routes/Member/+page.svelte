@@ -3,11 +3,11 @@
   import MemberNew from "../../routes/Member/new/+page.svelte";
   import MemberDetail from "../../routes/Member/detail/+page.svelte";
 
+  import type { PageType } from "$lib/utils/localStorage.js";
   import type { UserData } from "$lib/models/Member/type.js";
   export let users: UserData[];
 
-  let currentPage: "memberHome" | "memberNew" | "memberDetail" = "memberHome";
-
+  let currentPage: PageType = "member";
   let selectedUser: UserData;
 
   const handleUserSelect = (event: CustomEvent<UserData>) => {
@@ -16,8 +16,9 @@
   };
 </script>
 
-{#if currentPage === "memberHome"}
-  <MemberHome {users} bind:currentPage on:select="{handleUserSelect}" />
+{#if currentPage === "member"}
+  <MemberHome {users} bind:currentPage on:select="{handleUserSelect}"
+  ></MemberHome>
 {:else if currentPage === "memberNew"}
   <MemberNew bind:currentPage />
 {:else if currentPage === "memberDetail"}

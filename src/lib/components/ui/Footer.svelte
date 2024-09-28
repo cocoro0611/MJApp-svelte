@@ -1,17 +1,16 @@
 <script lang="ts">
-  import { ButtonGroup, Button } from "flowbite-svelte";
   import Icon from "./Icon.svelte";
-  import { onMount } from "svelte";
+  import { ButtonGroup, Button } from "flowbite-svelte";
+  import { saveLocalData } from "$lib/utils/localStorage.js";
 
-  type PageType = "room" | "member" | "fuCount" | "hanCount";
-  type IconType = "room" | "user" | "calculator" | "calculatorFilled";
+  import type { PageType } from "$lib/utils/localStorage.js";
 
   export let currentPage: PageType;
 
   interface TabList {
     id: PageType;
     label: string;
-    iconType: IconType;
+    iconType: "room" | "user" | "calculator" | "calculatorFilled";
   }
 
   const tabs: TabList[] = [
@@ -23,16 +22,8 @@
 
   const handleLinkClick = (page: PageType) => {
     currentPage = page;
-    localStorage.setItem("currentPage", page);
+    saveLocalData("currentPage", page);
   };
-
-  // FIXME:ローカルストレージの保存
-  onMount(() => {
-    const savedPage = localStorage.getItem("currentPage") as PageType | null;
-    if (savedPage && tabs.some((tab) => tab.id === savedPage)) {
-      currentPage = savedPage;
-    }
-  });
 </script>
 
 <nav class="flex justify-center fixed bottom-0 left-0 right-0">

@@ -1,8 +1,10 @@
 <script lang="ts">
+  import ScoreCard from "$lib/components/ui/RoomCard.svelte";
+
   import { createEventDispatcher } from "svelte";
 
-  import ScoreCard from "$lib/components/ui/RoomCard.svelte";
   import type { RoomData } from "$lib/models/Room/type.js";
+
   export let rooms: RoomData[];
 
   const dispatch = createEventDispatcher<{

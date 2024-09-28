@@ -3,17 +3,19 @@
   import Main from "$lib/components/layout/Main.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
   import MemberForm from "$lib/components/features/Member/MemberForm.svelte";
+
+  import type { PageType } from "$lib/utils/localStorage.js";
   import type { UserData } from "$lib/models/Member/type.js";
+  export let currentPage: PageType;
+
   let user: UserData = {
     id: "",
     name: "",
     icon: "monster01.png",
   };
 
-  export let currentPage: "memberHome" | "memberNew" | "memberDetail";
-
   const backPage = () => {
-    currentPage = "memberHome";
+    currentPage = "member";
   };
 </script>
 
@@ -25,5 +27,5 @@
 </Header>
 
 <Main>
-  <MemberForm {user} />
+  <MemberForm formAction="create" {user} />
 </Main>

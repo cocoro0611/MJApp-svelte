@@ -1,14 +1,16 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  import type { UserData } from "$lib/models/Member/type.js";
-  export let users: UserData[];
-
   import Header from "$lib/components/layout/Header.svelte";
   import Main from "$lib/components/layout/Main.svelte";
   import MemberSummary from "$lib/components/features/Member/MemberSummary.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
-  export let currentPage: "memberHome" | "memberNew" | "memberDetail";
+  import { createEventDispatcher } from "svelte";
+
+  import type { PageType } from "$lib/utils/localStorage.js";
+  import type { UserData } from "$lib/models/Member/type.js";
+
+  export let users: UserData[];
+  export let currentPage: PageType;
 
   const MemberCreatePage = () => {
     currentPage = "memberNew";
@@ -17,6 +19,7 @@
   const dispatch = createEventDispatcher<{
     select: UserData;
   }>();
+
   const handleUserSelect = (event: CustomEvent<UserData>) => {
     dispatch("select", event.detail);
   };

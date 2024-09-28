@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
 
+  import { createEventDispatcher } from "svelte";
+
   import type { UserData } from "$lib/models/Member/type.js";
+
   export let users: UserData[];
 
   const dispatch = createEventDispatcher<{

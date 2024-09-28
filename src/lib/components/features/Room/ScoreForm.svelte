@@ -1,7 +1,6 @@
 <script lang="ts">
   import PointCard from "$lib/components/ui/PointCard.svelte";
   import PointKeyboard from "$lib/components/ui/PointKeyboard.svelte";
-  import PointCardCreate from "$lib/components/features/Room/PointCardCreate.svelte";
   import Form from "$lib/components/layout/Form.svelte";
 
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
@@ -40,7 +39,8 @@
 {/if}
 
 {#if formAction === "update"}
-  <Form {method} {action}>
+  <!-- TODO:カードとインプットの紐づけ -->
+  <Form actions="updateScore" {method} {action}>
     {#each scores as score}
       {#if room.id === score.roomId}
         <PointCard {score} />

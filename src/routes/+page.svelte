@@ -5,10 +5,21 @@
   import HanCountPage from "./HanCount/+page.svelte";
   import Footer from "$lib/components/ui/Footer.svelte";
 
-  import type { PageData } from "./$types.js";
-  export let data: PageData;
+  import { onMount } from "svelte";
+  import { getLocalData, isValidPageType } from "$lib/utils/localStorage.js";
 
-  let currentPage: "room" | "member" | "fuCount" | "hanCount" = "room";
+  import type { PageData } from "./$types.js";
+  import type { PageType } from "$lib/utils/localStorage.js";
+
+  export let data: PageData;
+  let currentPage: PageType = "room";
+
+  onMount(() => {
+    const savedPage = getLocalData("currentPage");
+    if (savedPage && isValidPageType(savedPage)) {
+      currentPage = savedPage;
+    }
+  });
 </script>
 
 {#if currentPage === "room"}

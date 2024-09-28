@@ -1,7 +1,4 @@
 <script lang="ts">
-  import type { UserData } from "$lib/models/Member/type.js";
-  import type { RoomData, RoomFormData } from "$lib/models/Room/type.js";
-
   import dayjs from "dayjs";
   import Form from "$lib/components/layout/Form.svelte";
   import FormField from "$lib/components/layout/FormField.svelte";
@@ -10,8 +7,9 @@
   import RoomSettingForm from "$lib/components/ui/RoomSettingForm.svelte";
   import RoomAmountForm from "$lib/components/ui/RoomAmountForm.svelte";
 
-  export let isUpdate: boolean = false;
-  export let isDelete: boolean = false;
+  import type { UserData } from "$lib/models/Member/type.js";
+  import type { RoomData, RoomFormData } from "$lib/models/Room/type.js";
+
   export let users: UserData[];
   export let room: RoomData = {
     id: "",
@@ -39,11 +37,11 @@
     gameAmount: 0,
   };
 
-  export let currentPage: "roomHome" | "roomNew" | "roomDetail" = "roomHome";
+  export let formAction: "create" | "update" | "delete";
 </script>
 
-{#if !isDelete}
-  <Form bind:currentPage actions="{isUpdate ? 'updateRoom' : 'createRoom'}">
+{#if formAction === "create" || formAction === "update"}
+  <Form actions="{formAction === 'create' ? 'createRoom' : 'updateRoom'}">
     <input type="hidden" name="id" value="{roomForm.id}" />
     <FormField name="部屋名">
       <RoomNameForm {roomForm} />
@@ -58,11 +56,17 @@
       <RoomAmountForm {roomForm} />
     </FormField>
   </Form>
-{:else}
+{/if}
+
+{#if formAction === "delete"}
   <Form actions="deleteRoom">
     <input type="hidden" name="id" value="{room.id}" />
-    {#each users.slice(0, 4) as user}
-      <input type="hidden" name="userId" value="{user.id}" />
+    {#each room.users as roomUser}
+      {#each users as user}
+        {#if roomUser.id === user.id}
+          <input type="hidden" name="userId" value="{user.id}" />
+        {/if}
+      {/each}
     {/each}
   </Form>
 {/if}

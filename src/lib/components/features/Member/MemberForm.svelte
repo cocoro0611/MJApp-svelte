@@ -1,17 +1,17 @@
 <script lang="ts">
-  import type { UserData } from "$lib/models/Member/type.js";
   import Form from "$lib/components/layout/Form.svelte";
   import FormField from "$lib/components/layout/FormField.svelte";
   import MemberNameForm from "$lib/components/ui/MemberNameForm.svelte";
   import MemberSelectForm from "$lib/components/ui/MemberSelectForm.svelte";
 
-  export let isUpdate: boolean = false;
-  export let isDelete: boolean = false;
+  import type { UserData } from "$lib/models/Member/type.js";
+
   export let user: UserData;
+  export let formAction: "create" | "update" | "delete";
 </script>
 
-{#if !isDelete}
-  <Form actions="{isUpdate ? 'updateUser' : 'createUser'}">
+{#if formAction === "create" || formAction === "update"}
+  <Form actions="{formAction === 'create' ? 'createUser' : 'updateUser'}">
     <input type="hidden" name="id" value="{user.id}" />
     <FormField name="名前">
       <MemberNameForm bind:user />
@@ -20,7 +20,9 @@
       <MemberSelectForm bind:user />
     </FormField>
   </Form>
-{:else}
+{/if}
+
+{#if formAction === "delete"}
   <Form actions="deleteUser">
     <input type="hidden" name="id" value="{user.id}" />
   </Form>

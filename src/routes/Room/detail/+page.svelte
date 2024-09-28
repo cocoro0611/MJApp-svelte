@@ -6,18 +6,21 @@
   import RoomScore from "$lib/components/features/Room/RoomScore.svelte";
   import ScoreForm from "$lib/components/features/Room/ScoreForm.svelte";
 
+  import type { PageType } from "$lib/utils/localStorage.js";
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
   import type { UserData } from "$lib/models/Member/type.js";
+
+  import { saveLocalData, removeLocalData } from "$lib/utils/localStorage.js";
+
   export let users: UserData[];
   export let scores: ScoreData[];
   export let room: RoomData;
 
-  // FIXME:ローカルストレージの保存
-  export let currentPage: "roomHome" | "roomNew" | "roomDetail" = "roomHome";
+  export let currentPage: PageType;
   const backPage = () => {
-    currentPage = "roomHome";
-    localStorage.setItem("roomCurrentPage", currentPage);
-    localStorage.removeItem("selectedRoomId");
+    currentPage = "room";
+    saveLocalData("currentPage", currentPage);
+    removeLocalData("roomId");
   };
 </script>
 
@@ -27,7 +30,7 @@
   </svelte:fragment>
   <svelte:fragment slot="center">{room.name}</svelte:fragment>
   <svelte:fragment slot="right">
-    <RoomForm bind:currentPage isDelete {users} {room} />
+    <RoomForm formAction="delete" {users} {room} />
   </svelte:fragment>
   <RoomScore {room} />
 </Header>

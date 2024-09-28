@@ -10,7 +10,10 @@
     | "updateRoom"
     | "deleteRoom"
     | "createScore"
+    | "updateScore"
     | "" = "";
+
+  import { saveLocalData, removeLocalData } from "$lib/utils/localStorage.js";
 
   let popupModal = false;
 
@@ -47,14 +50,11 @@
     action = "?/createScore";
   };
 
-  // FIXME:ローカルストレージの保存
-  export let currentPage: "roomHome" | "roomNew" | "roomDetail" = "roomHome";
   const deleteRoom = () => {
     method = "POST";
     action = "?/deleteRoom";
-    currentPage = "roomHome";
-    localStorage.setItem("roomCurrentPage", currentPage);
-    localStorage.removeItem("selectedRoomId");
+    saveLocalData("currentPage", "room");
+    removeLocalData("roomId");
   };
 
   const closeModal = () => {
@@ -73,9 +73,11 @@
 <form
   {method}
   {action}
-  class="{actions === 'deleteUser' || actions === 'deleteRoom'
-    ? 'flex'
-    : 'mx-4'}"
+  class="{actions === 'updateScore'
+    ? ''
+    : actions === 'deleteUser' || actions === 'deleteRoom'
+      ? 'flex'
+      : 'mx-4'}"
 >
   <slot />
   {#if actions === "createUser"}
