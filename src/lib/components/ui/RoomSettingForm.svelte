@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { RoomFormData } from "$lib/models/Room/type.js";
+  import type { RoomData } from "$lib/models/Room/type.js";
   import Button from "$lib/components/ui/Button.svelte";
   import { derived, writable, type Writable } from "svelte/store";
 
-  export let roomForm: Omit<RoomFormData, "users">;
+  export let room: Omit<RoomData, "users">;
 
   type ScoreButtonList = {
     label: string;
@@ -12,7 +12,7 @@
   };
 
   type RoomKey = keyof Pick<
-    RoomFormData,
+    RoomData,
     "initialPoint" | "returnPoint" | "bonusPoint" | "scoreRate" | "chipRate"
   >;
 
@@ -128,8 +128,7 @@
       const selectedItem = items[index];
       const value = selectedItem[property];
       if (value !== undefined) {
-        (roomForm[property] as RoomFormData[RoomKey]) =
-          value as RoomFormData[RoomKey];
+        (room[property] as RoomData[RoomKey]) = value as RoomData[RoomKey];
       }
       return items;
     });
@@ -140,8 +139,7 @@
   <div class="flex justify-between font-bold pt-4">
     <div>
       <span class="mr-2">{group.title}</span>
-      <span class="text-blue-500">{group.format(roomForm[group.property])}</span
-      >
+      <span class="text-blue-500">{group.format(room[group.property])}</span>
     </div>
   </div>
   <div class="flex justify-center">
@@ -159,8 +157,8 @@
   </div>
 {/each}
 
-<input type="hidden" name="initialPoint" value="{roomForm.initialPoint}" />
-<input type="hidden" name="returnPoint" value="{roomForm.returnPoint}" />
-<input type="hidden" name="bonusPoint" value="{roomForm.bonusPoint}" />
-<input type="hidden" name="scoreRate" value="{roomForm.scoreRate}" />
-<input type="hidden" name="chipRate" value="{roomForm.chipRate}" />
+<input type="hidden" name="initialPoint" value="{room.initialPoint}" />
+<input type="hidden" name="returnPoint" value="{room.returnPoint}" />
+<input type="hidden" name="bonusPoint" value="{room.bonusPoint}" />
+<input type="hidden" name="scoreRate" value="{room.scoreRate}" />
+<input type="hidden" name="chipRate" value="{room.chipRate}" />

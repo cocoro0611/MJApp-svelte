@@ -27,6 +27,7 @@
   }
 </script>
 
+<!-- TODO:左右ボタンの切り替え -->
 <div class="fixed bottom-0 left-0 right-0 z-10">
   <div class="max-w-screen-lg container mx-auto">
     <div class="bg-gray-100 font-bold p-2">

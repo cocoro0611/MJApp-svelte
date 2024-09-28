@@ -53,6 +53,12 @@ export async function readRooms(): Promise<RoomData[]> {
     (room): RoomData => ({
       id: room.id,
       name: room.name,
+      initialPoint: room.initialPoint,
+      returnPoint: room.returnPoint,
+      bonusPoint: room.bonusPoint,
+      scoreRate: room.scoreRate,
+      chipRate: room.chipRate,
+      gameAmount: room.gameAmount,
       users: users
         .filter((user) => user.roomId === room.id)
         .map((user) => {

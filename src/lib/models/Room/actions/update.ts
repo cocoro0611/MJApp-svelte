@@ -22,14 +22,24 @@ export const updateRoom: Action = async ({ request }) => {
 
 export const updateScore: Action = async ({ request }) => {
   const data = await request.formData();
+  const initialPoint = data.get("initialPoint");
+  const returnPoint = data.get("returnPoint");
+  const bonusPoint = data.get("bonusPoint");
   const ids = data.getAll("id[]");
   const inputs = data.getAll("input[]");
-  const scores = data.getAll("score[]");
 
   for (let i = 0; i < ids.length; i++) {
+    // TODO:スコアの計算
+    const input = Number(inputs[i]);
+    const oka = ((Number(returnPoint) - Number(initialPoint)) * 4) / 1000;
+    const umaHigh = bonusPoint?.slice(0, 2);
+    const umaLow = bonusPoint?.slice(3, 5);
+    console.log("aaa", oka);
+    const score = (input - Number(returnPoint) / 100) / 10;
+
     const updateData = {
-      input: inputs[i],
-      score: scores[i],
+      input: input,
+      score: score,
       updatedAt: dayjs().toDate(),
     };
 

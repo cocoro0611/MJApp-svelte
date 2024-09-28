@@ -38,6 +38,8 @@
 </script>
 
 {#if formAction === "create"}
+  <!-- TODO:チップの追加 -->
+  <!-- TODO:場代の追加 -->
   <Form actions="createScore">
     <input type="hidden" name="roomId" value="{room.id}" />
     <input
@@ -60,6 +62,7 @@
     {#each scores as score}
       {#if room.id === score.roomId}
         <PointCard
+          {room}
           {score}
           bind:selectedScoreId
           on:scoreClick="{handleScoreClick}"

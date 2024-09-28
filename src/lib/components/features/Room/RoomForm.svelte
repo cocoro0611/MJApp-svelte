@@ -8,12 +8,18 @@
   import RoomAmountForm from "$lib/components/ui/RoomAmountForm.svelte";
 
   import type { UserData } from "$lib/models/Member/type.js";
-  import type { RoomData, RoomFormData } from "$lib/models/Room/type.js";
+  import type { RoomData } from "$lib/models/Room/type.js";
 
   export let users: UserData[];
   export let room: RoomData = {
     id: "",
-    name: "",
+    name: `${dayjs().format("YYYY/MM/DD")}`,
+    initialPoint: 25000,
+    returnPoint: 30000,
+    bonusPoint: "10-30",
+    scoreRate: 50,
+    chipRate: 100,
+    gameAmount: 0,
     users: [
       {
         id: "",
@@ -26,34 +32,23 @@
     ],
   };
 
-  let roomForm: Omit<RoomFormData, "users"> = {
-    id: "",
-    name: `${dayjs().format("YYYY/MM/DD")}`,
-    initialPoint: 25000,
-    returnPoint: 30000,
-    bonusPoint: "10-30",
-    scoreRate: 50,
-    chipRate: 100,
-    gameAmount: 0,
-  };
-
   export let formAction: "create" | "update" | "delete";
 </script>
 
 {#if formAction === "create" || formAction === "update"}
   <Form actions="{formAction === 'create' ? 'createRoom' : 'updateRoom'}">
-    <input type="hidden" name="id" value="{roomForm.id}" />
+    <input type="hidden" name="id" value="{room.id}" />
     <FormField name="部屋名">
-      <RoomNameForm {roomForm} />
+      <RoomNameForm {room} />
     </FormField>
     <FormField name="メンバー">
       <RoomMemberForm {users} />
     </FormField>
     <FormField name="">
-      <RoomSettingForm {roomForm} />
+      <RoomSettingForm {room} />
     </FormField>
     <FormField name="場代（後で編集できます）">
-      <RoomAmountForm {roomForm} />
+      <RoomAmountForm {room} />
     </FormField>
   </Form>
 {/if}

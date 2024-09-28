@@ -1,7 +1,7 @@
 import type { Room, Score, RoomUser, Chip } from "../types.js";
 import type { UserData } from "../Member/type.js";
 
-export interface RoomFormData
+export interface RoomData
   extends Pick<
     Room,
     | "id"
@@ -13,10 +13,6 @@ export interface RoomFormData
     | "chipRate"
     | "gameAmount"
   > {
-  users: UserData[];
-}
-
-export interface RoomData extends Pick<Room, "id" | "name"> {
   users: (UserData & {
     totalScore: number;
     totalChip: number;
