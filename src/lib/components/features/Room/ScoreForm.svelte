@@ -59,8 +59,17 @@
 
 {#if formAction === "update"}
   <Form actions="updateScore" {method} {action}>
+    <input type="hidden" name="roomId" value="{room.id}" />
+    <input type="hidden" name="initialPoint" value="{room.initialPoint}" />
+    <input type="hidden" name="returnPoint" value="{room.returnPoint}" />
+    <input type="hidden" name="bonusPoint" value="{room.bonusPoint}" />
     {#each scores as score}
       {#if room.id === score.roomId}
+        <input type="hidden" name="gameCount[]" value="{score.gameCount}" />
+        {#each score.userScores as userScore}
+          <input type="hidden" name="id[]" value="{userScore.id}" />
+          <input type="hidden" name="input[]" value="{userScore.input}" />
+        {/each}
         <PointCard
           {room}
           {score}

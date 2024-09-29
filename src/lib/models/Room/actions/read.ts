@@ -89,65 +89,44 @@ export async function readRooms(): Promise<RoomData[]> {
   );
 }
 
-// TODO:呼び出しが変
 export async function readScores(): Promise<ScoreData[]> {
-  // RoomUserテーブルからすべてのエントリを取得
-  const roomUsers = await db
-    .selectFrom("RoomUser")
-    .select(["userId", "roomId", "order"])
-    .execute();
-
-  // userIdからroomIdとorderを素早く検索するためのマップを作成
-  const userRoomMap = new Map(
-    roomUsers.map((ru) => [ru.userId, { roomId: ru.roomId, order: ru.order }])
-  );
-
-  // Scoreテーブルから全てのスコアデータを取得
-  const userScores = await db
+  const scores = await db
     .selectFrom("Score")
-    .select(["id", "input", "score", "gameCount", "userId"])
+    .innerJoin("RoomUser", (join) =>
+      join
+        .onRef("Score.roomId", "=", "RoomUser.roomId")
+        .onRef("Score.userId", "=", "RoomUser.userId")
+    )
+    .select([
+      "Score.id",
+      "Score.input",
+      "Score.score",
+      "Score.gameCount",
+      "Score.userId",
+      "Score.roomId",
+      "RoomUser.order as order",
+    ])
+    .orderBy("Score.gameCount", "asc")
+    .orderBy("RoomUser.order", "asc")
     .execute();
 
-  // roomIdとgameCountでグループ化するためのマップを作成
-  const groupedScores = new Map<string, ScoreData>();
-
-  // スコアデータを処理
-  for (const userScore of userScores) {
-    const { id, input, score, gameCount, userId } = userScore;
-    const userRoom = userRoomMap.get(userId);
-
-    // マッチするroomIdが見つからない場合はスキップ
-    if (!userRoom) continue;
-
-    const { roomId, order } = userRoom;
-    const key = `${roomId}-${gameCount}`;
-
-    if (!groupedScores.has(key)) {
-      groupedScores.set(key, {
-        roomId,
-        gameCount,
+  const groupedScores: { [key: string]: ScoreData } = {};
+  scores.forEach((score) => {
+    const key = `${score.roomId}-${score.gameCount}`;
+    if (!groupedScores[key]) {
+      groupedScores[key] = {
+        roomId: score.roomId,
+        gameCount: score.gameCount,
         userScores: [],
-      });
+      };
     }
-
-    groupedScores.get(key)!.userScores.push({
-      id,
-      input,
-      score,
-      userId,
-      order,
+    groupedScores[key].userScores.push({
+      id: score.id,
+      input: score.input,
+      score: score.score,
+      order: score.order,
+      userId: score.userId,
     });
-  }
-
-  // グループ化されたスコアデータを配列に変換し、ソート
-  const result = Array.from(groupedScores.values()).sort(
-    (a, b) => a.gameCount - b.gameCount
-  );
-
-  // 各ScoreData内のuserScoresをRoomUser.orderでソート
-  for (const scoreData of result) {
-    scoreData.userScores.sort((a, b) => a.order - b.order);
-  }
-
-  return result;
+  });
+  return Object.values(groupedScores);
 }

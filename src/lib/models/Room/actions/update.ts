@@ -22,32 +22,47 @@ export const updateRoom: Action = async ({ request }) => {
 
 export const updateScore: Action = async ({ request }) => {
   const data = await request.formData();
+  const roomId = data.get("roomId");
   const initialPoint = data.get("initialPoint");
   const returnPoint = data.get("returnPoint");
   const bonusPoint = data.get("bonusPoint");
+  const gameCounts = data.getAll("gameCount[]");
   const ids = data.getAll("id[]");
   const inputs = data.getAll("input[]");
 
-  for (let i = 0; i < ids.length; i++) {
+  const oka = ((Number(returnPoint) - Number(initialPoint)) * 4) / 1000;
+  const umaLow = Number(bonusPoint?.slice(0, 2));
+  const umaHigh = Number(bonusPoint?.slice(3, 5));
+  console.log("oka", oka);
+  console.log("umaHigh", umaHigh);
+  console.log("umaLow", umaLow);
+
+  let currentIndex = 0;
+  for (let i = 0; i < gameCounts.length; i++) {
     // TODO:スコアの計算
-    const input = Number(inputs[i]);
-    const oka = ((Number(returnPoint) - Number(initialPoint)) * 4) / 1000;
-    const umaHigh = bonusPoint?.slice(0, 2);
-    const umaLow = bonusPoint?.slice(3, 5);
-    console.log("aaa", oka);
-    const score = (input - Number(returnPoint) / 100) / 10;
+    const gameCount = gameCounts[i];
+    const userCount = 4;
 
-    const updateData = {
-      input: input,
-      score: score,
-      updatedAt: dayjs().toDate(),
-    };
+    for (let j = 0; j < userCount; j++) {
+      const id = ids[currentIndex];
+      const input = Number(inputs[currentIndex]);
+      const score = Math.round((input - Number(returnPoint) / 100) / 10);
 
-    await db
-      .updateTable("Score")
-      .set(updateData)
-      .where("id", "=", ids[i])
-      .execute();
+      const updateData = {
+        input: input,
+        score: score,
+        updatedAt: dayjs().toDate(),
+      };
+      await db
+        .updateTable("Score")
+        .set(updateData)
+        .where("id", "=", id)
+        .where("roomId", "=", roomId)
+        .where("gameCount", "=", gameCount)
+        .execute();
+
+      currentIndex++;
+    }
   }
 };
 
