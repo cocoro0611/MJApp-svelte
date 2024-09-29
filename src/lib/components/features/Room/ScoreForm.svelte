@@ -39,7 +39,6 @@
 
 {#if formAction === "create"}
   <!-- TODO:チップの追加 -->
-  <!-- TODO:場代の追加 -->
   <Form actions="createScore">
     <input type="hidden" name="roomId" value="{room.id}" />
     <input

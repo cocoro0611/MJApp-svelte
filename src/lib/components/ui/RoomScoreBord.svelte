@@ -4,7 +4,7 @@
 
   export let room: RoomData;
 
-  const headers = ["ルール", "スコア", "チップ", "収支"];
+  const headers = ["", "スコア", "チップ", "収支"];
 
   export let popupModal;
   export let ModalPage: "rule" | "user";
@@ -28,9 +28,10 @@
         class="
         bg-blue-100 text-blue-800 border-2 border-blue-300 h-20 rounded-lg font-bold
         hover:bg-blue-300
-        flex justify-center items-center"
+        flex flex-col justify-center items-center text-sm"
       >
-        {header}
+        <span class="pb-1">設定変更</span>
+        <span>場代登録</span>
       </button>
     {:else}
       <div class="bg-blue-800 text-white flex justify-center items-center">

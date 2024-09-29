@@ -38,7 +38,6 @@ export const updateScore: Action = async ({ request }) => {
 
   let currentIndex = 0;
   for (let i = 0; i < gameCounts.length; i++) {
-    // TODO:スコアの計算
     const gameCount = gameCounts[i];
     const userCount = 4;
 
@@ -51,14 +50,12 @@ export const updateScore: Action = async ({ request }) => {
       currentIndex++;
     }
 
-    // スコアで降順にソート
     gameScores.sort((a, b) => b.baseScore - a.baseScore);
 
     for (let j = 0; j < userCount; j++) {
       const { id, input, baseScore } = gameScores[j];
       let finalScore = baseScore + umaList[j];
 
-      // 1位のプレイヤーにのみokaを加算
       if (j === 0) {
         finalScore += oka;
       }

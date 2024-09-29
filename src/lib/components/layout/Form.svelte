@@ -141,7 +141,7 @@
       <div class="flex justify-start py-2 font-bold">
         以下のデータを追加しますか？
       </div>
-      <div class="flex justify-center gap-4">
+      <div class="flex justify-center gap-4 pb-4">
         <ButtonAction
           on:click="{createScore}"
           pattern="addScore"
@@ -149,11 +149,7 @@
         />
         <ButtonAction on:click="{createChip}" pattern="addChip" size="small" />
       </div>
-      <div class="flex justify-start py-2 font-bold">場代を登録しますか？</div>
-      <div class="flex justify-center gap-4">
-        <ButtonAction on:click="{closeModal}" pattern="close" size="small" />
-        <ButtonAction on:click pattern="liquidation" size="small" />
-      </div>
+      <ButtonAction on:click="{closeModal}" pattern="close" size="large" />
     </Modal>
   {/if}
 </form>
