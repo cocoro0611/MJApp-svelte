@@ -14,9 +14,11 @@
     : size === 'normal'
       ? 'w-20 h-20'
       : 'w-40 h-40'}
-    {isColor ? 'border-2 border-blue-300 bg-blue-100 rounded' : ''}
+    {isColor
+    ? 'border-2 border-blue-300 bg-blue-100 rounded hover:bg-blue-300 hover:scale-[1.05] active:bg-blue-300 '
+    : ''}
     text-blue-500 font-bold flex flex-col items-center justify-center
-    hover:bg-blue-300 hover:scale-[1.05] active:bg-blue-300
+    
   "
   on:click
 >

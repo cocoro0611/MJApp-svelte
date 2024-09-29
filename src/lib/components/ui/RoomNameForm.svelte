@@ -14,7 +14,7 @@
 </script>
 
 <Input
-  class="border border-blue-500"
+  class="border border-blue-500 "
   name="name"
   placeholder="部屋名を入力"
   value="{room.name}"

@@ -15,7 +15,7 @@
 
   import { saveLocalData, removeLocalData } from "$lib/utils/localStorage.js";
 
-  let popupModal = false;
+  export let popupModal = false;
 
   export let method: string = "";
   export let action: string = "";
@@ -48,6 +48,11 @@
   const createScore = () => {
     method = "POST";
     action = "?/createScore";
+  };
+
+  const createChip = () => {
+    method = "POST";
+    action = "?/createChip";
   };
 
   const deleteRoom = () => {
@@ -86,8 +91,15 @@
     </div>
   {/if}
   {#if actions === "updateUser"}
-    <div class="flex justify-center py-4">
-      <ButtonAction pattern="update" on:click="{updateUser}" />
+    <div class="flex justify-center py-4 {popupModal ? 'gap-4' : ''}">
+      {#if popupModal}
+        <ButtonAction pattern="close" size="small" on:click="{closeModal}" />
+      {/if}
+      <ButtonAction
+        pattern="update"
+        size="{popupModal ? 'small' : 'normal'}"
+        on:click="{updateUser}"
+      />
     </div>
   {/if}
   {#if actions === "deleteUser"}
@@ -108,8 +120,9 @@
     </div>
   {/if}
   {#if actions === "updateRoom"}
-    <div class="flex justify-center py-4">
-      <ButtonAction pattern="update" on:click="{updateRoom}" />
+    <div class="flex justify-center gap-4 my-4">
+      <ButtonAction pattern="close" size="small" on:click="{closeModal}" />
+      <ButtonAction pattern="update" size="small" on:click="{updateRoom}" />
     </div>
   {/if}
   {#if actions === "deleteRoom"}
@@ -125,9 +138,21 @@
   {/if}
   {#if actions === "createScore"}
     <Modal isButton bind:popupModal>
+      <div class="flex justify-start py-2 font-bold">
+        以下のデータを追加しますか？
+      </div>
+      <div class="flex justify-center gap-4">
+        <ButtonAction
+          on:click="{createScore}"
+          pattern="addScore"
+          size="small"
+        />
+        <ButtonAction on:click="{createChip}" pattern="addChip" size="small" />
+      </div>
+      <div class="flex justify-start py-2 font-bold">場代を登録しますか？</div>
       <div class="flex justify-center gap-4">
         <ButtonAction on:click="{closeModal}" pattern="close" size="small" />
-        <ButtonAction on:click="{createScore}" pattern="add" size="small" />
+        <ButtonAction on:click pattern="liquidation" size="small" />
       </div>
     </Modal>
   {/if}

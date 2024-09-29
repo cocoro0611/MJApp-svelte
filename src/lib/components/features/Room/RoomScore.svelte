@@ -1,64 +1,29 @@
 <script lang="ts">
-  import MemberCard from "$lib/components/ui/MemberCard.svelte";
+  import RoomScoreBord from "$lib/components/ui/RoomScoreBord.svelte";
+  import Modal from "$lib/components/layout/Modal.svelte";
+  import RoomForm from "./RoomForm.svelte";
+  import MemberForm from "../Member/MemberForm.svelte";
   import type { RoomData } from "$lib/models/Room/type.js";
+  import type { UserData } from "$lib/models/Member/type.js";
+
   export let room: RoomData;
 
-  const headers = ["ルール", "スコア", "チップ", "収支"];
+  export let popupModal = false;
+  let ModalPage: "rule" | "user";
+  let selectedUser: string = "";
+
+  $: selectedUserData = room.users.find(
+    (user) => user.id === selectedUser
+  ) as UserData;
 </script>
 
-<!-- TODO: ルールのアップデート -->
-<!-- TODO: ユーザボタンからの名前とアイコンの切り替え -->
-<div class="grid grid-cols-5 gap-[0.1rem] bg-gray-100">
-  {#each headers as header, index}
-    <div
-      class="{index === 0
-        ? 'bg-blue-100 text-blue-800 border-2 border-blue-300 h-20 rounded-lg'
-        : 'bg-blue-800 text-white'} 
-        flex justify-center items-center"
-    >
-      {header}
-    </div>
-    {#each room.users as user}
-      <div
-        class="{index === 0
-          ? 'bg-blue-100 border-2 border-blue-300 h-20 rounded-lg'
-          : 'bg-blue-800 text-white'} 
-          flex justify-center items-center"
-      >
-        {#if index === 0}
-          <MemberCard
-            isColor="{false}"
-            image="/MemberIcon/{user.icon}"
-            name="{user.name}"
-            totalScore="{user.totalScore}"
-          />
-        {:else if index === 1}
-          {user.totalScore}
-        {:else if index === 2}
-          <div class="w-full grid grid-cols-10">
-            <div
-              class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
-            ></div>
-            <div class="col-span-8 text-center">{user.totalChip}</div>
-            <div
-              class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
-            >
-              枚
-            </div>
-          </div>
-        {:else if index === 3}
-          <div class="w-full grid grid-cols-10 font-bold">
-            <div class="col-span-9 text-center">
-              {user.totalPoint}
-            </div>
-            <div
-              class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
-            >
-              Ｐ
-            </div>
-          </div>
-        {/if}
-      </div>
-    {/each}
-  {/each}
-</div>
+<RoomScoreBord {room} bind:popupModal bind:ModalPage bind:selectedUser />
+
+<Modal isButton="{false}" bind:popupModal>
+  {#if ModalPage === "rule"}
+    <RoomForm {room} bind:popupModal formAction="update" />
+  {/if}
+  {#if ModalPage === "user" && selectedUserData}
+    <MemberForm user="{selectedUserData}" bind:popupModal formAction="update" />
+  {/if}
+</Modal>

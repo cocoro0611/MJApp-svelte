@@ -3,6 +3,6 @@
 </script>
 
 <div class="">
-  <div class="font-bold py-1">{name}</div>
+  <div class="flex justify-start font-bold py-1">{name}</div>
   <div class=""><slot /></div>
 </div>

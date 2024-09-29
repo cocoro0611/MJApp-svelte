@@ -89,9 +89,9 @@ export async function readRooms(): Promise<RoomData[]> {
   );
 }
 
-// FIXME:gameCountのグループ化
+// TODO:呼び出しが変
 export async function readScores(): Promise<ScoreData[]> {
-  // RoomUserテーブルからすべてのエントリを取得し、roomIdの情報を得る
+  // RoomUserテーブルからすべてのエントリを取得
   const roomUsers = await db
     .selectFrom("RoomUser")
     .select(["userId", "roomId", "order"])
@@ -108,7 +108,8 @@ export async function readScores(): Promise<ScoreData[]> {
     .select(["id", "input", "score", "gameCount", "userId"])
     .execute();
 
-  const result: ScoreData[] = [];
+  // roomIdとgameCountでグループ化するためのマップを作成
+  const groupedScores = new Map<string, ScoreData>();
 
   // スコアデータを処理
   for (const userScore of userScores) {
@@ -119,35 +120,29 @@ export async function readScores(): Promise<ScoreData[]> {
     if (!userRoom) continue;
 
     const { roomId, order } = userRoom;
+    const key = `${roomId}-${gameCount}`;
 
-    // 同じroomIdとgameCountのScoreDataを探す
-    const existingScoreData = result.find(
-      (scoreData) =>
-        scoreData.roomId === roomId && scoreData.gameCount === gameCount
-    );
-
-    if (existingScoreData) {
-      // 既存のScoreDataがある場合、userScoresに追加
-      existingScoreData.userScores.push({
-        id,
-        input,
-        score,
-        userId,
-        order,
-      });
-    } else {
-      // 新しいScoreDataを作成
-      const newScoreData: ScoreData = {
+    if (!groupedScores.has(key)) {
+      groupedScores.set(key, {
         roomId,
         gameCount,
-        userScores: [{ id, input, score, userId, order }],
-      };
-      result.push(newScoreData);
+        userScores: [],
+      });
     }
+
+    groupedScores.get(key)!.userScores.push({
+      id,
+      input,
+      score,
+      userId,
+      order,
+    });
   }
 
-  // まずgameCountの小さい順にソート
-  result.sort((a, b) => a.gameCount - b.gameCount);
+  // グループ化されたスコアデータを配列に変換し、ソート
+  const result = Array.from(groupedScores.values()).sort(
+    (a, b) => a.gameCount - b.gameCount
+  );
 
   // 各ScoreData内のuserScoresをRoomUser.orderでソート
   for (const scoreData of result) {

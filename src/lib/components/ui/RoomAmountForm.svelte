@@ -9,6 +9,8 @@
   class="border border-blue-500"
   name="gameAmount"
   type="number"
-  placeholder="場代を入力"
+  placeholder="金額を入力"
   value="{room.gameAmount}"
-/>
+>
+  <span slot="left">¥</span>
+</Input>

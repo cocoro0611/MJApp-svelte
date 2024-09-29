@@ -23,21 +23,25 @@
 <input type="hidden" name="initialPoint" value="{room.initialPoint}" />
 <input type="hidden" name="returnPoint" value="{room.returnPoint}" />
 <input type="hidden" name="bonusPoint" value="{room.bonusPoint}" />
+<input type="hidden" name="gameCount" value="{score.gameCount}" />
 {#each score.userScores as userScore}
   <input type="hidden" name="id[]" value="{userScore.id}" />
   <input type="hidden" name="input[]" value="{userScore.input}" />
 {/each}
 
-<div class="grid grid-cols-5 bg-gray-100 font-bold -mt-1">
+<div
+  class="grid grid-cols-5 bg-gray-100 font-bold
+  {score.gameCount === 1 ? '' : '-mt-1'}"
+>
   <div
     class="bg-white border-2 border-gray-300 h-22 flex justify-center flex-col items-center text-sm"
   >
     {#if totalPoint === 0}
-      <div
-        class="border-2 border-blue-300 p-1 rounded bg-blue-100 text-blue-800 w-16 flex justify-center items-center"
+      <button
+        class="border-2 border-blue-300 hover:bg-blue-300 p-1 rounded bg-blue-100 text-blue-800 h-12 w-16 flex justify-center items-center"
       >
         {score.gameCount} 回戦
-      </div>
+      </button>
     {:else}
       <div>-点数-</div>
       <div class="text-red-500">あと</div>
@@ -69,7 +73,11 @@
           </div>
         </div>
       </button>
-      <div class="flex justify-center text-sm">
+      <div
+        class="flex justify-center text-sm
+      {userScore.score < 0 ? 'text-red-500' : ''}
+      "
+      >
         {userScore.score}
       </div>
     </div>

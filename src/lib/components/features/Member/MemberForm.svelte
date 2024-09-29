@@ -8,10 +8,14 @@
 
   export let user: UserData;
   export let formAction: "create" | "update" | "delete";
+  export let popupModal = false;
 </script>
 
 {#if formAction === "create" || formAction === "update"}
-  <Form actions="{formAction === 'create' ? 'createUser' : 'updateUser'}">
+  <Form
+    bind:popupModal
+    actions="{formAction === 'create' ? 'createUser' : 'updateUser'}"
+  >
     <input type="hidden" name="id" value="{user.id}" />
     <FormField name="名前">
       <MemberNameForm bind:user />

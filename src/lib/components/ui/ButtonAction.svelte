@@ -1,22 +1,34 @@
 <script lang="ts">
-  export let pattern: "create" | "add" | "update" | "delete" | "close" | "plus";
+  export let pattern:
+    | "create"
+    | "addScore"
+    | "addChip"
+    | "update"
+    | "delete"
+    | "close"
+    | "liquidation"
+    | "plus";
   export let size: "small" | "normal" = "normal";
 
   const buttonTexts = {
     create: "登録",
-    add: "追加",
+    addScore: "スコア",
+    addChip: "チップ",
     update: "更新",
     delete: "削除",
     close: " 閉じる",
+    liquidation: "登録",
     plus: "+",
   };
 
   const buttonStyles = {
     create: "primary",
-    add: "primary",
+    addScore: "primary",
+    addChip: "primary",
     update: "primary",
     delete: "delete",
     close: "close",
+    liquidation: "secondary",
     plus: "plus",
   };
 
@@ -39,6 +51,9 @@
   }
   .primary {
     @apply bg-blue-800 text-white hover:bg-blue-900 rounded-md;
+  }
+  .secondary {
+    @apply bg-yellow-500 text-white hover:bg-yellow-600 rounded-md;
   }
   .delete {
     @apply bg-red-500 text-white hover:bg-red-600 rounded-md;

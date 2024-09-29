@@ -10,7 +10,13 @@
   import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData } from "$lib/models/Room/type.js";
 
-  export let users: UserData[];
+  export let users: UserData[] = [
+    {
+      id: "",
+      name: "",
+      icon: "",
+    },
+  ];
   export let room: RoomData = {
     id: "",
     name: `${dayjs().format("YYYY/MM/DD")}`,
@@ -32,24 +38,33 @@
     ],
   };
 
+  export let popupModal = false;
   export let formAction: "create" | "update" | "delete";
 </script>
 
 {#if formAction === "create" || formAction === "update"}
-  <Form actions="{formAction === 'create' ? 'createRoom' : 'updateRoom'}">
+  <Form
+    bind:popupModal
+    actions="{formAction === 'create' ? 'createRoom' : 'updateRoom'}"
+  >
     <input type="hidden" name="id" value="{room.id}" />
-    <FormField name="部屋名">
-      <RoomNameForm {room} />
-    </FormField>
-    <FormField name="メンバー">
-      <RoomMemberForm {users} />
-    </FormField>
+    {#if formAction === "create"}
+      <FormField name="部屋名">
+        <RoomNameForm {room} />
+      </FormField>
+      <FormField name="メンバー">
+        <RoomMemberForm {users} />
+      </FormField>
+    {/if}
     <FormField name="">
       <RoomSettingForm {room} />
     </FormField>
-    <FormField name="場代（後で編集できます）">
-      <RoomAmountForm {room} />
-    </FormField>
+    {#if formAction === "update"}
+      <input type="hidden" name="name" value="{room.name}" />
+      <FormField name="場代">
+        <RoomAmountForm {room} />
+      </FormField>
+    {/if}
   </Form>
 {/if}
 

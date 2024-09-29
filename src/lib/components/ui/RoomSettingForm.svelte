@@ -28,10 +28,26 @@
       title: "持ち点",
       property: "initialPoint",
       options: [
-        { label: "25000点", initialPoint: 25000, isSelected: true },
-        { label: "30000点", initialPoint: 30000, isSelected: false },
-        { label: "35000点", initialPoint: 35000, isSelected: false },
-        { label: "40000点", initialPoint: 40000, isSelected: false },
+        {
+          label: "25000点",
+          initialPoint: 25000,
+          isSelected: room.initialPoint === 25000,
+        },
+        {
+          label: "30000点",
+          initialPoint: 30000,
+          isSelected: room.initialPoint === 30000,
+        },
+        {
+          label: "35000点",
+          initialPoint: 35000,
+          isSelected: room.initialPoint === 35000,
+        },
+        {
+          label: "40000点",
+          initialPoint: 40000,
+          isSelected: room.initialPoint === 40000,
+        },
       ],
       format: (value: number) => `${value} 点`,
     },
@@ -39,10 +55,26 @@
       title: "返し点",
       property: "returnPoint",
       options: [
-        { label: "30000点", returnPoint: 30000, isSelected: true },
-        { label: "35000点", returnPoint: 35000, isSelected: false },
-        { label: "40000点", returnPoint: 40000, isSelected: false },
-        { label: "45000点", returnPoint: 45000, isSelected: false },
+        {
+          label: "30000点",
+          returnPoint: 30000,
+          isSelected: room.returnPoint === 30000,
+        },
+        {
+          label: "35000点",
+          returnPoint: 35000,
+          isSelected: room.returnPoint === 35000,
+        },
+        {
+          label: "40000点",
+          returnPoint: 40000,
+          isSelected: room.returnPoint === 40000,
+        },
+        {
+          label: "45000点",
+          returnPoint: 45000,
+          isSelected: room.returnPoint === 45000,
+        },
       ],
       format: (value: number) => `${value} 点`,
     },
@@ -50,10 +82,26 @@
       title: "ウマ",
       property: "bonusPoint",
       options: [
-        { label: "なし", bonusPoint: "00-00", isSelected: false },
-        { label: "5 - 10", bonusPoint: "05-10", isSelected: false },
-        { label: "10 - 20", bonusPoint: "10-20", isSelected: false },
-        { label: "10 - 30", bonusPoint: "10-30", isSelected: true },
+        {
+          label: "なし",
+          bonusPoint: "00-00",
+          isSelected: room.bonusPoint === "なし",
+        },
+        {
+          label: "5 - 10",
+          bonusPoint: "05-10",
+          isSelected: room.bonusPoint === "05-10",
+        },
+        {
+          label: "10 - 20",
+          bonusPoint: "10-20",
+          isSelected: room.bonusPoint === "10-20",
+        },
+        {
+          label: "10 - 30",
+          bonusPoint: "10-30",
+          isSelected: room.bonusPoint === "10-30",
+        },
       ],
       format: (value: string) => (value === "00-00" ? "なし" : value),
     },
@@ -61,12 +109,16 @@
       title: "レート",
       property: "scoreRate",
       options: [
-        { label: "なし", scoreRate: 0, isSelected: false },
-        { label: "テンイチ", scoreRate: 10, isSelected: false },
-        { label: "テンニ", scoreRate: 20, isSelected: false },
-        { label: "テンサン", scoreRate: 30, isSelected: false },
-        { label: "テンゴ", scoreRate: 50, isSelected: true },
-        { label: "テンピン", scoreRate: 100, isSelected: false },
+        { label: "なし", scoreRate: 0, isSelected: room.scoreRate === 0 },
+        { label: "テンイチ", scoreRate: 10, isSelected: room.scoreRate === 10 },
+        { label: "テンニ", scoreRate: 20, isSelected: room.scoreRate === 20 },
+        { label: "テンサン", scoreRate: 30, isSelected: room.scoreRate === 30 },
+        { label: "テンゴ", scoreRate: 50, isSelected: room.scoreRate === 50 },
+        {
+          label: "テンピン",
+          scoreRate: 100,
+          isSelected: room.scoreRate === 100,
+        },
       ],
       format: (value: number) => {
         const rateMap: { [key: number]: string } = {
@@ -84,12 +136,12 @@
       title: "チップ",
       property: "chipRate",
       options: [
-        { label: "なし", chipRate: 0, isSelected: false },
-        { label: "100P", chipRate: 100, isSelected: true },
-        { label: "200P", chipRate: 200, isSelected: false },
-        { label: "300P", chipRate: 300, isSelected: false },
-        { label: "400P", chipRate: 400, isSelected: false },
-        { label: "500P", chipRate: 500, isSelected: false },
+        { label: "なし", chipRate: 0, isSelected: room.chipRate === 0 },
+        { label: "100P", chipRate: 100, isSelected: room.chipRate === 100 },
+        { label: "200P", chipRate: 200, isSelected: room.chipRate === 200 },
+        { label: "300P", chipRate: 300, isSelected: room.chipRate === 300 },
+        { label: "400P", chipRate: 400, isSelected: room.chipRate === 400 },
+        { label: "500P", chipRate: 500, isSelected: room.chipRate === 500 },
       ],
       format: (value: number) => (value === 0 ? "なし" : `${value} P`),
     },
@@ -135,6 +187,12 @@
   };
 </script>
 
+<input type="hidden" name="initialPoint" value="{room.initialPoint}" />
+<input type="hidden" name="returnPoint" value="{room.returnPoint}" />
+<input type="hidden" name="bonusPoint" value="{room.bonusPoint}" />
+<input type="hidden" name="scoreRate" value="{room.scoreRate}" />
+<input type="hidden" name="chipRate" value="{room.chipRate}" />
+
 {#each $itemsGroup as group}
   <div class="flex justify-between font-bold pt-4">
     <div>
@@ -156,9 +214,3 @@
     </div>
   </div>
 {/each}
-
-<input type="hidden" name="initialPoint" value="{room.initialPoint}" />
-<input type="hidden" name="returnPoint" value="{room.returnPoint}" />
-<input type="hidden" name="bonusPoint" value="{room.bonusPoint}" />
-<input type="hidden" name="scoreRate" value="{room.scoreRate}" />
-<input type="hidden" name="chipRate" value="{room.chipRate}" />

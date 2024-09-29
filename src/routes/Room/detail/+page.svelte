@@ -22,6 +22,8 @@
     saveLocalData("currentPage", currentPage);
     removeLocalData("roomId");
   };
+
+  let popupModal = false;
 </script>
 
 <Header>
@@ -32,10 +34,12 @@
   <svelte:fragment slot="right">
     <RoomForm formAction="delete" {users} {room} />
   </svelte:fragment>
-  <RoomScore {room} />
+  <RoomScore {room} bind:popupModal />
 </Header>
 
 <Main isScoreHeader>
-  <ScoreForm formAction="create" {scores} {room} />
+  {#if !popupModal}
+    <ScoreForm formAction="create" {scores} {room} />
+  {/if}
   <ScoreForm formAction="update" {scores} {room} />
 </Main>
