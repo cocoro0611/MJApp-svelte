@@ -33,9 +33,8 @@ export const updateScore: Action = async ({ request }) => {
   const oka = ((Number(returnPoint) - Number(initialPoint)) * 4) / 1000;
   const umaLow = Number(bonusPoint?.slice(0, 2));
   const umaHigh = Number(bonusPoint?.slice(3, 5));
-  console.log("oka", oka);
-  console.log("umaHigh", umaHigh);
-  console.log("umaLow", umaLow);
+
+  const umaList = [umaHigh, umaLow, -umaLow, -umaHigh];
 
   let currentIndex = 0;
   for (let i = 0; i < gameCounts.length; i++) {
@@ -43,14 +42,30 @@ export const updateScore: Action = async ({ request }) => {
     const gameCount = gameCounts[i];
     const userCount = 4;
 
+    let gameScores = [];
     for (let j = 0; j < userCount; j++) {
       const id = ids[currentIndex];
       const input = Number(inputs[currentIndex]);
-      const score = Math.round((input - Number(returnPoint) / 100) / 10);
+      const baseScore = Math.round((input - Number(returnPoint) / 100) / 10);
+      gameScores.push({ id, input, baseScore });
+      currentIndex++;
+    }
+
+    // スコアで降順にソート
+    gameScores.sort((a, b) => b.baseScore - a.baseScore);
+
+    for (let j = 0; j < userCount; j++) {
+      const { id, input, baseScore } = gameScores[j];
+      let finalScore = baseScore + umaList[j];
+
+      // 1位のプレイヤーにのみokaを加算
+      if (j === 0) {
+        finalScore += oka;
+      }
 
       const updateData = {
         input: input,
-        score: score,
+        score: Math.round(finalScore),
         updatedAt: dayjs().toDate(),
       };
       await db
@@ -60,8 +75,6 @@ export const updateScore: Action = async ({ request }) => {
         .where("roomId", "=", roomId)
         .where("gameCount", "=", gameCount)
         .execute();
-
-      currentIndex++;
     }
   }
 };
