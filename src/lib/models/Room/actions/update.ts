@@ -18,6 +18,7 @@ export const updateRoom: Action = async ({ request }) => {
   };
 
   await db.updateTable("Room").set(updateData).where("id", "=", id).execute();
+  return { success: true };
 };
 
 export const updateScore: Action = async ({ request }) => {
@@ -81,6 +82,7 @@ export const updateScore: Action = async ({ request }) => {
         .execute();
     }
   }
+  return { success: true };
 };
 
 export const updateChip: Action = async ({ request }) => {};

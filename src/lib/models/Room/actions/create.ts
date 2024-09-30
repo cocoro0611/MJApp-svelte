@@ -36,6 +36,7 @@ export const createRoom: Action = async ({ request }) => {
     }));
     await trx.insertInto("Score").values(initialScore).execute();
   });
+  return { success: true, type: "create-room" };
 };
 
 export const createScore: Action = async ({ request }) => {
@@ -68,6 +69,7 @@ export const createScore: Action = async ({ request }) => {
     }));
     await trx.insertInto("Score").values(ScoreForm).execute();
   });
+  return { success: true };
 };
 
 export const createChip: Action = async ({ request }) => {
@@ -87,4 +89,5 @@ export const createChip: Action = async ({ request }) => {
     }));
     await trx.insertInto("Chip").values(ChipForm).execute();
   });
+  return { success: true };
 };

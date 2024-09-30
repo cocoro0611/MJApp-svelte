@@ -6,4 +6,5 @@ export const deleteUser: Action = async ({ request }) => {
   const id = data.get("id");
 
   await db.deleteFrom("User").where("id", "=", id).execute();
+  return { success: true, type: "delete-user" };
 };

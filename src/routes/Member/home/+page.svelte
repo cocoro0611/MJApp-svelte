@@ -3,7 +3,6 @@
   import Main from "$lib/components/layout/Main.svelte";
   import MemberSummary from "$lib/components/features/Member/MemberSummary.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
-
   import { currentPage } from "$lib/utils/pageStore.js";
 
   import type { UserData } from "$lib/models/Member/type.js";

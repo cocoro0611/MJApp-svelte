@@ -1,7 +1,7 @@
 <script lang="ts">
+  import Form from "$lib/components/layout/Form.svelte";
   import PointCard from "$lib/components/ui/PointCard.svelte";
   import PointKeyboard from "$lib/components/ui/PointKeyboard.svelte";
-  import Form from "$lib/components/layout/Form.svelte";
 
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
   export let scores: ScoreData[];

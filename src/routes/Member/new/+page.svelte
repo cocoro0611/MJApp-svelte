@@ -3,10 +3,9 @@
   import Main from "$lib/components/layout/Main.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
   import MemberForm from "$lib/components/features/Member/MemberForm.svelte";
-
   import { currentPage } from "$lib/utils/pageStore.js";
-  import type { UserData } from "$lib/models/Member/type.js";
 
+  import type { UserData } from "$lib/models/Member/type.js";
   let user: UserData = {
     id: "",
     name: "",

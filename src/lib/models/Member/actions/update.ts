@@ -11,6 +11,6 @@ export const updateUser: Action = async ({ request }) => {
     icon: data.get("icon"),
     updatedAt: dayjs().toDate(),
   };
-
   await db.updateTable("User").set(updateData).where("id", "=", id).execute();
+  return { success: true, type: "update-user" };
 };

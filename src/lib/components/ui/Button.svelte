@@ -5,6 +5,7 @@
 </script>
 
 <button
+  type="button"
   class="
     {isSelected ? 'btn-on' : 'btn-off'} 
     {isWide ? 'wide-size' : 'delault-size'} 

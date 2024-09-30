@@ -10,4 +10,5 @@ export const createUser: Action = async ({ request }) => {
     icon: data.get("icon"),
   };
   await db.insertInto("User").values(userForm).execute();
+  return { success: true, type: "create-user" };
 };

@@ -10,13 +10,7 @@
   import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData } from "$lib/models/Room/type.js";
 
-  export let users: UserData[] = [
-    {
-      id: "",
-      name: "",
-      icon: "",
-    },
-  ];
+  export let users: UserData[];
   export let room: RoomData = {
     id: "",
     name: `${dayjs().format("YYYY/MM/DD")}`,
@@ -38,41 +32,25 @@
     ],
   };
 
-  export let formAction: "create" | "update" | "delete";
+  export let action;
+
+  $: isDelete = action === "?/delete-room";
 </script>
 
-{#if formAction === "create" || formAction === "update"}
-  <Form actions="{formAction === 'create' ? 'createRoom' : 'updateRoom'}">
-    <input type="hidden" name="id" value="{room.id}" />
-    {#if formAction === "create"}
-      <FormField name="部屋名">
-        <RoomNameForm {room} />
-      </FormField>
-      <FormField name="メンバー">
-        <RoomMemberForm {users} />
-      </FormField>
-    {/if}
+<Form {action}>
+  <input type="hidden" name="id" value="{room.id}" />
+  {#if !isDelete}
+    <FormField name="部屋名">
+      <RoomNameForm {room} />
+    </FormField>
+    <FormField name="メンバー">
+      <RoomMemberForm {users} />
+    </FormField>
     <FormField name="">
       <RoomSettingForm {room} />
     </FormField>
-    {#if formAction === "update"}
-      <input type="hidden" name="name" value="{room.name}" />
-      <FormField name="場代">
-        <RoomAmountForm {room} />
-      </FormField>
-    {/if}
-  </Form>
-{/if}
-
-{#if formAction === "delete"}
-  <Form actions="deleteRoom">
-    <input type="hidden" name="id" value="{room.id}" />
-    {#each room.users as roomUser}
-      {#each users as user}
-        {#if roomUser.id === user.id}
-          <input type="hidden" name="userId" value="{user.id}" />
-        {/if}
-      {/each}
-    {/each}
-  </Form>
-{/if}
+    <FormField name="場代">
+      <RoomAmountForm {room} />
+    </FormField>
+  {/if}
+</Form>

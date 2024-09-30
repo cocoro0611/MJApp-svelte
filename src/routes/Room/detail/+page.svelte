@@ -7,39 +7,29 @@
   import ScoreForm from "$lib/components/features/Room/ScoreForm.svelte";
   import ChipForm from "$lib/components/features/Room/ChipForm.svelte";
 
-  import type { PageType } from "$lib/models/page-type.js";
+  import { currentPage } from "$lib/utils/pageStore.js";
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
   import type { UserData } from "$lib/models/Member/type.js";
-
-  import { saveLocalData, removeLocalData } from "$lib/utils/localStorage.js";
 
   export let users: UserData[];
   export let scores: ScoreData[];
   export let room: RoomData;
-
-  export let currentPage: PageType;
-  const backPage = () => {
-    currentPage = "room";
-    saveLocalData("currentPage", currentPage);
-    removeLocalData("roomId");
-  };
 </script>
 
 <Header>
   <svelte:fragment slot="left">
-    <Icon type="back" on:click="{backPage}" />
+    <Icon type="back" on:click="{() => ($currentPage = 'room')}" />
   </svelte:fragment>
   <svelte:fragment slot="center">{room.name}</svelte:fragment>
   <svelte:fragment slot="right">
-    <RoomForm formAction="delete" {users} {room} />
+    <RoomForm action="?/delete-room" {users} {room} />
   </svelte:fragment>
-  <RoomScore bind:currentPage {room} />
+  <RoomScore {room} />
 </Header>
 
 <!-- TODO:チップの追加 -->
-<Main isScoreHeader>
-  <ScoreForm formAction="create" {scores} {room} />
-  <!-- <ChipForm formAction="create" {scores} {room} /> -->
-  <ScoreForm formAction="update" {scores} {room} />
-  <!-- <ChipForm formAction="update" {scores} {room} /> -->
-</Main>
+<!-- TODO:スコアの追加 -->
+<!-- <Main isScoreHeader>
+  <ScoreForm action="?/create-score" {scores} {room} />
+  <ScoreForm action="?/update-score" {scores} {room} />
+</Main> -->

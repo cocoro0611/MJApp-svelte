@@ -1,18 +1,14 @@
 <script lang="ts">
   import ScoreCard from "$lib/components/ui/RoomCard.svelte";
-
-  import { createEventDispatcher } from "svelte";
+  import { saveLocalData } from "$lib/utils/localStorage.js";
+  import { currentPage } from "$lib/utils/pageStore.js";
 
   import type { RoomData } from "$lib/models/Room/type.js";
-
   export let rooms: RoomData[];
 
-  const dispatch = createEventDispatcher<{
-    select: RoomData;
-  }>();
-
   const selectedRoom = (room: RoomData) => {
-    dispatch("select", room);
+    saveLocalData("roomId", room.id);
+    currentPage.set("roomDetail");
   };
 </script>
 
