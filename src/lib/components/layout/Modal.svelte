@@ -6,11 +6,11 @@
 </script>
 
 {#if isButton}
-  <ButtonAction pattern="plus" on:click="{() => (popupModal = true)}" />
+  <ButtonAction variant="plus" on:click="{() => (popupModal = true)}" />
 {/if}
 
 <Modal bind:open="{popupModal}" size="lg" dismissable="{false}">
-  <div class="text-center">
+  <div class="text-center text-[1rem]">
     <slot />
   </div>
 </Modal>

@@ -1,5 +1,4 @@
 <script lang="ts">
-  export let isContents: boolean = false;
   export let isLeftLong: boolean = false;
 </script>
 

@@ -8,6 +8,7 @@
 </script>
 
 <button
+  type="button"
   class="
     {size === 'small'
     ? 'w-16 h-16'

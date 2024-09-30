@@ -28,21 +28,18 @@ import {
 } from "$lib/models/Room/actions/read.js";
 
 export const actions: Actions = {
-  createUser,
-  updateUser,
-  deleteUser,
-
-  createRoom,
-  createScore,
-  createChip,
-
-  updateRoom,
-  updateScore,
-  updateChip,
-
-  deleteRoom,
-  deleteScore,
-  deleteChip,
+  "create-user": createUser,
+  "update-user": updateUser,
+  "delete-user": deleteUser,
+  "create-room": createRoom,
+  "update-room": updateRoom,
+  "delete-room": deleteRoom,
+  "create-score": createScore,
+  "update-score": updateScore,
+  "delete-score": deleteScore,
+  "create-chip": createChip,
+  "update-chip": updateChip,
+  "delete-chip": deleteChip,
 };
 
 export const load: PageServerLoad = async () => {

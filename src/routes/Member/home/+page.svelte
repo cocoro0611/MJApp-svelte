@@ -18,4 +18,4 @@
   <MemberSummary {users} />
 </Main>
 
-<ButtonAction pattern="plus" on:click="{() => currentPage.set('memberNew')}" />
+<ButtonAction variant="plus" on:click="{() => currentPage.set('memberNew')}" />

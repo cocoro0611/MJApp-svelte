@@ -7,23 +7,19 @@
   import type { UserData } from "$lib/models/Member/type.js";
 
   export let user: UserData;
-  export let formAction: "create" | "update" | "delete";
+  export let action;
+
+  $: isDelete = action === "?/delete-user";
 </script>
 
-{#if formAction === "create" || formAction === "update"}
-  <Form actions="{formAction === 'create' ? 'createUser' : 'updateUser'}">
-    <input type="hidden" name="id" value="{user.id}" />
+<Form {action}>
+  <input type="hidden" name="id" value="{user.id}" />
+  {#if !isDelete}
     <FormField name="名前">
       <MemberNameForm bind:user />
     </FormField>
     <FormField name="アイコン">
       <MemberSelectForm bind:user />
     </FormField>
-  </Form>
-{/if}
-
-{#if formAction === "delete"}
-  <Form actions="deleteUser">
-    <input type="hidden" name="id" value="{user.id}" />
-  </Form>
-{/if}
+  {/if}
+</Form>

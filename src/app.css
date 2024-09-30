@@ -2,32 +2,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-
-:root {
-  /* --color-primary: #ffb100; */
-  --color-primary: 255 177 0;
-  /* --color-secondary: #4682b4; */
-  --color-secondary: 70 130 180;
-  --color-surface: #ffffff;
-  /* アクセントカラー */
-  /* --color-fine: #72e419; */
-  --color-fine: 114 228 25;
-  /* --color-info: #2ab2ff; */
-  --color-info: 42 178 255;
-  /* --color-danger: #ff5d2a; */
-  --color-danger: 255 93 42;
-
-  /* --color-cancel: #d3d3d3; */
-  --color-cancel: 211 211 211;
-  /* --color-disabled: #a9a9a9; */
-  --color-disabled: 169 169 169;
-
-  /* --color-text-base: #333333; */
-  --color-text-base: 51 51 51;
-  /* --color-text-accent: #666666; */
-  --color-text-accent: 102 102 102;
-  /* --color-text-inverted: #ffffff; */
-  --color-text-inverted: 255 255 255;
-  /* --color-text-link: #ff9900; */
-  --color-text-link: 255 153 0;
-}
+/* :root {
+  --color-primary: #5385c7;
+  --color-secondary: #fdf6b2;
+  --color-fine: #32cd32;
+  --color-info: #1e90ff;
+  --color-danger: #ff4500;
+  --color-cancel: #d3d3d3;
+} */

@@ -1,64 +1,38 @@
 <script lang="ts">
-  export let pattern:
-    | "create"
-    | "addScore"
-    | "addChip"
-    | "update"
-    | "delete"
-    | "close"
-    | "plus";
-  export let size: "small" | "normal" = "normal";
-
-  const buttonTexts = {
-    create: "登録",
-    addScore: "スコア",
-    addChip: "チップ",
-    update: "更新",
-    delete: "削除",
-    close: " 閉じる",
-    plus: "+",
-  };
-
-  const buttonStyles = {
-    create: "primary",
-    addScore: "primary",
-    addChip: "primary",
-    update: "primary",
-    delete: "delete",
-    close: "close",
-    plus: "plus",
-  };
-
-  $: buttonText = buttonTexts[pattern];
-  $: buttonStyle = buttonStyles[pattern];
-  $: sizeClass = size === "small" ? "size-small" : "size-normal";
+  export let type: "button" | "submit" = "button";
+  export let variant: "primary" | "delete" | "close" | "plus" = "primary";
+  export let isLine = false;
 </script>
 
-<div class="{pattern === 'plus' ? 'fixed bottom-24 right-10 z-10' : ''}">
-  <button class="{buttonStyle} {sizeClass}" on:click>
-    <div class="{pattern === 'plus' ? '-mt-[0.2rem]' : ''}">
-      {buttonText}
-    </div>
+{#if variant !== "plus"}
+  <button {type} class="{variant} {isLine ? 'small' : 'normal'}" on:click>
+    <slot />
   </button>
-</div>
+{/if}
+
+{#if variant === "plus"}
+  <div class="fixed bottom-24 right-10 z-10">
+    <button {type} class="{variant}" on:click>+</button>
+  </div>
+{/if}
 
 <style>
-  .close {
-    @apply border border-gray-400 bg-gray-300 text-gray-800 hover:bg-gray-400 rounded-md;
-  }
   .primary {
     @apply bg-blue-800 text-white hover:bg-blue-900 rounded-md;
   }
   .delete {
     @apply bg-red-500 text-white hover:bg-red-600 rounded-md;
   }
-  .size-small {
+  .close {
+    @apply border border-gray-400 bg-gray-300 text-gray-800 hover:bg-gray-400 rounded-md;
+  }
+  .small {
     @apply font-bold w-32 h-10;
   }
-  .size-normal {
+  .normal {
     @apply font-bold  w-[17rem] h-10;
   }
   .plus {
-    @apply w-14 h-14 text-2xl font-bold rounded-xl bg-blue-800 hover:bg-blue-900 text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105;
+    @apply flex items-center justify-center w-14 h-14 text-3xl font-bold rounded-xl bg-blue-800 hover:bg-blue-900 text-white;
   }
 </style>

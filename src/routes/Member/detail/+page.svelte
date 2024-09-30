@@ -16,10 +16,10 @@
   </svelte:fragment>
   <svelte:fragment slot="center">メンバー情報</svelte:fragment>
   <svelte:fragment slot="right">
-    <MemberForm formAction="delete" {user} />
+    <MemberForm action="?/delete-user" {user} />
   </svelte:fragment>
 </Header>
 
 <Main>
-  <MemberForm formAction="update" {user} />
+  <MemberForm action="?/update-user" {user} />
 </Main>

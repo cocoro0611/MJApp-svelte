@@ -22,5 +22,5 @@
 </Header>
 
 <Main>
-  <MemberForm formAction="create" {user} />
+  <MemberForm {user} action="?/create-user" />
 </Main>
