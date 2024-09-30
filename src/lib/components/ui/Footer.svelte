@@ -1,11 +1,9 @@
 <script lang="ts">
   import Icon from "./Icon.svelte";
   import { ButtonGroup, Button } from "flowbite-svelte";
-  import { saveLocalData } from "$lib/utils/localStorage.js";
+  import { currentPage } from "$lib/utils/pageStore.js";
 
-  import type { PageType } from "$lib/models/page-type.js";
-
-  export let currentPage: PageType;
+  import type { PageType } from "$lib/utils/pageStore.js";
 
   interface TabList {
     id: PageType;
@@ -20,10 +18,9 @@
     { id: "hanCount", label: "翻数計算", iconType: "calculatorFilled" },
   ];
 
-  const handleLinkClick = (page: PageType) => {
-    currentPage = page;
-    saveLocalData("currentPage", page);
-  };
+  function isActiveTab(currentPage: string, tabId: string): boolean {
+    return currentPage.startsWith(tabId);
+  }
 </script>
 
 <nav class="flex justify-center fixed bottom-0 left-0 right-0">
@@ -31,11 +28,11 @@
     {#each tabs as tab (tab.id)}
       <Button
         color="light"
-        class="flex flex-col flex-1 py-2 px-1 border-gray-500 {currentPage ===
-        tab.id
+        class="flex flex-col flex-1 py-2 px-1 border-gray-500 
+        {isActiveTab($currentPage, tab.id)
           ? 'bg-blue-800 text-white hover:bg-blue-900'
           : 'bg-white text-black hover:bg-gray-100'}"
-        on:click="{() => handleLinkClick(tab.id)}"
+        on:click="{() => currentPage.set(tab.id)}"
       >
         <Icon type="{tab.iconType}" />
         <span>{tab.label}</span>

@@ -1,18 +1,14 @@
 <script lang="ts">
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
-
-  import { createEventDispatcher } from "svelte";
+  import { saveLocalData } from "$lib/utils/localStorage.js";
+  import { currentPage } from "$lib/utils/pageStore.js";
 
   import type { UserData } from "$lib/models/Member/type.js";
-
   export let users: UserData[];
 
-  const dispatch = createEventDispatcher<{
-    select: UserData;
-  }>();
-
   const selectedUser = (user: UserData) => {
-    dispatch("select", user);
+    saveLocalData("userId", user.id);
+    currentPage.set("memberDetail");
   };
 </script>
 

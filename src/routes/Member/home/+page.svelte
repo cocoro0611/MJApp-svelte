@@ -4,25 +4,10 @@
   import MemberSummary from "$lib/components/features/Member/MemberSummary.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
-  import { createEventDispatcher } from "svelte";
+  import { currentPage } from "$lib/utils/pageStore.js";
 
-  import type { PageType } from "$lib/models/page-type.js";
   import type { UserData } from "$lib/models/Member/type.js";
-
   export let users: UserData[];
-  export let currentPage: PageType;
-
-  const MemberCreatePage = () => {
-    currentPage = "memberNew";
-  };
-
-  const dispatch = createEventDispatcher<{
-    select: UserData;
-  }>();
-
-  const handleUserSelect = (event: CustomEvent<UserData>) => {
-    dispatch("select", event.detail);
-  };
 </script>
 
 <Header>
@@ -30,7 +15,7 @@
 </Header>
 
 <Main>
-  <MemberSummary {users} on:select="{handleUserSelect}" />
+  <MemberSummary {users} />
 </Main>
 
-<ButtonAction pattern="plus" on:click="{MemberCreatePage}" />
+<ButtonAction pattern="plus" on:click="{() => currentPage.set('memberNew')}" />

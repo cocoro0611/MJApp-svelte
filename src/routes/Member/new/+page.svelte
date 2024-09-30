@@ -4,24 +4,19 @@
   import Icon from "$lib/components/ui/Icon.svelte";
   import MemberForm from "$lib/components/features/Member/MemberForm.svelte";
 
-  import type { PageType } from "$lib/models/page-type.js";
+  import { currentPage } from "$lib/utils/pageStore.js";
   import type { UserData } from "$lib/models/Member/type.js";
-  export let currentPage: PageType;
 
   let user: UserData = {
     id: "",
     name: "",
     icon: "monster01.png",
   };
-
-  const backPage = () => {
-    currentPage = "member";
-  };
 </script>
 
 <Header>
   <svelte:fragment slot="left">
-    <Icon type="back" on:click="{backPage}" />
+    <Icon type="back" on:click="{() => ($currentPage = 'member')}" />
   </svelte:fragment>
   <svelte:fragment slot="center">メンバー作成</svelte:fragment>
 </Header>
