@@ -25,5 +25,7 @@ export interface ScoreData extends Pick<Score, "roomId" | "gameCount"> {
     Pick<RoomUser, "order">)[];
 }
 
-// export interface ChipData
-//   extends Pick<Chip, "id" | "input" | "chip" | "count"> {}
+export interface ChipData extends Pick<Chip, "roomId" | "chipCount"> {
+  userChips: (Pick<Chip, "id" | "input" | "chip" | "userId"> &
+    Pick<RoomUser, "order">)[];
+}

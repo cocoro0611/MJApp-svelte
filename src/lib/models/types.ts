@@ -8,7 +8,7 @@ export type Chip = {
     id: string;
     input: number;
     chip: number;
-    gameCount: number;
+    chipCount: number;
     createdAt: Generated<Timestamp>;
     updatedAt: Generated<Timestamp>;
     userId: string;

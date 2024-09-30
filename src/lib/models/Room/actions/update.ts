@@ -76,15 +76,4 @@ export const updateScore: Action = async ({ request }) => {
   }
 };
 
-export const updateChip: Action = async ({ request }) => {
-  const data = await request.formData();
-  const id = data.get("id");
-
-  const updateData = {
-    input: data.get("input"),
-    score: data.get("chip"),
-    updatedAt: dayjs().toDate(),
-  };
-
-  await db.updateTable("Chip").set(updateData).where("id", "=", id).execute();
-};
+export const updateChip: Action = async ({ request }) => {};

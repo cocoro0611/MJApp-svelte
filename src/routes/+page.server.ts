@@ -21,7 +21,11 @@ import {
 } from "$lib/models/Room/actions/delete.js";
 
 import { readUsers } from "$lib/models/Member/actions/read.js";
-import { readRooms, readScores } from "$lib/models/Room/actions/read.js";
+import {
+  readRooms,
+  readScores,
+  readChips,
+} from "$lib/models/Room/actions/read.js";
 
 export const actions: Actions = {
   createUser,
@@ -45,5 +49,6 @@ export const load: PageServerLoad = async () => {
   const users = await readUsers();
   const rooms = await readRooms();
   const scores = await readScores();
-  return { users, rooms, scores };
+  const chips = await readChips();
+  return { users, rooms, scores, chips };
 };

@@ -5,6 +5,7 @@
   import RoomForm from "$lib/components/features/Room/RoomForm.svelte";
   import RoomScore from "$lib/components/features/Room/RoomScore.svelte";
   import ScoreForm from "$lib/components/features/Room/ScoreForm.svelte";
+  import ChipForm from "$lib/components/features/Room/ChipForm.svelte";
 
   import type { PageType } from "$lib/models/page-type.js";
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
@@ -37,9 +38,12 @@
   <RoomScore {room} bind:popupModal />
 </Header>
 
+<!-- TODO:チップの追加 -->
 <Main isScoreHeader>
   {#if !popupModal}
     <ScoreForm formAction="create" {scores} {room} />
+    <ChipForm formAction="create" {scores} {room} />
   {/if}
   <ScoreForm formAction="update" {scores} {room} />
+  <ChipForm formAction="update" {scores} {room} />
 </Main>

@@ -62,13 +62,13 @@ export const createChip: Action = async ({ request }) => {
     const data = await request.formData();
     const roomId = data.get("roomId");
     const userIds = data.getAll("userId");
-    const gameCount = data.get("gameCount");
+    const chipCount = data.get("chipCount");
 
     const ChipForm = userIds.map((userId) => ({
       id: v4(),
       input: 0,
       chip: 0,
-      gameCount,
+      chipCount,
       userId,
       roomId,
     }));

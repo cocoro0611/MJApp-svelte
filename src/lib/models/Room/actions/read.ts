@@ -1,5 +1,5 @@
 import db from "$lib/models/db.js";
-import type { RoomData, ScoreData } from "../type.js";
+import type { RoomData, ScoreData, ChipData } from "../type.js";
 
 export async function readRooms(): Promise<RoomData[]> {
   const rooms = await db
@@ -42,7 +42,7 @@ export async function readRooms(): Promise<RoomData[]> {
             "Chip.userId",
             "Chip.roomId",
             db.fn.sum<number>("chip").as("totalChip"),
-            db.fn.max<number>("gameCount").as("gameCount"),
+            db.fn.max<number>("chipCount").as("chipCount"),
           ])
           .where("Chip.roomId", "in", roomIds)
           .groupBy(["Chip.userId", "Chip.roomId"])
@@ -71,7 +71,7 @@ export async function readRooms(): Promise<RoomData[]> {
             (chip) => chip.userId === user.id && chip.roomId === room.id
           );
           const totalChip = Number(userChip?.totalChip ?? 0);
-          const gameCount = Number(userChip?.gameCount ?? 0);
+          const chipCount = Number(userChip?.chipCount ?? 0);
 
           return {
             id: user.id,
@@ -81,7 +81,7 @@ export async function readRooms(): Promise<RoomData[]> {
             totalChip,
             totalPoint:
               Number(room.scoreRate) * totalScore +
-              Number(room.chipRate) * (totalChip - 20 * gameCount) -
+              Number(room.chipRate) * (totalChip - 20 * chipCount) -
               Number(room.gameAmount) / 4,
           };
         }),
@@ -129,4 +129,46 @@ export async function readScores(): Promise<ScoreData[]> {
     });
   });
   return Object.values(groupedScores);
+}
+
+export async function readChips(): Promise<ChipData[]> {
+  const chips = await db
+    .selectFrom("Chip")
+    .innerJoin("RoomUser", (join) =>
+      join
+        .onRef("Chip.roomId", "=", "RoomUser.roomId")
+        .onRef("Chip.userId", "=", "RoomUser.userId")
+    )
+    .select([
+      "Chip.id",
+      "Chip.input",
+      "Chip.chip",
+      "Chip.chipCount",
+      "Chip.userId",
+      "Chip.roomId",
+      "RoomUser.order as order",
+    ])
+    .orderBy("Chip.chipCount", "asc")
+    .orderBy("RoomUser.order", "asc")
+    .execute();
+
+  const groupedChips: { [key: string]: ChipData } = {};
+  chips.forEach((chip) => {
+    const key = `${chip.roomId}-${chip.chipCount}`;
+    if (!groupedChips[key]) {
+      groupedChips[key] = {
+        roomId: chip.roomId,
+        chipCount: chip.chipCount,
+        userChips: [],
+      };
+    }
+    groupedChips[key].userChips.push({
+      id: chip.id,
+      input: chip.input,
+      chip: chip.chip,
+      order: chip.order,
+      userId: chip.userId,
+    });
+  });
+  return Object.values(groupedChips);
 }
