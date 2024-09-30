@@ -23,12 +23,19 @@ export const updateRoom: Action = async ({ request }) => {
 export const updateScore: Action = async ({ request }) => {
   const data = await request.formData();
   const roomId = data.get("roomId");
-  const initialPoint = data.get("initialPoint");
-  const returnPoint = data.get("returnPoint");
-  const bonusPoint = data.get("bonusPoint");
   const gameCounts = data.getAll("gameCount[]");
   const ids = data.getAll("id[]");
   const inputs = data.getAll("input[]");
+
+  const room = await db
+    .selectFrom("Room")
+    .where("id", "=", roomId)
+    .select(["initialPoint", "returnPoint", "bonusPoint"])
+    .executeTakeFirst();
+  if (!room) {
+    throw new Error("Room not found");
+  }
+  const { initialPoint, returnPoint, bonusPoint } = room;
 
   const oka = ((Number(returnPoint) - Number(initialPoint)) * 4) / 1000;
   const umaLow = Number(bonusPoint?.slice(0, 2));

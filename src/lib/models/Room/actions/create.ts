@@ -42,8 +42,21 @@ export const createScore: Action = async ({ request }) => {
   await db.transaction().execute(async (trx) => {
     const data = await request.formData();
     const roomId = data.get("roomId");
-    const userIds = data.getAll("userId");
-    const gameCount = data.get("gameCount");
+
+    const maxGameCount = await trx
+      .selectFrom("Score")
+      .where("roomId", "=", roomId)
+      .select(db.fn.max("gameCount").as("maxGameCount"))
+      .executeTakeFirst();
+    const gameCount = (maxGameCount?.maxGameCount || 1) + 1;
+
+    const users = await trx
+      .selectFrom("User")
+      .innerJoin("RoomUser", "User.id", "RoomUser.userId")
+      .where("RoomUser.roomId", "=", roomId)
+      .select("User.id")
+      .execute();
+    const userIds = users.map((user) => user.id);
 
     const ScoreForm = userIds.map((userId) => ({
       id: v4(),

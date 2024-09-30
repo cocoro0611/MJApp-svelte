@@ -38,15 +38,11 @@
     ],
   };
 
-  export let popupModal = false;
   export let formAction: "create" | "update" | "delete";
 </script>
 
 {#if formAction === "create" || formAction === "update"}
-  <Form
-    bind:popupModal
-    actions="{formAction === 'create' ? 'createRoom' : 'updateRoom'}"
-  >
+  <Form actions="{formAction === 'create' ? 'createRoom' : 'updateRoom'}">
     <input type="hidden" name="id" value="{room.id}" />
     {#if formAction === "create"}
       <FormField name="部屋名">

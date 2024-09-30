@@ -1,23 +1,27 @@
 <script lang="ts">
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
+  import type { PageType } from "$lib/models/page-type.js";
+  import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData } from "$lib/models/Room/type.js";
 
   export let room: RoomData;
+  export let currentPage: PageType;
 
-  const headers = ["", "スコア", "チップ", "収支"];
+  let selectedUser: string = "";
 
-  export let popupModal;
-  export let ModalPage: "rule" | "user";
-  export let selectedUser: string;
+  $: selectedUserData = room.users.find(
+    (user) => user.id === selectedUser
+  ) as UserData;
+
   const ruleClick = () => {
-    popupModal = true;
-    ModalPage = "rule";
+    currentPage = "room";
   };
   const userClick = (userId: string) => {
-    popupModal = true;
-    ModalPage = "user";
+    currentPage = "room";
     selectedUser = userId;
   };
+
+  const headers = ["", "スコア", "チップ", "収支"];
 </script>
 
 <div class="grid grid-cols-5 gap-[0.1rem] bg-gray-100">

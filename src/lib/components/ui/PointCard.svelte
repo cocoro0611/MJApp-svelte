@@ -20,6 +20,11 @@
 
 <!-- TODO:スコアの重複のときの処理 -->
 <!-- TODO:何回戦をクリックしたときの詳細ページの作成（スコアの削除ができたらなおいい） -->
+<input type="hidden" name="gameCount[]" value="{score.gameCount}" />
+{#each score.userScores as userScore}
+  <input type="hidden" name="id[]" value="{userScore.id}" />
+  <input type="hidden" name="input[]" value="{userScore.input}" />
+{/each}
 <div
   class="grid grid-cols-5 bg-gray-100 font-bold
   {score.gameCount === 1 ? '' : '-mt-1'}"

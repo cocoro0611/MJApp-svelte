@@ -7,7 +7,7 @@
     | "delete"
     | "close"
     | "plus";
-  export let size: "small" | "normal" | "large" = "normal";
+  export let size: "small" | "normal" = "normal";
 
   const buttonTexts = {
     create: "登録",
@@ -31,12 +31,7 @@
 
   $: buttonText = buttonTexts[pattern];
   $: buttonStyle = buttonStyles[pattern];
-  $: sizeClass =
-    size === "large"
-      ? "size-large"
-      : size === "small"
-        ? "size-small"
-        : "size-normal";
+  $: sizeClass = size === "small" ? "size-small" : "size-normal";
 </script>
 
 <div class="{pattern === 'plus' ? 'fixed bottom-24 right-10 z-10' : ''}">
@@ -61,10 +56,7 @@
     @apply font-bold w-32 h-10;
   }
   .size-normal {
-    @apply font-bold w-56 h-10;
-  }
-  .size-large {
-    @apply font-bold w-[17rem] h-10;
+    @apply font-bold  w-[17rem] h-10;
   }
   .plus {
     @apply w-14 h-14 text-2xl font-bold rounded-xl bg-blue-800 hover:bg-blue-900 text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105;

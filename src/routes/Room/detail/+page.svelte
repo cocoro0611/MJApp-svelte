@@ -23,8 +23,6 @@
     saveLocalData("currentPage", currentPage);
     removeLocalData("roomId");
   };
-
-  let popupModal = false;
 </script>
 
 <Header>
@@ -35,15 +33,13 @@
   <svelte:fragment slot="right">
     <RoomForm formAction="delete" {users} {room} />
   </svelte:fragment>
-  <RoomScore {room} bind:popupModal />
+  <RoomScore bind:currentPage {room} />
 </Header>
 
 <!-- TODO:チップの追加 -->
 <Main isScoreHeader>
-  {#if !popupModal}
-    <ScoreForm formAction="create" {scores} {room} />
-    <ChipForm formAction="create" {scores} {room} />
-  {/if}
+  <ScoreForm formAction="create" {scores} {room} />
+  <!-- <ChipForm formAction="create" {scores} {room} /> -->
   <ScoreForm formAction="update" {scores} {room} />
-  <ChipForm formAction="update" {scores} {room} />
+  <!-- <ChipForm formAction="update" {scores} {room} /> -->
 </Main>
