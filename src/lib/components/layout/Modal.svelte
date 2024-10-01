@@ -10,7 +10,7 @@
 {/if}
 
 <Modal bind:open="{popupModal}" size="lg" dismissable="{false}">
-  <div class="text-center text-[1rem]">
+  <div class="text-center text-[1rem] font-bold">
     <slot />
   </div>
 </Modal>

@@ -8,7 +8,7 @@
 
   const selectedUser = (user: UserData) => {
     saveLocalData("userId", user.id);
-    currentPage.set("memberDetail");
+    currentPage.set("memberEdit");
   };
 </script>
 

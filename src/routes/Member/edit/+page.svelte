@@ -14,7 +14,7 @@
   <svelte:fragment slot="left">
     <Icon type="back" on:click="{() => ($currentPage = 'member')}" />
   </svelte:fragment>
-  <svelte:fragment slot="center">メンバー情報</svelte:fragment>
+  <svelte:fragment slot="center">メンバー編集</svelte:fragment>
   <svelte:fragment slot="right">
     <MemberForm action="?/delete-user" {user} />
   </svelte:fragment>

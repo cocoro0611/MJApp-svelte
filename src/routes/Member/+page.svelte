@@ -1,7 +1,7 @@
 <script lang="ts">
   import MemberHome from "../../routes/Member/home/+page.svelte";
   import MemberNew from "../../routes/Member/new/+page.svelte";
-  import MemberDetail from "../../routes/Member/detail/+page.svelte";
+  import MemberEdit from "../../routes/Member/edit/+page.svelte";
   import { currentPage } from "$lib/utils/pageStore.js";
   import { getLocalData } from "$lib/utils/localStorage.js";
 
@@ -9,7 +9,7 @@
   export let users: UserData[];
 
   $: selectedUser =
-    $currentPage === "memberDetail"
+    $currentPage === "memberEdit"
       ? users.find((user) => user.id === getLocalData("userId")) || null
       : null;
 </script>
@@ -18,6 +18,6 @@
   <MemberHome {users} />
 {:else if $currentPage === "memberNew"}
   <MemberNew />
-{:else if $currentPage === "memberDetail" && selectedUser}
-  <MemberDetail user="{selectedUser}" />
+{:else if $currentPage === "memberEdit" && selectedUser}
+  <MemberEdit user="{selectedUser}" />
 {/if}

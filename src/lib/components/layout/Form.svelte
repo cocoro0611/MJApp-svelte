@@ -2,17 +2,27 @@
   import Icon from "$lib/components/ui/Icon.svelte";
   import Modal from "$lib/components/layout/Modal.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
+  import PointKeyboard from "$lib/components/ui/PointKeyboard.svelte";
+
   import { enhance } from "$app/forms";
   import { currentPage } from "$lib/utils/pageStore.js";
-  import { removeLocalData, saveLocalData } from "$lib/utils/localStorage.js";
+  import { removeLocalData } from "$lib/utils/localStorage.js";
   import { invalidateAll } from "$app/navigation";
 
   export let action = "";
   export let method: "post" | "get" = "post";
 
+  export let input = 0;
+  export let isKeyboard: boolean = false;
+  export let selectedScore: string | null;
+
   $: isCreate = action === "?/create-user" || action === "?/create-room";
-  $: isUpdate = action === "?/update-user" || action === "?/update-room";
+  $: isUpdate =
+    action === "?/update-user" ||
+    action === "?/update-room" ||
+    action === "?/update-room-user";
   $: isDelete = action === "?/delete-user" || action === "?/delete-room";
+  $: isRoomDetailPage = action === "?/create-score";
 
   let popupModal: boolean = false;
   const openModal = () => {
@@ -29,8 +39,13 @@
           removeLocalData("userId");
           currentPage.set("member");
         }
-        if (data.type === "create-room") {
-          currentPage.set("room");
+        if (
+          ["create-room", "update-room", "update-room-user"].includes(data.type)
+        ) {
+          currentPage.set("roomDetail");
+        }
+        if (["create-score"].includes(data.type)) {
+          popupModal = false;
         }
         if (data.type === "delete-room") {
           removeLocalData("roomId");
@@ -42,7 +57,12 @@
   };
 </script>
 
-<form {action} {method} use:enhance="{formSubmitResult}" class="px-8">
+<form
+  {action}
+  {method}
+  use:enhance="{formSubmitResult}"
+  class="{isRoomDetailPage ? '' : 'px-8'}"
+>
   <slot />
   {#if isCreate || isUpdate}
     <div class="flex justify-center py-4">
@@ -65,5 +85,27 @@
         <ButtonAction type="submit" variant="delete" isLine>削除</ButtonAction>
       </div>
     </Modal>
+  {/if}
+
+  {#if isRoomDetailPage}
+    <ButtonAction variant="plus" on:click="{openModal}" />
+    <Modal bind:popupModal isButton="{false}">
+      <div class="py-4">以下の情報を追加しますか？</div>
+      <div class="flex justify-center gap-4 py-4">
+        <ButtonAction variant="close" isLine on:click="{closeModal}">
+          閉じる
+        </ButtonAction>
+        <ButtonAction type="submit" variant="primary" isLine>
+          スコア
+        </ButtonAction>
+        <ButtonAction type="submit" variant="primary" isLine>
+          チップ
+        </ButtonAction>
+      </div>
+    </Modal>
+  {/if}
+
+  {#if isKeyboard}
+    <PointKeyboard bind:isKeyboard bind:input bind:selectedScore />
   {/if}
 </form>

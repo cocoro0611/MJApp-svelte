@@ -1,13 +1,17 @@
 <script lang="ts">
   import MemberCard from "$lib/components/ui/MemberCard.svelte";
+
+  import { currentPage } from "$lib/utils/pageStore.js";
+  import { saveLocalData } from "$lib/utils/localStorage.js";
   import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData } from "$lib/models/Room/type.js";
 
   export let room: RoomData;
 
-  // TODO:設定などの遷移
-  const ruleClick = () => {};
-  const userClick = (userId: string) => {};
+  const userClick = (userId: string) => {
+    saveLocalData("userId", userId);
+    $currentPage = "roomUserEdit";
+  };
 
   const headers = ["", "スコア", "チップ", "収支"];
 </script>
@@ -16,7 +20,7 @@
   {#each headers as header, index}
     {#if index === 0}
       <button
-        on:click="{ruleClick}"
+        on:click="{() => ($currentPage = 'roomEdit')}"
         class="
         bg-blue-100 text-blue-800 border-2 border-blue-300 h-20 rounded-lg font-bold
         hover:bg-blue-300

@@ -11,6 +11,7 @@ import {
 } from "$lib/models/Room/actions/create.js";
 import {
   updateRoom,
+  updateRoomUser,
   updateScore,
   updateChip,
 } from "$lib/models/Room/actions/update.js";
@@ -33,6 +34,7 @@ export const actions: Actions = {
   "delete-user": deleteUser,
   "create-room": createRoom,
   "update-room": updateRoom,
+  "update-room-user": updateRoomUser,
   "delete-room": deleteRoom,
   "create-score": createScore,
   "update-score": updateScore,

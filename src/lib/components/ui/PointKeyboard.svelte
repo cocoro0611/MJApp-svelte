@@ -7,18 +7,11 @@
   } from "$lib/utils/PointKeyboard.js";
 
   export let input = 0;
-  export let selectedScoreId;
   export let isKeyboard: boolean = false;
+  export let selectedScore: string | null;
   const closeKeyboard = () => {
     isKeyboard = false;
-    selectedScoreId = null;
-  };
-
-  export let method: string = "";
-  export let action: string = "";
-  const updateScore = () => {
-    method = "POST";
-    action = "?/updateScore";
+    selectedScore = null;
   };
 
   // FIXME: 関数のリファクタリングが必要
@@ -34,11 +27,13 @@
       <div class="grid grid-cols-5 gap-2">
         <div class="col-span-1 flex justify-start items-center h-10 space-x-2">
           <button
+            type="button"
             class="flex-1 rounded-full bg-white py-1 px-2 border border-black hover:bg-gray-200 active:bg-gray-300 transition duration-150 ease-in-out"
           >
             ←
           </button>
           <button
+            type="button"
             class="flex-1 rounded-full bg-white py-1 px-2 border border-black hover:bg-gray-200 active:bg-gray-300 transition duration-150 ease-in-out"
           >
             →
@@ -49,18 +44,20 @@
         ></div>
         <div class="col-span-3 flex justify-end items-center h-10 space-x-2">
           <button
+            type="button"
             on:click="{() => keyboardInput(toggleSign(input))}"
             class="flex-1 rounded-full bg-white py-1 px-2 border border-black hover:bg-gray-200 active:bg-gray-300 transition duration-150 ease-in-out"
           >
             +/-
           </button>
           <button
-            on:click="{updateScore}"
+            type="submit"
             class="flex-1 rounded bg-blue-100 py-1 px-2 border-2 border-blue-800 text-blue-800 hover:bg-blue-200 active:bg-blue-300 transition duration-150 ease-in-out"
           >
             計算
           </button>
           <button
+            type="button"
             on:click="{closeKeyboard}"
             class="flex-1 rounded bg-gray-200 py-1 px-2 border-2 border-gray-400 text-gray-700 hover:bg-gray-300 active:bg-gray-400 transition duration-150 ease-in-out"
           >
@@ -74,6 +71,7 @@
       <div class="grid grid-cols-3 gap-2">
         {#each Array(9) as _, i}
           <button
+            type="button"
             on:click="{() => keyboardInput(addDigit(input, i + 1))}"
             class="flex justify-center items-center h-10 bg-white rounded-lg hover:bg-gray-100 active:bg-gray-200 transition duration-150 ease-in-out"
           >
@@ -82,12 +80,14 @@
         {/each}
         <div class="flex justify-center items-center h-10 rounded-lg"></div>
         <button
+          type="button"
           on:click="{() => keyboardInput(addDigit(input, 0))}"
           class="flex justify-center items-center h-10 bg-white rounded-lg hover:bg-gray-100 active:bg-gray-200 transition duration-150 ease-in-out"
         >
           0
         </button>
         <button
+          type="button"
           on:click="{() => keyboardInput(backspace(input))}"
           class="flex justify-center items-center h-10 bg-white rounded-lg hover:bg-gray-100 active:bg-gray-200 transition duration-150 ease-in-out"
         >

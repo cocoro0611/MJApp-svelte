@@ -1,17 +1,15 @@
 import { writable } from "svelte/store";
-import {
-  getLocalData,
-  saveLocalData,
-  removeLocalData,
-} from "$lib/utils/localStorage.js";
+import { getLocalData, saveLocalData } from "$lib/utils/localStorage.js";
 
 export type PageType =
   | "room"
   | "roomNew"
+  | "roomEdit"
+  | "roomUserEdit"
   | "roomDetail"
   | "member"
   | "memberNew"
-  | "memberDetail"
+  | "memberEdit"
   | "fuCount"
   | "hanCount";
 
@@ -24,19 +22,7 @@ function createPageStore() {
   return {
     subscribe,
     set: (value: PageType) => {
-      if (value !== "roomDetail") {
-        removeLocalData("roomId");
-      }
-      if (value !== "memberDetail") {
-        removeLocalData("userId");
-      }
-      if (
-        value !== "roomNew" &&
-        value !== "memberNew" &&
-        value !== "memberDetail"
-      ) {
-        saveLocalData("currentPage", value);
-      }
+      saveLocalData("currentPage", value);
       set(value);
     },
   };

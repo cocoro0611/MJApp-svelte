@@ -7,7 +7,7 @@ export const createRoom: Action = async ({ request }) => {
     const data = await request.formData();
 
     const roomForm = {
-      id: v4(),
+      id: data.get("id"),
       name: data.get("name"),
       initialPoint: data.get("initialPoint"),
       returnPoint: data.get("returnPoint"),
@@ -69,7 +69,7 @@ export const createScore: Action = async ({ request }) => {
     }));
     await trx.insertInto("Score").values(ScoreForm).execute();
   });
-  return { success: true };
+  return { success: true, type: "create-score" };
 };
 
 export const createChip: Action = async ({ request }) => {
