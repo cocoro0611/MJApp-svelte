@@ -11,11 +11,15 @@
   let input = 0;
   let isKeyboard: boolean = false;
   let selectedScore: string | null;
+
+  $: isCreateScore = action === "?/create-score";
 </script>
 
 <Form {action} bind:isKeyboard bind:input bind:selectedScore>
   <input type="hidden" name="roomId" value="{room.id}" />
-  {#each scores.filter((score) => score.roomId === room.id) as score}
-    <PointCard {room} {score} bind:isKeyboard bind:input bind:selectedScore />
-  {/each}
+  {#if !isCreateScore}
+    {#each scores.filter((score) => score.roomId === room.id) as score}
+      <PointCard {room} {score} bind:isKeyboard bind:input bind:selectedScore />
+    {/each}
+  {/if}
 </Form>

@@ -3,6 +3,8 @@
   export let score: ScoreData;
   export let room: RoomData;
 
+  export let isChip: boolean = false;
+
   export let input = 0;
   export let isKeyboard: boolean = false;
   export let selectedScore: string | null;
@@ -43,10 +45,18 @@
       >
         {score.gameCount} 回戦
       </button>
-    {:else}
-      <div>-点数-</div>
-      <div class="text-red-500">あと</div>
-      <div class="text-red-500">{totalPoint}</div>
+    {/if}
+    {#if totalPoint !== 0}
+      {#if !isChip}
+        <div>-点数-</div>
+        <div class="text-red-500">あと</div>
+        <div class="text-red-500">{totalPoint}</div>
+      {/if}
+      {#if isChip}
+        <div>-チップ-</div>
+        <div class="text-red-500">あと</div>
+        <div class="text-red-500">20</div>
+      {/if}
     {/if}
   </div>
   {#each score.userScores as userScore}

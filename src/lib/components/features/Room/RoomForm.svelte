@@ -56,7 +56,7 @@
       <FormField name="部屋名">
         <RoomNameForm {room} />
       </FormField>
-      <FormField name="メンバー">
+      <FormField name="">
         <RoomMemberForm {users} />
       </FormField>
     {/if}

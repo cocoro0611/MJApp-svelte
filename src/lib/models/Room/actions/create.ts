@@ -76,8 +76,21 @@ export const createChip: Action = async ({ request }) => {
   await db.transaction().execute(async (trx) => {
     const data = await request.formData();
     const roomId = data.get("roomId");
-    const userIds = data.getAll("userId");
-    const chipCount = data.get("chipCount");
+
+    const maxChipCount = await trx
+      .selectFrom("Chip")
+      .where("roomId", "=", roomId)
+      .select(db.fn.max("chipCount").as("maxChipCount"))
+      .executeTakeFirst();
+    const chipCount = (maxChipCount?.maxChipCount || 0) + 1;
+
+    const users = await trx
+      .selectFrom("User")
+      .innerJoin("RoomUser", "User.id", "RoomUser.userId")
+      .where("RoomUser.roomId", "=", roomId)
+      .select("User.id")
+      .execute();
+    const userIds = users.map((user) => user.id);
 
     const ChipForm = userIds.map((userId) => ({
       id: v4(),
@@ -89,5 +102,5 @@ export const createChip: Action = async ({ request }) => {
     }));
     await trx.insertInto("Chip").values(ChipForm).execute();
   });
-  return { success: true };
+  return { success: true, type: "create-chip" };
 };

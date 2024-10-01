@@ -14,7 +14,7 @@
 
   export let input = 0;
   export let isKeyboard: boolean = false;
-  export let selectedScore: string | null;
+  export let selectedScore: string | null = null;
 
   $: isCreate = action === "?/create-user" || action === "?/create-room";
   $: isUpdate =
@@ -22,15 +22,13 @@
     action === "?/update-room" ||
     action === "?/update-room-user";
   $: isDelete = action === "?/delete-user" || action === "?/delete-room";
-  $: isRoomDetailPage = action === "?/create-score";
 
-  let popupModal: boolean = false;
-  const openModal = () => {
-    popupModal = true;
-  };
-  const closeModal = () => {
-    popupModal = false;
-  };
+  $: isCreateScore = action === "?/create-score";
+  $: isUpdateScore = action === "?/update-score";
+
+  $: isCreateChip = action === "?/create-chip";
+  $: isUpdateChip = action === "?/update-chip";
+
   const formSubmitResult = () => {
     return async ({ result }: { result: any }) => {
       if (result.type === "success") {
@@ -55,13 +53,21 @@
       }
     };
   };
+
+  let popupModal: boolean = false;
+  const openModal = () => {
+    popupModal = true;
+  };
+  const closeModal = () => {
+    popupModal = false;
+  };
 </script>
 
 <form
   {action}
   {method}
   use:enhance="{formSubmitResult}"
-  class="{isRoomDetailPage ? '' : 'px-8'}"
+  class="{isUpdateScore || isUpdateChip ? '' : 'px-8'}"
 >
   <slot />
   {#if isCreate || isUpdate}
@@ -87,7 +93,7 @@
     </Modal>
   {/if}
 
-  {#if isRoomDetailPage}
+  {#if isCreateScore || isCreateChip}
     <ButtonAction variant="plus" on:click="{openModal}" />
     <Modal bind:popupModal isButton="{false}">
       <div class="py-4">以下の情報を追加しますか？</div>
@@ -95,12 +101,16 @@
         <ButtonAction variant="close" isLine on:click="{closeModal}">
           閉じる
         </ButtonAction>
-        <ButtonAction type="submit" variant="primary" isLine>
-          スコア
-        </ButtonAction>
-        <ButtonAction type="submit" variant="primary" isLine>
-          チップ
-        </ButtonAction>
+        {#if isCreateScore}
+          <ButtonAction type="submit" variant="primary" isLine>
+            スコア
+          </ButtonAction>
+        {/if}
+        {#if isCreateChip}
+          <ButtonAction type="submit" variant="primary" isLine>
+            チップ
+          </ButtonAction>
+        {/if}
       </div>
     </Modal>
   {/if}
