@@ -5,23 +5,27 @@
 
   export let isChip: boolean = false;
 
-  export let input = 0;
-  export let isKeyboard: boolean = false;
-  export let selectedScore: string | null;
+  export let inputValues: Record<string, number> = {};
+  export let selectedScoreId: string | null;
+  export let openKeyboard: boolean = false;
 
+  // FIXME:関数のリファクタリング
   function scoreClick(scoreId: string) {
-    isKeyboard = true;
-    selectedScore = scoreId;
-    const clickedUserScore = score.userScores.find((us) => us.id === scoreId);
-    if (clickedUserScore) {
-      input = clickedUserScore.input;
+    openKeyboard = true;
+    selectedScoreId = scoreId;
+    if (!(scoreId in inputValues)) {
+      const clickedUserScore = score.userScores.find((us) => us.id === scoreId);
+      inputValues[scoreId] = clickedUserScore ? clickedUserScore.input || 0 : 0;
     }
   }
 
   let initialTotalPoint: number = room.initialPoint * 4;
   $: totalPoint =
     initialTotalPoint -
-    score.userScores.reduce((sum, userScore) => sum + userScore.input * 100, 0);
+    score.userScores.reduce((sum, userScore) => {
+      const input = inputValues[userScore.id] ?? userScore.input ?? 0;
+      return sum + input * 100;
+    }, 0);
 </script>
 
 <!-- TODO:スコアの重複のときの処理 -->
@@ -29,7 +33,11 @@
 <input type="hidden" name="gameCount[]" value="{score.gameCount}" />
 {#each score.userScores as userScore}
   <input type="hidden" name="id[]" value="{userScore.id}" />
-  <input type="hidden" name="input[]" value="{userScore.input}" />
+  <input
+    type="hidden"
+    name="input[]"
+    value="{inputValues[userScore.id] ?? userScore.input ?? 0}"
+  />
 {/each}
 <div
   class="grid grid-cols-5 bg-gray-100 font-bold
@@ -66,27 +74,26 @@
       <button type="button" on:click="{() => scoreClick(userScore.id)}">
         <div
           class="bg-blue-100 border-2 border-blue-300 h-14 rounded-lg flex flex-col justify-center
-                 {selectedScore === userScore.id
+         {selectedScoreId === userScore.id
             ? 'bg-yellow-100 border-yellow-300'
             : ''}"
         >
           <div class="flex justify-start text-[0.6rem] pl-2 -mt-1">点数</div>
           <div class="flex justify-center">
             <span
-              class="border-b-2 border-blue-300 px-1 {selectedScore ===
-              userScore.id
-                ? 'border-yellow-300'
-                : ''}"
-              >{selectedScore === userScore.id ? input : userScore.input}</span
+              class="border-b-2 border-blue-300 px-1
+              {selectedScoreId === userScore.id ? 'border-yellow-300' : ''}"
+            >
+              {inputValues[userScore.id] ?? userScore.input ?? 0}</span
             >
             <span>00</span>
           </div>
         </div>
       </button>
       <div
-        class="flex justify-center text-sm
-      {userScore.score < 0 ? 'text-red-500' : ''}
-      "
+        class="flex justify-center text-sm {userScore.score < 0
+          ? 'text-red-500'
+          : ''}"
       >
         {userScore.score}
       </div>

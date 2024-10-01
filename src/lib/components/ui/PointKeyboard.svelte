@@ -1,30 +1,32 @@
 <script lang="ts">
-  import {
-    updateInput,
-    addDigit,
-    toggleSign,
-    backspace,
-  } from "$lib/utils/PointKeyboard.js";
+  import { addDigit, toggleSign, backspace } from "$lib/utils/PointKeyboard.js";
 
-  export let input = 0;
-  export let isKeyboard: boolean = false;
-  export let selectedScore: string | null;
+  export let inputValues: Record<string, number> = {};
+  export let selectedScoreId: string | null = null;
+  export let openKeyboard = false;
+
   const closeKeyboard = () => {
-    isKeyboard = false;
-    selectedScore = null;
+    openKeyboard = false;
+    selectedScoreId = null;
   };
 
-  // FIXME: 関数のリファクタリングが必要
-  function keyboardInput(newInput: number) {
-    input = updateInput(input, newInput);
+  function updateSelectedScore(updater: (value: number) => number) {
+    if (selectedScoreId) {
+      inputValues[selectedScoreId] = updater(inputValues[selectedScoreId] || 0);
+    }
   }
+
+  const handleAddDigit = (digit: number) =>
+    updateSelectedScore((value) => addDigit(value, digit));
+  const handleToggleSign = () => updateSelectedScore(toggleSign);
+  const handleBackspace = () => updateSelectedScore(backspace);
 </script>
 
-<!-- TODO:左右ボタンの切り替え -->
 <div class="fixed bottom-0 left-0 right-0 z-10">
   <div class="max-w-screen-lg container mx-auto">
     <div class="bg-gray-100 font-bold p-2">
       <div class="grid grid-cols-5 gap-2">
+        <!-- Navigation buttons -->
         <div class="col-span-1 flex justify-start items-center h-10 space-x-2">
           <button
             type="button"
@@ -42,10 +44,11 @@
         <div
           class="col-span-1 flex justify-start items-center h-10 space-x-2"
         ></div>
+        <!-- Action buttons -->
         <div class="col-span-3 flex justify-end items-center h-10 space-x-2">
           <button
             type="button"
-            on:click="{() => keyboardInput(toggleSign(input))}"
+            on:click="{handleToggleSign}"
             class="flex-1 rounded-full bg-white py-1 px-2 border border-black hover:bg-gray-200 active:bg-gray-300 transition duration-150 ease-in-out"
           >
             +/-
@@ -72,7 +75,7 @@
         {#each Array(9) as _, i}
           <button
             type="button"
-            on:click="{() => keyboardInput(addDigit(input, i + 1))}"
+            on:click="{() => handleAddDigit(i + 1)}"
             class="flex justify-center items-center h-10 bg-white rounded-lg hover:bg-gray-100 active:bg-gray-200 transition duration-150 ease-in-out"
           >
             {i + 1}
@@ -81,14 +84,14 @@
         <div class="flex justify-center items-center h-10 rounded-lg"></div>
         <button
           type="button"
-          on:click="{() => keyboardInput(addDigit(input, 0))}"
+          on:click="{() => handleAddDigit(0)}"
           class="flex justify-center items-center h-10 bg-white rounded-lg hover:bg-gray-100 active:bg-gray-200 transition duration-150 ease-in-out"
         >
           0
         </button>
         <button
           type="button"
-          on:click="{() => keyboardInput(backspace(input))}"
+          on:click="{handleBackspace}"
           class="flex justify-center items-center h-10 bg-white rounded-lg hover:bg-gray-100 active:bg-gray-200 transition duration-150 ease-in-out"
         >
           ☒

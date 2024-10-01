@@ -28,7 +28,6 @@
 </Header>
 
 <!-- TODO:チップの追加 -->
-<!-- TODO:スコアの追加 -->
 <Main isScoreHeader>
   <ScoreForm {scores} {room} action="?/create-score" />
   <ScoreForm {scores} {room} action="?/update-score" />

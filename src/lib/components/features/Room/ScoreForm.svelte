@@ -8,18 +8,24 @@
 
   export let action;
 
-  let input = 0;
-  let isKeyboard: boolean = false;
-  let selectedScore: string | null;
+  let inputValues: Record<string, number> = {};
+  let selectedScoreId: string | null;
+  let openKeyboard: boolean = false;
 
   $: isCreateScore = action === "?/create-score";
 </script>
 
-<Form {action} bind:isKeyboard bind:input bind:selectedScore>
+<Form {action} bind:openKeyboard bind:inputValues bind:selectedScoreId>
   <input type="hidden" name="roomId" value="{room.id}" />
   {#if !isCreateScore}
     {#each scores.filter((score) => score.roomId === room.id) as score}
-      <PointCard {room} {score} bind:isKeyboard bind:input bind:selectedScore />
+      <PointCard
+        {room}
+        {score}
+        bind:openKeyboard
+        bind:inputValues
+        bind:selectedScoreId
+      />
     {/each}
   {/if}
 </Form>

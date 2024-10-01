@@ -12,9 +12,9 @@
   export let action = "";
   export let method: "post" | "get" = "post";
 
-  export let input = 0;
-  export let isKeyboard: boolean = false;
-  export let selectedScore: string | null = null;
+  export let inputValues: Record<string, number> = {};
+  export let selectedScoreId: string | null;
+  export let openKeyboard: boolean = false;
 
   $: isCreate = action === "?/create-user" || action === "?/create-room";
   $: isUpdate =
@@ -29,6 +29,7 @@
   $: isCreateChip = action === "?/create-chip";
   $: isUpdateChip = action === "?/update-chip";
 
+  // TODO: バリデーションが出るようにしたらなおいい
   const formSubmitResult = () => {
     return async ({ result }: { result: any }) => {
       if (result.type === "success") {
@@ -44,6 +45,10 @@
         }
         if (["create-score"].includes(data.type)) {
           popupModal = false;
+        }
+        if (["update-score"].includes(data.type)) {
+          openKeyboard = false;
+          selectedScoreId = null;
         }
         if (data.type === "delete-room") {
           removeLocalData("roomId");
@@ -101,21 +106,19 @@
         <ButtonAction variant="close" isLine on:click="{closeModal}">
           閉じる
         </ButtonAction>
-        {#if isCreateScore}
-          <ButtonAction type="submit" variant="primary" isLine>
-            スコア
-          </ButtonAction>
-        {/if}
-        {#if isCreateChip}
-          <ButtonAction type="submit" variant="primary" isLine>
-            チップ
-          </ButtonAction>
-        {/if}
+        <ButtonAction type="submit" variant="primary" isLine>
+          スコア
+        </ButtonAction>
+        <ButtonAction type="submit" variant="primary" isLine>
+          チップ
+        </ButtonAction>
       </div>
     </Modal>
   {/if}
 
-  {#if isKeyboard}
-    <PointKeyboard bind:isKeyboard bind:input bind:selectedScore />
+  {#if openKeyboard}
+    <!-- キーボードの幅分調整 -->
+    <div class="h-[15rem]"></div>
+    <PointKeyboard bind:openKeyboard bind:inputValues bind:selectedScoreId />
   {/if}
 </form>
