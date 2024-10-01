@@ -1,9 +1,9 @@
 <script lang="ts">
   import { addDigit, toggleSign, backspace } from "$lib/utils/PointKeyboard.js";
-
   export let inputValues: Record<string, number> = {};
   export let selectedScoreId: string | null = null;
   export let openKeyboard = false;
+  export let navigateScore: (direction: "left" | "right") => void;
 
   const closeKeyboard = () => {
     openKeyboard = false;
@@ -20,6 +20,9 @@
     updateSelectedScore((value) => addDigit(value, digit));
   const handleToggleSign = () => updateSelectedScore(toggleSign);
   const handleBackspace = () => updateSelectedScore(backspace);
+
+  const leftButton = () => navigateScore("left");
+  const rightButton = () => navigateScore("right");
 </script>
 
 <div class="fixed bottom-0 left-0 right-0 z-10">
@@ -30,12 +33,14 @@
         <div class="col-span-1 flex justify-start items-center h-10 space-x-2">
           <button
             type="button"
+            on:click="{leftButton}"
             class="flex-1 rounded-full bg-white py-1 px-2 border border-black hover:bg-gray-200 active:bg-gray-300 transition duration-150 ease-in-out"
           >
             ←
           </button>
           <button
             type="button"
+            on:click="{rightButton}"
             class="flex-1 rounded-full bg-white py-1 px-2 border border-black hover:bg-gray-200 active:bg-gray-300 transition duration-150 ease-in-out"
           >
             →
@@ -44,7 +49,6 @@
         <div
           class="col-span-1 flex justify-start items-center h-10 space-x-2"
         ></div>
-        <!-- Action buttons -->
         <div class="col-span-3 flex justify-end items-center h-10 space-x-2">
           <button
             type="button"

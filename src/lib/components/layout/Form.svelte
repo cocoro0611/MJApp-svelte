@@ -2,7 +2,6 @@
   import Icon from "$lib/components/ui/Icon.svelte";
   import Modal from "$lib/components/layout/Modal.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
-  import PointKeyboard from "$lib/components/ui/PointKeyboard.svelte";
 
   import { enhance } from "$app/forms";
   import { currentPage } from "$lib/utils/pageStore.js";
@@ -12,7 +11,6 @@
   export let action = "";
   export let method: "post" | "get" = "post";
 
-  export let inputValues: Record<string, number> = {};
   export let selectedScoreId: string | null;
   export let openKeyboard: boolean = false;
 
@@ -114,11 +112,5 @@
         </ButtonAction>
       </div>
     </Modal>
-  {/if}
-
-  {#if openKeyboard}
-    <!-- キーボードの幅分調整 -->
-    <div class="h-[15rem]"></div>
-    <PointKeyboard bind:openKeyboard bind:inputValues bind:selectedScoreId />
   {/if}
 </form>

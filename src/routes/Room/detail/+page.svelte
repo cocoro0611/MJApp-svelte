@@ -32,6 +32,6 @@
   <ScoreForm {scores} {room} action="?/create-score" />
   <ScoreForm {scores} {room} action="?/update-score" />
 
-  <!-- <ChipForm {scores} {room} action="?/create-chip" /> -->
+  <ChipForm {scores} {room} action="?/create-chip" />
   <!-- <ChipForm {scores} {room} action="?/update-chip" /> -->
 </Main>

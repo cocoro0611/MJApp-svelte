@@ -7,17 +7,7 @@
 
   export let inputValues: Record<string, number> = {};
   export let selectedScoreId: string | null;
-  export let openKeyboard: boolean = false;
-
-  // FIXME:関数のリファクタリング
-  function scoreClick(scoreId: string) {
-    openKeyboard = true;
-    selectedScoreId = scoreId;
-    if (!(scoreId in inputValues)) {
-      const clickedUserScore = score.userScores.find((us) => us.id === scoreId);
-      inputValues[scoreId] = clickedUserScore ? clickedUserScore.input || 0 : 0;
-    }
-  }
+  export let scoreClick: (score: ScoreData, scoreId: string) => void;
 
   let initialTotalPoint: number = room.initialPoint * 4;
   $: totalPoint =
@@ -26,10 +16,12 @@
       const input = inputValues[userScore.id] ?? userScore.input ?? 0;
       return sum + input * 100;
     }, 0);
+
+  function handleScoreClick(scoreId: string) {
+    scoreClick(score, scoreId);
+  }
 </script>
 
-<!-- TODO:スコアの重複のときの処理 -->
-<!-- TODO:何回戦をクリックしたときの詳細ページの作成（スコアの削除ができたらなおいい） -->
 <input type="hidden" name="gameCount[]" value="{score.gameCount}" />
 {#each score.userScores as userScore}
   <input type="hidden" name="id[]" value="{userScore.id}" />
@@ -71,7 +63,7 @@
     <div
       class="flex flex-col bg-white border-y-2 border-r-2 border-gray-300 p-[0.1rem] text-blue-800"
     >
-      <button type="button" on:click="{() => scoreClick(userScore.id)}">
+      <button type="button" on:click="{() => handleScoreClick(userScore.id)}">
         <div
           class="bg-blue-100 border-2 border-blue-300 h-14 rounded-lg flex flex-col justify-center
          {selectedScoreId === userScore.id
