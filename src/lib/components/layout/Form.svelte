@@ -3,6 +3,7 @@
   import Modal from "$lib/components/layout/Modal.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
+  import { createEventDispatcher } from "svelte";
   import { enhance } from "$app/forms";
   import { currentPage } from "$lib/utils/pageStore.js";
   import { removeLocalData } from "$lib/utils/localStorage.js";
@@ -41,10 +42,10 @@
         ) {
           currentPage.set("roomDetail");
         }
-        if (["create-score"].includes(data.type)) {
+        if (["create-score", "create-chip"].includes(data.type)) {
           popupModal = false;
         }
-        if (["update-score"].includes(data.type)) {
+        if (["update-score", "update-chip"].includes(data.type)) {
           openKeyboard = false;
           selectedScoreId = null;
         }
@@ -63,6 +64,11 @@
   };
   const closeModal = () => {
     popupModal = false;
+  };
+
+  const dispatch = createEventDispatcher();
+  const CreateAction = (type: "score" | "chip") => {
+    dispatch("createAction", { type });
   };
 </script>
 
@@ -104,10 +110,20 @@
         <ButtonAction variant="close" isLine on:click="{closeModal}">
           閉じる
         </ButtonAction>
-        <ButtonAction type="submit" variant="primary" isLine>
+        <ButtonAction
+          type="button"
+          variant="primary"
+          isLine
+          on:click="{() => CreateAction('score')}"
+        >
           スコア
         </ButtonAction>
-        <ButtonAction type="submit" variant="primary" isLine>
+        <ButtonAction
+          type="button"
+          variant="primary"
+          isLine
+          on:click="{() => CreateAction('chip')}"
+        >
           チップ
         </ButtonAction>
       </div>
