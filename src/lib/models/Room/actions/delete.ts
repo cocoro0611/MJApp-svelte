@@ -3,7 +3,7 @@ import type { Action } from "@sveltejs/kit";
 
 export const deleteRoom: Action = async ({ request }) => {
   const data = await request.formData();
-  const id = data.get("id");
+  const id = data.get("roomId");
 
   await db.transaction().execute(async (trx) => {
     const roomUsers = await trx

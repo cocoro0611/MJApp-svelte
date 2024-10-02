@@ -32,5 +32,5 @@
 {:else if $currentPage === "roomUserEdit" && selectedRoomUser}
   <RoomUserEdit user="{selectedRoomUser}" />
 {:else if $currentPage === "roomDetail" && selectedRoom}
-  <RoomDetail {users} {scores} room="{selectedRoom}" />
+  <RoomDetail {scores} room="{selectedRoom}" />
 {/if}

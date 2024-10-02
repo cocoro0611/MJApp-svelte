@@ -15,7 +15,6 @@
   let openKeyboard: boolean = false;
   let activeScoreIndex: number = 0;
 
-  $: isCreateScore = action === "?/create-score";
   $: filteredScores = scores.filter((score) => score.roomId === room.id);
   $: activeScore = filteredScores[activeScoreIndex];
 
@@ -38,25 +37,23 @@
 
 <Form {action} bind:openKeyboard bind:selectedScoreId>
   <input type="hidden" name="roomId" value="{room.id}" />
-  {#if !isCreateScore}
-    {#each filteredScores as score}
-      <PointCard
-        {room}
-        {score}
-        bind:inputValues
-        bind:selectedScoreId
-        scoreClick="{handleScoreClick}"
-      />
-    {/each}
-    {#if openKeyboard}
-      <!-- // キーボードの高さ -->
-      <div class="h-[15rem]"></div>
-      <PointKeyboard
-        bind:openKeyboard
-        bind:inputValues
-        bind:selectedScoreId
-        navigateScore="{handleNavigateScore}"
-      />
-    {/if}
+  {#each filteredScores as score}
+    <PointCard
+      {room}
+      {score}
+      bind:inputValues
+      bind:selectedScoreId
+      scoreClick="{handleScoreClick}"
+    />
+  {/each}
+  {#if openKeyboard}
+    <!-- // キーボードの高さ -->
+    <div class="h-[15rem]"></div>
+    <PointKeyboard
+      bind:openKeyboard
+      bind:inputValues
+      bind:selectedScoreId
+      navigateScore="{handleNavigateScore}"
+    />
   {/if}
 </Form>
