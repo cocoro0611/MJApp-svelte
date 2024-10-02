@@ -1,27 +1,45 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
     <meta charset="utf-8" name="apple-mobile-web-app-capable" content="yes" />
     <link rel="apple-touch-icon" href="../static/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="麻雀計算" />
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
     />
-    <!-- <style>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+    />
+    <style>
+      html,
+      body {
+        position: fixed;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        overscroll-behavior: none;
+      }
+      #app {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
       @supports (-webkit-touch-callout: none) {
-        body {
-          padding-top: 20px;
-          -webkit-user-select: none;
-          user-select: none;
-          -webkit-tap-highlight-color: transparent;
+        #app {
+          height: -webkit-fill-available;
         }
       }
-    </style> -->
+    </style>
     %sveltekit.head%
   </head>
-
   <body data-sveltekit-preload-data="hover">
-    <div>%sveltekit.body%</div>
+    <div id="app">%sveltekit.body%</div>
   </body>
 </html>
