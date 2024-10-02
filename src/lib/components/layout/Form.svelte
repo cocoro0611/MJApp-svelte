@@ -3,16 +3,17 @@
   import Modal from "$lib/components/layout/Modal.svelte";
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
-  import { createEventDispatcher } from "svelte";
   import { enhance } from "$app/forms";
   import { currentPage } from "$lib/utils/pageStore.js";
   import { removeLocalData } from "$lib/utils/localStorage.js";
   import { invalidateAll } from "$app/navigation";
 
-  export let action = "";
+  export let isActions: boolean = false;
+  export let action: string = "";
   export let method: "post" | "get" = "post";
 
   export let selectedScoreId: string | null = null;
+  export let selectedChipId: string | null = null;
   export let openKeyboard: boolean = false;
 
   $: isCreate = action === "?/create-user" || action === "?/create-room";
@@ -21,12 +22,7 @@
     action === "?/update-room" ||
     action === "?/update-room-user";
   $: isDelete = action === "?/delete-user" || action === "?/delete-room";
-
-  $: isCreateScore = action === "?/create-score";
-  $: isUpdateScore = action === "?/update-score";
-
-  $: isCreateChip = action === "?/create-chip";
-  $: isUpdateChip = action === "?/update-chip";
+  $: isRoomDetail = action === "?/update-score" || action === "?/update-chip";
 
   // TODO: バリデーションが出るようにしたらなおいい
   const formSubmitResult = () => {
@@ -48,6 +44,7 @@
         if (["update-score", "update-chip"].includes(data.type)) {
           openKeyboard = false;
           selectedScoreId = null;
+          selectedChipId = null;
         }
         if (data.type === "delete-room") {
           removeLocalData("roomId");
@@ -65,18 +62,13 @@
   const closeModal = () => {
     popupModal = false;
   };
-
-  const dispatch = createEventDispatcher();
-  const CreateAction = (type: "score" | "chip") => {
-    dispatch("createAction", { type });
-  };
 </script>
 
 <form
   {action}
   {method}
   use:enhance="{formSubmitResult}"
-  class="{isUpdateScore || isUpdateChip ? '' : 'px-8'}"
+  class="{isRoomDetail ? '' : 'px-8'}"
 >
   <slot />
   {#if isCreate || isUpdate}
@@ -102,7 +94,7 @@
     </Modal>
   {/if}
 
-  {#if action === "create-score-chip"}
+  {#if isActions}
     <ButtonAction variant="plus" on:click="{openModal}" />
     <Modal bind:popupModal isButton="{false}">
       <div class="py-4">以下の情報を追加しますか？</div>
@@ -110,17 +102,22 @@
         <ButtonAction variant="close" isLine on:click="{closeModal}">
           閉じる
         </ButtonAction>
-        <ButtonAction type="submit" variant="primary" isLine>
-          スコア
-        </ButtonAction>
         <ButtonAction
-          type="button"
+          type="submit"
           variant="primary"
           isLine
-          on:click="{() => CreateAction('chip')}"
+          on:click="{() => {
+            action = '?/create-score';
+          }}">スコア</ButtonAction
         >
-          チップ
-        </ButtonAction>
+        <ButtonAction
+          type="submit"
+          variant="primary"
+          isLine
+          on:click="{() => {
+            action = '?/create-chip';
+          }}">チップ</ButtonAction
+        >
       </div>
     </Modal>
   {/if}

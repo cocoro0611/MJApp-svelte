@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import PointCard from "./PointCard.svelte";
+  import ScoreCard from "./ScoreCard.svelte";
 
-  export const meta: Meta<PointCard> = {
-    title: "UI/PointCard",
-    component: PointCard,
+  export const meta: Meta<ScoreCard> = {
+    title: "UI/ScoreCard",
+    component: ScoreCard,
   };
 </script>
 
@@ -99,7 +99,7 @@
 </script>
 
 <Story name="Default">
-  <PointCard
+  <ScoreCard
     bind:score
     openKeyboard="{(playerIndex) => openKeyboard(gameIndex, playerIndex)}"
     isActiveGame="{gameIndex === activeGameIndex}"

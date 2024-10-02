@@ -8,10 +8,11 @@
   import { getLocalData } from "$lib/utils/localStorage.js";
 
   import type { UserData } from "$lib/models/Member/type.js";
-  import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
+  import type { RoomData, ScoreData, ChipData } from "$lib/models/Room/type.js";
   export let users: UserData[];
   export let rooms: RoomData[];
   export let scores: ScoreData[];
+  export let chips: ChipData[];
 
   $: selectedRoom =
     $currentPage === "roomEdit" || $currentPage === "roomDetail"
@@ -32,5 +33,5 @@
 {:else if $currentPage === "roomUserEdit" && selectedRoomUser}
   <RoomUserEdit user="{selectedRoomUser}" />
 {:else if $currentPage === "roomDetail" && selectedRoom}
-  <RoomDetail {scores} room="{selectedRoom}" />
+  <RoomDetail {scores} {chips} room="{selectedRoom}" />
 {/if}

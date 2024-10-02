@@ -1,6 +1,6 @@
 <script lang="ts">
   import Form from "$lib/components/layout/Form.svelte";
-  import PointCard from "$lib/components/ui/PointCard.svelte";
+  import ScoreCar from "$lib/components/ui/ScoreCard.svelte";
   import PointKeyboard from "$lib/components/ui/PointKeyboard.svelte";
   import { scoreClick, navigateScore } from "$lib/utils/PointKeyboard.js";
 
@@ -38,7 +38,7 @@
 <Form {action} bind:openKeyboard bind:selectedScoreId>
   <input type="hidden" name="roomId" value="{room.id}" />
   {#each filteredScores as score}
-    <PointCard
+    <ScoreCar
       {room}
       {score}
       bind:inputValues
@@ -53,7 +53,7 @@
       bind:openKeyboard
       bind:inputValues
       bind:selectedScoreId
-      navigateScore="{handleNavigateScore}"
+      navigate="{handleNavigateScore}"
     />
   {/if}
 </Form>

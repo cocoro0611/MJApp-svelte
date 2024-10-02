@@ -1,63 +1,59 @@
 <script lang="ts">
   import Form from "$lib/components/layout/Form.svelte";
-  import PointCard from "$lib/components/ui/PointCard.svelte";
+  import ChipCard from "$lib/components/ui/ChipCard.svelte";
   import PointKeyboard from "$lib/components/ui/PointKeyboard.svelte";
-  import { scoreClick, navigateScore } from "$lib/utils/PointKeyboard.js";
+  import { chipClick, navigateChip } from "$lib/utils/PointKeyboard.js";
 
-  import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
-  export let scores: ScoreData[];
+  import type { RoomData, ChipData } from "$lib/models/Room/type.js";
+  export let chips: ChipData[];
   export let room: RoomData;
 
   export let action;
 
   let inputValues: Record<string, number> = {};
-  let selectedScoreId: string | null = null;
+  let selectedChipId: string | null = null;
   let openKeyboard: boolean = false;
-  let activeScoreIndex: number = 0;
+  let activeChipIndex: number = 0;
 
-  $: isCreateScore = action === "?/create-chip";
-  $: filteredScores = scores.filter((score) => score.roomId === room.id);
-  $: activeScore = filteredScores[activeScoreIndex];
+  $: filteredChips = chips.filter((chip) => chip.roomId === room.id);
+  $: activeChip = filteredChips[activeChipIndex];
 
   //FIXME：処理の見直し
-  function handleScoreClick(score: ScoreData, scoreId: string) {
+  function handleChipClick(chip: ChipData, chipId: string) {
     openKeyboard = true;
-    const result = scoreClick(score, scoreId, filteredScores, inputValues);
-    selectedScoreId = result.selectedScoreId;
-    activeScoreIndex = result.activeScoreIndex;
+    const result = chipClick(chip, chipId, filteredChips, inputValues);
+    selectedChipId = result.selectedChipId;
+    activeChipIndex = result.activeChipIndex;
     inputValues = result.updatedInputValues;
   }
 
-  function handleNavigateScore(direction: "left" | "right") {
-    const newScoreId = navigateScore(direction, selectedScoreId, activeScore);
-    if (newScoreId && activeScore) {
-      handleScoreClick(activeScore, newScoreId);
+  function handleNavigateChip(direction: "left" | "right") {
+    const newChipId = navigateChip(direction, selectedChipId, activeChip);
+    if (newChipId && activeChip) {
+      handleChipClick(activeChip, newChipId);
     }
   }
 </script>
 
-<Form {action} bind:openKeyboard bind:selectedScoreId>
+<Form {action} bind:openKeyboard bind:selectedChipId>
   <input type="hidden" name="roomId" value="{room.id}" />
-  {#if !isCreateScore}
-    {#each filteredScores as score}
-      <PointCard
-        isChip
-        {room}
-        {score}
-        bind:inputValues
-        bind:selectedScoreId
-        scoreClick="{handleScoreClick}"
-      />
-    {/each}
-    {#if openKeyboard}
-      <!-- // キーボードの高さ -->
-      <div class="h-[15rem]"></div>
-      <PointKeyboard
-        bind:openKeyboard
-        bind:inputValues
-        bind:selectedScoreId
-        navigateScore="{handleNavigateScore}"
-      />
-    {/if}
+  {#each filteredChips as chip}
+    <ChipCard
+      {room}
+      {chip}
+      bind:inputValues
+      bind:selectedChipId
+      chipClick="{handleChipClick}"
+    />
+  {/each}
+  {#if openKeyboard}
+    <!-- // キーボードの高さ -->
+    <div class="h-[15rem]"></div>
+    <PointKeyboard
+      bind:openKeyboard
+      bind:inputValues
+      bind:selectedChipId
+      navigate="{handleNavigateChip}"
+    />
   {/if}
 </Form>

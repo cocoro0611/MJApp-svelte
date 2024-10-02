@@ -12,7 +12,12 @@
 </script>
 
 {#if $currentPage.startsWith("room")}
-  <ScorePage rooms="{data.rooms}" scores="{data.scores}" users="{data.users}" />
+  <ScorePage
+    rooms="{data.rooms}"
+    scores="{data.scores}"
+    chips="{data.chips}"
+    users="{data.users}"
+  />
 {:else if $currentPage.startsWith("member")}
   <MemberPage users="{data.users}" />
 {:else if $currentPage === "fuCount"}

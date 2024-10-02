@@ -2,17 +2,22 @@
   import { addDigit, toggleSign, backspace } from "$lib/utils/PointKeyboard.js";
   export let inputValues: Record<string, number> = {};
   export let selectedScoreId: string | null = null;
+  export let selectedChipId: string | null = null;
   export let openKeyboard = false;
-  export let navigateScore: (direction: "left" | "right") => void;
+  export let navigate: (direction: "left" | "right") => void;
 
   const closeKeyboard = () => {
     openKeyboard = false;
     selectedScoreId = null;
+    selectedChipId = null;
   };
 
   function updateSelectedScore(updater: (value: number) => number) {
     if (selectedScoreId) {
       inputValues[selectedScoreId] = updater(inputValues[selectedScoreId] || 0);
+    }
+    if (selectedChipId) {
+      inputValues[selectedChipId] = updater(inputValues[selectedChipId] || 0);
     }
   }
 
@@ -21,8 +26,8 @@
   const handleToggleSign = () => updateSelectedScore(toggleSign);
   const handleBackspace = () => updateSelectedScore(backspace);
 
-  const leftButton = () => navigateScore("left");
-  const rightButton = () => navigateScore("right");
+  const leftButton = () => navigate("left");
+  const rightButton = () => navigate("right");
 </script>
 
 <div class="fixed bottom-0 left-0 right-0 z-10">

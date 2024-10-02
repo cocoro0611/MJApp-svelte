@@ -6,7 +6,11 @@
 <!-- スクロールの管理 -->
 <div
   class="flex h-screen
-  {isCalculationHeader ? 'pt-48' : isScoreHeader ? 'pt-64' : 'pt-32'} pb-20"
+  {isCalculationHeader
+    ? 'pt-48'
+    : isScoreHeader
+      ? 'pt-[15.8rem]'
+      : 'pt-32'} pb-20"
 >
   <div class="flex-grow overflow-y-auto">
     <slot />
