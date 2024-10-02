@@ -4,20 +4,71 @@
   import Button from "./Button.svelte";
   import Modal from "../layout/Modal.svelte";
   import ButtonAction from "./ButtonAction.svelte";
-  import MemberSummary from "$lib/components/features/Member/MemberSummary.svelte";
 
   export let users: UserData[];
 
   let isSelected: boolean;
   let popupModal = false;
+
+  // FIXME:関数の整理
+
+  // Initialize default selected users
+  let selectedUsers: UserData[] = users
+    .filter((user) => user.isSelected)
+    .slice(0, 4)
+    .map((user) => ({ ...user, isSelected: true }));
+
+  // Fill empty slots
+  while (selectedUsers.length < 4) {
+    selectedUsers.push({
+      id: "",
+      name: `${selectedUsers.length + 1}`,
+      icon: "",
+      isSelected: false,
+    });
+  }
+
+  let tempSelectedUsers: UserData[] = [...selectedUsers];
+
   const openModal = () => {
     isSelected = !isSelected;
     popupModal = true;
   };
+
   const closeModal = () => {
     isSelected = !isSelected;
     popupModal = false;
+    tempSelectedUsers = [...selectedUsers]; // Reset
   };
+
+  function toggleUserSelection(user: UserData) {
+    const index = tempSelectedUsers.findIndex((u) => u.id === user.id);
+    if (index !== -1) {
+      // Deselect user if already selected
+      tempSelectedUsers[index] = {
+        id: "",
+        name: `${index + 1}`,
+        icon: "",
+        isSelected: false,
+      };
+    } else {
+      // Select user if not selected
+      const emptyIndex = tempSelectedUsers.findIndex((u) => u.id === "");
+      if (emptyIndex !== -1) {
+        tempSelectedUsers[emptyIndex] = { ...user, isSelected: true };
+      }
+    }
+    tempSelectedUsers = [...tempSelectedUsers]; // Trigger update
+  }
+
+  function applySelection() {
+    selectedUsers = [...tempSelectedUsers];
+    closeModal();
+  }
+
+  // Function to check if exactly 4 users are selected
+  $: isFourSelected =
+    tempSelectedUsers.filter((user) => user.id !== "").length === 4;
 </script>
 
 <div class="flex justify-between items-center font-bold pt-4">
@@ -27,11 +78,11 @@
 
 <div class="flex justify-center">
   <div class="grid grid-cols-4">
-    {#each users.slice(0, 4) as user}
+    {#each selectedUsers as user}
       <input type="hidden" name="userId" value="{user.id}" />
       <MemberCard
         isColor="{false}"
-        image="/MemberIcon/{user.icon}"
+        image="{user.id ? `/MemberIcon/${user.icon}` : ''}"
         name="{user.name}"
         on:click
       >
@@ -41,14 +92,42 @@
   </div>
 </div>
 
-<!-- TODO:ユーザ選択 -->
 <Modal bind:popupModal isButton="{false}">
-  <div class="py-4">ユーザを選択してください</div>
-  <MemberSummary {users} iscustomMember />
+  <div class="py-4">ユーザを選択してください（最大4人）</div>
+  <div class="mx-4 grid grid-cols-4 md:grid-cols-6">
+    {#each users as user}
+      <div class="flex justify-center p-1">
+        <button
+          type="button"
+          class="flex flex-col justify-center items-center
+          h-16 w-16
+          rounded border border-blue-500 text-blue-800
+          {tempSelectedUsers.some((u) => u.id === user.id)
+            ? 'bg-blue-300'
+            : ''}"
+          on:click="{() => toggleUserSelection(user)}"
+        >
+          <img
+            class="h-10 w-10"
+            src="/MemberIcon/{user.icon}"
+            alt="MemberIcon"
+          />
+          <div>{user.name}</div>
+        </button>
+      </div>
+    {/each}
+  </div>
   <div class="flex justify-center gap-4 py-4">
     <ButtonAction variant="close" isLine on:click="{closeModal}">
       閉じる
     </ButtonAction>
-    <ButtonAction variant="primary" isLine>選択</ButtonAction>
+    <ButtonAction
+      variant="primary"
+      isLine
+      on:click="{applySelection}"
+      disabled="{!isFourSelected}"
+    >
+      選択
+    </ButtonAction>
   </div>
 </Modal>

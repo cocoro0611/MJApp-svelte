@@ -14,7 +14,13 @@ export async function readRooms(): Promise<RoomData[]> {
       ? await db
           .selectFrom("User")
           .innerJoin("RoomUser", "User.id", "RoomUser.userId")
-          .select(["User.id", "User.name", "User.icon", "RoomUser.roomId"])
+          .select([
+            "User.id",
+            "User.name",
+            "User.icon",
+            "User.isSelected",
+            "RoomUser.roomId",
+          ])
           .orderBy("RoomUser.order", "asc")
           .where("RoomUser.roomId", "in", roomIds)
           .execute()
@@ -77,6 +83,7 @@ export async function readRooms(): Promise<RoomData[]> {
             id: user.id,
             name: user.name,
             icon: user.icon,
+            isSelected: user.isSelected,
             totalScore,
             totalChip,
             totalPoint:

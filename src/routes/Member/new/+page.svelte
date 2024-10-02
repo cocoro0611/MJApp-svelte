@@ -10,6 +10,7 @@
     id: "",
     name: "",
     icon: "monster01.png",
+    isSelected: true,
   };
 </script>
 

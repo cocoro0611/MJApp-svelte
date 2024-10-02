@@ -3,7 +3,6 @@
 
   import { currentPage } from "$lib/utils/pageStore.js";
   import { saveLocalData } from "$lib/utils/localStorage.js";
-  import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData } from "$lib/models/Room/type.js";
 
   export let room: RoomData;

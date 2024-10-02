@@ -1,11 +1,18 @@
 <script lang="ts">
   export let type: "button" | "submit" = "button";
+  export let disabled = false;
   export let variant: "primary" | "delete" | "close" | "plus" = "primary";
   export let isLine = false;
 </script>
 
 {#if variant !== "plus"}
-  <button {type} class="{variant} {isLine ? 'small' : 'normal'}" on:click>
+  <button
+    {type}
+    {disabled}
+    class="{variant} {disabled ? 'disabled' : ''} 
+    {isLine ? 'small' : 'normal'} "
+    on:click
+  >
     <slot />
   </button>
 {/if}
@@ -34,5 +41,8 @@
   }
   .plus {
     @apply flex items-center justify-center w-14 h-14 text-3xl font-bold rounded-xl bg-blue-800 hover:bg-blue-900 text-white;
+  }
+  .disabled {
+    @apply opacity-50 cursor-not-allowed;
   }
 </style>

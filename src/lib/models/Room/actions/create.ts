@@ -19,6 +19,14 @@ export const createRoom: Action = async ({ request }) => {
     await trx.insertInto("Room").values(roomForm).execute();
 
     const userIds = data.getAll("userId");
+
+    await trx.updateTable("User").set({ isSelected: false }).execute();
+    await trx
+      .updateTable("User")
+      .set({ isSelected: true })
+      .where("id", "in", userIds)
+      .execute();
+
     const roomUsers = userIds.map((userId, index) => ({
       userId,
       roomId: roomForm.id,
