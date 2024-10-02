@@ -12,7 +12,7 @@
   export let action = "";
   export let method: "post" | "get" = "post";
 
-  export let selectedScoreId: string | null;
+  export let selectedScoreId: string | null = null;
   export let openKeyboard: boolean = false;
 
   $: isCreate = action === "?/create-user" || action === "?/create-room";

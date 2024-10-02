@@ -16,7 +16,7 @@
     </div>
     <div
       class="{isLeftLong ? 'col-span-1' : 'col-span-4'}
-      py-6 flex justify-center items-center"
+      py-8 flex justify-center items-center"
     >
       <slot name="center" />
     </div>
@@ -26,7 +26,7 @@
   </div>
 </header>
 
-<div class="fixed top-20 left-0 right-0">
+<div class="fixed top-24 left-0 right-0">
   <div class="max-w-screen-lg container mx-auto">
     <slot />
   </div>

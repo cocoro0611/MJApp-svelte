@@ -2,6 +2,7 @@
   import Header from "$lib/components/layout/Header.svelte";
   import Main from "$lib/components/layout/Main.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
+  import Form from "$lib/components/layout/Form.svelte";
   import MemberForm from "$lib/components/features/Member/MemberForm.svelte";
 
   import { currentPage } from "$lib/utils/pageStore.js";
@@ -16,7 +17,9 @@
   </svelte:fragment>
   <svelte:fragment slot="center">メンバー編集</svelte:fragment>
   <svelte:fragment slot="right">
-    <MemberForm action="?/delete-user" {user} />
+    <Form action="?/delete-user">
+      <input type="hidden" name="id" value="{user.id}" />
+    </Form>
   </svelte:fragment>
 </Header>
 
