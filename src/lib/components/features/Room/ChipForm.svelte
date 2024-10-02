@@ -50,6 +50,7 @@
     <!-- // キーボードの高さ -->
     <div class="h-[15rem]"></div>
     <PointKeyboard
+      inputType="{'chip'}"
       bind:openKeyboard
       bind:inputValues
       bind:selectedChipId

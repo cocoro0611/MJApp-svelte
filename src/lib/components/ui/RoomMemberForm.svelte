@@ -14,9 +14,9 @@
 
   // Initialize default selected users
   let selectedUsers: UserData[] = users
-    .filter((user) => user.isSelected)
+    .filter((user) => user.isDefault)
     .slice(0, 4)
-    .map((user) => ({ ...user, isSelected: true }));
+    .map((user) => ({ ...user, isDefault: true }));
 
   // Fill empty slots
   while (selectedUsers.length < 4) {
@@ -24,7 +24,7 @@
       id: "",
       name: `${selectedUsers.length + 1}`,
       icon: "",
-      isSelected: false,
+      isDefault: false,
     });
   }
 
@@ -49,13 +49,13 @@
         id: "",
         name: `${index + 1}`,
         icon: "",
-        isSelected: false,
+        isDefault: false,
       };
     } else {
       // Select user if not selected
       const emptyIndex = tempSelectedUsers.findIndex((u) => u.id === "");
       if (emptyIndex !== -1) {
-        tempSelectedUsers[emptyIndex] = { ...user, isSelected: true };
+        tempSelectedUsers[emptyIndex] = { ...user, isDefault: true };
       }
     }
     tempSelectedUsers = [...tempSelectedUsers]; // Trigger update

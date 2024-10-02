@@ -19,7 +19,12 @@
 
 {#if variant === "plus"}
   <div class="fixed bottom-24 right-10 z-10">
-    <button {type} class="{variant}" on:click>+</button>
+    <button
+      {type}
+      {disabled}
+      class="{variant} {disabled ? 'disabled' : ''} "
+      on:click>+</button
+    >
   </div>
 {/if}
 

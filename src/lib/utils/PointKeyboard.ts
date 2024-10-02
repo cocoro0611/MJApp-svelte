@@ -92,9 +92,15 @@ export function navigateChip(
   return activeChip.userChips[newIndex].id;
 }
 
-export function addDigit(input: number, digit: number) {
+export function addDigit(
+  input: number,
+  digit: number,
+  inputType: "score" | "chip"
+) {
   const currentStr = Math.abs(input).toString();
-  if (currentStr.length < 4) {
+  const maxLength = inputType === "score" ? 4 : 2;
+
+  if (currentStr.length < maxLength) {
     return input === 0
       ? digit
       : Number(`${Math.abs(input)}${digit}`) * (input < 0 ? -1 : 1);

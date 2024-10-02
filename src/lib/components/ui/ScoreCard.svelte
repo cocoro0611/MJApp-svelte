@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Modal from "../layout/Modal.svelte";
+  import ButtonAction from "./ButtonAction.svelte";
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
   export let score: ScoreData;
   export let room: RoomData;
@@ -18,6 +20,8 @@
   function handleScoreClick(scoreId: string) {
     scoreClick(score, scoreId);
   }
+
+  let popupModal = false;
 </script>
 
 <input type="hidden" name="gameCount[]" value="{score.gameCount}" />
@@ -39,10 +43,27 @@
     {#if totalPoint === 0}
       <button
         type="button"
+        on:click="{() => {
+          popupModal = true;
+        }}"
         class="border-2 border-blue-300 hover:bg-blue-300 p-1 rounded bg-blue-100 text-blue-800 h-12 w-16 flex justify-center items-center"
       >
         {score.gameCount} 回戦
       </button>
+      <!-- TODO: スコアとチップの詳細ページと削除 -->
+      <Modal isButton="{false}" bind:popupModal>
+        <div>
+          {score.gameCount} 回戦の詳細
+        </div>
+        <ButtonAction
+          variant="close"
+          on:click="{() => {
+            popupModal = false;
+          }}"
+        >
+          閉じる
+        </ButtonAction>
+      </Modal>
     {/if}
     {#if totalPoint !== 0}
       <div>-点数-</div>

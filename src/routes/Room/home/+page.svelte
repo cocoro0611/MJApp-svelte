@@ -5,8 +5,10 @@
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
   import { currentPage } from "$lib/utils/pageStore.js";
 
+  import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData } from "$lib/models/Room/type.js";
   export let rooms: RoomData[];
+  export let users: UserData[];
 </script>
 
 <Header>
@@ -17,4 +19,8 @@
   <RoomSummary {rooms} />
 </Main>
 
-<ButtonAction variant="plus" on:click="{() => currentPage.set('roomNew')}" />
+<ButtonAction
+  variant="plus"
+  on:click="{() => currentPage.set('roomNew')}"
+  disabled="{users.length < 4}"
+/>

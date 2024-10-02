@@ -4,8 +4,8 @@ import type { UserData } from "$lib/models/Member/type.js";
 export async function readUsers(): Promise<UserData[]> {
   const users = await db
     .selectFrom("User")
-    .select(["id", "name", "icon", "isSelected"])
-    .orderBy("User.isSelected", "desc")
+    .select(["id", "name", "icon", "isDefault"])
+    .orderBy("User.isDefault", "desc")
     .orderBy("User.updatedAt", "asc")
     .execute();
 
@@ -14,7 +14,7 @@ export async function readUsers(): Promise<UserData[]> {
       id: user.id,
       name: user.name,
       icon: user.icon,
-      isSelected: user.isSelected,
+      isDefault: user.isDefault,
     })
   );
 }

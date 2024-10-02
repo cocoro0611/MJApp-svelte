@@ -15,15 +15,15 @@ generator kysely {
 }
 
 model User {
-  id         String     @id @default(uuid()) @db.Uuid
-  name       String
-  icon       String
-  isSelected Boolean
-  scores     Score[]
-  chips      Chip[]
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @default(now())
-  rooms      RoomUser[]
+  id        String     @id @default(uuid()) @db.Uuid
+  name      String
+  icon      String
+  isDefault Boolean
+  scores    Score[]
+  chips     Chip[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  rooms     RoomUser[]
 }
 
 model Score {

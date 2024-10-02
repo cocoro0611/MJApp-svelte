@@ -1,5 +1,8 @@
 <script lang="ts">
   import { addDigit, toggleSign, backspace } from "$lib/utils/PointKeyboard.js";
+
+  export let inputType: "score" | "chip";
+
   export let inputValues: Record<string, number> = {};
   export let selectedScoreId: string | null = null;
   export let selectedChipId: string | null = null;
@@ -22,7 +25,7 @@
   }
 
   const handleAddDigit = (digit: number) =>
-    updateSelectedScore((value) => addDigit(value, digit));
+    updateSelectedScore((value) => addDigit(value, digit, inputType));
   const handleToggleSign = () => updateSelectedScore(toggleSign);
   const handleBackspace = () => updateSelectedScore(backspace);
 

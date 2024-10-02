@@ -18,7 +18,7 @@ export async function readRooms(): Promise<RoomData[]> {
             "User.id",
             "User.name",
             "User.icon",
-            "User.isSelected",
+            "User.isDefault",
             "RoomUser.roomId",
           ])
           .orderBy("RoomUser.order", "asc")
@@ -83,7 +83,7 @@ export async function readRooms(): Promise<RoomData[]> {
             id: user.id,
             name: user.name,
             icon: user.icon,
-            isSelected: user.isSelected,
+            isDefault: user.isDefault,
             totalScore,
             totalChip,
             totalPoint:

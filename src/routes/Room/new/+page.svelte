@@ -11,7 +11,7 @@
       id: "",
       name: "",
       icon: "",
-      isSelected: true,
+      isDefault: true,
     },
   ];
 </script>

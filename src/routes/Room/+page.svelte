@@ -25,7 +25,7 @@
 </script>
 
 {#if $currentPage === "room"}
-  <RoomHome {rooms}></RoomHome>
+  <RoomHome {rooms} {users}></RoomHome>
 {:else if $currentPage === "roomNew"}
   <RoomNew {users} />
 {:else if $currentPage === "roomEdit" && selectedRoom}

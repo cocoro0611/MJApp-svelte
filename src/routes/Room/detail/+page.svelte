@@ -31,7 +31,6 @@
 </Header>
 
 <Main isScoreHeader>
-  <!-- TODO: スコアとチップの詳細ページと削除 -->
   <Form {action} isActions>
     <input type="hidden" name="roomId" value="{room.id}" />
   </Form>

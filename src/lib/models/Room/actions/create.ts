@@ -20,10 +20,10 @@ export const createRoom: Action = async ({ request }) => {
 
     const userIds = data.getAll("userId");
 
-    await trx.updateTable("User").set({ isSelected: false }).execute();
+    await trx.updateTable("User").set({ isDefault: false }).execute();
     await trx
       .updateTable("User")
-      .set({ isSelected: true })
+      .set({ isDefault: true })
       .where("id", "in", userIds)
       .execute();
 

@@ -95,8 +95,7 @@
   {/if}
 
   {#if isActions}
-    <ButtonAction variant="plus" on:click="{openModal}" />
-    <Modal bind:popupModal isButton="{false}">
+    <Modal bind:popupModal>
       <div class="py-4">以下の情報を追加しますか？</div>
       <div class="flex justify-center gap-4 py-4">
         <ButtonAction variant="close" isLine on:click="{closeModal}">
@@ -118,6 +117,25 @@
             action = '?/create-chip';
           }}">チップ</ButtonAction
         >
+      </div>
+    </Modal>
+  {/if}
+  {#if isRoomDetail}
+    <Modal bind:popupModal isButton="{false}">
+      <div class="py-4">順位を選択してください</div>
+      <div class="flex justify-center gap-4 py-4">
+        <ButtonAction variant="close" isLine on:click="{closeModal}">
+          閉じる
+        </ButtonAction>
+        <ButtonAction
+          type="submit"
+          variant="primary"
+          isLine
+          on:click="{() => {
+            action = '?/create-score';
+          }}"
+          >決定
+        </ButtonAction>
       </div>
     </Modal>
   {/if}
