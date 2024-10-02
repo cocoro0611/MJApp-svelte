@@ -102,7 +102,7 @@
     </Modal>
   {/if}
 
-  {#if isCreateScore || isCreateChip}
+  {#if action === "create-score-chip"}
     <ButtonAction variant="plus" on:click="{openModal}" />
     <Modal bind:popupModal isButton="{false}">
       <div class="py-4">以下の情報を追加しますか？</div>

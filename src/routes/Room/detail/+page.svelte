@@ -30,7 +30,7 @@
 
 <!-- TODO:チップの追加 -->
 <Main isScoreHeader>
-  <Form action="?/create-score">
+  <Form action="create-score-chip">
     <input type="hidden" name="roomId" value="{room.id}" />
   </Form>
 
