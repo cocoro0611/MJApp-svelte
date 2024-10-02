@@ -110,12 +110,7 @@
         <ButtonAction variant="close" isLine on:click="{closeModal}">
           閉じる
         </ButtonAction>
-        <ButtonAction
-          type="button"
-          variant="primary"
-          isLine
-          on:click="{() => CreateAction('score')}"
-        >
+        <ButtonAction type="submit" variant="primary" isLine>
           スコア
         </ButtonAction>
         <ButtonAction
