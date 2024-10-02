@@ -8,18 +8,14 @@
 
   export let user: UserData;
   export let action;
-
-  $: isDelete = action === "?/delete-user";
 </script>
 
 <Form {action}>
   <input type="hidden" name="id" value="{user.id}" />
-  {#if !isDelete}
-    <FormField name="名前">
-      <MemberNameForm bind:user />
-    </FormField>
-    <FormField name="アイコン">
-      <MemberSelectForm bind:user />
-    </FormField>
-  {/if}
+  <FormField name="名前">
+    <MemberNameForm bind:user />
+  </FormField>
+  <FormField name="アイコン">
+    <MemberSelectForm bind:user />
+  </FormField>
 </Form>

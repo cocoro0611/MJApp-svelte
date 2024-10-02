@@ -63,7 +63,7 @@
   };
 </script>
 
-<Header isContents isLeftLong>
+<Header isLeftLong>
   <svelte:fragment slot="left">
     <ButtonToggle bind:isFuro on:toggle="{onToggle}" />
   </svelte:fragment>
