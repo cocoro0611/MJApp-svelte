@@ -4,6 +4,7 @@
   import RoomEdit from "./edit/+page.svelte";
   import RoomUserEdit from "./user-edit/+page.svelte";
   import RoomDetail from "./detail/+page.svelte";
+  import RoomTie from "./tie/+page.svelte";
   import { currentPage } from "$lib/utils/pageStore.js";
   import { getLocalData } from "$lib/utils/localStorage.js";
 
@@ -15,7 +16,9 @@
   export let chips: ChipData[];
 
   $: selectedRoom =
-    $currentPage === "roomEdit" || $currentPage === "roomDetail"
+    $currentPage === "roomEdit" ||
+    $currentPage === "roomDetail" ||
+    $currentPage === "roomTie"
       ? rooms.find((room) => room.id === getLocalData("roomId")) || null
       : null;
   $: selectedRoomUser =
@@ -34,4 +37,7 @@
   <RoomUserEdit user="{selectedRoomUser}" />
 {:else if $currentPage === "roomDetail" && selectedRoom}
   <RoomDetail {scores} {chips} room="{selectedRoom}" />
+{:else if $currentPage === "roomTie" && selectedRoom}
+  <!-- TODO:同順位ページの作成 -->
+  <RoomTie {scores} room="{selectedRoom}" />
 {/if}

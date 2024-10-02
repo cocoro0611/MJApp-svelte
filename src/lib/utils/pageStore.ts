@@ -7,6 +7,7 @@ export type PageType =
   | "roomEdit"
   | "roomUserEdit"
   | "roomDetail"
+  | "roomTie"
   | "member"
   | "memberNew"
   | "memberEdit"

@@ -25,6 +25,7 @@
 </script>
 
 <input type="hidden" name="gameCount[]" value="{score.gameCount}" />
+<input type="hidden" name="selectedScoreId" value="{selectedScoreId}" />
 {#each score.userScores as userScore}
   <input type="hidden" name="id[]" value="{userScore.id}" />
   <input

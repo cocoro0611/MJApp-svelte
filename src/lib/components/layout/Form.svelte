@@ -4,9 +4,7 @@
   import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
 
   import { enhance } from "$app/forms";
-  import { currentPage } from "$lib/utils/pageStore.js";
-  import { removeLocalData } from "$lib/utils/localStorage.js";
-  import { invalidateAll } from "$app/navigation";
+  import { createFormSubmitResult } from "$lib/utils/formSubmitResult.js";
 
   export let isActions: boolean = false;
   export let action: string = "";
@@ -24,38 +22,20 @@
   $: isDelete = action === "?/delete-user" || action === "?/delete-room";
   $: isRoomDetail = action === "?/update-score" || action === "?/update-chip";
 
-  // TODO: バリデーションが出るようにしたらなおいい
-  const formSubmitResult = () => {
-    return async ({ result }: { result: any }) => {
-      if (result.type === "success") {
-        const data = result.data;
-        if (["create-user", "update-user", "delete-user"].includes(data.type)) {
-          removeLocalData("userId");
-          currentPage.set("member");
-        }
-        if (
-          ["create-room", "update-room", "update-room-user"].includes(data.type)
-        ) {
-          currentPage.set("roomDetail");
-        }
-        if (["create-score", "create-chip"].includes(data.type)) {
-          popupModal = false;
-        }
-        if (["update-score", "update-chip"].includes(data.type)) {
-          openKeyboard = false;
-          selectedScoreId = null;
-          selectedChipId = null;
-        }
-        if (data.type === "delete-room") {
-          removeLocalData("roomId");
-          currentPage.set("room");
-        }
-        await invalidateAll(); // ページデータを再取得
-      }
-    };
-  };
-
   let popupModal: boolean = false;
+  const setPopupModal = (value: boolean) => (popupModal = value);
+  const setOpenKeyboard = (value: boolean) => (openKeyboard = value);
+  const setSelectedScoreId = (value: string | null) =>
+    (selectedScoreId = value);
+  const setSelectedChipId = (value: string | null) => (selectedChipId = value);
+
+  $: formSubmitResult = createFormSubmitResult({
+    setPopupModal,
+    setOpenKeyboard,
+    setSelectedScoreId,
+    setSelectedChipId,
+  });
+
   const openModal = () => {
     popupModal = true;
   };
@@ -117,25 +97,6 @@
             action = '?/create-chip';
           }}">チップ</ButtonAction
         >
-      </div>
-    </Modal>
-  {/if}
-  {#if isRoomDetail}
-    <Modal bind:popupModal isButton="{false}">
-      <div class="py-4">順位を選択してください</div>
-      <div class="flex justify-center gap-4 py-4">
-        <ButtonAction variant="close" isLine on:click="{closeModal}">
-          閉じる
-        </ButtonAction>
-        <ButtonAction
-          type="submit"
-          variant="primary"
-          isLine
-          on:click="{() => {
-            action = '?/create-score';
-          }}"
-          >決定
-        </ButtonAction>
       </div>
     </Modal>
   {/if}

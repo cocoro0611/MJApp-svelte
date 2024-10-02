@@ -49,6 +49,7 @@ export const updateRoomUser: Action = async ({ request }) => {
 export const updateScore: Action = async ({ request }) => {
   const data = await request.formData();
   const roomId = data.get("roomId");
+  const selectedScoreId = data.get("selectedScoreId");
   const gameCounts = data.getAll("gameCount[]");
   const ids = data.getAll("id[]");
   const inputs = data.getAll("input[]");
@@ -83,28 +84,40 @@ export const updateScore: Action = async ({ request }) => {
       currentIndex++;
     }
 
-    gameScores.sort((a, b) => b.baseScore - a.baseScore);
+    if (gameScores.some((score) => score.id === selectedScoreId)) {
+      gameScores.sort((a, b) => b.baseScore - a.baseScore);
 
-    for (let j = 0; j < userCount; j++) {
-      const { id, input, baseScore } = gameScores[j];
-      let finalScore = baseScore + umaList[j];
+      // 同点チェック
+      const hasTie = gameScores.some(
+        (score, index, array) =>
+          index > 0 && score.baseScore === array[index - 1].baseScore
+      );
 
-      if (j === 0) {
-        finalScore += oka;
+      if (hasTie) {
+        return { success: true, type: "tie-score" };
       }
 
-      const updateData = {
-        input: input,
-        score: Math.round(finalScore),
-        updatedAt: dayjs().toDate(),
-      };
-      await db
-        .updateTable("Score")
-        .set(updateData)
-        .where("id", "=", id)
-        .where("roomId", "=", roomId)
-        .where("gameCount", "=", gameCount)
-        .execute();
+      for (let j = 0; j < userCount; j++) {
+        const { id, input, baseScore } = gameScores[j];
+        let finalScore = baseScore + umaList[j];
+
+        if (j === 0) {
+          finalScore += oka;
+        }
+
+        const updateData = {
+          input: input,
+          score: Math.round(finalScore),
+          updatedAt: dayjs().toDate(),
+        };
+        await db
+          .updateTable("Score")
+          .set(updateData)
+          .where("id", "=", id)
+          .where("roomId", "=", roomId)
+          .where("gameCount", "=", gameCount)
+          .execute();
+      }
     }
   }
   return { success: true, type: "update-score" };

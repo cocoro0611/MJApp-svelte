@@ -37,7 +37,6 @@
   <div class="max-w-screen-lg container mx-auto">
     <div class="bg-gray-100 font-bold p-2">
       <div class="grid grid-cols-5 gap-2">
-        <!-- Navigation buttons -->
         <div class="col-span-1 flex justify-start items-center h-10 space-x-2">
           <button
             type="button"
