@@ -23,6 +23,6 @@
   "eslint.experimental.useFlatConfig": true,
   "eslint.format.enable": true,
   "eslint.validate": ["svelte"],
-  "scss.lint.unknownAtRules": "ignore",
+  "css.lint.unknownAtRules": "ignore",
   "svelte.language-server.port": 9222
 }
