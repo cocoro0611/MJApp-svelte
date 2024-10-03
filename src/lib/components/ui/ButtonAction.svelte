@@ -9,8 +9,9 @@
   <button
     {type}
     {disabled}
-    class="{variant} {disabled ? 'disabled' : ''} 
-    {isLine ? 'small' : 'normal'} "
+    class="{variant}"
+    class:small="{isLine}"
+    class:normal="{!isLine}"
     on:click
   >
     <slot />

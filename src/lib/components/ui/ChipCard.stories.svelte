@@ -98,12 +98,4 @@
   };
 </script>
 
-<Story name="Default">
-  <ChipCard
-    bind:score
-    openKeyboard="{(playerIndex) => openKeyboard(gameIndex, playerIndex)}"
-    isActiveGame="{gameIndex === activeGameIndex}"
-    activeScoreIndex="{gameIndex === activeGameIndex ? activeScoreIndex : -1}"
-    {isInput}
-  />
-</Story>
+<Story name="Default">test</Story>

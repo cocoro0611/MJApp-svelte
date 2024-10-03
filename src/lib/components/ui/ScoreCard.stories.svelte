@@ -98,12 +98,4 @@
   };
 </script>
 
-<Story name="Default">
-  <ScoreCard
-    bind:score
-    openKeyboard="{(playerIndex) => openKeyboard(gameIndex, playerIndex)}"
-    isActiveGame="{gameIndex === activeGameIndex}"
-    activeScoreIndex="{gameIndex === activeGameIndex ? activeScoreIndex : -1}"
-    {isInput}
-  />
-</Story>
+<Story name="Default">test</Story>

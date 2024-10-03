@@ -28,7 +28,7 @@
     {#each tabs as tab (tab.id)}
       <Button
         color="light"
-        class="flex flex-col flex-1 py-2 px-1 border-gray-500 
+        class="flex flex-1 py-2 px-1 border-gray-500 flex-col md:flex-row
         {isActiveTab($currentPage, tab.id)
           ? 'bg-blue-800 text-white hover:bg-blue-900'
           : 'bg-white text-black hover:bg-gray-100'}"
@@ -40,3 +40,21 @@
     {/each}
   </ButtonGroup>
 </nav>
+
+<!-- <nav class="flex justify-center fixed bottom-0 left-0 right-0">
+  <div class="flex justify-center max-w-screen-lg w-full mx-auto">
+    {#each tabs as tab (tab.id)}
+      <button
+        class="flex flex-1 py-2 px-1 border border-gray-300 flex-col md:flex-row items-center justify-center
+        {isActiveTab($currentPage, tab.id)
+          ? 'bg-blue-800 text-white hover:bg-blue-900'
+          : 'bg-white text-gray-700 hover:bg-gray-100'}
+        transition-colors duration-200 ease-in-out"
+        on:click="{() => currentPage.set(tab.id)}"
+      >
+        <Icon type="{tab.iconType}" />
+        <span>{tab.label}</span>
+      </button>
+    {/each}
+  </div>
+</nav> -->

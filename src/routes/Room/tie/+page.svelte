@@ -12,6 +12,8 @@
 
   export let room: RoomData;
   export let scores: ScoreData[];
+
+  $: filteredScores = scores.filter((score) => score.roomId === room.id);
 </script>
 
 <Header>
@@ -21,4 +23,10 @@
   <svelte:fragment slot="center">{room.name}</svelte:fragment>
 </Header>
 
-<Main>順位を選択してください</Main>
+<Main
+  >順位を選択してください
+
+  {#each filteredScores as score}
+    {score.gameCount}
+  {/each}
+</Main>
