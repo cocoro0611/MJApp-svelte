@@ -14,14 +14,14 @@
 </script>
 
 <Story name="Default">
-  <div class="bg-blue-500">
-    <Icon type="close" />
-    <Icon type="back" />
-    <Icon type="delete" />
-    <Icon type="score" />
-    <Icon type="user" />
-    <Icon type="calculator" />
-    <Icon type="calculatorFilled" />
-    <Icon type="refresh" />
+  <div class="bg-blue-800">
+    <Icon iconType="close" />
+    <Icon iconType="back" />
+    <Icon iconType="delete" />
+    <Icon iconType="room" />
+    <Icon iconType="user" />
+    <Icon iconType="calculator" />
+    <Icon iconType="calculatorFilled" />
+    <Icon iconType="refresh" />
   </div>
 </Story>

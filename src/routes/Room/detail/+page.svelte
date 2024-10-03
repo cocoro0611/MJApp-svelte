@@ -19,7 +19,7 @@
 
 <Header>
   <svelte:fragment slot="left">
-    <Icon type="back" on:click="{() => ($currentPage = 'room')}" />
+    <Icon iconType="back" on:click="{() => ($currentPage = 'room')}" />
   </svelte:fragment>
   <svelte:fragment slot="center">{room.name}</svelte:fragment>
   <svelte:fragment slot="right">

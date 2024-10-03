@@ -13,7 +13,7 @@
 
 <Header>
   <svelte:fragment slot="left">
-    <Icon type="back" on:click="{() => ($currentPage = 'member')}" />
+    <Icon iconType="back" on:click="{() => ($currentPage = 'member')}" />
   </svelte:fragment>
   <svelte:fragment slot="center">メンバー編集</svelte:fragment>
   <svelte:fragment slot="right">

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Form from "$lib/components/layout/Form.svelte";
-  import ChipCard from "$lib/components/ui/ChipCard.svelte";
+  import ChipCard from "$lib/components/card/ChipCard.svelte";
   import PointKeyboard from "$lib/components/ui/PointKeyboard.svelte";
   import { chipClick, navigateChip } from "$lib/utils/PointKeyboard.js";
 

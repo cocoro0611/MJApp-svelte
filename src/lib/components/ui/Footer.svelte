@@ -1,14 +1,13 @@
 <script lang="ts">
   import Icon from "./Icon.svelte";
-  import { ButtonGroup, Button } from "flowbite-svelte";
   import { currentPage } from "$lib/utils/pageStore.js";
-
   import type { PageType } from "$lib/utils/pageStore.js";
+  import type { IconType } from "./Icon.svelte";
 
   interface TabList {
     id: PageType;
     label: string;
-    iconType: "room" | "user" | "calculator" | "calculatorFilled";
+    iconType: IconType;
   }
 
   const tabs: TabList[] = [
@@ -17,44 +16,32 @@
     { id: "fuCount", label: "符数計算", iconType: "calculator" },
     { id: "hanCount", label: "翻数計算", iconType: "calculatorFilled" },
   ];
-
-  function isActiveTab(currentPage: string, tabId: string): boolean {
-    return currentPage.startsWith(tabId);
-  }
 </script>
 
-<nav class="flex justify-center fixed bottom-0 left-0 right-0">
-  <ButtonGroup class="max-w-screen-lg container mx-auto">
-    {#each tabs as tab (tab.id)}
-      <Button
-        color="light"
-        class="flex flex-1 py-2 px-1 border-gray-500 flex-col md:flex-row
-        {isActiveTab($currentPage, tab.id)
-          ? 'bg-blue-800 text-white hover:bg-blue-900'
-          : 'bg-white text-black hover:bg-gray-100'}"
-        on:click="{() => currentPage.set(tab.id)}"
-      >
-        <Icon type="{tab.iconType}" />
-        <span>{tab.label}</span>
-      </Button>
-    {/each}
-  </ButtonGroup>
-</nav>
-
-<!-- <nav class="flex justify-center fixed bottom-0 left-0 right-0">
-  <div class="flex justify-center max-w-screen-lg w-full mx-auto">
-    {#each tabs as tab (tab.id)}
+<nav class="flex justify-center fixed bottom-0 left-0 right-0 font-bold">
+  <div class="flex max-w-screen-lg w-full mx-auto">
+    {#each tabs as tab, index (tab.id)}
       <button
-        class="flex flex-1 py-2 px-1 border border-gray-300 flex-col md:flex-row items-center justify-center
-        {isActiveTab($currentPage, tab.id)
-          ? 'bg-blue-800 text-white hover:bg-blue-900'
-          : 'bg-white text-gray-700 hover:bg-gray-100'}
-        transition-colors duration-200 ease-in-out"
+        class="flex flex-1 py-2 items-center justify-center flex-col md:flex-row
+        border-y border-r border-gray-500
+        {index === 0 ? 'rounded-l-lg border-l' : ''}
+        {index === tabs.length - 1 ? 'rounded-r-lg' : ''}"
+        class:btn-on="{$currentPage.startsWith(tab.id)}"
+        class:btn-off="{!$currentPage.startsWith(tab.id)}"
         on:click="{() => currentPage.set(tab.id)}"
       >
-        <Icon type="{tab.iconType}" />
+        <Icon iconType="{tab.iconType}" />
         <span>{tab.label}</span>
       </button>
     {/each}
   </div>
-</nav> -->
+</nav>
+
+<style>
+  .btn-on {
+    @apply bg-blue-800 border-blue-800 text-white hover:bg-blue-900;
+  }
+  .btn-off {
+    @apply bg-white text-black hover:bg-gray-100;
+  }
+</style>

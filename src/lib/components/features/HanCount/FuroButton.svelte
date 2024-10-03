@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Button from "$lib/components/ui/Button.svelte";
-  import ButtonCount from "$lib/components/ui/ButtonCount.svelte";
+  import ButtonSelect from "$lib/components/ui/ButtonSelect.svelte";
   import { derived, writable, type Writable } from "svelte/store";
   import type { CountButtonList } from "$lib/models/Count/type.js";
 
@@ -97,20 +96,20 @@
       <div class="grid grid-cols-6 md:grid-cols-12 gap-2">
         {#each group.items as item, index}
           {#if item.isCount}
-            <ButtonCount
+            <ButtonSelect
               count="{item.count || 0}"
               isSelected="{item.isSelected}"
               on:click="{() => countButton(group.store, index)}"
             >
               {item.label}
-            </ButtonCount>
+            </ButtonSelect>
           {:else}
-            <Button
+            <ButtonSelect
               isSelected="{item.isSelected}"
               on:click="{() => onButton(group.store, index)}"
             >
               {item.label}
-            </Button>
+            </ButtonSelect>
           {/if}
         {/each}
       </div>

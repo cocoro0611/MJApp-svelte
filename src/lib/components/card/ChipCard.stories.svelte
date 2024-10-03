@@ -1,10 +1,10 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import ChipCard from "./ChipCard.svelte";
+  import ChipCard from "../ui/ChipCard.svelte";
 
   export const meta: Meta<ChipCard> = {
-    title: "UI/ChipCard",
+    title: "CARD/ChipCard",
     component: ChipCard,
   };
 </script>

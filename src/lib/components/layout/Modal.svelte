@@ -1,12 +1,12 @@
 <script lang="ts">
   import { Modal } from "flowbite-svelte";
-  import ButtonAction from "../ui/ButtonAction.svelte";
+  import Button from "../ui/Button.svelte";
   export let popupModal = false;
   export let isButton: boolean = true;
 </script>
 
 {#if isButton}
-  <ButtonAction variant="plus" on:click="{() => (popupModal = true)}" />
+  <Button isPlus on:click="{() => (popupModal = true)}" />
 {/if}
 
 <Modal bind:open="{popupModal}" size="lg" dismissable="{false}">

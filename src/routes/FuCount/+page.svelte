@@ -57,7 +57,7 @@
     <div class="text-blue-800">調整</div>
   </svelte:fragment>
   <svelte:fragment slot="right">
-    <button on:click="{clearValue}"><Icon type="refresh" /></button>
+    <button on:click="{clearValue}"><Icon iconType="refresh" /></button>
   </svelte:fragment>
   <PointBordSelect type="fu" bind:fu bind:han bind:fuUp />
   <PointBordScore bind:pointData />

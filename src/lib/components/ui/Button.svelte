@@ -1,38 +1,57 @@
+<script lang="ts" context="module">
+  export type Variant = "primary" | "secondary" | "danger" | "cancel";
+</script>
+
 <script lang="ts">
-  export let isSelected: boolean = false;
-  export let isWide: boolean = false;
-  export let isCustom: boolean = false;
+  export let type: "button" | "submit" = "button";
+  export let disabled = false;
+
+  export let variant: Variant = "primary";
+  export let width: "short" | "normal" = "normal";
+  export let isPlus: boolean = false;
 </script>
 
 <button
-  type="button"
-  class="
-    {isSelected ? 'btn-on' : 'btn-off'} 
-    {isWide ? 'wide-size' : 'delault-size'} 
-    {isCustom ? 'custom-size' : 'delault-size'} "
+  {type}
+  {disabled}
+  class="font-bold rounded {variant} {width}"
+  class:disabled
+  class:plus="{isPlus}"
   on:click
 >
-  <slot />
+  {#if isPlus}
+    +
+  {:else}
+    <slot />
+  {/if}
 </button>
 
 <style>
-  .btn-on {
-    @apply border border-blue-500 bg-blue-500 text-white hover:bg-blue-400;
+  .primary {
+    @apply bg-primary hover:bg-primary-dark text-primary;
   }
-  .btn-off {
-    @apply border border-blue-500 bg-white text-blue-500 hover:bg-blue-50;
+  .secondary {
+    @apply bg-secondary hover:bg-secondary-dark text-secondary;
+    @apply border-2 border-secondary-dark;
   }
-  .delault-size {
-    @apply text-[0.7rem] px-1 py-1 w-14 h-14 rounded-md;
-    word-break: break-all;
+  .danger {
+    @apply bg-danger hover:bg-danger-dark text-danger;
   }
-  .wide-size {
-    @apply text-sm px-1 py-1 w-32 h-8 rounded-2xl;
+  .cancel {
+    @apply bg-cancel hover:bg-cancel-dark text-cancel;
+    @apply border-2 border-cancel-dark;
   }
-  .custom-size {
-    @apply text-[0.8rem] px-1 py-1 w-20 h-7 rounded-2xl;
+  .short {
+    @apply w-32 h-10;
   }
-  .icon-size {
-    @apply text-sm px-1 py-1 w-[3.9rem] h-[3.9rem];
+  .normal {
+    @apply w-[17rem] h-10;
+  }
+  .plus {
+    @apply fixed bottom-24 right-10 z-10;
+    @apply w-14 h-14 text-3xl rounded-xl;
+  }
+  .disabled {
+    @apply opacity-50 cursor-not-allowed;
   }
 </style>

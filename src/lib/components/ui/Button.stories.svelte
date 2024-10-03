@@ -11,17 +11,19 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-
-  let isSelected: boolean;
-
-  const onButton = () => {
-    isSelected = !isSelected;
-  };
 </script>
 
 <Story name="Default">
-  <div>クリックで選択</div>
-  <Button bind:isSelected on:click="{onButton}">立直</Button>
-  <Button isWide bind:isSelected on:click="{onButton}">30000点</Button>
-  <Button isCustom bind:isSelected on:click="{onButton}">カスタム</Button>
+  <div class="grid grid-flow-cols-1 gap-2">
+    <Button>primary</Button>
+    <Button variant="{'secondary'}">secondary</Button>
+    <Button variant="{'danger'}">danger</Button>
+    <Button variant="{'cancel'}">cancel</Button>
+    <Button width="{'short'}">short</Button>
+    <Button disabled>disabled</Button>
+  </div>
+</Story>
+
+<Story name="Plus">
+  <Button isPlus />
 </Story>

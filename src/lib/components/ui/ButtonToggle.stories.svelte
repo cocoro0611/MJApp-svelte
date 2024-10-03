@@ -20,5 +20,7 @@
 </script>
 
 <Story name="Default">
-  <ButtonToggle bind:isFuro on:toggle="{onToggle}" />
+  <div class="bg-blue-800 p-10">
+    <ButtonToggle bind:isFuro on:toggle="{onToggle}" />
+  </div>
 </Story>

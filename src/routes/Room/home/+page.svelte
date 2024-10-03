@@ -2,7 +2,7 @@
   import Header from "$lib/components/layout/Header.svelte";
   import Main from "$lib/components/layout/Main.svelte";
   import RoomSummary from "$lib/components/features/Room/RoomSummary.svelte";
-  import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
+  import Button from "$lib/components/ui/Button.svelte";
   import { currentPage } from "$lib/utils/pageStore.js";
 
   import type { UserData } from "$lib/models/Member/type.js";
@@ -19,8 +19,8 @@
   <RoomSummary {rooms} />
 </Main>
 
-<ButtonAction
-  variant="plus"
+<Button
+  isPlus
   on:click="{() => currentPage.set('roomNew')}"
   disabled="{users.length < 4}"
 />

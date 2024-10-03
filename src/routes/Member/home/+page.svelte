@@ -2,7 +2,7 @@
   import Header from "$lib/components/layout/Header.svelte";
   import Main from "$lib/components/layout/Main.svelte";
   import MemberSummary from "$lib/components/features/Member/MemberSummary.svelte";
-  import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
+  import Button from "$lib/components/ui/Button.svelte";
   import { currentPage } from "$lib/utils/pageStore.js";
 
   import type { UserData } from "$lib/models/Member/type.js";
@@ -17,4 +17,4 @@
   <MemberSummary {users} />
 </Main>
 
-<ButtonAction variant="plus" on:click="{() => currentPage.set('memberNew')}" />
+<Button isPlus on:click="{() => currentPage.set('memberNew')}" />

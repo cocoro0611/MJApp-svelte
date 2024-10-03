@@ -12,10 +12,10 @@
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
 
-  let currentPage: "score" | "member" | "fuCount" | "hanCount" = "score";
+  import { currentPage } from "$lib/utils/pageStore.js";
 </script>
 
 <Story name="Default">
-  <Footer bind:currentPage />
-  <p>Current page: {currentPage}</p>
+  <Footer />
+  <div>Current page: {$currentPage}</div>
 </Story>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "$lib/components/ui/Icon.svelte";
   import Modal from "$lib/components/layout/Modal.svelte";
-  import ButtonAction from "$lib/components/ui/ButtonAction.svelte";
+  import Button from "$lib/components/ui/Button.svelte";
 
   import { enhance } from "$app/forms";
   import { createFormSubmitResult } from "$lib/utils/formSubmitResult.js";
@@ -53,25 +53,23 @@
   <slot />
   {#if isCreate || isUpdate}
     <div class="flex justify-center py-4">
-      <ButtonAction type="submit">
+      <Button type="submit">
         {isCreate ? "登録" : "更新"}
-      </ButtonAction>
+      </Button>
     </div>
   {/if}
 
   {#if isDelete}
     <button type="button" class="flex" on:click="{openModal}">
-      <Icon type="delete" />
+      <Icon iconType="delete" />
     </button>
     <Modal bind:popupModal isButton="{false}">
       <div class="py-4">本当に削除しますか？</div>
       <div class="flex justify-center gap-4 py-4">
-        <ButtonAction variant="cancel" size="small" on:click="{closeModal}">
+        <Button variant="cancel" width="short" on:click="{closeModal}">
           閉じる
-        </ButtonAction>
-        <ButtonAction type="submit" variant="danger" size="small"
-          >削除</ButtonAction
-        >
+        </Button>
+        <Button type="submit" variant="danger" width="short">削除</Button>
       </div>
     </Modal>
   {/if}
@@ -80,22 +78,22 @@
     <Modal bind:popupModal>
       <div class="py-4">以下の情報を追加しますか？</div>
       <div class="flex justify-center gap-4 py-4">
-        <ButtonAction variant="cancel" size="small" on:click="{closeModal}">
+        <Button variant="cancel" width="short" on:click="{closeModal}">
           閉じる
-        </ButtonAction>
-        <ButtonAction
+        </Button>
+        <Button
           type="submit"
-          size="small"
+          width="short"
           on:click="{() => {
             action = '?/create-score';
-          }}">スコア</ButtonAction
+          }}">スコア</Button
         >
-        <ButtonAction
+        <Button
           type="submit"
-          size="small"
+          width="short"
           on:click="{() => {
             action = '?/create-chip';
-          }}">チップ</ButtonAction
+          }}">チップ</Button
         >
       </div>
     </Modal>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { RoomData } from "$lib/models/Room/type.js";
-  import Button from "$lib/components/ui/Button.svelte";
+  import ButtonSelect from "$lib/components/ui/ButtonSelect.svelte";
   import { derived, writable, type Writable } from "svelte/store";
 
   export let room: Omit<RoomData, "users">;
@@ -203,13 +203,13 @@
   <div class="flex justify-center">
     <div class="grid grid-cols-2 md:grid-cols-6 gap-2 py-1">
       {#each group.options as item, index}
-        <Button
-          isWide
+        <ButtonSelect
+          width="long"
           isSelected="{item.isSelected}"
           on:click="{() => onButton(group.store, index, group.property)}"
         >
           {item.label}
-        </Button>
+        </ButtonSelect>
       {/each}
     </div>
   </div>

@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { UserData } from "$lib/models/Member/type.js";
   import MemberCard from "./MemberCard.svelte";
-  import Button from "./Button.svelte";
+  import ButtonSelect from "./ButtonSelect.svelte";
   import Modal from "../layout/Modal.svelte";
-  import ButtonAction from "./ButtonAction.svelte";
+  import Button from "./Button.svelte";
 
   export let users: UserData[];
 
@@ -73,7 +73,9 @@
 
 <div class="flex justify-between items-center font-bold pt-4">
   <div>メンバー</div>
-  <Button isCustom bind:isSelected on:click="{openModal}">カスタム</Button>
+  <ButtonSelect width="short" bind:isSelected on:click="{openModal}"
+    >カスタム</ButtonSelect
+  >
 </div>
 
 <div class="flex justify-center">
@@ -118,15 +120,15 @@
     {/each}
   </div>
   <div class="flex justify-center gap-4 py-4">
-    <ButtonAction variant="cancel" size="small" on:click="{closeModal}">
+    <Button variant="cancel" width="short" on:click="{closeModal}">
       閉じる
-    </ButtonAction>
-    <ButtonAction
-      size="small"
+    </Button>
+    <Button
+      width="short"
       on:click="{applySelection}"
       disabled="{!isFourSelected}"
     >
       選択
-    </ButtonAction>
+    </Button>
   </div>
 </Modal>
