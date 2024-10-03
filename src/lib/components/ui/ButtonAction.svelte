@@ -1,19 +1,17 @@
+<script lang="ts" context="module">
+  export type Variant = "primary" | "secondary" | "danger" | "cancel" | "plus";
+  export type Size = "small" | "normal";
+</script>
+
 <script lang="ts">
   export let type: "button" | "submit" = "button";
   export let disabled = false;
-  export let variant: "primary" | "delete" | "close" | "plus" = "primary";
-  export let isLine = false;
+  export let variant: Variant = "primary";
+  export let size: Size = "normal";
 </script>
 
 {#if variant !== "plus"}
-  <button
-    {type}
-    {disabled}
-    class="{variant}"
-    class:small="{isLine}"
-    class:normal="{!isLine}"
-    on:click
-  >
+  <button {type} {disabled} class="{variant} {size}" on:click>
     <slot />
   </button>
 {/if}
@@ -33,11 +31,11 @@
   .primary {
     @apply bg-blue-800 text-white hover:bg-blue-900 rounded-md;
   }
-  .delete {
-    @apply bg-red-500 text-white hover:bg-red-600 rounded-md;
+  .danger {
+    @apply bg-red-600 text-white hover:bg-red-700 rounded-md;
   }
-  .close {
-    @apply border border-gray-400 bg-gray-300 text-gray-800 hover:bg-gray-400 rounded-md;
+  .cancel {
+    @apply border bg-gray-200 border-gray-300  text-gray-700 hover:bg-gray-300 rounded-md;
   }
   .small {
     @apply font-bold w-32 h-10;

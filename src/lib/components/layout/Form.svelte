@@ -66,10 +66,12 @@
     <Modal bind:popupModal isButton="{false}">
       <div class="py-4">本当に削除しますか？</div>
       <div class="flex justify-center gap-4 py-4">
-        <ButtonAction variant="close" isLine on:click="{closeModal}">
+        <ButtonAction variant="cancel" size="small" on:click="{closeModal}">
           閉じる
         </ButtonAction>
-        <ButtonAction type="submit" variant="delete" isLine>削除</ButtonAction>
+        <ButtonAction type="submit" variant="danger" size="small"
+          >削除</ButtonAction
+        >
       </div>
     </Modal>
   {/if}
@@ -78,21 +80,19 @@
     <Modal bind:popupModal>
       <div class="py-4">以下の情報を追加しますか？</div>
       <div class="flex justify-center gap-4 py-4">
-        <ButtonAction variant="close" isLine on:click="{closeModal}">
+        <ButtonAction variant="cancel" size="small" on:click="{closeModal}">
           閉じる
         </ButtonAction>
         <ButtonAction
           type="submit"
-          variant="primary"
-          isLine
+          size="small"
           on:click="{() => {
             action = '?/create-score';
           }}">スコア</ButtonAction
         >
         <ButtonAction
           type="submit"
-          variant="primary"
-          isLine
+          size="small"
           on:click="{() => {
             action = '?/create-chip';
           }}">チップ</ButtonAction

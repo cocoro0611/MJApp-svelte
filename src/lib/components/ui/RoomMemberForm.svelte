@@ -118,12 +118,11 @@
     {/each}
   </div>
   <div class="flex justify-center gap-4 py-4">
-    <ButtonAction variant="close" isLine on:click="{closeModal}">
+    <ButtonAction variant="cancel" size="small" on:click="{closeModal}">
       閉じる
     </ButtonAction>
     <ButtonAction
-      variant="primary"
-      isLine
+      size="small"
       on:click="{applySelection}"
       disabled="{!isFourSelected}"
     >
