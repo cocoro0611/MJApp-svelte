@@ -11,14 +11,6 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-  import type { UserData } from "$lib/models/Member/type.js";
-  let user: UserData = {
-    id: "",
-    name: "",
-    icon: "monster01.png",
-  };
 </script>
 
-<Story name="Default">
-  <MemberForm {user} />
-</Story>
+<Story name="Default">未作成</Story>

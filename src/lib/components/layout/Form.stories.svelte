@@ -13,6 +13,4 @@
   import { Story } from "@storybook/addon-svelte-csf";
 </script>
 
-<Story name="Default">
-  <Form actions="deleteUser">ここにフォーム</Form>
-</Story>
+<Story name="Default">未作成</Story>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import MemberCard from "./MemberCard.svelte";
+  import MemberCard from "$lib/components/card/MemberCard.svelte";
   import type { RoomData } from "$lib/models/Room/type.js";
 
   export let room: RoomData;

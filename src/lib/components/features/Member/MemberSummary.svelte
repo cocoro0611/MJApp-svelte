@@ -1,5 +1,5 @@
 <script lang="ts">
-  import MemberCard from "$lib/components/ui/MemberCard.svelte";
+  import MemberCard from "$lib/components/card/MemberCard.svelte";
   import { saveLocalData } from "$lib/utils/localStorage.js";
   import { currentPage } from "$lib/utils/pageStore.js";
 

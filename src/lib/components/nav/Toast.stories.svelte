@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import ChipCard from "./ChipCard.svelte";
+  import Toast from "./Toast.svelte";
 
-  export const meta: Meta<ChipCard> = {
-    title: "CARD/ChipCard",
-    component: ChipCard,
+  export const meta: Meta<Toast> = {
+    title: "NAV/Toast",
+    component: Toast,
   };
 </script>
 
@@ -13,4 +13,6 @@
   import { Story } from "@storybook/addon-svelte-csf";
 </script>
 
-<Story name="Default">未作成</Story>
+<Story name="Default">
+  <Toast />
+</Story>

@@ -3,10 +3,10 @@
   import dayjs from "dayjs";
   import Form from "$lib/components/layout/Form.svelte";
   import FormField from "$lib/components/layout/FormField.svelte";
-  import RoomNameForm from "$lib/components/ui/RoomNameForm.svelte";
-  import RoomMemberForm from "$lib/components/ui/RoomMemberForm.svelte";
-  import RoomSettingForm from "$lib/components/ui/RoomSettingForm.svelte";
-  import RoomAmountForm from "$lib/components/ui/RoomAmountForm.svelte";
+  import RoomNameForm from "$lib/components/form/RoomNameForm.svelte";
+  import RoomMemberForm from "$lib/components/form/RoomMemberForm.svelte";
+  import RoomSettingForm from "$lib/components/form/RoomSettingForm.svelte";
+  import RoomAmountForm from "$lib/components/form/RoomAmountForm.svelte";
 
   import { saveLocalData } from "$lib/utils/localStorage.js";
   import type { UserData } from "$lib/models/Member/type.js";
@@ -17,6 +17,7 @@
       id: "",
       name: "",
       icon: "",
+      isDefault: false,
     },
   ];
   export let room: RoomData = {
@@ -33,6 +34,7 @@
         id: "",
         name: "",
         icon: "",
+        isDefault: false,
         totalScore: 0,
         totalChip: 0,
         totalPoint: 0,

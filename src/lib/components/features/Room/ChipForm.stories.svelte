@@ -11,12 +11,6 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
-
-  import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
-  let scores: ScoreData[];
-  let room: RoomData;
 </script>
 
-<Story name="Default">
-  <ChipForm formAction="create" {scores} {room} />
-</Story>
+<Story name="Default">未作成</Story>

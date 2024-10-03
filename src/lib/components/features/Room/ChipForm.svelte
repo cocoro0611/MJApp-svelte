@@ -1,7 +1,7 @@
 <script lang="ts">
   import Form from "$lib/components/layout/Form.svelte";
   import ChipCard from "$lib/components/card/ChipCard.svelte";
-  import PointKeyboard from "$lib/components/ui/PointKeyboard.svelte";
+  import PointKeyboard from "$lib/components/form/PointKeyboard.svelte";
   import { chipClick, navigateChip } from "$lib/utils/PointKeyboard.js";
 
   import type { RoomData, ChipData } from "$lib/models/Room/type.js";

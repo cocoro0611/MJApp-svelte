@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { UserData } from "$lib/models/Member/type.js";
-  import MemberCard from "./MemberCard.svelte";
-  import ButtonSelect from "./ButtonSelect.svelte";
-  import Modal from "../layout/Modal.svelte";
-  import Button from "./Button.svelte";
+  import MemberCard from "$lib/components/card/MemberCard.svelte";
+  import ButtonSelect from "../ui/ButtonSelect.svelte";
+  import Modal from "$lib/components/nav/Modal.svelte";
+  import Button from "../ui/Button.svelte";
 
   export let users: UserData[];
 

@@ -28,3 +28,8 @@
     <svelte:fragment slot="countName">翻</svelte:fragment>
   </ButtonSelect>
 </Story>
+
+<Story name="Icon">
+  <ButtonSelect image="monster01.png" />
+  <ButtonSelect isSelected image="monster01.png" />
+</Story>

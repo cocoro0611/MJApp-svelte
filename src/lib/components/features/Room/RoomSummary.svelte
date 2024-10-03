@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ScoreCard from "$lib/components/ui/RoomCard.svelte";
+  import RoomCard from "$lib/components/card/RoomCard.svelte";
   import { saveLocalData } from "$lib/utils/localStorage.js";
   import { currentPage } from "$lib/utils/pageStore.js";
 
@@ -14,6 +14,6 @@
 
 {#each rooms as room}
   <div class="flex justify-center py-2">
-    <ScoreCard {room} on:click="{() => selectedRoom(room)}" />
+    <RoomCard {room} on:click="{() => selectedRoom(room)}" />
   </div>
 {/each}

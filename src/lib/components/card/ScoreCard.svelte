@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Modal from "../layout/Modal.svelte";
-  import Button from "./Button.svelte";
+  import Modal from "$lib/components/nav/Modal.svelte";
+  import Button from "../ui/Button.svelte";
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
   export let score: ScoreData;
   export let room: RoomData;
@@ -57,7 +57,7 @@
           {score.gameCount} 回戦の詳細
         </div>
         <Button
-          variant="close"
+          variant="cancel"
           on:click="{() => {
             popupModal = false;
           }}"

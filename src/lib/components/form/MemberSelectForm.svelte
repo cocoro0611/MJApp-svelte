@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { UserData } from "$lib/models/Member/type.js";
-  import MemberCard from "$lib/components/ui/MemberCard.svelte";
-  import MemberIcon from "$lib/components/ui/MemberIcon.svelte";
+  import MemberCard from "$lib/components/card/MemberCard.svelte";
+  import ButtonSelect from "$lib/components/ui/ButtonSelect.svelte";
 
   export let user: UserData;
 
@@ -44,10 +44,10 @@
 <div class="grid grid-cols-6 mt-2">
   {#each icons as icon}
     <div class="flex justify-center">
-      <MemberIcon
+      <ButtonSelect
         isSelected="{user.icon === icon}"
         on:click="{() => onIconSelect(icon)}"
-        image="/MemberIcon/{icon}"
+        image="{icon}"
       />
     </div>
   {/each}

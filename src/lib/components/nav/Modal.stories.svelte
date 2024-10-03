@@ -4,36 +4,27 @@
   import Modal from "./Modal.svelte";
 
   export const meta: Meta<Modal> = {
-    title: "LAYOUT/Modal",
+    title: "NAV/Modal",
     component: Modal,
   };
 </script>
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
+  import Button from "../ui/Button.svelte";
 
   let popupModal = false;
-  const ModalButton = () => {
+  const modalOpen = () => {
     popupModal = true;
   };
-  const ModalClose = () => {
+  const modalClose = () => {
     popupModal = false;
   };
 </script>
 
 <Story name="Default">
-  <button class="bg-blue-500 p-4" on:click="{ModalButton}">
-    モーダルボタン
-  </button>
+  <Button on:click="{modalOpen}">モーダルボタン</Button>
   <Modal bind:popupModal isButton="{false}">
-    ここに何か入る
-    <button class="bg-gray-500 p-4" on:click="{ModalClose}"> 閉じる </button>
-  </Modal>
-
-  <Modal bind:popupModal>
-    ここに何か入る
-    <button class="bg-gray-500 p-4 text-white" on:click="{ModalClose}">
-      閉じる
-    </button>
+    <Button variant="cancel" on:click="{modalClose}">閉じる</Button>
   </Modal>
 </Story>

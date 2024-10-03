@@ -4,15 +4,13 @@
 </script>
 
 <!-- スクロールの管理 -->
-<div
-  class="flex h-screen
-  {isCalculationHeader
-    ? 'pt-48'
-    : isScoreHeader
-      ? 'pt-[15.8rem]'
-      : 'pt-32'} pb-20"
+<main
+  class="flex h-screen pb-20"
+  class:pt-48="{isCalculationHeader}"
+  class:pt-[15.8rem]="{isScoreHeader}"
+  class:pt-32="{!isCalculationHeader && !isScoreHeader}"
 >
   <div class="flex-grow overflow-y-auto">
     <slot />
   </div>
-</div>
+</main>

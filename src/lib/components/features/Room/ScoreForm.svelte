@@ -1,7 +1,7 @@
 <script lang="ts">
   import Form from "$lib/components/layout/Form.svelte";
-  import ScoreCard from "$lib/components/ui/ScoreCard.svelte";
-  import PointKeyboard from "$lib/components/ui/PointKeyboard.svelte";
+  import ScoreCard from "$lib/components/card/ScoreCard.svelte";
+  import PointKeyboard from "$lib/components/form/PointKeyboard.svelte";
   import { scoreClick, navigateScore } from "$lib/utils/PointKeyboard.js";
 
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";

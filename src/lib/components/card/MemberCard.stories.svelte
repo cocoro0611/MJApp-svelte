@@ -1,10 +1,9 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
-
-  import MemberCard from "./MemberCard.svelte";
+  import MemberCard from "$lib/components/card/MemberCard.svelte";
 
   export const meta: Meta<MemberCard> = {
-    title: "UI/MemberCard",
+    title: "CARD/MemberCard",
     component: MemberCard,
   };
 </script>

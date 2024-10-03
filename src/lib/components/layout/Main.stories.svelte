@@ -14,5 +14,5 @@
 </script>
 
 <Story name="Default">
-  <Main>ここにメインのコンテンツ</Main>
+  <Main>メインのコンテンツ</Main>
 </Story>

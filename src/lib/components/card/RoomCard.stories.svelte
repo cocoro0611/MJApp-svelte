@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type { Meta } from "@storybook/svelte";
 
-  import ScoreForm from "./ScoreForm.svelte";
+  import RoomCard from "./RoomCard.svelte";
 
-  export const meta: Meta<ScoreForm> = {
-    title: "features/Room/ScoreForm",
-    component: ScoreForm,
+  export const meta: Meta<RoomCard> = {
+    title: "CARD/RoomCard",
+    component: RoomCard,
   };
 </script>
 
