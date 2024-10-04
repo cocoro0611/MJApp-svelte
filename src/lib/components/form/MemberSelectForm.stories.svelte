@@ -11,6 +11,8 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
+  import type { UserData } from "$lib/models/Member/type.js";
+  let user: UserData = { id: "", name: "", icon: "", isDefault: false };
 </script>
 
-<Story name="Default">未作成</Story>
+<Story name="Default"><MemberSelectForm {user} /></Story>

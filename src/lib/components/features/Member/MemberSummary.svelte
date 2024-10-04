@@ -1,7 +1,7 @@
 <script lang="ts">
   import MemberCard from "$lib/components/card/MemberCard.svelte";
-  import { saveLocalData } from "$lib/utils/localStorage.js";
-  import { currentPage } from "$lib/utils/pageStore.js";
+  import { saveLocalData } from "$lib/utils/local-storage.js";
+  import { currentPage } from "$lib/utils/page-store.js";
 
   import type { UserData } from "$lib/models/Member/type.js";
   export let users: UserData[];
@@ -16,7 +16,7 @@
   {#each users as user}
     <div class="flex justify-center p-2">
       <MemberCard
-        image="/MemberIcon/{user.icon}"
+        image="{user.icon}"
         name="{user.name}"
         on:click="{() => selectedUser(user)}"
       />

@@ -2,7 +2,7 @@
   import Form from "$lib/components/layout/Form.svelte";
   import ScoreCard from "$lib/components/card/ScoreCard.svelte";
   import PointKeyboard from "$lib/components/form/PointKeyboard.svelte";
-  import { scoreClick, navigateScore } from "$lib/utils/PointKeyboard.js";
+  import { scoreClick, navigateScore } from "$lib/utils/point-keyboard.js";
 
   import type { RoomData, ScoreData } from "$lib/models/Room/type.js";
   export let scores: ScoreData[];

@@ -4,7 +4,7 @@
   import Button from "$lib/components/ui/Button.svelte";
 
   import { enhance } from "$app/forms";
-  import { createFormSubmitResult } from "$lib/utils/formSubmitResult.js";
+  import { createFormSubmitResult } from "$lib/utils/form-result.js";
 
   export let isActions: boolean = false;
   export let action: string = "";

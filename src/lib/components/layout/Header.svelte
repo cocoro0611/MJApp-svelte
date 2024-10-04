@@ -3,30 +3,34 @@
 </script>
 
 <header
-  class="fixed top-0 left-0 right-0 bg-blue-800 text-white font-bold text-xl"
+  class="fixed top-0 left-0 right-0
+   bg-primary text-primary font-bold text-xl"
 >
-  <div class="max-w-screen-lg container mx-auto grid grid-cols-6">
+  <div class="max-w-screen-lg container mx-auto grid grid-cols-6 pt-12 pb-4">
     <div
-      class="{isLeftLong
-        ? 'col-span-4 pl-4 pt-12 pb-4'
-        : 'col-span-1 justify-center pt-12 pb-4'} 
-      flex"
+      class="flex justify-center"
+      class:col-span-3="{isLeftLong}"
+      class:col-span-1="{!isLeftLong}"
     >
       <slot name="left" />
     </div>
     <div
-      class="{isLeftLong ? 'col-span-1' : 'col-span-4'}
-      pt-12 pb-4 flex justify-center"
+      class="flex justify-center"
+      class:col-span-2="{isLeftLong}"
+      class:col-span-4="{!isLeftLong}"
     >
       <slot name="center" />
     </div>
-    <div class="col-span-1 pt-12 pb-4 flex justify-center">
+    <div
+      class="flex justify-center
+      col-span-1"
+    >
       <slot name="right" />
     </div>
   </div>
 </header>
 
-<div class="fixed top-24 left-0 right-0">
+<div class="fixed top-[6rem] left-0 right-0">
   <div class="max-w-screen-lg container mx-auto">
     <slot />
   </div>

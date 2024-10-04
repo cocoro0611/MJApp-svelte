@@ -7,7 +7,7 @@
   import ScoreForm from "$lib/components/features/Room/ScoreForm.svelte";
   import ChipForm from "$lib/components/features/Room/ChipForm.svelte";
 
-  import { currentPage } from "$lib/utils/pageStore.js";
+  import { currentPage } from "$lib/utils/page-store.js";
   import type { RoomData, ScoreData, ChipData } from "$lib/models/Room/type.js";
 
   export let room: RoomData;

@@ -5,8 +5,8 @@
   import RoomUserEdit from "./user-edit/+page.svelte";
   import RoomDetail from "./detail/+page.svelte";
   import RoomTie from "./tie/+page.svelte";
-  import { currentPage } from "$lib/utils/pageStore.js";
-  import { getLocalData } from "$lib/utils/localStorage.js";
+  import { currentPage } from "$lib/utils/page-store.js";
+  import { getLocalData } from "$lib/utils/local-storage.js";
 
   import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData, ScoreData, ChipData } from "$lib/models/Room/type.js";

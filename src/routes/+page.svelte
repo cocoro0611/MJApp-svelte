@@ -5,7 +5,7 @@
   import HanCountPage from "./HanCount/+page.svelte";
   import Footer from "$lib/components/ui/Footer.svelte";
 
-  import { currentPage } from "$lib/utils/pageStore.js";
+  import { currentPage } from "$lib/utils/page-store.js";
   import type { PageData } from "./$types.js";
 
   export let data: PageData;

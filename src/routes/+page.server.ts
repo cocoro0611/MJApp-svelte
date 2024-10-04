@@ -4,17 +4,17 @@ import { createUser } from "$lib/models/Member/actions/create.js";
 import { updateUser } from "$lib/models/Member/actions/update.js";
 import { deleteUser } from "$lib/models/Member/actions/delete.js";
 
-import {
-  createRoom,
-  createScore,
-  createChip,
-} from "$lib/models/Room/actions/create.js";
+import { createRoom } from "$lib/models/Room/actions/create-room.js";
+import { createScore } from "$lib/models/Room/actions/create-score.js";
+import { createChip } from "$lib/models/Room/actions/create.chip.js";
+
 import {
   updateRoom,
   updateRoomUser,
-  updateScore,
-  updateChip,
-} from "$lib/models/Room/actions/update.js";
+} from "$lib/models/Room/actions/update-room.js";
+import { updateScore } from "$lib/models/Room/actions/update-score.js";
+import { updateChip } from "$lib/models/Room/actions/update-chip.js";
+
 import {
   deleteRoom,
   deleteScore,
@@ -22,11 +22,9 @@ import {
 } from "$lib/models/Room/actions/delete.js";
 
 import { readUsers } from "$lib/models/Member/actions/read.js";
-import {
-  readRooms,
-  readScores,
-  readChips,
-} from "$lib/models/Room/actions/read.js";
+import { readRooms } from "$lib/models/Room/actions/read-room.js";
+import { readScores } from "$lib/models/Room/actions/read-score.js";
+import { readChips } from "$lib/models/Room/actions/read.chip.js";
 
 export const actions: Actions = {
   "create-user": createUser,

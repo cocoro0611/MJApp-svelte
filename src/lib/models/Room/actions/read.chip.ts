@@ -1,5 +1,5 @@
 import db from "$lib/models/db.js";
-import type { RoomData, ScoreData, ChipData } from "../type.js";
+import type { ChipData } from "../type.js";
 
 export async function readChips(): Promise<ChipData[]> {
   const chips = await db

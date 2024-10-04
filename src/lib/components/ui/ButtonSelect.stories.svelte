@@ -17,7 +17,6 @@
   <div class="grid grid-flow-cols-1 gap-2">
     <ButtonSelect>notSel</ButtonSelect>
     <ButtonSelect isSelected>Sel</ButtonSelect>
-    <ButtonSelect width="short">short</ButtonSelect>
     <ButtonSelect width="long">long</ButtonSelect>
   </div>
 </Story>

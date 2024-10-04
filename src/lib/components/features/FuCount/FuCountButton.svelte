@@ -154,35 +154,32 @@
   }
 </script>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="px-4">
   {#each $itemsGroup as group, categoryIndex}
     {#if categoryIndex === 0 || $isInitialCategorySelected}
-      <div class="mb-2">
-        <h2 class="text-lg font-bold mb-2">{group.title}</h2>
-        <div class="flex justify-center gap-2">
-          {#each group.items as item, index}
-            {#if item.isCount}
-              <ButtonSelect
-                count="{item.count || 0}"
-                isSelected="{item.isSelected}"
-                on:click="{() =>
-                  countButton(group.store, index, categoryIndex)}"
-              >
-                <svelte:fragment slot="countName">
-                  {group.title === "和了 + 翻数" ? "翻" : "つ"}
-                </svelte:fragment>
-                {item.label}
-              </ButtonSelect>
-            {:else}
-              <ButtonSelect
-                isSelected="{item.isSelected}"
-                on:click="{() => onButton(group.store, index, categoryIndex)}"
-              >
-                {item.label}
-              </ButtonSelect>
-            {/if}
-          {/each}
-        </div>
+      <div class="text-lg font-bold mb-2">{group.title}</div>
+      <div class="flex justify-center gap-2">
+        {#each group.items as item, index}
+          {#if item.isCount}
+            <ButtonSelect
+              count="{item.count || 0}"
+              isSelected="{item.isSelected}"
+              on:click="{() => countButton(group.store, index, categoryIndex)}"
+            >
+              <svelte:fragment slot="countName">
+                {group.title === "和了 + 翻数" ? "翻" : "つ"}
+              </svelte:fragment>
+              {item.label}
+            </ButtonSelect>
+          {:else}
+            <ButtonSelect
+              isSelected="{item.isSelected}"
+              on:click="{() => onButton(group.store, index, categoryIndex)}"
+            >
+              {item.label}
+            </ButtonSelect>
+          {/if}
+        {/each}
       </div>
     {/if}
   {/each}

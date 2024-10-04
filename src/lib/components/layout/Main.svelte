@@ -3,12 +3,11 @@
   export let isScoreHeader: boolean = false;
 </script>
 
-<!-- スクロールの管理 -->
+<!-- スクロールの範囲の管理 -->
 <main
-  class="flex h-screen pb-20"
+  class="flex h-screen pt-32 pb-[4.6rem]"
   class:pt-48="{isCalculationHeader}"
   class:pt-[15.8rem]="{isScoreHeader}"
-  class:pt-32="{!isCalculationHeader && !isScoreHeader}"
 >
   <div class="flex-grow overflow-y-auto">
     <slot />

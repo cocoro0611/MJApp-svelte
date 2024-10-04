@@ -39,9 +39,9 @@
 
 <div class="flex justify-center">
   <input type="hidden" name="icon" value="{user.icon}" />
-  <MemberCard size="large" image="/MemberIcon/{user.icon}" name="{user.name}" />
+  <MemberCard size="large" name="{user.name}" image="{user.icon}" />
 </div>
-<div class="grid grid-cols-6 mt-2">
+<div class="grid grid-cols-6 md:grid-cols-12 py-2">
   {#each icons as icon}
     <div class="flex justify-center">
       <ButtonSelect

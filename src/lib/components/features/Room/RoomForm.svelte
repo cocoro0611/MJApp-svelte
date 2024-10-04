@@ -3,12 +3,10 @@
   import dayjs from "dayjs";
   import Form from "$lib/components/layout/Form.svelte";
   import FormField from "$lib/components/layout/FormField.svelte";
-  import RoomNameForm from "$lib/components/form/RoomNameForm.svelte";
+  import InputForm from "$lib/components/form/InputForm.svelte";
   import RoomMemberForm from "$lib/components/form/RoomMemberForm.svelte";
   import RoomSettingForm from "$lib/components/form/RoomSettingForm.svelte";
-  import RoomAmountForm from "$lib/components/form/RoomAmountForm.svelte";
 
-  import { saveLocalData } from "$lib/utils/localStorage.js";
   import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData } from "$lib/models/Room/type.js";
 
@@ -48,7 +46,13 @@
   $: isUpdate = action === "?/update-room";
   $: isDelete = action === "?/delete-room";
 
-  saveLocalData("roomId", room.id);
+  const updateRoomName = (event: CustomEvent<string>) => {
+    room.name = event.detail;
+  };
+
+  const updateGameAmount = (event: CustomEvent<number>) => {
+    room.gameAmount = event.detail;
+  };
 </script>
 
 <Form {action}>
@@ -56,7 +60,13 @@
   {#if !isDelete}
     {#if isCreate}
       <FormField name="部屋名">
-        <RoomNameForm {room} />
+        <InputForm
+          name="name"
+          placeholder="部屋名を入力"
+          bind:value="{room.name}"
+          on:input="{updateRoomName}"
+          maxlength="{10}"
+        />
       </FormField>
       <FormField name="">
         <RoomMemberForm {users} />
@@ -67,7 +77,15 @@
     </FormField>
     {#if isUpdate}
       <FormField name="場代">
-        <RoomAmountForm {room} />
+        <InputForm
+          type="number"
+          name="gameAmount"
+          placeholder="金額を入力"
+          bind:value="{room.gameAmount}"
+          on:input="{updateGameAmount}"
+        >
+          <span slot="left" class="text-gray-500">¥</span>
+        </InputForm>
       </FormField>
     {/if}
   {/if}

@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let width: "short" | "normal" | "long" = "normal";
+  export let width: "normal" | "long" = "normal";
   export let isSelected: boolean = false;
   export let count: number = 0;
   export let image: string = "";
@@ -28,9 +28,6 @@
 </button>
 
 <style>
-  .short {
-    @apply w-20 h-7 rounded-2xl text-sm;
-  }
   .normal {
     @apply w-14 h-14 rounded text-[0.7rem];
   }
@@ -38,18 +35,18 @@
     @apply w-32 h-8 rounded-2xl  text-sm;
   }
   .btn-on {
-    @apply bg-blue-500 text-white hover:bg-blue-600;
+    @apply bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700;
   }
   .btn-off {
-    @apply border border-blue-500 text-blue-500 bg-white hover:bg-blue-50;
+    @apply border border-blue-500 text-blue-500 bg-white hover:bg-blue-50 active:bg-blue-100;
   }
   .is-icon {
     @apply flex items-center justify-center w-12 h-12 rounded-full;
   }
   .icon-on {
-    @apply bg-blue-300  hover:bg-blue-400;
+    @apply bg-blue-300  hover:bg-blue-400 active:bg-blue-500;
   }
   .icon-off {
-    @apply hover:bg-blue-50;
+    @apply hover:bg-blue-50 active:bg-blue-100;
   }
 </style>

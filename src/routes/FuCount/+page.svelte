@@ -7,7 +7,7 @@
   import Icon from "$lib/components/ui/Icon.svelte";
   import type { PointData } from "$lib/models/Count/type.js";
 
-  import { formatFuValue } from "$lib/utils/countPage.js";
+  import { formatFuValue } from "$lib/utils/count-page.js";
 
   let han: number = 0;
   let fu: number = 30;

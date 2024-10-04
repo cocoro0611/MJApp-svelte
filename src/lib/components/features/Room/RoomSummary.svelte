@@ -1,7 +1,7 @@
 <script lang="ts">
   import RoomCard from "$lib/components/card/RoomCard.svelte";
-  import { saveLocalData } from "$lib/utils/localStorage.js";
-  import { currentPage } from "$lib/utils/pageStore.js";
+  import { saveLocalData } from "$lib/utils/local-storage.js";
+  import { currentPage } from "$lib/utils/page-store.js";
 
   import type { RoomData } from "$lib/models/Room/type.js";
   export let rooms: RoomData[];

@@ -3,7 +3,7 @@
   import Main from "$lib/components/layout/Main.svelte";
   import RoomSummary from "$lib/components/features/Room/RoomSummary.svelte";
   import Button from "$lib/components/ui/Button.svelte";
-  import { currentPage } from "$lib/utils/pageStore.js";
+  import { currentPage } from "$lib/utils/page-store.js";
 
   import type { UserData } from "$lib/models/Member/type.js";
   import type { RoomData } from "$lib/models/Room/type.js";

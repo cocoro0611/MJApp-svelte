@@ -1,5 +1,5 @@
-import { currentPage } from "$lib/utils/pageStore.js";
-import { removeLocalData } from "$lib/utils/localStorage.js";
+import { currentPage } from "$lib/utils/page-store.js";
+import { saveLocalData, removeLocalData } from "$lib/utils/local-storage.js";
 import { invalidateAll } from "$app/navigation";
 import type { SubmitFunction } from "@sveltejs/kit";
 
@@ -25,11 +25,12 @@ export const createFormSubmitResult = (
           ) {
             removeLocalData("userId");
             currentPage.set("member");
-          } else if (
-            ["create-room", "update-room", "update-room-user"].includes(
-              data.type
-            )
-          ) {
+          } else if (data.type === "create-room") {
+            if ("roomId" in data && data.roomId) {
+              saveLocalData("roomId", data.roomId);
+              currentPage.set("roomDetail");
+            }
+          } else if (["update-room", "update-room-user"].includes(data.type)) {
             currentPage.set("roomDetail");
           } else if (["create-score", "create-chip"].includes(data.type)) {
             updateFunctions.setPopupModal(false);

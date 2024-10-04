@@ -13,4 +13,6 @@
   import { Story } from "@storybook/addon-svelte-csf";
 </script>
 
-<Story name="Default">未作成</Story>
+<Story name="Default">
+  <Form action="?/test">この中にフォームコンテンツ</Form>
+</Story>

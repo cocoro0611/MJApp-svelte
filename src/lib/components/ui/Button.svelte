@@ -27,20 +27,6 @@
 </button>
 
 <style>
-  .primary {
-    @apply bg-primary hover:bg-primary-dark text-primary;
-  }
-  .secondary {
-    @apply bg-secondary hover:bg-secondary-dark text-secondary;
-    @apply border-2 border-secondary-dark;
-  }
-  .danger {
-    @apply bg-danger hover:bg-danger-dark text-danger;
-  }
-  .cancel {
-    @apply bg-cancel hover:bg-cancel-dark text-cancel;
-    @apply border-2 border-cancel-dark;
-  }
   .short {
     @apply w-32 h-10;
   }

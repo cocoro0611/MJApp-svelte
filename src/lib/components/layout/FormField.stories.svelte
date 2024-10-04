@@ -14,7 +14,14 @@
 </script>
 
 <Story name="Default">
-  <FormField name="aa">
+  <FormField name="タイトル">
     <form action="">何かフォーム</form>
+  </FormField>
+</Story>
+
+<Story name="Custom">
+  <FormField name="タイトル" isCustom>
+    <form action="">何かフォーム</form>
+    <svelte:fragment slot="contents">モーダルの中</svelte:fragment>
   </FormField>
 </Story>

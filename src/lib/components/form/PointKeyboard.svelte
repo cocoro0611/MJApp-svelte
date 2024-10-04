@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { addDigit, toggleSign, backspace } from "$lib/utils/PointKeyboard.js";
+  import {
+    addDigit,
+    toggleSign,
+    backspace,
+  } from "$lib/utils/point-keyboard.js";
 
   export let inputType: "score" | "chip";
 
@@ -7,7 +11,7 @@
   export let selectedScoreId: string | null = null;
   export let selectedChipId: string | null = null;
   export let openKeyboard = false;
-  export let navigate: (direction: "left" | "right") => void;
+  export let navigate: (direction: "left" | "right") => void = () => {};
 
   const closeKeyboard = () => {
     openKeyboard = false;
@@ -35,75 +39,70 @@
 
 <div class="fixed bottom-0 left-0 right-0 z-10">
   <div class="max-w-screen-lg container mx-auto">
-    <div class="bg-gray-100 font-bold p-2">
+    <div class="bg-gray-100 p-2 font-bold">
       <div class="grid grid-cols-5 gap-2">
-        <div class="col-span-1 flex justify-start items-center h-10 space-x-2">
+        <div class="col-span-1 flex justify-center items-center gap-2">
           <button
             type="button"
             on:click="{leftButton}"
-            class="flex-1 rounded-full bg-white py-1 px-2 border border-black hover:bg-gray-200 active:bg-gray-300 transition duration-150 ease-in-out"
+            class=" flex-auto keyboard-btn option-action"
           >
-            ←
+            <!-- 調整 -->
+            <div class="-mt-[0.11rem]">←</div>
           </button>
           <button
             type="button"
             on:click="{rightButton}"
-            class="flex-1 rounded-full bg-white py-1 px-2 border border-black hover:bg-gray-200 active:bg-gray-300 transition duration-150 ease-in-out"
+            class="flex-auto keyboard-btn option-action"
           >
-            →
+            <!-- 調整 -->
+            <div class="-mt-[0.11rem]">→</div>
           </button>
         </div>
-        <div
-          class="col-span-1 flex justify-start items-center h-10 space-x-2"
-        ></div>
-        <div class="col-span-3 flex justify-end items-center h-10 space-x-2">
+        <div class="col-span-1 h-8"></div>
+        <div class="col-span-3 flex justify-center items-center gap-2">
           <button
             type="button"
             on:click="{handleToggleSign}"
-            class="flex-1 rounded-full bg-white py-1 px-2 border border-black hover:bg-gray-200 active:bg-gray-300 transition duration-150 ease-in-out"
+            class="flex-auto keyboard-btn option-action"
           >
-            +/-
+            <!-- 調整 -->
+            <div class="-mt-[0.2rem]">+/-</div>
           </button>
-          <button
-            type="submit"
-            class="flex-1 rounded bg-blue-100 py-1 px-2 border-2 border-blue-800 text-blue-800 hover:bg-blue-200 active:bg-blue-300 transition duration-150 ease-in-out"
-          >
+          <button type="submit" class="flex-auto primary rounded h-8 w-12">
             計算
           </button>
           <button
             type="button"
-            on:click="{closeKeyboard}"
-            class="flex-1 rounded bg-gray-200 py-1 px-2 border-2 border-gray-400 text-gray-700 hover:bg-gray-300 active:bg-gray-400 transition duration-150 ease-in-out"
+            class="flex-auto cancel rounded h-8 w-12"
+            on:click="{closeKeyboard}">閉じる</button
           >
-            閉じる
-          </button>
         </div>
       </div>
     </div>
-
-    <div class="bg-gray-300 text-2xl font-bold text-gray-500 p-2 pb-14">
+    <div class="bg-gray-300 p-2 pb-14">
       <div class="grid grid-cols-3 gap-2">
         {#each Array(9) as _, i}
           <button
             type="button"
             on:click="{() => handleAddDigit(i + 1)}"
-            class="flex justify-center items-center h-10 bg-white rounded-lg hover:bg-gray-100 active:bg-gray-200 transition duration-150 ease-in-out"
+            class="keyboard-btn option-number"
           >
             {i + 1}
           </button>
         {/each}
-        <div class="flex justify-center items-center h-10 rounded-lg"></div>
+        <div></div>
         <button
           type="button"
           on:click="{() => handleAddDigit(0)}"
-          class="flex justify-center items-center h-10 bg-white rounded-lg hover:bg-gray-100 active:bg-gray-200 transition duration-150 ease-in-out"
+          class="keyboard-btn option-number"
         >
           0
         </button>
         <button
           type="button"
           on:click="{handleBackspace}"
-          class="flex justify-center items-center h-10 bg-white rounded-lg hover:bg-gray-100 active:bg-gray-200 transition duration-150 ease-in-out"
+          class="keyboard-btn option-number"
         >
           ☒
         </button>
@@ -111,3 +110,16 @@
     </div>
   </div>
 </div>
+
+<style>
+  .keyboard-btn {
+    @apply bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-500;
+    @apply text-2xl;
+  }
+  .option-action {
+    @apply border-2 border-gray-400 rounded-full h-8;
+  }
+  .option-number {
+    @apply text-2xl rounded h-10;
+  }
+</style>

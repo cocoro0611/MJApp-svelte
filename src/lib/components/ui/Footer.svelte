@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "./Icon.svelte";
-  import { currentPage } from "$lib/utils/pageStore.js";
-  import type { PageType } from "$lib/utils/pageStore.js";
+  import { currentPage } from "$lib/utils/page-store.js";
+  import type { PageType } from "$lib/utils/page-store.js";
   import type { IconType } from "./Icon.svelte";
 
   interface TabList {

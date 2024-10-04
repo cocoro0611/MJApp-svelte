@@ -1,8 +1,8 @@
 <script lang="ts">
   import MemberCard from "$lib/components/card/MemberCard.svelte";
 
-  import { currentPage } from "$lib/utils/pageStore.js";
-  import { saveLocalData } from "$lib/utils/localStorage.js";
+  import { currentPage } from "$lib/utils/page-store.js";
+  import { saveLocalData } from "$lib/utils/local-storage.js";
   import type { RoomData } from "$lib/models/Room/type.js";
 
   export let room: RoomData;
@@ -42,7 +42,7 @@
         >
           <MemberCard
             isColor="{false}"
-            image="/MemberIcon/{user.icon}"
+            image="{user.icon}"
             name="{user.name}"
             totalScore="{user.totalScore}"
           />

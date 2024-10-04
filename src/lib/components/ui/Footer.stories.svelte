@@ -12,7 +12,7 @@
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
 
-  import { currentPage } from "$lib/utils/pageStore.js";
+  import { currentPage } from "$lib/utils/page-store.js";
 </script>
 
 <Story name="Default">

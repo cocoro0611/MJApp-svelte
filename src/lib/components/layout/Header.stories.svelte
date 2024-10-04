@@ -21,3 +21,12 @@
     ここにコンテンツが入る
   </Header>
 </Story>
+
+<Story name="LeftLong">
+  <Header isLeftLong>
+    <svelte:fragment slot="left">左</svelte:fragment>
+    <svelte:fragment slot="center">中央</svelte:fragment>
+    <svelte:fragment slot="right">右</svelte:fragment>
+    ここにコンテンツが入る
+  </Header>
+</Story>

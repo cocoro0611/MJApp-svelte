@@ -1,3 +1,18 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.primary {
+  @apply bg-primary hover:bg-primary-dark active:bg-primary-deeper  text-primary;
+}
+.secondary {
+  @apply bg-secondary hover:bg-secondary-dark active:bg-secondary-deeper text-secondary;
+  @apply border-2 border-secondary-dark;
+}
+.danger {
+  @apply bg-danger hover:bg-danger-dark active:bg-danger-deeper text-danger;
+}
+.cancel {
+  @apply bg-cancel hover:bg-cancel-dark active:bg-cancel-deeper text-cancel;
+  @apply border-2 border-cancel-dark;
+}

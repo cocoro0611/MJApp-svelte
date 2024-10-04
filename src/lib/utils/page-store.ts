@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { getLocalData, saveLocalData } from "$lib/utils/localStorage.js";
+import { getLocalData, saveLocalData } from "$lib/utils/local-storage.js";
 
 export type PageType =
   | "room"
@@ -14,7 +14,7 @@ export type PageType =
   | "fuCount"
   | "hanCount";
 
-// FIXME:ページの遷移管理
+// ページの遷移管理
 function createPageStore() {
   const storedPage = getLocalData("currentPage") as PageType | null;
   const initialPage: PageType = storedPage ?? "room";

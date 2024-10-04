@@ -2,7 +2,7 @@
   import Form from "$lib/components/layout/Form.svelte";
   import ChipCard from "$lib/components/card/ChipCard.svelte";
   import PointKeyboard from "$lib/components/form/PointKeyboard.svelte";
-  import { chipClick, navigateChip } from "$lib/utils/PointKeyboard.js";
+  import { chipClick, navigateChip } from "$lib/utils/point-keyboard.js";
 
   import type { RoomData, ChipData } from "$lib/models/Room/type.js";
   export let chips: ChipData[];

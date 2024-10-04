@@ -2,17 +2,17 @@ import { v4 } from "uuid";
 import db from "$lib/models/db.js";
 import type { Action } from "@sveltejs/kit";
 
-export const createChip: Action = async ({ request }) => {
+export const createScore: Action = async ({ request }) => {
   await db.transaction().execute(async (trx) => {
     const data = await request.formData();
     const roomId = data.get("roomId");
 
-    const maxChipCount = await trx
-      .selectFrom("Chip")
+    const maxGameCount = await trx
+      .selectFrom("Score")
       .where("roomId", "=", roomId)
-      .select(db.fn.max("chipCount").as("maxChipCount"))
+      .select(db.fn.max("gameCount").as("maxGameCount"))
       .executeTakeFirst();
-    const chipCount = (maxChipCount?.maxChipCount || 0) + 1;
+    const gameCount = (maxGameCount?.maxGameCount || 1) + 1;
 
     const users = await trx
       .selectFrom("User")
@@ -22,15 +22,15 @@ export const createChip: Action = async ({ request }) => {
       .execute();
     const userIds = users.map((user) => user.id);
 
-    const ChipForm = userIds.map((userId) => ({
+    const ScoreForm = userIds.map((userId) => ({
       id: v4(),
       input: 0,
-      chip: 0,
-      chipCount,
+      score: 0,
+      gameCount,
       userId,
       roomId,
     }));
-    await trx.insertInto("Chip").values(ChipForm).execute();
+    await trx.insertInto("Score").values(ScoreForm).execute();
   });
-  return { success: true, type: "create-chip" };
+  return { success: true, type: "create-score" };
 };
