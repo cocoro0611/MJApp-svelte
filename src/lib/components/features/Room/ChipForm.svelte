@@ -8,7 +8,7 @@
   export let chips: ChipData[];
   export let room: RoomData;
 
-  export let action;
+  export let action = "";
 
   let inputValues: Record<string, number> = {};
   let selectedChipId: string | null = null;

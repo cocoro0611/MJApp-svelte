@@ -1,4 +1,4 @@
-//FIXME:関数のリファクタリングが必要
+//FIXME:関数のリファクタリング
 import type { ScoreData, ChipData } from "$lib/models/Room/type.js";
 
 export function scoreClick(

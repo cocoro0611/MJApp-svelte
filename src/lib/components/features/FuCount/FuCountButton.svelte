@@ -6,6 +6,7 @@
   export let han: number;
   export let fu: number;
 
+  // FIXME:storeを使わずに定義
   const itemsStores: Writable<CountButtonList[]>[] = [
     writable([
       {
@@ -158,7 +159,7 @@
   {#each $itemsGroup as group, categoryIndex}
     {#if categoryIndex === 0 || $isInitialCategorySelected}
       <div class="text-lg font-bold mb-2">{group.title}</div>
-      <div class="flex justify-center gap-2">
+      <div class="flex justify-center gap-2 mb-2">
         {#each group.items as item, index}
           {#if item.isCount}
             <ButtonSelect

@@ -40,7 +40,7 @@
     ],
   };
 
-  export let action;
+  export let action = "";
 
   $: isCreate = action === "?/create-room";
   $: isUpdate = action === "?/update-room";

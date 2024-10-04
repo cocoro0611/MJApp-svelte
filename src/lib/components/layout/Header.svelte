@@ -30,7 +30,7 @@
   </div>
 </header>
 
-<div class="fixed top-[6rem] left-0 right-0">
+<div class="fixed top-[5.8rem] left-0 right-0">
   <div class="max-w-screen-lg container mx-auto">
     <slot />
   </div>

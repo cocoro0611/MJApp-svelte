@@ -8,7 +8,7 @@
   export let scores: ScoreData[];
   export let room: RoomData;
 
-  export let action;
+  export let action = "";
 
   let inputValues: Record<string, number> = {};
   let selectedScoreId: string | null = null;

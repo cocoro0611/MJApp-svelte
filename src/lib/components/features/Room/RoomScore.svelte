@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Grid from "$lib/components/layout/Grid.svelte";
   import MemberCard from "$lib/components/card/MemberCard.svelte";
 
   import { currentPage } from "$lib/utils/page-store.js";
@@ -11,72 +12,87 @@
     saveLocalData("userId", userId);
     $currentPage = "roomUserEdit";
   };
-
-  const headers = ["", "スコア", "チップ", "収支"];
 </script>
 
-<div class="grid grid-cols-5 gap-[0.1rem] bg-gray-100">
-  {#each headers as header, index}
-    {#if index === 0}
+<Grid rightContentes="{room.users}">
+  <svelte:fragment slot="leftContent">
+    <div class="w-full h-full p-[0.1rem] text-xs font-bold">
       <button
         on:click="{() => ($currentPage = 'roomEdit')}"
-        class="
-        bg-blue-100 text-blue-800 border-2 border-blue-300 h-20 rounded-lg font-bold
-        hover:bg-blue-300
-        flex flex-col justify-center items-center text-sm"
+        class="flex items-center justify-center w-full h-full rounded-lg flex-col secondary"
       >
-        <span class="pb-1">設定変更</span>
-        <span>場代登録</span>
+        <div class="pb-1">設定変更</div>
+        <div>場代登録</div>
       </button>
-    {:else}
-      <div class="bg-blue-800 text-white flex justify-center items-center">
-        {header}
-      </div>
-    {/if}
+    </div>
+  </svelte:fragment>
+  <svelte:fragment slot="rightContent" let:rightContent="{user}">
+    <div class="w-full h-full">
+      <button
+        on:click="{() => userClick(user.id)}"
+        class="flex items-center justify-center w-full h-full rounded-lg secondary"
+      >
+        <MemberCard
+          isColor="{false}"
+          size="small"
+          image="{user.icon}"
+          name="{user.name}"
+        />
+      </button>
+    </div>
+  </svelte:fragment>
+</Grid>
 
-    {#each room.users as user}
-      {#if index === 0}
-        <button
-          on:click="{() => userClick(user.id)}"
-          class="bg-blue-100 border-2 border-blue-300 hover:bg-blue-300 h-20 rounded-lg flex justify-center items-center"
+<Grid isPrimaryGrid rightContentes="{room.users}">
+  <svelte:fragment slot="leftContent">
+    <div class="flex justify-center items-center">スコア</div>
+  </svelte:fragment>
+  <svelte:fragment slot="rightContent" let:rightContent="{user}">
+    <div class="flex justify-center items-center">
+      {user.totalScore}
+    </div>
+  </svelte:fragment>
+</Grid>
+
+<Grid isPrimaryGrid rightContentes="{room.users}">
+  <svelte:fragment slot="leftContent">
+    <div class="flex justify-center items-center">チップ</div>
+  </svelte:fragment>
+  <svelte:fragment slot="rightContent" let:rightContent="{user}">
+    <div class="flex justify-center items-center">
+      <!-- 調整 -->
+      <div class="w-full grid grid-cols-10">
+        <div
+          class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
+        ></div>
+        <div class="col-span-8 text-center">{user.totalChip}</div>
+        <div
+          class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
         >
-          <MemberCard
-            isColor="{false}"
-            image="{user.icon}"
-            name="{user.name}"
-            totalScore="{user.totalScore}"
-          />
-        </button>
-      {:else}
-        <div class="bg-blue-800 text-white flex justify-center items-center">
-          {#if index === 1}
-            {user.totalScore}
-          {:else if index === 2}
-            <div class="w-full grid grid-cols-10">
-              <div
-                class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
-              ></div>
-              <div class="col-span-8 text-center">{user.totalChip}</div>
-              <div
-                class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
-              >
-                枚
-              </div>
-            </div>
-          {:else if index === 3}
-            <div class="w-full grid grid-cols-10">
-              <div class="col-span-9 text-center">
-                {user.totalPoint}
-              </div>
-              <div
-                class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
-              >
-                Ｐ
-              </div>
-            </div>
-          {/if}
+          枚
         </div>
-      {/if}
-    {/each}
-  {/each}
-</div>
+      </div>
+    </div>
+  </svelte:fragment>
+</Grid>
+
+<Grid isPrimaryGrid rightContentes="{room.users}">
+  <svelte:fragment slot="leftContent">
+    <div class="flex justify-center items-center">収支</div>
+  </svelte:fragment>
+  <svelte:fragment slot="rightContent" let:rightContent="{user}">
+    <div class="flex justify-center items-center">
+      <!-- 調整 -->
+      <div class="w-full grid grid-cols-10">
+        <div class="col-span-9 text-center">
+          {user.totalPoint}
+        </div>
+        <div
+          class="col-span-1 flex items-end justify-center text-[0.6rem] mr-1"
+        >
+          Ｐ
+        </div>
+      </div>
+    </div>
+  </svelte:fragment>
+</Grid>

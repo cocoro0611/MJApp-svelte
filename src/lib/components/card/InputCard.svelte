@@ -43,7 +43,6 @@
 
 <style>
   .select-card {
-    @apply bg-yellow-100 hover:bg-yellow-200 text-yellow-800;
-    @apply border-2 border-yellow-300;
+    @apply bg-yellow-100 border-2 border-yellow-300  text-yellow-800;
   }
 </style>

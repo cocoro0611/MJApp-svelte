@@ -6,6 +6,7 @@
   export let han: number;
   export let fu: number;
 
+  // FIXME:storeを使わずに定義
   const itemsStores: Writable<CountButtonList[]>[] = [
     writable([
       { label: "白", value: 1, isSelected: false },
@@ -89,30 +90,28 @@
   }
 </script>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="px-4">
   {#each $itemsGroup as group}
-    <div class="mb-2">
-      <h2 class="text-lg font-bold mb-2">{group.title}</h2>
-      <div class="grid grid-cols-6 md:grid-cols-12 gap-2">
-        {#each group.items as item, index}
-          {#if item.isCount}
-            <ButtonSelect
-              count="{item.count || 0}"
-              isSelected="{item.isSelected}"
-              on:click="{() => countButton(group.store, index)}"
-            >
-              {item.label}
-            </ButtonSelect>
-          {:else}
-            <ButtonSelect
-              isSelected="{item.isSelected}"
-              on:click="{() => onButton(group.store, index)}"
-            >
-              {item.label}
-            </ButtonSelect>
-          {/if}
-        {/each}
-      </div>
+    <div class="text-lg font-bold mb-2">{group.title}</div>
+    <div class="grid grid-cols-6 md:grid-cols-12 gap-2 mb-2">
+      {#each group.items as item, index}
+        {#if item.isCount}
+          <ButtonSelect
+            count="{item.count || 0}"
+            isSelected="{item.isSelected}"
+            on:click="{() => countButton(group.store, index)}"
+          >
+            {item.label}
+          </ButtonSelect>
+        {:else}
+          <ButtonSelect
+            isSelected="{item.isSelected}"
+            on:click="{() => onButton(group.store, index)}"
+          >
+            {item.label}
+          </ButtonSelect>
+        {/if}
+      {/each}
     </div>
   {/each}
 </div>

@@ -63,7 +63,7 @@
     <button type="button" class="flex" on:click="{openModal}">
       <Icon iconType="delete" />
     </button>
-    <Modal bind:popupModal isButton="{false}">
+    <Modal bind:popupModal>
       <div class="py-4">本当に削除しますか？</div>
       <div class="flex justify-center gap-4 py-4">
         <Button variant="cancel" width="short" on:click="{closeModal}">
@@ -75,6 +75,7 @@
   {/if}
 
   {#if isActions}
+    <Button isPlus on:click="{() => (popupModal = true)}" />
     <Modal bind:popupModal>
       <div class="py-4">以下の情報を追加しますか？</div>
       <div class="flex justify-center gap-4 py-4">

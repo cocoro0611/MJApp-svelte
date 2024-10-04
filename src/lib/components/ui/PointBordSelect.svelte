@@ -21,7 +21,7 @@
 </script>
 
 <div class="flex justify-center gap-4">
-  <Button color="light" class="text-blue-500 h-6 w-32 border-white">
+  <Button color="light" class="text-blue-500 h-6 w-32 border-white mt-1">
     <div class="flex flex-col items-center {type === 'fu' ? 'mt-5' : ''}">
       <p>{fuUp} 符</p>
       {#if type === "fu"}
@@ -40,7 +40,7 @@
     {/each}
   </Dropdown>
 
-  <Button color="light" class="text-blue-500 h-6 w-28 border-white">
+  <Button color="light" class="text-blue-500 h-6 w-28 border-white mt-1">
     {han} 翻
     <ChevronDownOutline class="ms-2 text-blue-500 -mx-2" />
   </Button>

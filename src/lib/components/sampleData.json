@@ -1,0 +1,394 @@
+{
+  "user": {
+    "id": "user123",
+    "name": "テストユーザー",
+    "icon": "monster01.png",
+    "isDefault": true
+  },
+  "users": [
+    {
+      "id": "user1",
+      "name": "プレイヤー1",
+      "icon": "monster01.png",
+      "isDefault": true
+    },
+    {
+      "id": "user2",
+      "name": "プレイヤー2",
+      "icon": "monster02.png",
+      "isDefault": false
+    },
+    {
+      "id": "user3",
+      "name": "プレイヤー3",
+      "icon": "monster03.png",
+      "isDefault": true
+    },
+    {
+      "id": "user4",
+      "name": "プレイヤー4",
+      "icon": "monster04.png",
+      "isDefault": false
+    },
+    {
+      "id": "user5",
+      "name": "プレイヤー5",
+      "icon": "monster05.png",
+      "isDefault": true
+    }
+  ],
+  "score": {
+    "roomId": "room1",
+    "gameCount": 1,
+    "userScores": [
+      {
+        "id": "score1",
+        "input": 20000,
+        "score": 20,
+        "userId": "user1",
+        "order": 1
+      },
+      {
+        "id": "score2",
+        "input": -5000,
+        "score": -5,
+        "userId": "user2",
+        "order": 2
+      },
+      {
+        "id": "score3",
+        "input": 30000,
+        "score": 30,
+        "userId": "user3",
+        "order": 3
+      },
+      {
+        "id": "score4",
+        "input": -15000,
+        "score": -15,
+        "userId": "user4",
+        "order": 4
+      }
+    ]
+  },
+  "scores": [
+    {
+      "roomId": "room1",
+      "gameCount": 1,
+      "userScores": [
+        {
+          "id": "score5",
+          "input": 40000,
+          "score": 40,
+          "userId": "user1",
+          "order": 1
+        },
+        {
+          "id": "score6",
+          "input": -10000,
+          "score": -10,
+          "userId": "user2",
+          "order": 2
+        },
+        {
+          "id": "score7",
+          "input": 20000,
+          "score": 20,
+          "userId": "user3",
+          "order": 3
+        },
+        {
+          "id": "score8",
+          "input": 0,
+          "score": 0,
+          "userId": "user4",
+          "order": 4
+        }
+      ]
+    },
+    {
+      "roomId": "room2",
+      "gameCount": 2,
+      "userScores": [
+        {
+          "id": "score9",
+          "input": -20000,
+          "score": -20,
+          "userId": "user1",
+          "order": 1
+        },
+        {
+          "id": "score10",
+          "input": 50000,
+          "score": 50,
+          "userId": "user2",
+          "order": 2
+        },
+        {
+          "id": "score11",
+          "input": -5000,
+          "score": -5,
+          "userId": "user3",
+          "order": 3
+        },
+        {
+          "id": "score12",
+          "input": 25000,
+          "score": 25,
+          "userId": "user4",
+          "order": 4
+        }
+      ]
+    }
+  ],
+  "chip": {
+    "roomId": "room1",
+    "chipCount": 1,
+    "userChips": [
+      {
+        "id": "chip1",
+        "input": 2000,
+        "chip": 20,
+        "userId": "user1",
+        "order": 1
+      },
+      {
+        "id": "chip2",
+        "input": -500,
+        "chip": -5,
+        "userId": "user2",
+        "order": 2
+      },
+      {
+        "id": "chip3",
+        "input": 3000,
+        "chip": 30,
+        "userId": "user3",
+        "order": 3
+      },
+      {
+        "id": "chip4",
+        "input": -1500,
+        "chip": -15,
+        "userId": "user4",
+        "order": 4
+      }
+    ]
+  },
+  "chips": [
+    {
+      "roomId": "room1",
+      "chipCount": 1,
+      "userChips": [
+        {
+          "id": "chip5",
+          "input": 4000,
+          "chip": 40,
+          "userId": "user1",
+          "order": 1
+        },
+        {
+          "id": "chip6",
+          "input": -1000,
+          "chip": -10,
+          "userId": "user2",
+          "order": 2
+        },
+        {
+          "id": "chip7",
+          "input": 2000,
+          "chip": 20,
+          "userId": "user3",
+          "order": 3
+        },
+        {
+          "id": "chip8",
+          "input": 0,
+          "chip": 0,
+          "userId": "user4",
+          "order": 4
+        }
+      ]
+    },
+    {
+      "roomId": "room2",
+      "chipCount": 2,
+      "userChips": [
+        {
+          "id": "chip9",
+          "input": -2000,
+          "chip": -20,
+          "userId": "user1",
+          "order": 1
+        },
+        {
+          "id": "chip10",
+          "input": 5000,
+          "chip": 50,
+          "userId": "user2",
+          "order": 2
+        },
+        {
+          "id": "chip11",
+          "input": -500,
+          "chip": -5,
+          "userId": "user3",
+          "order": 3
+        },
+        {
+          "id": "chip12",
+          "input": 2500,
+          "chip": 25,
+          "userId": "user4",
+          "order": 4
+        }
+      ]
+    }
+  ],
+  "room": {
+    "id": "room1",
+    "name": "テストルーム1",
+    "initialPoint": 25000,
+    "returnPoint": 30000,
+    "bonusPoint": "10-30",
+    "scoreRate": 50,
+    "chipRate": 200,
+    "gameAmount": 2,
+    "users": [
+      {
+        "id": "user1",
+        "name": "プレイヤー1",
+        "icon": "monster01.png",
+        "isDefault": true,
+        "totalScore": 60,
+        "totalChip": 60,
+        "totalPoint": 3000
+      },
+      {
+        "id": "user2",
+        "name": "プレイヤー2",
+        "icon": "monster02.png",
+        "isDefault": false,
+        "totalScore": -15,
+        "totalChip": -15,
+        "totalPoint": -750
+      },
+      {
+        "id": "user3",
+        "name": "プレイヤー3",
+        "icon": "monster03.png",
+        "isDefault": true,
+        "totalScore": 50,
+        "totalChip": 50,
+        "totalPoint": 2500
+      },
+      {
+        "id": "user4",
+        "name": "プレイヤー4",
+        "icon": "monster04.png",
+        "isDefault": false,
+        "totalScore": -15,
+        "totalChip": -15,
+        "totalPoint": -750
+      }
+    ]
+  },
+  "rooms": [
+    {
+      "id": "room1",
+      "name": "テストルーム1",
+      "initialPoint": 25000,
+      "returnPoint": 30000,
+      "bonusPoint": "10-30",
+      "scoreRate": 50,
+      "chipRate": 200,
+      "gameAmount": 2,
+      "users": [
+        {
+          "id": "user1",
+          "name": "プレイヤー1",
+          "icon": "monster01.png",
+          "isDefault": true,
+          "totalScore": 60,
+          "totalChip": 60,
+          "totalPoint": 3000
+        },
+        {
+          "id": "user2",
+          "name": "プレイヤー2",
+          "icon": "monster02.png",
+          "isDefault": false,
+          "totalScore": -15,
+          "totalChip": -15,
+          "totalPoint": -750
+        },
+        {
+          "id": "user3",
+          "name": "プレイヤー3",
+          "icon": "monster03.png",
+          "isDefault": true,
+          "totalScore": 50,
+          "totalChip": 50,
+          "totalPoint": 2500
+        },
+        {
+          "id": "user4",
+          "name": "プレイヤー4",
+          "icon": "monster04.png",
+          "isDefault": false,
+          "totalScore": -15,
+          "totalChip": -15,
+          "totalPoint": -750
+        }
+      ]
+    },
+    {
+      "id": "room2",
+      "name": "テストルーム2",
+      "initialPoint": 30000,
+      "returnPoint": 35000,
+      "bonusPoint": "20-40",
+      "scoreRate": 100,
+      "chipRate": 500,
+      "gameAmount": 1,
+      "users": [
+        {
+          "id": "user1",
+          "name": "プレイヤー1",
+          "icon": "monster01.png",
+          "isDefault": true,
+          "totalScore": -20,
+          "totalChip": -20,
+          "totalPoint": -2000
+        },
+        {
+          "id": "user2",
+          "name": "プレイヤー2",
+          "icon": "monster02.png",
+          "isDefault": false,
+          "totalScore": 50,
+          "totalChip": 50,
+          "totalPoint": 5000
+        },
+        {
+          "id": "user3",
+          "name": "プレイヤー3",
+          "icon": "monster03.png",
+          "isDefault": true,
+          "totalScore": -5,
+          "totalChip": -5,
+          "totalPoint": -500
+        },
+        {
+          "id": "user4",
+          "name": "プレイヤー4",
+          "icon": "monster04.png",
+          "isDefault": false,
+          "totalScore": 25,
+          "totalChip": 25,
+          "totalPoint": 2500
+        }
+      ]
+    }
+  ]
+}

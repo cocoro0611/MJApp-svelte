@@ -11,6 +11,7 @@
 
 <script lang="ts">
   import { Story } from "@storybook/addon-svelte-csf";
+  import sampleData from "$lib/components/sampleData.json";
 </script>
 
-<Story name="Default">未作成</Story>
+<Story name="Default"><MemberForm user="{sampleData.user}" /></Story>

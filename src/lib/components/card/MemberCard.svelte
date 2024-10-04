@@ -77,7 +77,7 @@
     @apply w-24 h-24;
   }
   .small-text {
-    @apply text-xs;
+    @apply text-xs mt-1;
   }
   .normal-text {
     @apply text-sm mt-1;

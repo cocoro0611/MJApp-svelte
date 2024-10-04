@@ -36,7 +36,7 @@
   <div class=""><slot /></div>
 </div>
 
-<Modal bind:popupModal isButton="{false}">
+<Modal bind:popupModal>
   <slot name="contents" />
   <div class="flex justify-center gap-4 py-4">
     <Button variant="cancel" width="short" on:click="{modalClose}">

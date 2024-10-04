@@ -24,7 +24,7 @@
 
 <Story name="Default">
   <Button on:click="{modalOpen}">モーダルボタン</Button>
-  <Modal bind:popupModal isButton="{false}">
+  <Modal bind:popupModal>
     <Button variant="cancel" on:click="{modalClose}">閉じる</Button>
   </Modal>
 </Story>

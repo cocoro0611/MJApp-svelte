@@ -1,6 +1,8 @@
 <script lang="ts">
   import Header from "$lib/components/layout/Header.svelte";
   import Main from "$lib/components/layout/Main.svelte";
+  import Grid from "$lib/components/layout/Grid.svelte";
+  import DetailField from "$lib/components/layout/DetailField.svelte";
   import Icon from "$lib/components/ui/Icon.svelte";
   import RoomScore from "$lib/components/features/Room/RoomScore.svelte";
   import Form from "$lib/components/layout/Form.svelte";
@@ -35,36 +37,24 @@
     <input type="hidden" name="roomId" value="{room.id}" />
   </Form>
   {#if room.gameAmount !== 0}
-    <div
-      class="flex pl-4 pb-1 items-center font-bold text-blue-800 bg-gray-200"
-    >
-      場代
-    </div>
-    <div class="grid grid-cols-5 bg-gray-100 font-bold -mt-1">
-      <div class="bg-white border-2 border-gray-300"></div>
-      {#each room.users as roomUser}
-        <div
-          class="flex justify-center items-center bg-white border-y-2 border-r-2 border-gray-300 text-red-500 text-s"
-        >
-          -{room.gameAmount / 4} P
-        </div>
-      {/each}
-    </div>
+    <DetailField name="場代">
+      <Grid rightContentes="{room.users}">
+        <svelte:fragment slot="rightContent" let:rightContent="{roomUser}">
+          <div class="flex justify-center text-red-500 text-sm font-bold">
+            -{room.gameAmount / 4} P
+          </div>
+        </svelte:fragment>
+      </Grid>
+    </DetailField>
   {/if}
 
-  {#if chips.filter((chip) => chip.roomId === room.id).length > 0 || room.gameAmount !== 0}
-    <div class="flex pl-4 items-center font-bold text-blue-800 bg-gray-200">
-      スコア
-    </div>
-  {/if}
-  <ScoreForm {scores} {room} action="?/update-score" />
+  <DetailField name="スコア">
+    <ScoreForm {scores} {room} action="?/update-score" />
+  </DetailField>
 
   {#if chips.filter((chip) => chip.roomId === room.id).length > 0}
-    <div
-      class="flex pl-4 pb-1 items-center font-bold text-blue-800 bg-gray-200"
-    >
-      チップ
-    </div>
-    <ChipForm {chips} {room} action="?/update-chip" />
+    <DetailField name="チップ">
+      <ChipForm {chips} {room} action="?/update-chip" />
+    </DetailField>
   {/if}
 </Main>

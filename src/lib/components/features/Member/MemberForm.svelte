@@ -7,7 +7,7 @@
   import type { UserData } from "$lib/models/Member/type.js";
 
   export let user: UserData;
-  export let action;
+  export let action = "";
 
   const updateUserName = (event: CustomEvent<string>) => {
     user.name = event.detail;
