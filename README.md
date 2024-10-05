@@ -113,11 +113,19 @@ npx prisma studio
 
 ## Future Issues
 
-- バグの修正
+- 点数が同一のときの処理
 
-  - 設定変更が各スコアやチップカードに反映されていない
-  - 計算ボタンが押せないように制御
+  - `dev-branch`でDBのスキーマを変更
+  - `selectedScoreId`で情報は取得できているので、`user.name`や`user.icon`を取得してUIを作成
+  - `RoomUser`Tableから、`userOrder`を取得してその順番をDBで変更すればおそらく実装できる。
 
+- 設定変更が各スコアやチップカードに反映されていない
+
+  - `room-update`で`score`や`chip`が更新されるような実装の追加
+
+- 計算ボタンが押せないように制御
+  - `selectedScoreId`から、`scoreOrder`を取得
+  - 同じ`scoreOrder`内での`input`を比較して`initialPoint * 4`と一致していない場合は、`Button`の`disabled`属性で制御
 - アノテーションの実装
   - `Toast.svelte`の作成とバリエーションの追加
   - `zod`によるスキーマ管理と`superforms`によるフォームの管理
