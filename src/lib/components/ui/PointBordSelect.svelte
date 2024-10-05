@@ -20,6 +20,7 @@
   };
 </script>
 
+<!-- FIXME: flowbite-svelteを使わずにつくりたい -->
 <div class="flex justify-center gap-4">
   <Button color="light" class="text-blue-500 h-6 w-32 border-white mt-1">
     <div class="flex flex-col items-center {type === 'fu' ? 'mt-5' : ''}">

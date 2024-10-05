@@ -1,58 +1,126 @@
-# create-svelte
+# 麻雀点数アプリ
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+## How to Run
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+ローカルでの実行環境
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+```sh
+# npmのインストール
+npm install
 ```
 
-## Developing
+環境の立ち上げ
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```sh
+# DBの立ち上げ
+docker-compose up -d
+```
 
-```bash
+環境変数を用意
+`.env.example`から`env`を作成
+
+初回やDB変更がある場合はマイグレーションを走らせる。
+
+```sh
+npx prisma migrate dev
+npx prisma generate
+npx prisma db push
+```
+
+開発環境の立ち上げ
+
+```sh
+# npmの起動
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+[http://localhost:5173]()で起動
 
-## Building
+## Using Storybook
 
-To build your library:
+Component管理にstorybookを利用
 
-```bash
-npm run package
+### Running Storybook
+
+以下で起動
+
+```sh
+npm run storybook
 ```
 
-To create a production version of your showcase app:
+[http://localhost:6006]()で起動
 
-```bash
-npm run build
+## Using PrismaStudio
+
+DB管理にprismaStudioを利用
+
+### Running PrismaStudio
+
+以下で起動
+
+```sh
+npx prisma studio
 ```
 
-You can preview the production build with `npm run preview`.
+[http://localhost:5555]()で起動
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Technology Selection
 
-## Publishing
+- [sveltekit](https://kit.svelte.dev/)
+- [kysely](https://kysely.dev/): DBアクセスに利用
+- [Prisma](https://www.prisma.io/): スキーマ管理に利用
+- [Storybook](https://storybook.js.org/): コンポーネント管理に利用
+- [tailwind](https://tailwindcss.com/): CSSフレームワーク
+- [Flowbit](https://flowbite-svelte.com/): CSSコンポーネントライブラリ
+- [tabler](https://tabler.io/): Iconライブラリ
+- [dayjs](https://day.js.org/): 日時処理
+- [sveltekit-i18n](https://github.com/sveltekit-i18n/lib): 多言語対応の予定
+<!-- - [superform](https://superforms.rocks/): フォーム管理。バリデーションは[zod](https://zod.dev/)を利用。 -->
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+## Directory Structure
 
-To publish your library to [npm](https://www.npmjs.com):
+本プロジェクトのディレクトリ構造は以下の通り
 
-```bash
-npm publish
+```sh
+.
+├── src/
+│   ├── lib/
+│   │   ├── components/ # 再利用可能なコンポーネントを配置
+│   │   │   ├── features/ # 特定の機能に関連するコンポーネントを配置
+│   │   │   └── ...
+│   │   ├── models/ # DBにアクセスに関連するモジュールを配置
+│   │   │   ├── **/
+│   │   │   ├── db.js # DBの設定やコネクション
+│   │   │   └── types.ts # DBの型定義 ※自動生成
+│   │   ├── schema/ # zodのschema置き場
+│   │   ├── transforms/ # 多言語対応ファイルの置き場
+│   │   ├── utils/ # ユーティリティ関数を配置
+│   │   └── ...
+│   ├── routes/ # sveltekitのルートコンポーネントを配置
+│   │   ├── +page.svelte/ # アプリのフロント
+│   │   ├── +page.server.ts/ # アプリのバック
+│   │   └── ...
+│   └── ...
+├── .storybook/
+│   ├── main.js # storybookのメイン設定ファイル
+│   └── preview.js # storybookのプレビュー設定ファイル
+├── prisma/
+├── package.json
+├── svelte.config.js # sveltekitの設定ファイル
+└── ...
+
 ```
+
+## Future Issues
+
+- バグの修正
+
+  - 設定変更が各スコアやチップカードに反映されていない
+  - 計算ボタンが押せないように制御
+
+- アノテーションの実装
+  - `Toast.svelte`の作成とバリエーションの追加
+  - `zod`によるスキーマ管理と`superforms`によるフォームの管理
+  - Count関係を`store`を使わずに実装
+  - PointBordの`flowbite-svelte`を使ったコンポーネントの廃止
+  - 各ユーティリティ関数のリファクタリング
