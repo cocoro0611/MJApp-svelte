@@ -2,8 +2,6 @@
   "name": "mjapp",
   "version": "0.0.1",
   "scripts": {
-    "clean": "rm -rf node_modules/.cache dist",
-    "prebuild": "npm run clean",
     "dev": "vite dev",
     "build": "vite build",
     "start": "node build/index.js",
